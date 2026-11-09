@@ -1,4 +1,4 @@
-module github.com/alipay/ak_195dff03d395462ea294bafdba69df3f
+module github.com/antchain-openapi-sdk-go/ak_195dff03d395462ea294bafdba69df3f
 
 go 1.22.1
 

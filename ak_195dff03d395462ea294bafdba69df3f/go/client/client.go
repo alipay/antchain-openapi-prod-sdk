@@ -3231,11 +3231,11 @@ type RepayAntchainAtoWithholdPlanRequest struct {
 	// 订单id 长度不可超过50
 	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true" maxLength:"50"`
 	// 第几期，单期取消必填
-	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty" minimum:"1"`
-	// 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+	PeriodNum *int64 `json:"period_num,omitempty" xml:"period_num,omitempty"`
+	// 取其他方式还款的时间，单期取消必填
 	GmtPay *string `json:"gmt_pay,omitempty" xml:"gmt_pay,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
 	// 取消订单某一期代扣计划中以其他方式还款金额，单位为分
-	PayOffAmount *int64 `json:"pay_off_amount,omitempty" xml:"pay_off_amount,omitempty" minimum:"0"`
+	PayOffAmount *int64 `json:"pay_off_amount,omitempty" xml:"pay_off_amount,omitempty"`
 	// 变更其他方式还款
 	// WECHAT:微信;
 	// BANK:银行
@@ -7398,6 +7398,11 @@ type RegisterAntchainAtoMerchantexpandMerchantRequest struct {
 	// MERCHANT（默认）
 	// FINANCIER
 	Role *string `json:"role,omitempty" xml:"role,omitempty"`
+	// 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+	// false：不开通
+	NeedWithholding *bool `json:"need_withholding,omitempty" xml:"need_withholding,omitempty"`
+	// 是否开通“预授权支付”,默认否
+	NeedPreAuthPay *bool `json:"need_pre_auth_pay,omitempty" xml:"need_pre_auth_pay,omitempty"`
 }
 
 func (s RegisterAntchainAtoMerchantexpandMerchantRequest) String() string {
@@ -7460,6 +7465,16 @@ func (s *RegisterAntchainAtoMerchantexpandMerchantRequest) SetPayChannel(v strin
 
 func (s *RegisterAntchainAtoMerchantexpandMerchantRequest) SetRole(v string) *RegisterAntchainAtoMerchantexpandMerchantRequest {
 	s.Role = &v
+	return s
+}
+
+func (s *RegisterAntchainAtoMerchantexpandMerchantRequest) SetNeedWithholding(v bool) *RegisterAntchainAtoMerchantexpandMerchantRequest {
+	s.NeedWithholding = &v
+	return s
+}
+
+func (s *RegisterAntchainAtoMerchantexpandMerchantRequest) SetNeedPreAuthPay(v bool) *RegisterAntchainAtoMerchantexpandMerchantRequest {
+	s.NeedPreAuthPay = &v
 	return s
 }
 
@@ -8328,6 +8343,8 @@ type UploadAntchainAtoSignCreditRequest struct {
 	Content *string `json:"content,omitempty" xml:"content,omitempty"`
 	// 商户统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 扩展信息
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s UploadAntchainAtoSignCreditRequest) String() string {
@@ -8385,6 +8402,11 @@ func (s *UploadAntchainAtoSignCreditRequest) SetContent(v string) *UploadAntchai
 
 func (s *UploadAntchainAtoSignCreditRequest) SetMerchantId(v string) *UploadAntchainAtoSignCreditRequest {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *UploadAntchainAtoSignCreditRequest) SetExtInfo(v string) *UploadAntchainAtoSignCreditRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -8528,6 +8550,8 @@ type QueryAntchainAtoSignCreditRequest struct {
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 商户统一社会信用代码
 	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty"`
+	// 扩展信息json格式
+	ExtInfo *string `json:"ext_info,omitempty" xml:"ext_info,omitempty"`
 }
 
 func (s QueryAntchainAtoSignCreditRequest) String() string {
@@ -8560,6 +8584,11 @@ func (s *QueryAntchainAtoSignCreditRequest) SetOrderNo(v string) *QueryAntchainA
 
 func (s *QueryAntchainAtoSignCreditRequest) SetMerchantId(v string) *QueryAntchainAtoSignCreditRequest {
 	s.MerchantId = &v
+	return s
+}
+
+func (s *QueryAntchainAtoSignCreditRequest) SetExtInfo(v string) *QueryAntchainAtoSignCreditRequest {
+	s.ExtInfo = &v
 	return s
 }
 
@@ -11189,6 +11218,8 @@ type GetAntchainAtoFundCompensatesignurlRequest struct {
 	// TRANSFER:转账代偿签约串
 	// WITHHOLD:代扣代偿签约串
 	Type *string `json:"type,omitempty" xml:"type,omitempty" require:"true"`
+	// 支付宝uid
+	AlipayUid *string `json:"alipay_uid,omitempty" xml:"alipay_uid,omitempty"`
 }
 
 func (s GetAntchainAtoFundCompensatesignurlRequest) String() string {
@@ -11226,6 +11257,11 @@ func (s *GetAntchainAtoFundCompensatesignurlRequest) SetMerchantId(v string) *Ge
 
 func (s *GetAntchainAtoFundCompensatesignurlRequest) SetType(v string) *GetAntchainAtoFundCompensatesignurlRequest {
 	s.Type = &v
+	return s
+}
+
+func (s *GetAntchainAtoFundCompensatesignurlRequest) SetAlipayUid(v string) *GetAntchainAtoFundCompensatesignurlRequest {
+	s.AlipayUid = &v
 	return s
 }
 
@@ -13304,6 +13340,108 @@ func (s *QueryAntchainAtoTradeSettletocardResponse) SetTaskStatus(v string) *Que
 	return s
 }
 
+type ExecAntchainAtoFundPlanRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 订单id 长度不可超过50
+	OrderId *string `json:"order_id,omitempty" xml:"order_id,omitempty" require:"true"`
+	// 资方社会统一信用代码
+	FundId *string `json:"fund_id,omitempty" xml:"fund_id,omitempty" require:"true"`
+	// 商户社会统一信用代码
+	MerchantId *string `json:"merchant_id,omitempty" xml:"merchant_id,omitempty" require:"true"`
+	// 商户履约的期数
+	TermIndex *int64 `json:"term_index,omitempty" xml:"term_index,omitempty" require:"true"`
+	// 签约串类型
+	// TRANSFER:转账代偿签约串
+	// WITHHOLD:代扣代偿签约串
+	RetryType *string `json:"retry_type,omitempty" xml:"retry_type,omitempty" require:"true"`
+	// 支付类型：
+	// ● PERFORMANCE:正常履约
+	// ● EXCESS：超额
+	PayType *string `json:"pay_type,omitempty" xml:"pay_type,omitempty" require:"true"`
+}
+
+func (s ExecAntchainAtoFundPlanRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainAtoFundPlanRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetAuthToken(v string) *ExecAntchainAtoFundPlanRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetProductInstanceId(v string) *ExecAntchainAtoFundPlanRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetOrderId(v string) *ExecAntchainAtoFundPlanRequest {
+	s.OrderId = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetFundId(v string) *ExecAntchainAtoFundPlanRequest {
+	s.FundId = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetMerchantId(v string) *ExecAntchainAtoFundPlanRequest {
+	s.MerchantId = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetTermIndex(v int64) *ExecAntchainAtoFundPlanRequest {
+	s.TermIndex = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetRetryType(v string) *ExecAntchainAtoFundPlanRequest {
+	s.RetryType = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanRequest) SetPayType(v string) *ExecAntchainAtoFundPlanRequest {
+	s.PayType = &v
+	return s
+}
+
+type ExecAntchainAtoFundPlanResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ExecAntchainAtoFundPlanResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntchainAtoFundPlanResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntchainAtoFundPlanResponse) SetReqMsgId(v string) *ExecAntchainAtoFundPlanResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanResponse) SetResultCode(v string) *ExecAntchainAtoFundPlanResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntchainAtoFundPlanResponse) SetResultMsg(v string) *ExecAntchainAtoFundPlanResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -13554,7 +13692,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.8.0"),
+				"sdk_version":      tea.String("1.8.8"),
 				"_prod_code":       tea.String("ak_195dff03d395462ea294bafdba69df3f"),
 				"_prod_channel":    tea.String("saas"),
 			}
@@ -14052,7 +14190,11 @@ func (client *Client) CancelAntchainAtoWithholdPlanEx(request *CancelAntchainAto
 //
 // 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 //
-// Summary: 单期多期代扣取消
+// Summary: 重要说明：
+//
+// 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+//
+// 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 func (client *Client) RepayAntchainAtoWithholdPlan(request *RepayAntchainAtoWithholdPlanRequest) (_result *RepayAntchainAtoWithholdPlanResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -14073,7 +14215,11 @@ func (client *Client) RepayAntchainAtoWithholdPlan(request *RepayAntchainAtoWith
 //
 // 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 //
-// Summary: 单期多期代扣取消
+// Summary: 重要说明：
+//
+// 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+//
+// 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
 func (client *Client) RepayAntchainAtoWithholdPlanEx(request *RepayAntchainAtoWithholdPlanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *RepayAntchainAtoWithholdPlanResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -15946,7 +16092,7 @@ func (client *Client) UploadAntchainAtoFundCreditEx(request *UploadAntchainAtoFu
 //
 // Description: 商户资产凭证上传，可以是文本或文件
 //
-// Summary: 商户资产凭证上传
+// Summary: 商户资产凭证上传，可以是文本或文件
 func (client *Client) UploadAntchainAtoSignCredit(request *UploadAntchainAtoSignCreditRequest) (_result *UploadAntchainAtoSignCreditResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -15963,7 +16109,7 @@ func (client *Client) UploadAntchainAtoSignCredit(request *UploadAntchainAtoSign
 //
 // Description: 商户资产凭证上传，可以是文本或文件
 //
-// Summary: 商户资产凭证上传
+// Summary: 商户资产凭证上传，可以是文本或文件
 func (client *Client) UploadAntchainAtoSignCreditEx(request *UploadAntchainAtoSignCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *UploadAntchainAtoSignCreditResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -16018,7 +16164,7 @@ func (client *Client) QueryAntchainAtoFundCreditEx(request *QueryAntchainAtoFund
 //
 // Description: 商户资产凭证查询，需要提供订单号或资产包号
 //
-// Summary: 商户资产凭证查询
+// Summary: 商户资产凭证查询，需要提供订单号或资产包号
 func (client *Client) QueryAntchainAtoSignCredit(request *QueryAntchainAtoSignCreditRequest) (_result *QueryAntchainAtoSignCreditResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -16035,7 +16181,7 @@ func (client *Client) QueryAntchainAtoSignCredit(request *QueryAntchainAtoSignCr
 //
 // Description: 商户资产凭证查询，需要提供订单号或资产包号
 //
-// Summary: 商户资产凭证查询
+// Summary: 商户资产凭证查询，需要提供订单号或资产包号
 func (client *Client) QueryAntchainAtoSignCreditEx(request *QueryAntchainAtoSignCreditRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntchainAtoSignCreditResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
@@ -17747,6 +17893,42 @@ func (client *Client) QueryAntchainAtoTradeSettletocardEx(request *QueryAntchain
 	}
 	_result = &QueryAntchainAtoTradeSettletocardResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.trade.settletocard.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 新融资状态机资方主动重试接口
+//
+// Summary: 新融资状态机资方主动重试接口
+func (client *Client) ExecAntchainAtoFundPlan(request *ExecAntchainAtoFundPlanRequest) (_result *ExecAntchainAtoFundPlanResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntchainAtoFundPlanResponse{}
+	_body, _err := client.ExecAntchainAtoFundPlanEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 新融资状态机资方主动重试接口
+//
+// Summary: 新融资状态机资方主动重试接口
+func (client *Client) ExecAntchainAtoFundPlanEx(request *ExecAntchainAtoFundPlanRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntchainAtoFundPlanResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntchainAtoFundPlanResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antchain.ato.fund.plan.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
