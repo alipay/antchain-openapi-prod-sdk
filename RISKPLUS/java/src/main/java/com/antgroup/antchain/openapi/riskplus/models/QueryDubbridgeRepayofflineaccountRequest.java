@@ -18,7 +18,6 @@ public class QueryDubbridgeRepayofflineaccountRequest extends TeaModel {
 
     // 关联的天枢用信申请订单号
     @NameInMap("use_credit_order_no")
-    @Validation(required = true)
     public String useCreditOrderNo;
 
     // 开始日期
@@ -49,6 +48,10 @@ public class QueryDubbridgeRepayofflineaccountRequest extends TeaModel {
     @NameInMap("page_num")
     @Validation(required = true)
     public String pageNum;
+
+    // 资金方编号
+    @NameInMap("fund_code")
+    public String fundCode;
 
     public static QueryDubbridgeRepayofflineaccountRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgeRepayofflineaccountRequest self = new QueryDubbridgeRepayofflineaccountRequest();
@@ -133,6 +136,14 @@ public class QueryDubbridgeRepayofflineaccountRequest extends TeaModel {
     }
     public String getPageNum() {
         return this.pageNum;
+    }
+
+    public QueryDubbridgeRepayofflineaccountRequest setFundCode(String fundCode) {
+        this.fundCode = fundCode;
+        return this;
+    }
+    public String getFundCode() {
+        return this.fundCode;
     }
 
 }

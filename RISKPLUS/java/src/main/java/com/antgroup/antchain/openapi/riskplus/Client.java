@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.33.13"),
+                    new TeaPair("sdk_version", "1.33.14"),
                     new TeaPair("_prod_code", "RISKPLUS"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1557,7 +1557,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-     * Summary: 天枢系统还款计划试算</p>
+     * Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划</p>
      */
     public CountDubbridgeRepayReftrialResponse countDubbridgeRepayReftrial(CountDubbridgeRepayReftrialRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1568,7 +1568,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-     * Summary: 天枢系统还款计划试算</p>
+     * Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划</p>
      */
     public CountDubbridgeRepayReftrialResponse countDubbridgeRepayReftrialEx(CountDubbridgeRepayReftrialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);

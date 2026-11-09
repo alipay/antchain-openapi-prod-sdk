@@ -36,6 +36,18 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     @NameInMap("apply_info")
     public ApplyInfo applyInfo;
 
+    // lpr利率
+    @NameInMap("lpr")
+    public String lpr;
+
+    // LPR加点值
+    @NameInMap("lpr_point")
+    public String lprPoint;
+
+    // 总应还商贴
+    @NameInMap("total_subsidy_interest")
+    public String totalSubsidyInterest;
+
     public static CountDubbridgeRepayReftrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialResponse self = new CountDubbridgeRepayReftrialResponse();
         return TeaModel.build(map, self);
@@ -103,6 +115,30 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     }
     public ApplyInfo getApplyInfo() {
         return this.applyInfo;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setLpr(String lpr) {
+        this.lpr = lpr;
+        return this;
+    }
+    public String getLpr() {
+        return this.lpr;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setLprPoint(String lprPoint) {
+        this.lprPoint = lprPoint;
+        return this;
+    }
+    public String getLprPoint() {
+        return this.lprPoint;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setTotalSubsidyInterest(String totalSubsidyInterest) {
+        this.totalSubsidyInterest = totalSubsidyInterest;
+        return this;
+    }
+    public String getTotalSubsidyInterest() {
+        return this.totalSubsidyInterest;
     }
 
 }
