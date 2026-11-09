@@ -3471,7 +3471,7 @@ class RepayAntchainAtoWithholdPlanRequest(TeaModel):
         self.order_id = order_id
         # 第几期，单期取消必填
         self.period_num = period_num
-        # 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+        # 取其他方式还款的时间，单期取消必填
         self.gmt_pay = gmt_pay
         # 取消订单某一期代扣计划中以其他方式还款金额，单位为分
         self.pay_off_amount = pay_off_amount
@@ -3495,12 +3495,8 @@ class RepayAntchainAtoWithholdPlanRequest(TeaModel):
         self.validate_required(self.order_id, 'order_id')
         if self.order_id is not None:
             self.validate_max_length(self.order_id, 'order_id', 50)
-        if self.period_num is not None:
-            self.validate_minimum(self.period_num, 'period_num', 1)
         if self.gmt_pay is not None:
             self.validate_pattern(self.gmt_pay, 'gmt_pay', '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})')
-        if self.pay_off_amount is not None:
-            self.validate_minimum(self.pay_off_amount, 'pay_off_amount', 0)
         if self.pay_off_type is not None:
             self.validate_max_length(self.pay_off_type, 'pay_off_type', 64)
         if self.pay_off_no is not None:
@@ -8723,6 +8719,8 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         merchant_settle_info: MerchantSettleInfo = None,
         pay_channel: str = None,
         role: str = None,
+        need_withholding: bool = None,
+        need_pre_auth_pay: bool = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -8750,6 +8748,11 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
         # MERCHANT（默认）
         # FINANCIER
         self.role = role
+        # 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+        # false：不开通
+        self.need_withholding = need_withholding
+        # 是否开通“预授权支付”,默认否
+        self.need_pre_auth_pay = need_pre_auth_pay
 
     def validate(self):
         self.validate_required(self.company_info, 'company_info')
@@ -8794,6 +8797,10 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             result['pay_channel'] = self.pay_channel
         if self.role is not None:
             result['role'] = self.role
+        if self.need_withholding is not None:
+            result['need_withholding'] = self.need_withholding
+        if self.need_pre_auth_pay is not None:
+            result['need_pre_auth_pay'] = self.need_pre_auth_pay
         return result
 
     def from_map(self, m: dict = None):
@@ -8825,6 +8832,10 @@ class RegisterAntchainAtoMerchantexpandMerchantRequest(TeaModel):
             self.pay_channel = m.get('pay_channel')
         if m.get('role') is not None:
             self.role = m.get('role')
+        if m.get('need_withholding') is not None:
+            self.need_withholding = m.get('need_withholding')
+        if m.get('need_pre_auth_pay') is not None:
+            self.need_pre_auth_pay = m.get('need_pre_auth_pay')
         return self
 
 
@@ -9872,6 +9883,7 @@ class UploadAntchainAtoSignCreditRequest(TeaModel):
         file_url: str = None,
         content: str = None,
         merchant_id: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -9892,6 +9904,8 @@ class UploadAntchainAtoSignCreditRequest(TeaModel):
         self.content = content
         # 商户统一社会信用代码
         self.merchant_id = merchant_id
+        # 扩展信息
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
@@ -9925,6 +9939,8 @@ class UploadAntchainAtoSignCreditRequest(TeaModel):
             result['content'] = self.content
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -9949,6 +9965,8 @@ class UploadAntchainAtoSignCreditRequest(TeaModel):
             self.content = m.get('content')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -10123,6 +10141,7 @@ class QueryAntchainAtoSignCreditRequest(TeaModel):
         order_no_type: str = None,
         order_no: str = None,
         merchant_id: str = None,
+        ext_info: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -10133,6 +10152,8 @@ class QueryAntchainAtoSignCreditRequest(TeaModel):
         self.order_no = order_no
         # 商户统一社会信用代码
         self.merchant_id = merchant_id
+        # 扩展信息json格式
+        self.ext_info = ext_info
 
     def validate(self):
         self.validate_required(self.order_no_type, 'order_no_type')
@@ -10154,6 +10175,8 @@ class QueryAntchainAtoSignCreditRequest(TeaModel):
             result['order_no'] = self.order_no
         if self.merchant_id is not None:
             result['merchant_id'] = self.merchant_id
+        if self.ext_info is not None:
+            result['ext_info'] = self.ext_info
         return result
 
     def from_map(self, m: dict = None):
@@ -10168,6 +10191,8 @@ class QueryAntchainAtoSignCreditRequest(TeaModel):
             self.order_no = m.get('order_no')
         if m.get('merchant_id') is not None:
             self.merchant_id = m.get('merchant_id')
+        if m.get('ext_info') is not None:
+            self.ext_info = m.get('ext_info')
         return self
 
 
@@ -13497,6 +13522,7 @@ class GetAntchainAtoFundCompensatesignurlRequest(TeaModel):
         merchant_tenant_id: str = None,
         merchant_id: str = None,
         type: str = None,
+        alipay_uid: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -13511,6 +13537,8 @@ class GetAntchainAtoFundCompensatesignurlRequest(TeaModel):
         # TRANSFER:转账代偿签约串
         # WITHHOLD:代扣代偿签约串
         self.type = type
+        # 支付宝uid
+        self.alipay_uid = alipay_uid
 
     def validate(self):
         self.validate_required(self.fund_id, 'fund_id')
@@ -13536,6 +13564,8 @@ class GetAntchainAtoFundCompensatesignurlRequest(TeaModel):
             result['merchant_id'] = self.merchant_id
         if self.type is not None:
             result['type'] = self.type
+        if self.alipay_uid is not None:
+            result['alipay_uid'] = self.alipay_uid
         return result
 
     def from_map(self, m: dict = None):
@@ -13552,6 +13582,8 @@ class GetAntchainAtoFundCompensatesignurlRequest(TeaModel):
             self.merchant_id = m.get('merchant_id')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('alipay_uid') is not None:
+            self.alipay_uid = m.get('alipay_uid')
         return self
 
 
@@ -16189,6 +16221,133 @@ class QueryAntchainAtoTradeSettletocardResponse(TeaModel):
             self.download_url = m.get('download_url')
         if m.get('task_status') is not None:
             self.task_status = m.get('task_status')
+        return self
+
+
+class ExecAntchainAtoFundPlanRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        order_id: str = None,
+        fund_id: str = None,
+        merchant_id: str = None,
+        term_index: int = None,
+        retry_type: str = None,
+        pay_type: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 订单id 长度不可超过50
+        self.order_id = order_id
+        # 资方社会统一信用代码
+        self.fund_id = fund_id
+        # 商户社会统一信用代码
+        self.merchant_id = merchant_id
+        # 商户履约的期数
+        self.term_index = term_index
+        # 签约串类型
+        # TRANSFER:转账代偿签约串
+        # WITHHOLD:代扣代偿签约串
+        self.retry_type = retry_type
+        # 支付类型：
+        # ● PERFORMANCE:正常履约
+        # ● EXCESS：超额
+        self.pay_type = pay_type
+
+    def validate(self):
+        self.validate_required(self.order_id, 'order_id')
+        self.validate_required(self.fund_id, 'fund_id')
+        self.validate_required(self.merchant_id, 'merchant_id')
+        self.validate_required(self.term_index, 'term_index')
+        self.validate_required(self.retry_type, 'retry_type')
+        self.validate_required(self.pay_type, 'pay_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.fund_id is not None:
+            result['fund_id'] = self.fund_id
+        if self.merchant_id is not None:
+            result['merchant_id'] = self.merchant_id
+        if self.term_index is not None:
+            result['term_index'] = self.term_index
+        if self.retry_type is not None:
+            result['retry_type'] = self.retry_type
+        if self.pay_type is not None:
+            result['pay_type'] = self.pay_type
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('fund_id') is not None:
+            self.fund_id = m.get('fund_id')
+        if m.get('merchant_id') is not None:
+            self.merchant_id = m.get('merchant_id')
+        if m.get('term_index') is not None:
+            self.term_index = m.get('term_index')
+        if m.get('retry_type') is not None:
+            self.retry_type = m.get('retry_type')
+        if m.get('pay_type') is not None:
+            self.pay_type = m.get('pay_type')
+        return self
+
+
+class ExecAntchainAtoFundPlanResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
         return self
 
 

@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.0',
+                    'sdk_version': '1.8.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.8.0',
+                    'sdk_version': '1.8.8',
                     '_prod_code': 'ak_195dff03d395462ea294bafdba69df3f',
                     '_prod_channel': 'saas'
                 }
@@ -955,7 +955,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -969,7 +971,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -985,7 +989,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -1003,7 +1009,9 @@ class Client:
         Description: 重要说明：
         1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
         2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-        Summary: 单期多期代扣取消
+        Summary: 重要说明：
+        1. 这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+        2. 对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3869,7 +3877,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证上传，可以是文本或文件
-        Summary: 商户资产凭证上传
+        Summary: 商户资产凭证上传，可以是文本或文件
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3881,7 +3889,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证上传，可以是文本或文件
-        Summary: 商户资产凭证上传
+        Summary: 商户资产凭证上传，可以是文本或文件
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3895,7 +3903,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证上传，可以是文本或文件
-        Summary: 商户资产凭证上传
+        Summary: 商户资产凭证上传，可以是文本或文件
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3911,7 +3919,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.UploadAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证上传，可以是文本或文件
-        Summary: 商户资产凭证上传
+        Summary: 商户资产凭证上传，可以是文本或文件
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3981,7 +3989,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证查询，需要提供订单号或资产包号
-        Summary: 商户资产凭证查询
+        Summary: 商户资产凭证查询，需要提供订单号或资产包号
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3993,7 +4001,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证查询，需要提供订单号或资产包号
-        Summary: 商户资产凭证查询
+        Summary: 商户资产凭证查询，需要提供订单号或资产包号
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4007,7 +4015,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证查询，需要提供订单号或资产包号
-        Summary: 商户资产凭证查询
+        Summary: 商户资产凭证查询，需要提供订单号或资产包号
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4023,7 +4031,7 @@ class Client:
     ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoSignCreditResponse:
         """
         Description: 商户资产凭证查询，需要提供订单号或资产包号
-        Summary: 商户资产凭证查询
+        Summary: 商户资产凭证查询，需要提供订单号或资产包号
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -6673,6 +6681,62 @@ class Client:
         return TeaCore.from_map(
             ak__195dff_03d_395462ea_294bafdba_69df_3f_models.QueryAntchainAtoTradeSettletocardResponse(),
             await self.do_request_async('1.0', 'antchain.ato.trade.settletocard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antchain_ato_fund_plan(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antchain_ato_fund_plan_ex(request, headers, runtime)
+
+    async def exec_antchain_ato_fund_plan_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanRequest,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antchain_ato_fund_plan_ex_async(request, headers, runtime)
+
+    def exec_antchain_ato_fund_plan_ex(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse(),
+            self.do_request('1.0', 'antchain.ato.fund.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antchain_ato_fund_plan_ex_async(
+        self,
+        request: ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse:
+        """
+        Description: 新融资状态机资方主动重试接口
+        Summary: 新融资状态机资方主动重试接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            ak__195dff_03d_395462ea_294bafdba_69df_3f_models.ExecAntchainAtoFundPlanResponse(),
+            await self.do_request_async('1.0', 'antchain.ato.fund.plan.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
