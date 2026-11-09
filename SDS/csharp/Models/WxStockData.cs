@@ -1,0 +1,211 @@
+// This file is auto-generated, don't edit it. Thanks.
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+using Tea;
+
+namespace AntChain.SDK.SDS.Models
+{
+    // 【批次详情】 批次详情
+    public class WxStockData : TeaModel {
+        // 【批次号】 微信为每个代金券批次分配的唯一id。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>9836588</para>
+        /// </summary>
+        [NameInMap("stock_id")]
+        [Validation(Required=true)]
+        public string StockId { get; set; }
+
+        // 【批次创建方商户号】 微信为创建方商户分配的商户号
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>123456</para>
+        /// </summary>
+        [NameInMap("stock_creator_mchid")]
+        [Validation(Required=true)]
+        public string StockCreatorMchid { get; set; }
+
+        // 【批次名称】 批次名称
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>微信支付批次</para>
+        /// </summary>
+        [NameInMap("stock_name")]
+        [Validation(Required=true)]
+        public string StockName { get; set; }
+
+        // 【批次状态】 批次状态，枚举值：
+        // unactivated：未激活
+        // audit：审核中
+        // running：运行中
+        // stoped：已停止
+        // paused：暂停发放
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>paused</para>
+        /// </summary>
+        [NameInMap("status")]
+        [Validation(Required=true)]
+        public string Status { get; set; }
+
+        // 【创建时间】 批次创建时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2015-05-20T13:29:35.120+08:00</para>
+        /// </summary>
+        [NameInMap("create_time")]
+        [Validation(Required=true)]
+        public string CreateTime { get; set; }
+
+        // 【使用说明】 批次描述信息
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>微信支付营销</para>
+        /// </summary>
+        [NameInMap("description")]
+        [Validation(Required=true)]
+        public string Description { get; set; }
+
+        // 【满减券/消费金批次使用规则】 满减券或消费金批次特定信息。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>{         &quot;max_coupons&quot; : 100,         &quot;max_amount&quot; : 5000,         &quot;max_amount_by_day&quot; : 400,         &quot;fixed_normal_coupon&quot; : {           &quot;coupon_amount&quot; : 100,           &quot;transaction_minimum&quot; : 100         }</para>
+        /// </summary>
+        [NameInMap("stock_use_rule")]
+        [Validation(Required=false)]
+        public StockUseRule StockUseRule { get; set; }
+
+        // 【可用开始时间】 可用开始时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2015-05-20T13:29:35.120+08:00</para>
+        /// </summary>
+        [NameInMap("available_begin_time")]
+        [Validation(Required=true)]
+        public string AvailableBeginTime { get; set; }
+
+        // 【可用结束时间】 可用结束时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2015-05-20T13:29:35.120+08:00</para>
+        /// </summary>
+        [NameInMap("available_end_time")]
+        [Validation(Required=true)]
+        public string AvailableEndTime { get; set; }
+
+        // 【已发券或消费金数量】 已发券或消费金数量
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>100</para>
+        /// </summary>
+        [NameInMap("distributed_coupons")]
+        [Validation(Required=true)]
+        public long? DistributedCoupons { get; set; }
+
+        // 【是否无资金流】 是否无资金流。枚举值：
+        // true：是
+        // false：否
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>true</para>
+        /// </summary>
+        [NameInMap("no_cash")]
+        [Validation(Required=true)]
+        public bool? NoCash { get; set; }
+
+        // 【激活批次的时间】 批次激活开启时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2015-05-20T13:29:35.120+08:00</para>
+        /// </summary>
+        [NameInMap("start_time")]
+        [Validation(Required=false)]
+        public string StartTime { get; set; }
+
+        // 【终止批次的时间】 批次永久停止时间，遵循rfc3339标准格式，格式为yyyy-MM-DDTHH:mm:ss.sss+TIMEZONE，yyyy-MM-DD表示年月日，T出现在字符串中，表示time元素的开头，HH:mm:ss.sss表示时分秒毫秒，TIMEZONE表示时区（+08:00表示东八区时间，领先UTC 8小时，即北京时间）。例如：2015-05-20T13:29:35.120+08:00表示，北京时间2015年5月20日 13点29分35秒。
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>2015-05-20T13:29:35.120+08:00</para>
+        /// </summary>
+        [NameInMap("stop_time")]
+        [Validation(Required=false)]
+        public string StopTime { get; set; }
+
+        // 【减至批次特定信息】 单品优惠特定信息
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>{         &quot;single_price_max&quot; : 100,         &quot;cut_to_price&quot; : 80       }</para>
+        /// </summary>
+        [NameInMap("cut_to_message")]
+        [Validation(Required=false)]
+        public CutToMessage CutToMessage { get; set; }
+
+        // 【是否单品优惠】 枚举值：
+        // true：是
+        // false：否
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>true</para>
+        /// </summary>
+        [NameInMap("singleitem")]
+        [Validation(Required=true)]
+        public bool? Singleitem { get; set; }
+
+        // 【批次类型】 批次类型
+        // 枚举值：
+        // NORMAL：代金券批次
+        // DISCOUNT_CUT：立减与折扣
+        // OTHER：其他
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>NORMAL</para>
+        /// </summary>
+        [NameInMap("stock_type")]
+        [Validation(Required=true)]
+        public string StockType { get; set; }
+
+        // 【卡包ID】 微信卡包ID
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>pX2-vjoeC94Nn-r2g5GjDwkfFH7E</para>
+        /// </summary>
+        [NameInMap("card_id")]
+        [Validation(Required=false)]
+        public string CardId { get; set; }
+
+        // 【业务类型】 细分业务类型，仅有当business_type=MULTIUSE时，才会返回，枚举值：
+        // MULTIUSE：消费金
+        // 可选取值
+        // MULTIUSE:  消费金类型
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>MULTIUSE</para>
+        /// </summary>
+        [NameInMap("business_type")]
+        [Validation(Required=false)]
+        public string BusinessType { get; set; }
+
+        // 消费金可用地域列表，仅有当business_type=MULTIUSE时，才会返回
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>[         {           &quot;type&quot; : &quot;PROVINCE&quot;,           &quot;province&quot; : &quot;广东省&quot;,           &quot;city&quot; : &quot;深圳市&quot;,           &quot;district&quot; : &quot;南山区&quot;,           &quot;country&quot; : &quot;中国大陆&quot;         }       ]</para>
+        /// </summary>
+        [NameInMap("available_region_list")]
+        [Validation(Required=false)]
+        public List<AvailableRegion> AvailableRegionList { get; set; }
+
+        // 【消费金可用行业】 消费金可用行业列表，仅有当business_type=MULTIUSE时，才会返回
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>[         &quot;餐饮&quot;       ]</para>
+        /// </summary>
+        [NameInMap("available_industry_list")]
+        [Validation(Required=false)]
+        public List<string> AvailableIndustryList { get; set; }
+
+    }
+
+}
