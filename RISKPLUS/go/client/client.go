@@ -21290,6 +21290,12 @@ type CountDubbridgeRepayReftrialResponse struct {
 	TotalInterest *int64 `json:"total_interest,omitempty" xml:"total_interest,omitempty"`
 	// 授信信息
 	ApplyInfo *ApplyInfo `json:"apply_info,omitempty" xml:"apply_info,omitempty"`
+	// lpr利率
+	Lpr *string `json:"lpr,omitempty" xml:"lpr,omitempty"`
+	// LPR加点值
+	LprPoint *string `json:"lpr_point,omitempty" xml:"lpr_point,omitempty"`
+	// 总应还商贴
+	TotalSubsidyInterest *string `json:"total_subsidy_interest,omitempty" xml:"total_subsidy_interest,omitempty"`
 }
 
 func (s CountDubbridgeRepayReftrialResponse) String() string {
@@ -21337,6 +21343,21 @@ func (s *CountDubbridgeRepayReftrialResponse) SetTotalInterest(v int64) *CountDu
 
 func (s *CountDubbridgeRepayReftrialResponse) SetApplyInfo(v *ApplyInfo) *CountDubbridgeRepayReftrialResponse {
 	s.ApplyInfo = v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetLpr(v string) *CountDubbridgeRepayReftrialResponse {
+	s.Lpr = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetLprPoint(v string) *CountDubbridgeRepayReftrialResponse {
+	s.LprPoint = &v
+	return s
+}
+
+func (s *CountDubbridgeRepayReftrialResponse) SetTotalSubsidyInterest(v string) *CountDubbridgeRepayReftrialResponse {
+	s.TotalSubsidyInterest = &v
 	return s
 }
 
@@ -30726,7 +30747,7 @@ type QueryDubbridgeRepayofflineaccountRequest struct {
 	// 请求唯一id
 	OrderNo *string `json:"order_no,omitempty" xml:"order_no,omitempty" require:"true"`
 	// 关联的天枢用信申请订单号
-	UseCreditOrderNo *string `json:"use_credit_order_no,omitempty" xml:"use_credit_order_no,omitempty" require:"true"`
+	UseCreditOrderNo *string `json:"use_credit_order_no,omitempty" xml:"use_credit_order_no,omitempty"`
 	// 开始日期
 	StartDate *string `json:"start_date,omitempty" xml:"start_date,omitempty" require:"true"`
 	// 结束日期
@@ -30739,6 +30760,8 @@ type QueryDubbridgeRepayofflineaccountRequest struct {
 	CurrentPage *string `json:"current_page,omitempty" xml:"current_page,omitempty" require:"true"`
 	// 每页记录数
 	PageNum *string `json:"page_num,omitempty" xml:"page_num,omitempty" require:"true"`
+	// 资金方编号
+	FundCode *string `json:"fund_code,omitempty" xml:"fund_code,omitempty"`
 }
 
 func (s QueryDubbridgeRepayofflineaccountRequest) String() string {
@@ -30796,6 +30819,11 @@ func (s *QueryDubbridgeRepayofflineaccountRequest) SetCurrentPage(v string) *Que
 
 func (s *QueryDubbridgeRepayofflineaccountRequest) SetPageNum(v string) *QueryDubbridgeRepayofflineaccountRequest {
 	s.PageNum = &v
+	return s
+}
+
+func (s *QueryDubbridgeRepayofflineaccountRequest) SetFundCode(v string) *QueryDubbridgeRepayofflineaccountRequest {
+	s.FundCode = &v
 	return s
 }
 
@@ -49251,7 +49279,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.13"),
+				"sdk_version":      tea.String("1.33.14"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -51647,7 +51675,7 @@ func (client *Client) QueryDubbridgeRepayListEx(request *QueryDubbridgeRepayList
 //
 // Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
 //
-// Summary: 天枢系统还款计划试算
+// Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
 func (client *Client) CountDubbridgeRepayReftrial(request *CountDubbridgeRepayReftrialRequest) (_result *CountDubbridgeRepayReftrialResponse, _err error) {
 	runtime := &util.RuntimeOptions{}
 	headers := make(map[string]*string)
@@ -51664,7 +51692,7 @@ func (client *Client) CountDubbridgeRepayReftrial(request *CountDubbridgeRepayRe
 //
 // Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
 //
-// Summary: 天枢系统还款计划试算
+// Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
 func (client *Client) CountDubbridgeRepayReftrialEx(request *CountDubbridgeRepayReftrialRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CountDubbridgeRepayReftrialResponse, _err error) {
 	_err = util.ValidateModel(request)
 	if _err != nil {
