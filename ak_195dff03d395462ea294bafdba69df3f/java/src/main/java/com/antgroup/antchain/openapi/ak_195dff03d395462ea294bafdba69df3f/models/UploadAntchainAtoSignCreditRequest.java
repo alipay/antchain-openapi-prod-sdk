@@ -47,6 +47,10 @@ public class UploadAntchainAtoSignCreditRequest extends TeaModel {
     @NameInMap("merchant_id")
     public String merchantId;
 
+    // 扩展信息
+    @NameInMap("ext_info")
+    public String extInfo;
+
     public static UploadAntchainAtoSignCreditRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAntchainAtoSignCreditRequest self = new UploadAntchainAtoSignCreditRequest();
         return TeaModel.build(map, self);
@@ -130,6 +134,14 @@ public class UploadAntchainAtoSignCreditRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public UploadAntchainAtoSignCreditRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
     }
 
 }

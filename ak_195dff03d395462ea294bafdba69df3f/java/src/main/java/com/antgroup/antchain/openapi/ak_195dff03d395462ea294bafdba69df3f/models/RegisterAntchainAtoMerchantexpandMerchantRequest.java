@@ -55,6 +55,15 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("role")
     public String role;
 
+    // 商家进件时，可自行选择是否需要开通周期代扣产品，默认开通
+    // false：不开通
+    @NameInMap("need_withholding")
+    public Boolean needWithholding;
+
+    // 是否开通“预授权支付”,默认否
+    @NameInMap("need_pre_auth_pay")
+    public Boolean needPreAuthPay;
+
     public static RegisterAntchainAtoMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterAntchainAtoMerchantexpandMerchantRequest self = new RegisterAntchainAtoMerchantexpandMerchantRequest();
         return TeaModel.build(map, self);
@@ -146,6 +155,22 @@ public class RegisterAntchainAtoMerchantexpandMerchantRequest extends TeaModel {
     }
     public String getRole() {
         return this.role;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setNeedWithholding(Boolean needWithholding) {
+        this.needWithholding = needWithholding;
+        return this;
+    }
+    public Boolean getNeedWithholding() {
+        return this.needWithholding;
+    }
+
+    public RegisterAntchainAtoMerchantexpandMerchantRequest setNeedPreAuthPay(Boolean needPreAuthPay) {
+        this.needPreAuthPay = needPreAuthPay;
+        return this;
+    }
+    public Boolean getNeedPreAuthPay() {
+        return this.needPreAuthPay;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.8.0"),
+                    new TeaPair("sdk_version", "1.8.8"),
                     new TeaPair("_prod_code", "ak_195dff03d395462ea294bafdba69df3f"),
                     new TeaPair("_prod_channel", "saas")
                 );
@@ -445,7 +445,9 @@ public class Client {
      * <p>Description: 重要说明：
      * 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      * 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期多期代扣取消</p>
+     * Summary: 重要说明：
+     * 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     * 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。</p>
      */
     public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlan(RepayAntchainAtoWithholdPlanRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -458,7 +460,9 @@ public class Client {
      * <p>Description: 重要说明：
      * 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
      * 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。
-     * Summary: 单期多期代扣取消</p>
+     * Summary: 重要说明：
+     * 1.这个接口是取消订单某一、多期代扣计划中以其他方式还款的金额，取消之后代扣不再执行该期计划。
+     * 2.对通过其他方式还款的第三方单号留存;例如：银行流水号或微信流水号。</p>
      */
     public RepayAntchainAtoWithholdPlanResponse repayAntchainAtoWithholdPlanEx(RepayAntchainAtoWithholdPlanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1563,7 +1567,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 商户资产凭证上传，可以是文本或文件
-     * Summary: 商户资产凭证上传</p>
+     * Summary: 商户资产凭证上传，可以是文本或文件</p>
      */
     public UploadAntchainAtoSignCreditResponse uploadAntchainAtoSignCredit(UploadAntchainAtoSignCreditRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1574,7 +1578,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 商户资产凭证上传，可以是文本或文件
-     * Summary: 商户资产凭证上传</p>
+     * Summary: 商户资产凭证上传，可以是文本或文件</p>
      */
     public UploadAntchainAtoSignCreditResponse uploadAntchainAtoSignCreditEx(UploadAntchainAtoSignCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1605,7 +1609,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 商户资产凭证查询，需要提供订单号或资产包号
-     * Summary: 商户资产凭证查询</p>
+     * Summary: 商户资产凭证查询，需要提供订单号或资产包号</p>
      */
     public QueryAntchainAtoSignCreditResponse queryAntchainAtoSignCredit(QueryAntchainAtoSignCreditRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -1616,7 +1620,7 @@ public class Client {
     /**
      * <b>description</b> :
      * <p>Description: 商户资产凭证查询，需要提供订单号或资产包号
-     * Summary: 商户资产凭证查询</p>
+     * Summary: 商户资产凭证查询，需要提供订单号或资产包号</p>
      */
     public QueryAntchainAtoSignCreditResponse queryAntchainAtoSignCreditEx(QueryAntchainAtoSignCreditRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -2614,6 +2618,27 @@ public class Client {
     public QueryAntchainAtoTradeSettletocardResponse queryAntchainAtoTradeSettletocardEx(QueryAntchainAtoTradeSettletocardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.trade.settletocard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainAtoTradeSettletocardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口</p>
+     */
+    public ExecAntchainAtoFundPlanResponse execAntchainAtoFundPlan(ExecAntchainAtoFundPlanRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntchainAtoFundPlanEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新融资状态机资方主动重试接口
+     * Summary: 新融资状态机资方主动重试接口</p>
+     */
+    public ExecAntchainAtoFundPlanResponse execAntchainAtoFundPlanEx(ExecAntchainAtoFundPlanRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.fund.plan.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntchainAtoFundPlanResponse());
     }
 
     /**
