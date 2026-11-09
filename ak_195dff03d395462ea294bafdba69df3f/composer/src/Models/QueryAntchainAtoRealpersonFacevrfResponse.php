@@ -1,13 +1,68 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAtoRealpersonFacevrfResponse extends Model
-{
+class QueryAntchainAtoRealpersonFacevrfResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'certifyState' => 'certify_state',
+        'attackFlag' => 'attack_flag',
+        'alivePhoto' => 'alive_photo',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->certifyState) {
+            $res['certify_state'] = $this->certifyState;
+        }
+        if (null !== $this->attackFlag) {
+            $res['attack_flag'] = $this->attackFlag;
+        }
+        if (null !== $this->alivePhoto) {
+            $res['alive_photo'] = $this->alivePhoto;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryAntchainAtoRealpersonFacevrfResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['certify_state'])){
+            $model->certifyState = $map['certify_state'];
+        }
+        if(isset($map['attack_flag'])){
+            $model->attackFlag = $map['attack_flag'];
+        }
+        if(isset($map['alive_photo'])){
+            $model->alivePhoto = $map['alive_photo'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -49,71 +104,5 @@ class QueryAntchainAtoRealpersonFacevrfResponse extends Model
      * @var string
      */
     public $alivePhoto;
-    protected $_name = [
-        'reqMsgId'     => 'req_msg_id',
-        'resultCode'   => 'result_code',
-        'resultMsg'    => 'result_msg',
-        'certifyState' => 'certify_state',
-        'attackFlag'   => 'attack_flag',
-        'alivePhoto'   => 'alive_photo',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->certifyState) {
-            $res['certify_state'] = $this->certifyState;
-        }
-        if (null !== $this->attackFlag) {
-            $res['attack_flag'] = $this->attackFlag;
-        }
-        if (null !== $this->alivePhoto) {
-            $res['alive_photo'] = $this->alivePhoto;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryAntchainAtoRealpersonFacevrfResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['certify_state'])) {
-            $model->certifyState = $map['certify_state'];
-        }
-        if (isset($map['attack_flag'])) {
-            $model->attackFlag = $map['attack_flag'];
-        }
-        if (isset($map['alive_photo'])) {
-            $model->alivePhoto = $map['alive_photo'];
-        }
-
-        return $model;
-    }
 }

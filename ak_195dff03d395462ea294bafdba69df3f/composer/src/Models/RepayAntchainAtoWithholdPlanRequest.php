@@ -1,13 +1,126 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class RepayAntchainAtoWithholdPlanRequest extends Model
-{
+use AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models\SingleCancelModel;
+
+class RepayAntchainAtoWithholdPlanRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderId' => 'order_id',
+        'periodNum' => 'period_num',
+        'gmtPay' => 'gmt_pay',
+        'payOffAmount' => 'pay_off_amount',
+        'payOffType' => 'pay_off_type',
+        'payOffNo' => 'pay_off_no',
+        'payOffBankName' => 'pay_off_bank_name',
+        'operation' => 'operation',
+        'cancelList' => 'cancel_list',
+    ];
+    public function validate() {
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateMaxLength('orderId', $this->orderId, 50);
+        Model::validateMaxLength('payOffType', $this->payOffType, 64);
+        Model::validateMaxLength('payOffNo', $this->payOffNo, 64);
+        Model::validateMaxLength('payOffBankName', $this->payOffBankName, 64);
+        Model::validateMaxLength('operation', $this->operation, 64);
+        Model::validatePattern('gmtPay', $this->gmtPay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validateMinLength('operation', $this->operation, 0);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->periodNum) {
+            $res['period_num'] = $this->periodNum;
+        }
+        if (null !== $this->gmtPay) {
+            $res['gmt_pay'] = $this->gmtPay;
+        }
+        if (null !== $this->payOffAmount) {
+            $res['pay_off_amount'] = $this->payOffAmount;
+        }
+        if (null !== $this->payOffType) {
+            $res['pay_off_type'] = $this->payOffType;
+        }
+        if (null !== $this->payOffNo) {
+            $res['pay_off_no'] = $this->payOffNo;
+        }
+        if (null !== $this->payOffBankName) {
+            $res['pay_off_bank_name'] = $this->payOffBankName;
+        }
+        if (null !== $this->operation) {
+            $res['operation'] = $this->operation;
+        }
+        if (null !== $this->cancelList) {
+            $res['cancel_list'] = [];
+            if(null !== $this->cancelList && is_array($this->cancelList)){
+                $n = 0;
+                foreach($this->cancelList as $item){
+                    $res['cancel_list'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return RepayAntchainAtoWithholdPlanRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['period_num'])){
+            $model->periodNum = $map['period_num'];
+        }
+        if(isset($map['gmt_pay'])){
+            $model->gmtPay = $map['gmt_pay'];
+        }
+        if(isset($map['pay_off_amount'])){
+            $model->payOffAmount = $map['pay_off_amount'];
+        }
+        if(isset($map['pay_off_type'])){
+            $model->payOffType = $map['pay_off_type'];
+        }
+        if(isset($map['pay_off_no'])){
+            $model->payOffNo = $map['pay_off_no'];
+        }
+        if(isset($map['pay_off_bank_name'])){
+            $model->payOffBankName = $map['pay_off_bank_name'];
+        }
+        if(isset($map['operation'])){
+            $model->operation = $map['operation'];
+        }
+        if(isset($map['cancel_list'])){
+            if(!empty($map['cancel_list'])){
+                $model->cancelList = [];
+                $n = 0;
+                foreach($map['cancel_list'] as $item) {
+                    $model->cancelList[$n++] = null !== $item ? SingleCancelModel::fromMap($item) : $item;
+                }
+            }
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -31,7 +144,7 @@ class RepayAntchainAtoWithholdPlanRequest extends Model
      */
     public $periodNum;
 
-    // 取消订单某一期代扣计划中以其他方式还款金额，单位为分，单期取消必填
+    // 取其他方式还款的时间，单期取消必填
     /**
      * @var string
      */
@@ -77,128 +190,5 @@ class RepayAntchainAtoWithholdPlanRequest extends Model
      * @var SingleCancelModel[]
      */
     public $cancelList;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'periodNum'         => 'period_num',
-        'gmtPay'            => 'gmt_pay',
-        'payOffAmount'      => 'pay_off_amount',
-        'payOffType'        => 'pay_off_type',
-        'payOffNo'          => 'pay_off_no',
-        'payOffBankName'    => 'pay_off_bank_name',
-        'operation'         => 'operation',
-        'cancelList'        => 'cancel_list',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateMaxLength('orderId', $this->orderId, 50);
-        Model::validateMaxLength('payOffType', $this->payOffType, 64);
-        Model::validateMaxLength('payOffNo', $this->payOffNo, 64);
-        Model::validateMaxLength('payOffBankName', $this->payOffBankName, 64);
-        Model::validateMaxLength('operation', $this->operation, 64);
-        Model::validateMinimum('periodNum', $this->periodNum, 1);
-        Model::validateMinimum('payOffAmount', $this->payOffAmount, 0);
-        Model::validatePattern('gmtPay', $this->gmtPay, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validateMinLength('operation', $this->operation, 0);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->periodNum) {
-            $res['period_num'] = $this->periodNum;
-        }
-        if (null !== $this->gmtPay) {
-            $res['gmt_pay'] = $this->gmtPay;
-        }
-        if (null !== $this->payOffAmount) {
-            $res['pay_off_amount'] = $this->payOffAmount;
-        }
-        if (null !== $this->payOffType) {
-            $res['pay_off_type'] = $this->payOffType;
-        }
-        if (null !== $this->payOffNo) {
-            $res['pay_off_no'] = $this->payOffNo;
-        }
-        if (null !== $this->payOffBankName) {
-            $res['pay_off_bank_name'] = $this->payOffBankName;
-        }
-        if (null !== $this->operation) {
-            $res['operation'] = $this->operation;
-        }
-        if (null !== $this->cancelList) {
-            $res['cancel_list'] = [];
-            if (null !== $this->cancelList && \is_array($this->cancelList)) {
-                $n = 0;
-                foreach ($this->cancelList as $item) {
-                    $res['cancel_list'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return RepayAntchainAtoWithholdPlanRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['period_num'])) {
-            $model->periodNum = $map['period_num'];
-        }
-        if (isset($map['gmt_pay'])) {
-            $model->gmtPay = $map['gmt_pay'];
-        }
-        if (isset($map['pay_off_amount'])) {
-            $model->payOffAmount = $map['pay_off_amount'];
-        }
-        if (isset($map['pay_off_type'])) {
-            $model->payOffType = $map['pay_off_type'];
-        }
-        if (isset($map['pay_off_no'])) {
-            $model->payOffNo = $map['pay_off_no'];
-        }
-        if (isset($map['pay_off_bank_name'])) {
-            $model->payOffBankName = $map['pay_off_bank_name'];
-        }
-        if (isset($map['operation'])) {
-            $model->operation = $map['operation'];
-        }
-        if (isset($map['cancel_list'])) {
-            if (!empty($map['cancel_list'])) {
-                $model->cancelList = [];
-                $n                 = 0;
-                foreach ($map['cancel_list'] as $item) {
-                    $model->cancelList[$n++] = null !== $item ? SingleCancelModel::fromMap($item) : $item;
-                }
-            }
-        }
-
-        return $model;
-    }
 }

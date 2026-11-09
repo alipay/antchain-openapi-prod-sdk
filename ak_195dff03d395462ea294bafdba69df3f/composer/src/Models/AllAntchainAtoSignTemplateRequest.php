@@ -1,13 +1,77 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class AllAntchainAtoSignTemplateRequest extends Model
-{
+class AllAntchainAtoSignTemplateRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'contractType' => 'contract_type',
+        'merchantId' => 'merchant_id',
+        'fundId' => 'fund_id',
+        'fundType' => 'fund_type',
+        'templateId' => 'template_id',
+    ];
+    public function validate() {
+        Model::validateMaxLength('merchantId', $this->merchantId, 42);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->contractType) {
+            $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->fundType) {
+            $res['fund_type'] = $this->fundType;
+        }
+        if (null !== $this->templateId) {
+            $res['template_id'] = $this->templateId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return AllAntchainAtoSignTemplateRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['contract_type'])){
+            $model->contractType = $map['contract_type'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['fund_id'])){
+            $model->fundId = $map['fund_id'];
+        }
+        if(isset($map['fund_type'])){
+            $model->fundType = $map['fund_type'];
+        }
+        if(isset($map['template_id'])){
+            $model->templateId = $map['template_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -49,79 +113,5 @@ class AllAntchainAtoSignTemplateRequest extends Model
      * @var string
      */
     public $templateId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'contractType'      => 'contract_type',
-        'merchantId'        => 'merchant_id',
-        'fundId'            => 'fund_id',
-        'fundType'          => 'fund_type',
-        'templateId'        => 'template_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateMaxLength('merchantId', $this->merchantId, 42);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->contractType) {
-            $res['contract_type'] = $this->contractType;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->fundId) {
-            $res['fund_id'] = $this->fundId;
-        }
-        if (null !== $this->fundType) {
-            $res['fund_type'] = $this->fundType;
-        }
-        if (null !== $this->templateId) {
-            $res['template_id'] = $this->templateId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return AllAntchainAtoSignTemplateRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['contract_type'])) {
-            $model->contractType = $map['contract_type'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['fund_id'])) {
-            $model->fundId = $map['fund_id'];
-        }
-        if (isset($map['fund_type'])) {
-            $model->fundType = $map['fund_type'];
-        }
-        if (isset($map['template_id'])) {
-            $model->templateId = $map['template_id'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,117 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class GetAntchainAtoSignFlowResponse extends Model
-{
+class GetAntchainAtoSignFlowResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'signNo' => 'sign_no',
+        'orderId' => 'order_id',
+        'accountId' => 'account_id',
+        'status' => 'status',
+        'flowId' => 'flow_id',
+        'docList' => 'doc_list',
+        'businessScene' => 'business_scene',
+        'alipayUserId' => 'alipay_user_id',
+        'signInfo' => 'sign_info',
+        'initiatorAccountId' => 'initiator_account_id',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->signNo) {
+            $res['sign_no'] = $this->signNo;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->accountId) {
+            $res['account_id'] = $this->accountId;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
+        }
+        if (null !== $this->docList) {
+            $res['doc_list'] = $this->docList;
+        }
+        if (null !== $this->businessScene) {
+            $res['business_scene'] = $this->businessScene;
+        }
+        if (null !== $this->alipayUserId) {
+            $res['alipay_user_id'] = $this->alipayUserId;
+        }
+        if (null !== $this->signInfo) {
+            $res['sign_info'] = $this->signInfo;
+        }
+        if (null !== $this->initiatorAccountId) {
+            $res['initiator_account_id'] = $this->initiatorAccountId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return GetAntchainAtoSignFlowResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['sign_no'])){
+            $model->signNo = $map['sign_no'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['account_id'])){
+            $model->accountId = $map['account_id'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['flow_id'])){
+            $model->flowId = $map['flow_id'];
+        }
+        if(isset($map['doc_list'])){
+            $model->docList = $map['doc_list'];
+        }
+        if(isset($map['business_scene'])){
+            $model->businessScene = $map['business_scene'];
+        }
+        if(isset($map['alipay_user_id'])){
+            $model->alipayUserId = $map['alipay_user_id'];
+        }
+        if(isset($map['sign_info'])){
+            $model->signInfo = $map['sign_info'];
+        }
+        if(isset($map['initiator_account_id'])){
+            $model->initiatorAccountId = $map['initiator_account_id'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -45,7 +149,7 @@ class GetAntchainAtoSignFlowResponse extends Model
     public $accountId;
 
     // 状态：DRAFT - 草稿； SIGNING - 签署中； FINISH - 签署完成；UNDO - 撤销； TERMINATE - 终止； EXPIRE - 过期； REJECTED - 拒签； CANCELLED - 解约
-    //
+    // 
     /**
      * @var string
      */
@@ -87,120 +191,5 @@ class GetAntchainAtoSignFlowResponse extends Model
      * @var string
      */
     public $initiatorAccountId;
-    protected $_name = [
-        'reqMsgId'           => 'req_msg_id',
-        'resultCode'         => 'result_code',
-        'resultMsg'          => 'result_msg',
-        'signNo'             => 'sign_no',
-        'orderId'            => 'order_id',
-        'accountId'          => 'account_id',
-        'status'             => 'status',
-        'flowId'             => 'flow_id',
-        'docList'            => 'doc_list',
-        'businessScene'      => 'business_scene',
-        'alipayUserId'       => 'alipay_user_id',
-        'signInfo'           => 'sign_info',
-        'initiatorAccountId' => 'initiator_account_id',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->signNo) {
-            $res['sign_no'] = $this->signNo;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->accountId) {
-            $res['account_id'] = $this->accountId;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->docList) {
-            $res['doc_list'] = $this->docList;
-        }
-        if (null !== $this->businessScene) {
-            $res['business_scene'] = $this->businessScene;
-        }
-        if (null !== $this->alipayUserId) {
-            $res['alipay_user_id'] = $this->alipayUserId;
-        }
-        if (null !== $this->signInfo) {
-            $res['sign_info'] = $this->signInfo;
-        }
-        if (null !== $this->initiatorAccountId) {
-            $res['initiator_account_id'] = $this->initiatorAccountId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return GetAntchainAtoSignFlowResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['sign_no'])) {
-            $model->signNo = $map['sign_no'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['account_id'])) {
-            $model->accountId = $map['account_id'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['doc_list'])) {
-            $model->docList = $map['doc_list'];
-        }
-        if (isset($map['business_scene'])) {
-            $model->businessScene = $map['business_scene'];
-        }
-        if (isset($map['alipay_user_id'])) {
-            $model->alipayUserId = $map['alipay_user_id'];
-        }
-        if (isset($map['sign_info'])) {
-            $model->signInfo = $map['sign_info'];
-        }
-        if (isset($map['initiator_account_id'])) {
-            $model->initiatorAccountId = $map['initiator_account_id'];
-        }
-
-        return $model;
-    }
 }

@@ -1,13 +1,93 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAtoWithholdSignResponse extends Model
-{
+class QueryAntchainAtoWithholdSignResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'status' => 'status',
+        'signTime' => 'sign_time',
+        'validTime' => 'valid_time',
+        'invalidTime' => 'invalid_time',
+        'agreementNo' => 'agreement_no',
+        'withholdSignScene' => 'withhold_sign_scene',
+    ];
+    public function validate() {
+        Model::validatePattern('signTime', $this->signTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('validTime', $this->validTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+        Model::validatePattern('invalidTime', $this->invalidTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->status) {
+            $res['status'] = $this->status;
+        }
+        if (null !== $this->signTime) {
+            $res['sign_time'] = $this->signTime;
+        }
+        if (null !== $this->validTime) {
+            $res['valid_time'] = $this->validTime;
+        }
+        if (null !== $this->invalidTime) {
+            $res['invalid_time'] = $this->invalidTime;
+        }
+        if (null !== $this->agreementNo) {
+            $res['agreement_no'] = $this->agreementNo;
+        }
+        if (null !== $this->withholdSignScene) {
+            $res['withhold_sign_scene'] = $this->withholdSignScene;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryAntchainAtoWithholdSignResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['status'])){
+            $model->status = $map['status'];
+        }
+        if(isset($map['sign_time'])){
+            $model->signTime = $map['sign_time'];
+        }
+        if(isset($map['valid_time'])){
+            $model->validTime = $map['valid_time'];
+        }
+        if(isset($map['invalid_time'])){
+            $model->invalidTime = $map['invalid_time'];
+        }
+        if(isset($map['agreement_no'])){
+            $model->agreementNo = $map['agreement_no'];
+        }
+        if(isset($map['withhold_sign_scene'])){
+            $model->withholdSignScene = $map['withhold_sign_scene'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -66,95 +146,5 @@ class QueryAntchainAtoWithholdSignResponse extends Model
      * @var string
      */
     public $withholdSignScene;
-    protected $_name = [
-        'reqMsgId'          => 'req_msg_id',
-        'resultCode'        => 'result_code',
-        'resultMsg'         => 'result_msg',
-        'status'            => 'status',
-        'signTime'          => 'sign_time',
-        'validTime'         => 'valid_time',
-        'invalidTime'       => 'invalid_time',
-        'agreementNo'       => 'agreement_no',
-        'withholdSignScene' => 'withhold_sign_scene',
-    ];
 
-    public function validate()
-    {
-        Model::validatePattern('signTime', $this->signTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('validTime', $this->validTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-        Model::validatePattern('invalidTime', $this->invalidTime, '\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})');
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->status) {
-            $res['status'] = $this->status;
-        }
-        if (null !== $this->signTime) {
-            $res['sign_time'] = $this->signTime;
-        }
-        if (null !== $this->validTime) {
-            $res['valid_time'] = $this->validTime;
-        }
-        if (null !== $this->invalidTime) {
-            $res['invalid_time'] = $this->invalidTime;
-        }
-        if (null !== $this->agreementNo) {
-            $res['agreement_no'] = $this->agreementNo;
-        }
-        if (null !== $this->withholdSignScene) {
-            $res['withhold_sign_scene'] = $this->withholdSignScene;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryAntchainAtoWithholdSignResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['status'])) {
-            $model->status = $map['status'];
-        }
-        if (isset($map['sign_time'])) {
-            $model->signTime = $map['sign_time'];
-        }
-        if (isset($map['valid_time'])) {
-            $model->validTime = $map['valid_time'];
-        }
-        if (isset($map['invalid_time'])) {
-            $model->invalidTime = $map['invalid_time'];
-        }
-        if (isset($map['agreement_no'])) {
-            $model->agreementNo = $map['agreement_no'];
-        }
-        if (isset($map['withhold_sign_scene'])) {
-            $model->withholdSignScene = $map['withhold_sign_scene'];
-        }
-
-        return $model;
-    }
 }

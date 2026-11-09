@@ -1,48 +1,18 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SignUrlResult extends Model
-{
-    // 签署（长）链接
-    /**
-     * @example https://xxxx.com
-     *
-     * @var string
-     */
-    public $url;
-
-    // 签署短链接
-    /**
-     * @example https://xxxx.com
-     *
-     * @var string
-     */
-    public $shortUrl;
-
-    // 签署链接提示信息
-    /**
-     * @example 签署链接创建成功
-     *
-     * @var string
-     */
-    public $signMsg;
+class SignUrlResult extends Model {
     protected $_name = [
-        'url'      => 'url',
+        'url' => 'url',
         'shortUrl' => 'short_url',
-        'signMsg'  => 'sign_msg',
+        'signMsg' => 'sign_msg',
     ];
-
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
+    public function validate() {}
+    public function toMap() {
         $res = [];
         if (null !== $this->url) {
             $res['url'] = $this->url;
@@ -53,28 +23,44 @@ class SignUrlResult extends Model
         if (null !== $this->signMsg) {
             $res['sign_msg'] = $this->signMsg;
         }
-
         return $res;
     }
-
     /**
      * @param array $map
-     *
      * @return SignUrlResult
      */
-    public static function fromMap($map = [])
-    {
+    public static function fromMap($map = []) {
         $model = new self();
-        if (isset($map['url'])) {
+        if(isset($map['url'])){
             $model->url = $map['url'];
         }
-        if (isset($map['short_url'])) {
+        if(isset($map['short_url'])){
             $model->shortUrl = $map['short_url'];
         }
-        if (isset($map['sign_msg'])) {
+        if(isset($map['sign_msg'])){
             $model->signMsg = $map['sign_msg'];
         }
-
         return $model;
     }
+    // 签署（长）链接
+    /**
+     * @example https://xxxx.com
+     * @var string
+     */
+    public $url;
+
+    // 签署短链接
+    /**
+     * @example https://xxxx.com
+     * @var string
+     */
+    public $shortUrl;
+
+    // 签署链接提示信息
+    /**
+     * @example 签署链接创建成功
+     * @var string
+     */
+    public $signMsg;
+
 }
