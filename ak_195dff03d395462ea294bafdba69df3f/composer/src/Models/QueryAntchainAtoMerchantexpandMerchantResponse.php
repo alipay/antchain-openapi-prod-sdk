@@ -1,13 +1,75 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class QueryAntchainAtoMerchantexpandMerchantResponse extends Model
-{
+class QueryAntchainAtoMerchantexpandMerchantResponse extends Model {
+    protected $_name = [
+        'reqMsgId' => 'req_msg_id',
+        'resultCode' => 'result_code',
+        'resultMsg' => 'result_msg',
+        'enrollmentStatus' => 'enrollment_status',
+        'failReason' => 'fail_reason',
+        'pendingEventLink' => 'pending_event_link',
+        'subMerchantId' => 'sub_merchant_id',
+    ];
+    public function validate() {}
+    public function toMap() {
+        $res = [];
+        if (null !== $this->reqMsgId) {
+            $res['req_msg_id'] = $this->reqMsgId;
+        }
+        if (null !== $this->resultCode) {
+            $res['result_code'] = $this->resultCode;
+        }
+        if (null !== $this->resultMsg) {
+            $res['result_msg'] = $this->resultMsg;
+        }
+        if (null !== $this->enrollmentStatus) {
+            $res['enrollment_status'] = $this->enrollmentStatus;
+        }
+        if (null !== $this->failReason) {
+            $res['fail_reason'] = $this->failReason;
+        }
+        if (null !== $this->pendingEventLink) {
+            $res['pending_event_link'] = $this->pendingEventLink;
+        }
+        if (null !== $this->subMerchantId) {
+            $res['sub_merchant_id'] = $this->subMerchantId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return QueryAntchainAtoMerchantexpandMerchantResponse
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['req_msg_id'])){
+            $model->reqMsgId = $map['req_msg_id'];
+        }
+        if(isset($map['result_code'])){
+            $model->resultCode = $map['result_code'];
+        }
+        if(isset($map['result_msg'])){
+            $model->resultMsg = $map['result_msg'];
+        }
+        if(isset($map['enrollment_status'])){
+            $model->enrollmentStatus = $map['enrollment_status'];
+        }
+        if(isset($map['fail_reason'])){
+            $model->failReason = $map['fail_reason'];
+        }
+        if(isset($map['pending_event_link'])){
+            $model->pendingEventLink = $map['pending_event_link'];
+        }
+        if(isset($map['sub_merchant_id'])){
+            $model->subMerchantId = $map['sub_merchant_id'];
+        }
+        return $model;
+    }
     // 请求唯一ID，用于链路跟踪和问题排查
     /**
      * @var string
@@ -54,78 +116,5 @@ class QueryAntchainAtoMerchantexpandMerchantResponse extends Model
      * @var string
      */
     public $subMerchantId;
-    protected $_name = [
-        'reqMsgId'         => 'req_msg_id',
-        'resultCode'       => 'result_code',
-        'resultMsg'        => 'result_msg',
-        'enrollmentStatus' => 'enrollment_status',
-        'failReason'       => 'fail_reason',
-        'pendingEventLink' => 'pending_event_link',
-        'subMerchantId'    => 'sub_merchant_id',
-    ];
 
-    public function validate()
-    {
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->reqMsgId) {
-            $res['req_msg_id'] = $this->reqMsgId;
-        }
-        if (null !== $this->resultCode) {
-            $res['result_code'] = $this->resultCode;
-        }
-        if (null !== $this->resultMsg) {
-            $res['result_msg'] = $this->resultMsg;
-        }
-        if (null !== $this->enrollmentStatus) {
-            $res['enrollment_status'] = $this->enrollmentStatus;
-        }
-        if (null !== $this->failReason) {
-            $res['fail_reason'] = $this->failReason;
-        }
-        if (null !== $this->pendingEventLink) {
-            $res['pending_event_link'] = $this->pendingEventLink;
-        }
-        if (null !== $this->subMerchantId) {
-            $res['sub_merchant_id'] = $this->subMerchantId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return QueryAntchainAtoMerchantexpandMerchantResponse
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['req_msg_id'])) {
-            $model->reqMsgId = $map['req_msg_id'];
-        }
-        if (isset($map['result_code'])) {
-            $model->resultCode = $map['result_code'];
-        }
-        if (isset($map['result_msg'])) {
-            $model->resultMsg = $map['result_msg'];
-        }
-        if (isset($map['enrollment_status'])) {
-            $model->enrollmentStatus = $map['enrollment_status'];
-        }
-        if (isset($map['fail_reason'])) {
-            $model->failReason = $map['fail_reason'];
-        }
-        if (isset($map['pending_event_link'])) {
-            $model->pendingEventLink = $map['pending_event_link'];
-        }
-        if (isset($map['sub_merchant_id'])) {
-            $model->subMerchantId = $map['sub_merchant_id'];
-        }
-
-        return $model;
-    }
 }

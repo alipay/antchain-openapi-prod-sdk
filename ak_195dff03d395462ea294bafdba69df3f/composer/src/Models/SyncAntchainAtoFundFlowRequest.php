@@ -1,13 +1,113 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class SyncAntchainAtoFundFlowRequest extends Model
-{
+class SyncAntchainAtoFundFlowRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderId' => 'order_id',
+        'merchantId' => 'merchant_id',
+        'fundId' => 'fund_id',
+        'flowId' => 'flow_id',
+        'signUrl' => 'sign_url',
+        'contractType' => 'contract_type',
+        'contractName' => 'contract_name',
+        'extendInfo' => 'extend_info',
+        'tenantId' => 'tenant_id',
+    ];
+    public function validate() {
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('fundId', $this->fundId, true);
+        Model::validateRequired('flowId', $this->flowId, true);
+        Model::validateRequired('signUrl', $this->signUrl, true);
+        Model::validateRequired('contractType', $this->contractType, true);
+        Model::validateRequired('contractName', $this->contractName, true);
+        Model::validateRequired('extendInfo', $this->extendInfo, true);
+        Model::validateRequired('tenantId', $this->tenantId, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->flowId) {
+            $res['flow_id'] = $this->flowId;
+        }
+        if (null !== $this->signUrl) {
+            $res['sign_url'] = $this->signUrl;
+        }
+        if (null !== $this->contractType) {
+            $res['contract_type'] = $this->contractType;
+        }
+        if (null !== $this->contractName) {
+            $res['contract_name'] = $this->contractName;
+        }
+        if (null !== $this->extendInfo) {
+            $res['extend_info'] = $this->extendInfo;
+        }
+        if (null !== $this->tenantId) {
+            $res['tenant_id'] = $this->tenantId;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return SyncAntchainAtoFundFlowRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['fund_id'])){
+            $model->fundId = $map['fund_id'];
+        }
+        if(isset($map['flow_id'])){
+            $model->flowId = $map['flow_id'];
+        }
+        if(isset($map['sign_url'])){
+            $model->signUrl = $map['sign_url'];
+        }
+        if(isset($map['contract_type'])){
+            $model->contractType = $map['contract_type'];
+        }
+        if(isset($map['contract_name'])){
+            $model->contractName = $map['contract_name'];
+        }
+        if(isset($map['extend_info'])){
+            $model->extendInfo = $map['extend_info'];
+        }
+        if(isset($map['tenant_id'])){
+            $model->tenantId = $map['tenant_id'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -73,115 +173,5 @@ class SyncAntchainAtoFundFlowRequest extends Model
      * @var string
      */
     public $tenantId;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'merchantId'        => 'merchant_id',
-        'fundId'            => 'fund_id',
-        'flowId'            => 'flow_id',
-        'signUrl'           => 'sign_url',
-        'contractType'      => 'contract_type',
-        'contractName'      => 'contract_name',
-        'extendInfo'        => 'extend_info',
-        'tenantId'          => 'tenant_id',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('fundId', $this->fundId, true);
-        Model::validateRequired('flowId', $this->flowId, true);
-        Model::validateRequired('signUrl', $this->signUrl, true);
-        Model::validateRequired('contractType', $this->contractType, true);
-        Model::validateRequired('contractName', $this->contractName, true);
-        Model::validateRequired('extendInfo', $this->extendInfo, true);
-        Model::validateRequired('tenantId', $this->tenantId, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->fundId) {
-            $res['fund_id'] = $this->fundId;
-        }
-        if (null !== $this->flowId) {
-            $res['flow_id'] = $this->flowId;
-        }
-        if (null !== $this->signUrl) {
-            $res['sign_url'] = $this->signUrl;
-        }
-        if (null !== $this->contractType) {
-            $res['contract_type'] = $this->contractType;
-        }
-        if (null !== $this->contractName) {
-            $res['contract_name'] = $this->contractName;
-        }
-        if (null !== $this->extendInfo) {
-            $res['extend_info'] = $this->extendInfo;
-        }
-        if (null !== $this->tenantId) {
-            $res['tenant_id'] = $this->tenantId;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return SyncAntchainAtoFundFlowRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['fund_id'])) {
-            $model->fundId = $map['fund_id'];
-        }
-        if (isset($map['flow_id'])) {
-            $model->flowId = $map['flow_id'];
-        }
-        if (isset($map['sign_url'])) {
-            $model->signUrl = $map['sign_url'];
-        }
-        if (isset($map['contract_type'])) {
-            $model->contractType = $map['contract_type'];
-        }
-        if (isset($map['contract_name'])) {
-            $model->contractName = $map['contract_name'];
-        }
-        if (isset($map['extend_info'])) {
-            $model->extendInfo = $map['extend_info'];
-        }
-        if (isset($map['tenant_id'])) {
-            $model->tenantId = $map['tenant_id'];
-        }
-
-        return $model;
-    }
 }

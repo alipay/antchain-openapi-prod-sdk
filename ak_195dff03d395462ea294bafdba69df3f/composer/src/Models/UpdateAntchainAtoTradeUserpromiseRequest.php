@@ -1,13 +1,97 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class UpdateAntchainAtoTradeUserpromiseRequest extends Model
-{
+class UpdateAntchainAtoTradeUserpromiseRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderId' => 'order_id',
+        'merchantId' => 'merchant_id',
+        'termIdx' => 'term_idx',
+        'updatedRentalMoney' => 'updated_rental_money',
+        'reason' => 'reason',
+        'desc' => 'desc',
+    ];
+    public function validate() {
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('termIdx', $this->termIdx, true);
+        Model::validateRequired('updatedRentalMoney', $this->updatedRentalMoney, true);
+        Model::validateRequired('reason', $this->reason, true);
+        Model::validateRequired('desc', $this->desc, true);
+        Model::validateMaxLength('orderId', $this->orderId, 49);
+        Model::validateMaxLength('merchantId', $this->merchantId, 199);
+        Model::validateMaxLength('reason', $this->reason, 10);
+        Model::validateMaxLength('desc', $this->desc, 64);
+        Model::validateMinLength('orderId', $this->orderId, 6);
+        Model::validateMinLength('merchantId', $this->merchantId, 1);
+        Model::validateMinLength('reason', $this->reason, 1);
+        Model::validateMinLength('desc', $this->desc, 1);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->termIdx) {
+            $res['term_idx'] = $this->termIdx;
+        }
+        if (null !== $this->updatedRentalMoney) {
+            $res['updated_rental_money'] = $this->updatedRentalMoney;
+        }
+        if (null !== $this->reason) {
+            $res['reason'] = $this->reason;
+        }
+        if (null !== $this->desc) {
+            $res['desc'] = $this->desc;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return UpdateAntchainAtoTradeUserpromiseRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['term_idx'])){
+            $model->termIdx = $map['term_idx'];
+        }
+        if(isset($map['updated_rental_money'])){
+            $model->updatedRentalMoney = $map['updated_rental_money'];
+        }
+        if(isset($map['reason'])){
+            $model->reason = $map['reason'];
+        }
+        if(isset($map['desc'])){
+            $model->desc = $map['desc'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -57,99 +141,5 @@ class UpdateAntchainAtoTradeUserpromiseRequest extends Model
      * @var string
      */
     public $desc;
-    protected $_name = [
-        'authToken'          => 'auth_token',
-        'productInstanceId'  => 'product_instance_id',
-        'orderId'            => 'order_id',
-        'merchantId'         => 'merchant_id',
-        'termIdx'            => 'term_idx',
-        'updatedRentalMoney' => 'updated_rental_money',
-        'reason'             => 'reason',
-        'desc'               => 'desc',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('termIdx', $this->termIdx, true);
-        Model::validateRequired('updatedRentalMoney', $this->updatedRentalMoney, true);
-        Model::validateRequired('reason', $this->reason, true);
-        Model::validateRequired('desc', $this->desc, true);
-        Model::validateMaxLength('orderId', $this->orderId, 49);
-        Model::validateMaxLength('merchantId', $this->merchantId, 199);
-        Model::validateMaxLength('reason', $this->reason, 10);
-        Model::validateMaxLength('desc', $this->desc, 64);
-        Model::validateMinLength('orderId', $this->orderId, 6);
-        Model::validateMinLength('merchantId', $this->merchantId, 1);
-        Model::validateMinLength('reason', $this->reason, 1);
-        Model::validateMinLength('desc', $this->desc, 1);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->termIdx) {
-            $res['term_idx'] = $this->termIdx;
-        }
-        if (null !== $this->updatedRentalMoney) {
-            $res['updated_rental_money'] = $this->updatedRentalMoney;
-        }
-        if (null !== $this->reason) {
-            $res['reason'] = $this->reason;
-        }
-        if (null !== $this->desc) {
-            $res['desc'] = $this->desc;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return UpdateAntchainAtoTradeUserpromiseRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['term_idx'])) {
-            $model->termIdx = $map['term_idx'];
-        }
-        if (isset($map['updated_rental_money'])) {
-            $model->updatedRentalMoney = $map['updated_rental_money'];
-        }
-        if (isset($map['reason'])) {
-            $model->reason = $map['reason'];
-        }
-        if (isset($map['desc'])) {
-            $model->desc = $map['desc'];
-        }
-
-        return $model;
-    }
 }

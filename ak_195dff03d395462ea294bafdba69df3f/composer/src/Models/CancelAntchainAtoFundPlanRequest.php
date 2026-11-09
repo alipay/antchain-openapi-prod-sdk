@@ -1,13 +1,97 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class CancelAntchainAtoFundPlanRequest extends Model
-{
+class CancelAntchainAtoFundPlanRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'orderId' => 'order_id',
+        'merchantId' => 'merchant_id',
+        'cancelReason' => 'cancel_reason',
+        'fundId' => 'fund_id',
+        'operation' => 'operation',
+        'redeemAmount' => 'redeem_amount',
+        'redeemType' => 'redeem_type',
+    ];
+    public function validate() {
+        Model::validateRequired('orderId', $this->orderId, true);
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('cancelReason', $this->cancelReason, true);
+        Model::validateMaxLength('fundId', $this->fundId, 64);
+        Model::validateMaxLength('operation', $this->operation, 64);
+        Model::validateMaxLength('redeemType', $this->redeemType, 64);
+        Model::validateMinimum('redeemAmount', $this->redeemAmount, 10);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->orderId) {
+            $res['order_id'] = $this->orderId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->cancelReason) {
+            $res['cancel_reason'] = $this->cancelReason;
+        }
+        if (null !== $this->fundId) {
+            $res['fund_id'] = $this->fundId;
+        }
+        if (null !== $this->operation) {
+            $res['operation'] = $this->operation;
+        }
+        if (null !== $this->redeemAmount) {
+            $res['redeem_amount'] = $this->redeemAmount;
+        }
+        if (null !== $this->redeemType) {
+            $res['redeem_type'] = $this->redeemType;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return CancelAntchainAtoFundPlanRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['order_id'])){
+            $model->orderId = $map['order_id'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['cancel_reason'])){
+            $model->cancelReason = $map['cancel_reason'];
+        }
+        if(isset($map['fund_id'])){
+            $model->fundId = $map['fund_id'];
+        }
+        if(isset($map['operation'])){
+            $model->operation = $map['operation'];
+        }
+        if(isset($map['redeem_amount'])){
+            $model->redeemAmount = $map['redeem_amount'];
+        }
+        if(isset($map['redeem_type'])){
+            $model->redeemType = $map['redeem_type'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -65,99 +149,5 @@ class CancelAntchainAtoFundPlanRequest extends Model
      * @var string
      */
     public $redeemType;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'orderId'           => 'order_id',
-        'merchantId'        => 'merchant_id',
-        'cancelReason'      => 'cancel_reason',
-        'fundId'            => 'fund_id',
-        'operation'         => 'operation',
-        'redeemAmount'      => 'redeem_amount',
-        'redeemType'        => 'redeem_type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('orderId', $this->orderId, true);
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('cancelReason', $this->cancelReason, true);
-        Model::validateMaxLength('fundId', $this->fundId, 64);
-        Model::validateMaxLength('operation', $this->operation, 64);
-        Model::validateMaxLength('redeemType', $this->redeemType, 64);
-        Model::validateMinimum('redeemAmount', $this->redeemAmount, 10);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->orderId) {
-            $res['order_id'] = $this->orderId;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->cancelReason) {
-            $res['cancel_reason'] = $this->cancelReason;
-        }
-        if (null !== $this->fundId) {
-            $res['fund_id'] = $this->fundId;
-        }
-        if (null !== $this->operation) {
-            $res['operation'] = $this->operation;
-        }
-        if (null !== $this->redeemAmount) {
-            $res['redeem_amount'] = $this->redeemAmount;
-        }
-        if (null !== $this->redeemType) {
-            $res['redeem_type'] = $this->redeemType;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return CancelAntchainAtoFundPlanRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['order_id'])) {
-            $model->orderId = $map['order_id'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['cancel_reason'])) {
-            $model->cancelReason = $map['cancel_reason'];
-        }
-        if (isset($map['fund_id'])) {
-            $model->fundId = $map['fund_id'];
-        }
-        if (isset($map['operation'])) {
-            $model->operation = $map['operation'];
-        }
-        if (isset($map['redeem_amount'])) {
-            $model->redeemAmount = $map['redeem_amount'];
-        }
-        if (isset($map['redeem_type'])) {
-            $model->redeemType = $map['redeem_type'];
-        }
-
-        return $model;
-    }
 }

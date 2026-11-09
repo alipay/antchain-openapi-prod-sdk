@@ -1,13 +1,88 @@
 <?php
 
 // This file is auto-generated, don't edit it. Thanks.
-
 namespace AntChain\Ak_195dff03d395462ea294bafdba69df3f\Models;
 
 use AlibabaCloud\Tea\Model;
 
-class InitAntchainAtoTradeSettletocardRequest extends Model
-{
+class InitAntchainAtoTradeSettletocardRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'productInstanceId' => 'product_instance_id',
+        'merchantId' => 'merchant_id',
+        'payChannel' => 'pay_channel',
+        'subMerchantId' => 'sub_merchant_id',
+        'gmtPlan' => 'gmt_plan',
+        'gmtFinish' => 'gmt_finish',
+        'billType' => 'bill_type',
+    ];
+    public function validate() {
+        Model::validateRequired('merchantId', $this->merchantId, true);
+        Model::validateRequired('payChannel', $this->payChannel, true);
+        Model::validateRequired('gmtPlan', $this->gmtPlan, true);
+        Model::validateRequired('gmtFinish', $this->gmtFinish, true);
+        Model::validateRequired('billType', $this->billType, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->productInstanceId) {
+            $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->merchantId) {
+            $res['merchant_id'] = $this->merchantId;
+        }
+        if (null !== $this->payChannel) {
+            $res['pay_channel'] = $this->payChannel;
+        }
+        if (null !== $this->subMerchantId) {
+            $res['sub_merchant_id'] = $this->subMerchantId;
+        }
+        if (null !== $this->gmtPlan) {
+            $res['gmt_plan'] = $this->gmtPlan;
+        }
+        if (null !== $this->gmtFinish) {
+            $res['gmt_finish'] = $this->gmtFinish;
+        }
+        if (null !== $this->billType) {
+            $res['bill_type'] = $this->billType;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return InitAntchainAtoTradeSettletocardRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['product_instance_id'])){
+            $model->productInstanceId = $map['product_instance_id'];
+        }
+        if(isset($map['merchant_id'])){
+            $model->merchantId = $map['merchant_id'];
+        }
+        if(isset($map['pay_channel'])){
+            $model->payChannel = $map['pay_channel'];
+        }
+        if(isset($map['sub_merchant_id'])){
+            $model->subMerchantId = $map['sub_merchant_id'];
+        }
+        if(isset($map['gmt_plan'])){
+            $model->gmtPlan = $map['gmt_plan'];
+        }
+        if(isset($map['gmt_finish'])){
+            $model->gmtFinish = $map['gmt_finish'];
+        }
+        if(isset($map['bill_type'])){
+            $model->billType = $map['bill_type'];
+        }
+        return $model;
+    }
     // OAuth模式下的授权token
     /**
      * @var string
@@ -54,90 +129,5 @@ class InitAntchainAtoTradeSettletocardRequest extends Model
      * @var string
      */
     public $billType;
-    protected $_name = [
-        'authToken'         => 'auth_token',
-        'productInstanceId' => 'product_instance_id',
-        'merchantId'        => 'merchant_id',
-        'payChannel'        => 'pay_channel',
-        'subMerchantId'     => 'sub_merchant_id',
-        'gmtPlan'           => 'gmt_plan',
-        'gmtFinish'         => 'gmt_finish',
-        'billType'          => 'bill_type',
-    ];
 
-    public function validate()
-    {
-        Model::validateRequired('merchantId', $this->merchantId, true);
-        Model::validateRequired('payChannel', $this->payChannel, true);
-        Model::validateRequired('gmtPlan', $this->gmtPlan, true);
-        Model::validateRequired('gmtFinish', $this->gmtFinish, true);
-        Model::validateRequired('billType', $this->billType, true);
-    }
-
-    public function toMap()
-    {
-        $res = [];
-        if (null !== $this->authToken) {
-            $res['auth_token'] = $this->authToken;
-        }
-        if (null !== $this->productInstanceId) {
-            $res['product_instance_id'] = $this->productInstanceId;
-        }
-        if (null !== $this->merchantId) {
-            $res['merchant_id'] = $this->merchantId;
-        }
-        if (null !== $this->payChannel) {
-            $res['pay_channel'] = $this->payChannel;
-        }
-        if (null !== $this->subMerchantId) {
-            $res['sub_merchant_id'] = $this->subMerchantId;
-        }
-        if (null !== $this->gmtPlan) {
-            $res['gmt_plan'] = $this->gmtPlan;
-        }
-        if (null !== $this->gmtFinish) {
-            $res['gmt_finish'] = $this->gmtFinish;
-        }
-        if (null !== $this->billType) {
-            $res['bill_type'] = $this->billType;
-        }
-
-        return $res;
-    }
-
-    /**
-     * @param array $map
-     *
-     * @return InitAntchainAtoTradeSettletocardRequest
-     */
-    public static function fromMap($map = [])
-    {
-        $model = new self();
-        if (isset($map['auth_token'])) {
-            $model->authToken = $map['auth_token'];
-        }
-        if (isset($map['product_instance_id'])) {
-            $model->productInstanceId = $map['product_instance_id'];
-        }
-        if (isset($map['merchant_id'])) {
-            $model->merchantId = $map['merchant_id'];
-        }
-        if (isset($map['pay_channel'])) {
-            $model->payChannel = $map['pay_channel'];
-        }
-        if (isset($map['sub_merchant_id'])) {
-            $model->subMerchantId = $map['sub_merchant_id'];
-        }
-        if (isset($map['gmt_plan'])) {
-            $model->gmtPlan = $map['gmt_plan'];
-        }
-        if (isset($map['gmt_finish'])) {
-            $model->gmtFinish = $map['gmt_finish'];
-        }
-        if (isset($map['bill_type'])) {
-            $model->billType = $map['bill_type'];
-        }
-
-        return $model;
-    }
 }
