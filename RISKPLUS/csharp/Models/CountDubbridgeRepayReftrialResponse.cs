@@ -49,6 +49,21 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public ApplyInfo ApplyInfo { get; set; }
 
+        // lpr利率
+        [NameInMap("lpr")]
+        [Validation(Required=false)]
+        public string Lpr { get; set; }
+
+        // LPR加点值
+        [NameInMap("lpr_point")]
+        [Validation(Required=false)]
+        public string LprPoint { get; set; }
+
+        // 总应还商贴
+        [NameInMap("total_subsidy_interest")]
+        [Validation(Required=false)]
+        public string TotalSubsidyInterest { get; set; }
+
     }
 
 }
