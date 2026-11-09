@@ -22362,6 +22362,9 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         repay_account: str = None,
         total_interest: int = None,
         apply_info: ApplyInfo = None,
+        lpr: str = None,
+        lpr_point: str = None,
+        total_subsidy_interest: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22379,6 +22382,12 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         self.total_interest = total_interest
         # 授信信息
         self.apply_info = apply_info
+        # lpr利率
+        self.lpr = lpr
+        # LPR加点值
+        self.lpr_point = lpr_point
+        # 总应还商贴
+        self.total_subsidy_interest = total_subsidy_interest
 
     def validate(self):
         if self.repay_trail_list:
@@ -22412,6 +22421,12 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
             result['total_interest'] = self.total_interest
         if self.apply_info is not None:
             result['apply_info'] = self.apply_info.to_map()
+        if self.lpr is not None:
+            result['lpr'] = self.lpr
+        if self.lpr_point is not None:
+            result['lpr_point'] = self.lpr_point
+        if self.total_subsidy_interest is not None:
+            result['total_subsidy_interest'] = self.total_subsidy_interest
         return result
 
     def from_map(self, m: dict = None):
@@ -22436,6 +22451,12 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         if m.get('apply_info') is not None:
             temp_model = ApplyInfo()
             self.apply_info = temp_model.from_map(m['apply_info'])
+        if m.get('lpr') is not None:
+            self.lpr = m.get('lpr')
+        if m.get('lpr_point') is not None:
+            self.lpr_point = m.get('lpr_point')
+        if m.get('total_subsidy_interest') is not None:
+            self.total_subsidy_interest = m.get('total_subsidy_interest')
         return self
 
 
@@ -33858,6 +33879,7 @@ class QueryDubbridgeRepayofflineaccountRequest(TeaModel):
         dc_flag: str = None,
         current_page: str = None,
         page_num: str = None,
+        fund_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -33878,10 +33900,11 @@ class QueryDubbridgeRepayofflineaccountRequest(TeaModel):
         self.current_page = current_page
         # 每页记录数
         self.page_num = page_num
+        # 资金方编号
+        self.fund_code = fund_code
 
     def validate(self):
         self.validate_required(self.order_no, 'order_no')
-        self.validate_required(self.use_credit_order_no, 'use_credit_order_no')
         self.validate_required(self.start_date, 'start_date')
         self.validate_required(self.end_date, 'end_date')
         self.validate_required(self.account_no, 'account_no')
@@ -33914,6 +33937,8 @@ class QueryDubbridgeRepayofflineaccountRequest(TeaModel):
             result['current_page'] = self.current_page
         if self.page_num is not None:
             result['page_num'] = self.page_num
+        if self.fund_code is not None:
+            result['fund_code'] = self.fund_code
         return result
 
     def from_map(self, m: dict = None):
@@ -33938,6 +33963,8 @@ class QueryDubbridgeRepayofflineaccountRequest(TeaModel):
             self.current_page = m.get('current_page')
         if m.get('page_num') is not None:
             self.page_num = m.get('page_num')
+        if m.get('fund_code') is not None:
+            self.fund_code = m.get('fund_code')
         return self
 
 

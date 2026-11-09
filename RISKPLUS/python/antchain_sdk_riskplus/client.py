@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.13',
+                    'sdk_version': '1.33.14',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.33.13',
+                    'sdk_version': '1.33.14',
                     '_prod_code': 'RISKPLUS',
                     '_prod_channel': 'undefined'
                 }
@@ -3901,7 +3901,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayReftrialResponse:
         """
         Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-        Summary: 天枢系统还款计划试算
+        Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3913,7 +3913,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayReftrialResponse:
         """
         Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-        Summary: 天枢系统还款计划试算
+        Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -3927,7 +3927,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayReftrialResponse:
         """
         Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-        Summary: 天枢系统还款计划试算
+        Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -3943,7 +3943,7 @@ class Client:
     ) -> riskplus_models.CountDubbridgeRepayReftrialResponse:
         """
         Description: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
-        Summary: 天枢系统还款计划试算
+        Summary: 天枢系统还款计划试算，根据借款金额和期数计算还款计划
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
