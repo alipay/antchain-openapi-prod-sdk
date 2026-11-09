@@ -71,6 +71,10 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     @NameInMap("pay_channel")
     public String payChannel;
 
+    // 直付通开通服务
+    @NameInMap("open_service_list")
+    public java.util.List<String> openServiceList;
+
     public static QueryInnerMerchantpayexpandResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryInnerMerchantpayexpandResponse self = new QueryInnerMerchantpayexpandResponse();
         return TeaModel.build(map, self);
@@ -202,6 +206,14 @@ public class QueryInnerMerchantpayexpandResponse extends TeaModel {
     }
     public String getPayChannel() {
         return this.payChannel;
+    }
+
+    public QueryInnerMerchantpayexpandResponse setOpenServiceList(java.util.List<String> openServiceList) {
+        this.openServiceList = openServiceList;
+        return this;
+    }
+    public java.util.List<String> getOpenServiceList() {
+        return this.openServiceList;
     }
 
 }
