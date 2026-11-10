@@ -40,7 +40,7 @@ public class QueryDubbridgePetorderResponse extends TeaModel {
     @NameInMap("send_pay_date")
     public String sendPayDate;
 
-    // 实收金额
+    // 实收金额，单位元
     @NameInMap("receipt_amount")
     public String receiptAmount;
 
@@ -55,6 +55,10 @@ public class QueryDubbridgePetorderResponse extends TeaModel {
     // 分期期数，只有发生贴息交易时才存在
     @NameInMap("install_num")
     public String installNum;
+
+    // 支付手续费，单位元
+    @NameInMap("service_fee")
+    public String serviceFee;
 
     public static QueryDubbridgePetorderResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryDubbridgePetorderResponse self = new QueryDubbridgePetorderResponse();
@@ -163,6 +167,14 @@ public class QueryDubbridgePetorderResponse extends TeaModel {
     }
     public String getInstallNum() {
         return this.installNum;
+    }
+
+    public QueryDubbridgePetorderResponse setServiceFee(String serviceFee) {
+        this.serviceFee = serviceFee;
+        return this;
+    }
+    public String getServiceFee() {
+        return this.serviceFee;
     }
 
 }
