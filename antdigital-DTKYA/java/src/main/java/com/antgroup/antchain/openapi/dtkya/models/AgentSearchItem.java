@@ -172,14 +172,6 @@ public class AgentSearchItem extends TeaModel {
     @NameInMap("sparse_score")
     public String sparseScore;
 
-    // 重排分；当前为批内归一化分，不是模型原始概率；小数字符串，通道无分数时缺省
-    /**
-     * <strong>example:</strong>
-     * <p>0.9</p>
-     */
-    @NameInMap("rerank_score")
-    public String rerankScore;
-
     public static AgentSearchItem build(java.util.Map<String, ?> map) throws Exception {
         AgentSearchItem self = new AgentSearchItem();
         return TeaModel.build(map, self);
@@ -343,14 +335,6 @@ public class AgentSearchItem extends TeaModel {
     }
     public String getSparseScore() {
         return this.sparseScore;
-    }
-
-    public AgentSearchItem setRerankScore(String rerankScore) {
-        this.rerankScore = rerankScore;
-        return this;
-    }
-    public String getRerankScore() {
-        return this.rerankScore;
     }
 
 }
