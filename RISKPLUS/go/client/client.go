@@ -29284,7 +29284,7 @@ type QueryDubbridgePetorderResponse struct {
 	BuyerUserId *string `json:"buyer_user_id,omitempty" xml:"buyer_user_id,omitempty"`
 	// 本次交易打款给卖家的时间
 	SendPayDate *string `json:"send_pay_date,omitempty" xml:"send_pay_date,omitempty"`
-	// 实收金额
+	// 实收金额，单位元
 	ReceiptAmount *string `json:"receipt_amount,omitempty" xml:"receipt_amount,omitempty"`
 	// 支付渠道编码
 	PaymentChannelCode *string `json:"payment_channel_code,omitempty" xml:"payment_channel_code,omitempty"`
@@ -29292,6 +29292,8 @@ type QueryDubbridgePetorderResponse struct {
 	PayInstitutionCode *string `json:"pay_institution_code,omitempty" xml:"pay_institution_code,omitempty"`
 	// 分期期数，只有发生贴息交易时才存在
 	InstallNum *string `json:"install_num,omitempty" xml:"install_num,omitempty"`
+	// 支付手续费，单位元
+	ServiceFee *string `json:"service_fee,omitempty" xml:"service_fee,omitempty"`
 }
 
 func (s QueryDubbridgePetorderResponse) String() string {
@@ -29364,6 +29366,11 @@ func (s *QueryDubbridgePetorderResponse) SetPayInstitutionCode(v string) *QueryD
 
 func (s *QueryDubbridgePetorderResponse) SetInstallNum(v string) *QueryDubbridgePetorderResponse {
 	s.InstallNum = &v
+	return s
+}
+
+func (s *QueryDubbridgePetorderResponse) SetServiceFee(v string) *QueryDubbridgePetorderResponse {
+	s.ServiceFee = &v
 	return s
 }
 
@@ -49279,7 +49286,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.33.14"),
+				"sdk_version":      tea.String("1.33.15"),
 				"_prod_code":       tea.String("RISKPLUS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
