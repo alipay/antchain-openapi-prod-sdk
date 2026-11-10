@@ -140,6 +140,46 @@ public class AgentSearchItem extends TeaModel {
     @NameInMap("source_updated_at")
     public String sourceUpdatedAt;
 
+    // 最终排序分；当前重排成功时为批内归一化分，不是匹配概率；小数字符串，通道无分数时缺省
+    /**
+     * <strong>example:</strong>
+     * <p>0.9</p>
+     */
+    @NameInMap("match_score")
+    public String matchScore;
+
+    // 关键词原始分，不同查询不可直接比较；小数字符串，通道无分数时缺省
+    /**
+     * <strong>example:</strong>
+     * <p>5.9128065</p>
+     */
+    @NameInMap("bm25_score")
+    public String bm25Score;
+
+    // 稠密向量分；KYA minVectorScore 使用此分准入；小数字符串，通道无分数时缺省
+    /**
+     * <strong>example:</strong>
+     * <p>0.7677212</p>
+     */
+    @NameInMap("vector_score")
+    public String vectorScore;
+
+    // 稀疏向量原始分，与其他通道分值尺度不同；小数字符串，通道无分数时缺省
+    /**
+     * <strong>example:</strong>
+     * <p>11.386748</p>
+     */
+    @NameInMap("sparse_score")
+    public String sparseScore;
+
+    // 重排分；当前为批内归一化分，不是模型原始概率；小数字符串，通道无分数时缺省
+    /**
+     * <strong>example:</strong>
+     * <p>0.9</p>
+     */
+    @NameInMap("rerank_score")
+    public String rerankScore;
+
     public static AgentSearchItem build(java.util.Map<String, ?> map) throws Exception {
         AgentSearchItem self = new AgentSearchItem();
         return TeaModel.build(map, self);
@@ -271,6 +311,46 @@ public class AgentSearchItem extends TeaModel {
     }
     public String getSourceUpdatedAt() {
         return this.sourceUpdatedAt;
+    }
+
+    public AgentSearchItem setMatchScore(String matchScore) {
+        this.matchScore = matchScore;
+        return this;
+    }
+    public String getMatchScore() {
+        return this.matchScore;
+    }
+
+    public AgentSearchItem setBm25Score(String bm25Score) {
+        this.bm25Score = bm25Score;
+        return this;
+    }
+    public String getBm25Score() {
+        return this.bm25Score;
+    }
+
+    public AgentSearchItem setVectorScore(String vectorScore) {
+        this.vectorScore = vectorScore;
+        return this;
+    }
+    public String getVectorScore() {
+        return this.vectorScore;
+    }
+
+    public AgentSearchItem setSparseScore(String sparseScore) {
+        this.sparseScore = sparseScore;
+        return this;
+    }
+    public String getSparseScore() {
+        return this.sparseScore;
+    }
+
+    public AgentSearchItem setRerankScore(String rerankScore) {
+        this.rerankScore = rerankScore;
+        return this;
+    }
+    public String getRerankScore() {
+        return this.rerankScore;
     }
 
 }

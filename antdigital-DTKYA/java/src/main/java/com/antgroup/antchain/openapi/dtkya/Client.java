@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.30"),
+                    new TeaPair("sdk_version", "1.0.31"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -942,5 +942,26 @@ public class Client {
     public SearchAntchainDasKyaAgentResponse searchAntchainDasKyaAgentEx(SearchAntchainDasKyaAgentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.agent.search", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SearchAntchainDasKyaAgentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收 Agent 的 L2 环境快照与协作 Session 的 Trace Turn，返回报告受理结果
+     * Summary: 接收 Agent 的 L2 环境快照与协作 Session 的 Trace Turn，返回报告受理结果</p>
+     */
+    public PushAntchainDasKyaLtworeportResponse pushAntchainDasKyaLtworeport(PushAntchainDasKyaLtworeportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaLtworeportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 接收 Agent 的 L2 环境快照与协作 Session 的 Trace Turn，返回报告受理结果
+     * Summary: 接收 Agent 的 L2 环境快照与协作 Session 的 Trace Turn，返回报告受理结果</p>
+     */
+    public PushAntchainDasKyaLtworeportResponse pushAntchainDasKyaLtworeportEx(PushAntchainDasKyaLtworeportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltworeport.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaLtworeportResponse());
     }
 }
