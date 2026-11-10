@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.20.27"),
+                    new TeaPair("sdk_version", "1.20.28"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -744,6 +744,90 @@ public class Client {
     public SyncAcctTradeorderbreachResponse syncAcctTradeorderbreachEx(SyncAcctTradeorderbreachRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.acct.tradeorderbreach.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncAcctTradeorderbreachResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租商品信息同步
+     * Summary: 短租商品信息同步</p>
+     */
+    public SyncRentalProductResponse syncRentalProduct(SyncRentalProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncRentalProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租商品信息同步
+     * Summary: 短租商品信息同步</p>
+     */
+    public SyncRentalProductResponse syncRentalProductEx(SyncRentalProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.rental.product.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncRentalProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租商品信息查询
+     * Summary: 短租商品信息查询</p>
+     */
+    public QueryRentalProductResponse queryRentalProduct(QueryRentalProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRentalProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租商品信息查询
+     * Summary: 短租商品信息查询</p>
+     */
+    public QueryRentalProductResponse queryRentalProductEx(QueryRentalProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.rental.product.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRentalProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租风控策略配置
+     * Summary: 短租风控策略配置</p>
+     */
+    public ConfigRentalRiskstrategyResponse configRentalRiskstrategy(ConfigRentalRiskstrategyRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.configRentalRiskstrategyEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租风控策略配置
+     * Summary: 短租风控策略配置</p>
+     */
+    public ConfigRentalRiskstrategyResponse configRentalRiskstrategyEx(ConfigRentalRiskstrategyRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.rental.riskstrategy.config", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfigRentalRiskstrategyResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租风控查询
+     * Summary: 短租风控查询</p>
+     */
+    public QueryRentalRiskResponse queryRentalRisk(QueryRentalRiskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRentalRiskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 短租风控查询
+     * Summary: 短租风控查询</p>
+     */
+    public QueryRentalRiskResponse queryRentalRiskEx(QueryRentalRiskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.rental.risk.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRentalRiskResponse());
     }
 
     /**
