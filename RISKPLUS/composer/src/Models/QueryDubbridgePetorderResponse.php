@@ -20,6 +20,7 @@ class QueryDubbridgePetorderResponse extends Model {
         'paymentChannelCode' => 'payment_channel_code',
         'payInstitutionCode' => 'pay_institution_code',
         'installNum' => 'install_num',
+        'serviceFee' => 'service_fee',
     ];
     public function validate() {}
     public function toMap() {
@@ -62,6 +63,9 @@ class QueryDubbridgePetorderResponse extends Model {
         }
         if (null !== $this->installNum) {
             $res['install_num'] = $this->installNum;
+        }
+        if (null !== $this->serviceFee) {
+            $res['service_fee'] = $this->serviceFee;
         }
         return $res;
     }
@@ -109,6 +113,9 @@ class QueryDubbridgePetorderResponse extends Model {
         }
         if(isset($map['install_num'])){
             $model->installNum = $map['install_num'];
+        }
+        if(isset($map['service_fee'])){
+            $model->serviceFee = $map['service_fee'];
         }
         return $model;
     }
@@ -166,7 +173,7 @@ class QueryDubbridgePetorderResponse extends Model {
      */
     public $sendPayDate;
 
-    // 实收金额
+    // 实收金额，单位元
     /**
      * @var string
      */
@@ -189,5 +196,11 @@ class QueryDubbridgePetorderResponse extends Model {
      * @var string
      */
     public $installNum;
+
+    // 支付手续费，单位元
+    /**
+     * @var string
+     */
+    public $serviceFee;
 
 }
