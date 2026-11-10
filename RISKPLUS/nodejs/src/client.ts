@@ -23573,7 +23573,7 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
   buyerUserId?: string;
   // 本次交易打款给卖家的时间
   sendPayDate?: string;
-  // 实收金额
+  // 实收金额，单位元
   receiptAmount?: string;
   // 支付渠道编码
   paymentChannelCode?: string;
@@ -23581,6 +23581,8 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
   payInstitutionCode?: string;
   // 分期期数，只有发生贴息交易时才存在
   installNum?: string;
+  // 支付手续费，单位元
+  serviceFee?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -23596,6 +23598,7 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
       paymentChannelCode: 'payment_channel_code',
       payInstitutionCode: 'pay_institution_code',
       installNum: 'install_num',
+      serviceFee: 'service_fee',
     };
   }
 
@@ -23614,6 +23617,7 @@ export class QueryDubbridgePetorderResponse extends $tea.Model {
       paymentChannelCode: 'string',
       payInstitutionCode: 'string',
       installNum: 'string',
+      serviceFee: 'string',
     };
   }
 
@@ -38711,7 +38715,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.14",
+          sdk_version: "1.33.15",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
