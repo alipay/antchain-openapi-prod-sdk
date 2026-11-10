@@ -16,15 +16,11 @@ class TurnModelCallsUsages extends Model {
         'cachedReadTokens' => 'cached_read_tokens',
         'cachedWriteTokens' => 'cached_write_tokens',
         'modelDurationMs' => 'model_duration_ms',
+        'turnId' => 'turn_id',
+        'complete' => 'complete',
+        'turnDurationMs' => 'turn_duration_ms',
     ];
-    public function validate() {
-        Model::validateRequired('model', $this->model, true);
-        Model::validateRequired('status', $this->status, true);
-        Model::validateRequired('inputTokens', $this->inputTokens, true);
-        Model::validateRequired('outputTokens', $this->outputTokens, true);
-        Model::validateRequired('totalTokens', $this->totalTokens, true);
-        Model::validateRequired('modelDurationMs', $this->modelDurationMs, true);
-    }
+    public function validate() {}
     public function toMap() {
         $res = [];
         if (null !== $this->model) {
@@ -53,6 +49,15 @@ class TurnModelCallsUsages extends Model {
         }
         if (null !== $this->modelDurationMs) {
             $res['model_duration_ms'] = $this->modelDurationMs;
+        }
+        if (null !== $this->turnId) {
+            $res['turn_id'] = $this->turnId;
+        }
+        if (null !== $this->complete) {
+            $res['complete'] = $this->complete;
+        }
+        if (null !== $this->turnDurationMs) {
+            $res['turn_duration_ms'] = $this->turnDurationMs;
         }
         return $res;
     }
@@ -89,69 +94,99 @@ class TurnModelCallsUsages extends Model {
         if(isset($map['model_duration_ms'])){
             $model->modelDurationMs = $map['model_duration_ms'];
         }
+        if(isset($map['turn_id'])){
+            $model->turnId = $map['turn_id'];
+        }
+        if(isset($map['complete'])){
+            $model->complete = $map['complete'];
+        }
+        if(isset($map['turn_duration_ms'])){
+            $model->turnDurationMs = $map['turn_duration_ms'];
+        }
         return $model;
     }
-    // 模型名称
+    // 模型名
     /**
-     * @example deepseek-v4.1-flash
+     * @example undefined
      * @var string
      */
     public $model;
 
-    // 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+    // 调用状态
     /**
-     * @example COMPLETED
+     * @example undefined
      * @var string
      */
     public $status;
 
-    // 输入 token
+    // 输入token
     /**
-     * @example 20
+     * @example undefined
      * @var int
      */
     public $inputTokens;
 
-    // 输出 token
+    // 输出token
     /**
-     * @example 1024
+     * @example undefined
      * @var int
      */
     public $outputTokens;
 
-    // 总 token
+    // 总token
     /**
-     * @example 1024
+     * @example undefined
      * @var int
      */
     public $totalTokens;
 
-    // 推理 token（可选，有才返回）
+    // 推理token
     /**
-     * @example 1024
+     * @example undefined
      * @var int
      */
     public $reasoningTokens;
 
-    // 缓存读取 token（可选）
+    // 缓存读取token
     /**
-     * @example 1024
+     * @example undefined
      * @var int
      */
     public $cachedReadTokens;
 
-    // 缓存写入 token（可选）
+    // 缓存写入token
     /**
-     * @example 1024
+     * @example undefined
      * @var int
      */
     public $cachedWriteTokens;
 
-    // 当前模型调用耗时
+    // 单次模型调用耗时(毫秒)
     /**
-     * @example 1000
+     * @example undefined
      * @var int
      */
     public $modelDurationMs;
+
+    // 轮次ID
+    /**
+     * @example undefined
+     * @var string
+     */
+    public $turnId;
+
+    // 该轮用量是否完整计量
+    /**
+     * @example undefined
+     * @var bool
+     */
+    public $complete;
+
+    // 轮次总耗时(毫秒，含模型调用+工具执行)
+    /**
+     * @example undefined
+     * @var int
+     */
+    public $turnDurationMs;
 
 }

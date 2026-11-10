@@ -202,6 +202,10 @@ use AntChain\BOT\Models\ExecAskdataSourceRequest;
 use AntChain\BOT\Models\ExecAskdataSourceResponse;
 use AntChain\BOT\Models\QueryAskdataSourceRequest;
 use AntChain\BOT\Models\QueryAskdataSourceResponse;
+use AntChain\BOT\Models\TrajectoryIotagentSessionRequest;
+use AntChain\BOT\Models\TrajectoryIotagentSessionResponse;
+use AntChain\BOT\Models\StepsIotagentSessionTrajectoryRequest;
+use AntChain\BOT\Models\StepsIotagentSessionTrajectoryResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -931,7 +935,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.22.5",
+                    "sdk_version" => "1.22.10",
                     "_prod_code" => "BOT",
                     "_prod_channel" => "undefined"
                 ];
@@ -3364,6 +3368,56 @@ class Client {
     public function queryAskdataSourceEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAskdataSourceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.askdata.source.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * @param TrajectoryIotagentSessionRequest $request
+     * @return TrajectoryIotagentSessionResponse
+     */
+    public function trajectoryIotagentSession($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->trajectoryIotagentSessionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+     * @param TrajectoryIotagentSessionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TrajectoryIotagentSessionResponse
+     */
+    public function trajectoryIotagentSessionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TrajectoryIotagentSessionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树
+     * @param StepsIotagentSessionTrajectoryRequest $request
+     * @return StepsIotagentSessionTrajectoryResponse
+     */
+    public function stepsIotagentSessionTrajectory($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->stepsIotagentSessionTrajectoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询单轮/操作的执行步骤详情，展开执行树
+     * Summary: 查询单轮/操作的执行步骤详情，展开执行树
+     * @param StepsIotagentSessionTrajectoryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StepsIotagentSessionTrajectoryResponse
+     */
+    public function stepsIotagentSessionTrajectoryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StepsIotagentSessionTrajectoryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

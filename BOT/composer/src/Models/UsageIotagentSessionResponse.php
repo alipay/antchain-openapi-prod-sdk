@@ -7,6 +7,7 @@ use AlibabaCloud\Tea\Model;
 
 use AntChain\BOT\Models\SessionUsage;
 use AntChain\BOT\Models\TurnModelCallsUsages;
+use AntChain\BOT\Models\ContextOccupancy;
 
 class UsageIotagentSessionResponse extends Model {
     protected $_name = [
@@ -16,6 +17,7 @@ class UsageIotagentSessionResponse extends Model {
         'sessionUsage' => 'session_usage',
         'total' => 'total',
         'turns' => 'turns',
+        'context' => 'context',
     ];
     public function validate() {}
     public function toMap() {
@@ -43,6 +45,9 @@ class UsageIotagentSessionResponse extends Model {
                     $res['turns'][$n++] = null !== $item ? $item->toMap() : $item;
                 }
             }
+        }
+        if (null !== $this->context) {
+            $res['context'] = null !== $this->context ? $this->context->toMap() : null;
         }
         return $res;
     }
@@ -75,6 +80,9 @@ class UsageIotagentSessionResponse extends Model {
                     $model->turns[$n++] = null !== $item ? TurnModelCallsUsages::fromMap($item) : $item;
                 }
             }
+        }
+        if(isset($map['context'])){
+            $model->context = ContextOccupancy::fromMap($map['context']);
         }
         return $model;
     }
@@ -113,5 +121,11 @@ class UsageIotagentSessionResponse extends Model {
      * @var TurnModelCallsUsages[]
      */
     public $turns;
+
+    // 上下文占用分析（基于最后一次模型调用估算）
+    /**
+     * @var ContextOccupancy
+     */
+    public $context;
 
 }

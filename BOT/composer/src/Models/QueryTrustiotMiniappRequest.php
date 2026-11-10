@@ -126,7 +126,7 @@ class QueryTrustiotMiniappRequest extends Model {
      */
     public $traceNo;
 
-    // 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+    // 链接渠道：H5 或 MINIAPP
     /**
      * @var string
      */

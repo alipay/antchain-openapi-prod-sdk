@@ -5,8 +5,6 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
-use AntChain\BOT\Models\AccessScopeItem;
-
 class QueryTrustiotMiniappResponse extends Model {
     protected $_name = [
         'reqMsgId' => 'req_msg_id',
@@ -15,8 +13,6 @@ class QueryTrustiotMiniappResponse extends Model {
         'redirectUrl' => 'redirect_url',
         'validFrom' => 'valid_from',
         'validTo' => 'valid_to',
-        'invalidTargets' => 'invalid_targets',
-        'validTargetCount' => 'valid_target_count',
     ];
     public function validate() {}
     public function toMap() {
@@ -38,18 +34,6 @@ class QueryTrustiotMiniappResponse extends Model {
         }
         if (null !== $this->validTo) {
             $res['valid_to'] = $this->validTo;
-        }
-        if (null !== $this->invalidTargets) {
-            $res['invalid_targets'] = [];
-            if(null !== $this->invalidTargets && is_array($this->invalidTargets)){
-                $n = 0;
-                foreach($this->invalidTargets as $item){
-                    $res['invalid_targets'][$n++] = null !== $item ? $item->toMap() : $item;
-                }
-            }
-        }
-        if (null !== $this->validTargetCount) {
-            $res['valid_target_count'] = $this->validTargetCount;
         }
         return $res;
     }
@@ -77,18 +61,6 @@ class QueryTrustiotMiniappResponse extends Model {
         if(isset($map['valid_to'])){
             $model->validTo = $map['valid_to'];
         }
-        if(isset($map['invalid_targets'])){
-            if(!empty($map['invalid_targets'])){
-                $model->invalidTargets = [];
-                $n = 0;
-                foreach($map['invalid_targets'] as $item) {
-                    $model->invalidTargets[$n++] = null !== $item ? AccessScopeItem::fromMap($item) : $item;
-                }
-            }
-        }
-        if(isset($map['valid_target_count'])){
-            $model->validTargetCount = $map['valid_target_count'];
-        }
         return $model;
     }
     // 请求唯一ID，用于链路跟踪和问题排查
@@ -109,34 +81,22 @@ class QueryTrustiotMiniappResponse extends Model {
      */
     public $resultMsg;
 
-    // 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
+    // 一次性跳转链接。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
     /**
      * @var string
      */
     public $redirectUrl;
 
-    // 链接生效时间，秒级时间戳
+    // 链接生效时间，毫秒级时间戳
     /**
      * @var int
      */
     public $validFrom;
 
-    // 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
+    // 链接过期时间，毫秒级时间戳，valid_from 起 24 小时。过期后链接不可用
     /**
      * @var int
      */
     public $validTo;
-
-    // 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
-    /**
-     * @var AccessScopeItem[]
-     */
-    public $invalidTargets;
-
-    // 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
-    /**
-     * @var int
-     */
-    public $validTargetCount;
 
 }
