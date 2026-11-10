@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.8"),
+                    new TeaPair("sdk_version", "1.1.10"),
                     new TeaPair("_prod_code", "BLACKLIST"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -606,6 +606,27 @@ public class Client {
     public TransferZolozhkRaasRealidReusableResponse transferZolozhkRaasRealidReusableEx(TransferZolozhkRaasRealidReusableRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.realid.reusable.transfer", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TransferZolozhkRaasRealidReusableResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对客生成短链二维码接口，辅助webSDK移动端业务发起
+     * Summary: 对客生成短链二维码接口，辅助webSDK移动端业务发起</p>
+     */
+    public SyncZolozhkRaasShourturlResponse syncZolozhkRaasShourturl(SyncZolozhkRaasShourturlRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.syncZolozhkRaasShourturlEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 对客生成短链二维码接口，辅助webSDK移动端业务发起
+     * Summary: 对客生成短链二维码接口，辅助webSDK移动端业务发起</p>
+     */
+    public SyncZolozhkRaasShourturlResponse syncZolozhkRaasShourturlEx(SyncZolozhkRaasShourturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.shourturl.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncZolozhkRaasShourturlResponse());
     }
 
     /**
