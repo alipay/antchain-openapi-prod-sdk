@@ -54,7 +54,7 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string SendPayDate { get; set; }
 
-        // 实收金额
+        // 实收金额，单位元
         [NameInMap("receipt_amount")]
         [Validation(Required=false)]
         public string ReceiptAmount { get; set; }
@@ -73,6 +73,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [NameInMap("install_num")]
         [Validation(Required=false)]
         public string InstallNum { get; set; }
+
+        // 支付手续费，单位元
+        [NameInMap("service_fee")]
+        [Validation(Required=false)]
+        public string ServiceFee { get; set; }
 
     }
 
