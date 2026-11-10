@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-blacklist</artifactId>
-   <version>1.1.10</version>
+   <version>1.1.11</version>
 </dependency>
 ```
 
