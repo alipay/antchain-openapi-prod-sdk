@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.5',
+                    'sdk_version': '1.22.10',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.5',
+                    'sdk_version': '1.22.10',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -5609,6 +5609,118 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryAskdataSourceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.askdata.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def trajectory_iotagent_session(
+        self,
+        request: bot_models.TrajectoryIotagentSessionRequest,
+    ) -> bot_models.TrajectoryIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.trajectory_iotagent_session_ex(request, headers, runtime)
+
+    async def trajectory_iotagent_session_async(
+        self,
+        request: bot_models.TrajectoryIotagentSessionRequest,
+    ) -> bot_models.TrajectoryIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.trajectory_iotagent_session_ex_async(request, headers, runtime)
+
+    def trajectory_iotagent_session_ex(
+        self,
+        request: bot_models.TrajectoryIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TrajectoryIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TrajectoryIotagentSessionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.trajectory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def trajectory_iotagent_session_ex_async(
+        self,
+        request: bot_models.TrajectoryIotagentSessionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TrajectoryIotagentSessionResponse:
+        """
+        Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TrajectoryIotagentSessionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.trajectory', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def steps_iotagent_session_trajectory(
+        self,
+        request: bot_models.StepsIotagentSessionTrajectoryRequest,
+    ) -> bot_models.StepsIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.steps_iotagent_session_trajectory_ex(request, headers, runtime)
+
+    async def steps_iotagent_session_trajectory_async(
+        self,
+        request: bot_models.StepsIotagentSessionTrajectoryRequest,
+    ) -> bot_models.StepsIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.steps_iotagent_session_trajectory_ex_async(request, headers, runtime)
+
+    def steps_iotagent_session_trajectory_ex(
+        self,
+        request: bot_models.StepsIotagentSessionTrajectoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StepsIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StepsIotagentSessionTrajectoryResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.session.trajectory.steps', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def steps_iotagent_session_trajectory_ex_async(
+        self,
+        request: bot_models.StepsIotagentSessionTrajectoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StepsIotagentSessionTrajectoryResponse:
+        """
+        Description: 查询单轮/操作的执行步骤详情，展开执行树
+        Summary: 查询单轮/操作的执行步骤详情，展开执行树
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StepsIotagentSessionTrajectoryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.trajectory.steps', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(

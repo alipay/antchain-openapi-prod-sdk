@@ -2155,33 +2155,37 @@ class TurnModelCallsUsages(TeaModel):
         cached_read_tokens: int = None,
         cached_write_tokens: int = None,
         model_duration_ms: int = None,
+        turn_id: str = None,
+        complete: bool = None,
+        turn_duration_ms: int = None,
     ):
-        # 模型名称
+        # 模型名
         self.model = model
-        # 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+        # 调用状态
         self.status = status
-        # 输入 token
+        # 输入token
         self.input_tokens = input_tokens
-        # 输出 token
+        # 输出token
         self.output_tokens = output_tokens
-        # 总 token
+        # 总token
         self.total_tokens = total_tokens
-        # 推理 token（可选，有才返回）
+        # 推理token
         self.reasoning_tokens = reasoning_tokens
-        # 缓存读取 token（可选）
+        # 缓存读取token
         self.cached_read_tokens = cached_read_tokens
-        # 缓存写入 token（可选）
+        # 缓存写入token
         self.cached_write_tokens = cached_write_tokens
-        # 当前模型调用耗时
+        # 单次模型调用耗时(毫秒)
         self.model_duration_ms = model_duration_ms
+        # 轮次ID
+        self.turn_id = turn_id
+        # 该轮用量是否完整计量
+        self.complete = complete
+        # 轮次总耗时(毫秒，含模型调用+工具执行)
+        self.turn_duration_ms = turn_duration_ms
 
     def validate(self):
-        self.validate_required(self.model, 'model')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.input_tokens, 'input_tokens')
-        self.validate_required(self.output_tokens, 'output_tokens')
-        self.validate_required(self.total_tokens, 'total_tokens')
-        self.validate_required(self.model_duration_ms, 'model_duration_ms')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -2207,6 +2211,12 @@ class TurnModelCallsUsages(TeaModel):
             result['cached_write_tokens'] = self.cached_write_tokens
         if self.model_duration_ms is not None:
             result['model_duration_ms'] = self.model_duration_ms
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.turn_duration_ms is not None:
+            result['turn_duration_ms'] = self.turn_duration_ms
         return result
 
     def from_map(self, m: dict = None):
@@ -2229,6 +2239,12 @@ class TurnModelCallsUsages(TeaModel):
             self.cached_write_tokens = m.get('cached_write_tokens')
         if m.get('model_duration_ms') is not None:
             self.model_duration_ms = m.get('model_duration_ms')
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('turn_duration_ms') is not None:
+            self.turn_duration_ms = m.get('turn_duration_ms')
         return self
 
 
@@ -10784,6 +10800,69 @@ class RentBillItem(TeaModel):
             self.bill_item_money = m.get('bill_item_money')
         if m.get('payment_state') is not None:
             self.payment_state = m.get('payment_state')
+        return self
+
+
+class ContextOccupancy(TeaModel):
+    def __init__(
+        self,
+        model: str = None,
+        estimated_input_tokens: int = None,
+        context_window_tokens: int = None,
+        input_window_ratio: int = None,
+        remaining_input_budget_tokens: int = None,
+        warning: str = None,
+    ):
+        # 最后一次模型调用的模型名
+        self.model = model
+        # 当前上下文占用token数
+        self.estimated_input_tokens = estimated_input_tokens
+        # 模型上下文窗口上限
+        self.context_window_tokens = context_window_tokens
+        # 上下文占用比率
+        self.input_window_ratio = input_window_ratio
+        # 剩余上下文预算token数
+        self.remaining_input_budget_tokens = remaining_input_budget_tokens
+        # 告警级别
+        self.warning = warning
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model is not None:
+            result['model'] = self.model
+        if self.estimated_input_tokens is not None:
+            result['estimated_input_tokens'] = self.estimated_input_tokens
+        if self.context_window_tokens is not None:
+            result['context_window_tokens'] = self.context_window_tokens
+        if self.input_window_ratio is not None:
+            result['input_window_ratio'] = self.input_window_ratio
+        if self.remaining_input_budget_tokens is not None:
+            result['remaining_input_budget_tokens'] = self.remaining_input_budget_tokens
+        if self.warning is not None:
+            result['warning'] = self.warning
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('model') is not None:
+            self.model = m.get('model')
+        if m.get('estimated_input_tokens') is not None:
+            self.estimated_input_tokens = m.get('estimated_input_tokens')
+        if m.get('context_window_tokens') is not None:
+            self.context_window_tokens = m.get('context_window_tokens')
+        if m.get('input_window_ratio') is not None:
+            self.input_window_ratio = m.get('input_window_ratio')
+        if m.get('remaining_input_budget_tokens') is not None:
+            self.remaining_input_budget_tokens = m.get('remaining_input_budget_tokens')
+        if m.get('warning') is not None:
+            self.warning = m.get('warning')
         return self
 
 
@@ -26431,6 +26510,7 @@ class UsageIotagentSessionResponse(TeaModel):
         session_usage: SessionUsage = None,
         total: int = None,
         turns: List[TurnModelCallsUsages] = None,
+        context: ContextOccupancy = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -26444,6 +26524,8 @@ class UsageIotagentSessionResponse(TeaModel):
         self.total = total
         # 本页轮次明细
         self.turns = turns
+        # 上下文占用分析（基于最后一次模型调用估算）
+        self.context = context
 
     def validate(self):
         if self.session_usage:
@@ -26452,6 +26534,8 @@ class UsageIotagentSessionResponse(TeaModel):
             for k in self.turns:
                 if k:
                     k.validate()
+        if self.context:
+            self.context.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -26473,6 +26557,8 @@ class UsageIotagentSessionResponse(TeaModel):
         if self.turns is not None:
             for k in self.turns:
                 result['turns'].append(k.to_map() if k else None)
+        if self.context is not None:
+            result['context'] = self.context.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -26493,6 +26579,9 @@ class UsageIotagentSessionResponse(TeaModel):
             for k in m.get('turns'):
                 temp_model = TurnModelCallsUsages()
                 self.turns.append(temp_model.from_map(k))
+        if m.get('context') is not None:
+            temp_model = ContextOccupancy()
+            self.context = temp_model.from_map(m['context'])
         return self
 
 
@@ -27205,6 +27294,324 @@ class QueryAskdataSourceResponse(TeaModel):
             self.config_type = m.get('config_type')
         if m.get('alias') is not None:
             self.alias = m.get('alias')
+        return self
+
+
+class TrajectoryIotagentSessionRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        scope: str = None,
+        cursor: str = None,
+        page_size: int = None,
+        diagnostics: str = None,
+        keyword: str = None,
+        top_by: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 作用域类型 TURNS|CONTEXT_OPERATIONS，默认 TURNS
+        self.scope = scope
+        # 分页游标，首次为空
+        self.cursor = cursor
+        # 每页大小 1-50，默认 20
+        self.page_size = page_size
+        # 诊断标签过滤，逗号分隔
+        self.diagnostics = diagnostics
+        # 关键词搜索，最长100字
+        self.keyword = keyword
+        # 排序 NONE|DURATION|TOKENS
+        self.top_by = top_by
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.scope is not None:
+            result['scope'] = self.scope
+        if self.cursor is not None:
+            result['cursor'] = self.cursor
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.diagnostics is not None:
+            result['diagnostics'] = self.diagnostics
+        if self.keyword is not None:
+            result['keyword'] = self.keyword
+        if self.top_by is not None:
+            result['top_by'] = self.top_by
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        if m.get('cursor') is not None:
+            self.cursor = m.get('cursor')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('diagnostics') is not None:
+            self.diagnostics = m.get('diagnostics')
+        if m.get('keyword') is not None:
+            self.keyword = m.get('keyword')
+        if m.get('top_by') is not None:
+            self.top_by = m.get('top_by')
+        return self
+
+
+class TrajectoryIotagentSessionResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        scopes_json: str = None,
+        coverage_json: str = None,
+        next_cursor: str = None,
+        total_scopes: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 轮次索引列表(JSON)
+        self.scopes_json = scopes_json
+        # 覆盖状态(JSON)
+        self.coverage_json = coverage_json
+        # 下一页游标
+        self.next_cursor = next_cursor
+        # 总轮次数
+        self.total_scopes = total_scopes
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.scopes_json is not None:
+            result['scopes_json'] = self.scopes_json
+        if self.coverage_json is not None:
+            result['coverage_json'] = self.coverage_json
+        if self.next_cursor is not None:
+            result['next_cursor'] = self.next_cursor
+        if self.total_scopes is not None:
+            result['total_scopes'] = self.total_scopes
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('scopes_json') is not None:
+            self.scopes_json = m.get('scopes_json')
+        if m.get('coverage_json') is not None:
+            self.coverage_json = m.get('coverage_json')
+        if m.get('next_cursor') is not None:
+            self.next_cursor = m.get('next_cursor')
+        if m.get('total_scopes') is not None:
+            self.total_scopes = m.get('total_scopes')
+        return self
+
+
+class StepsIotagentSessionTrajectoryRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        agent_id: str = None,
+        instance_id: str = None,
+        session_id: str = None,
+        turn_id: str = None,
+        cursor: str = None,
+        page_size: int = None,
+        focus_step_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 智能体ID
+        self.agent_id = agent_id
+        # 实例ID
+        self.instance_id = instance_id
+        # 会话ID
+        self.session_id = session_id
+        # 轮次ID或操作ID
+        self.turn_id = turn_id
+        # 分页游标，首次为空
+        self.cursor = cursor
+        # 每页大小 1-200，默认 100
+        self.page_size = page_size
+        # 定位步骤ID，首次定位用，不可与cursor同传
+        self.focus_step_id = focus_step_id
+
+    def validate(self):
+        self.validate_required(self.agent_id, 'agent_id')
+        self.validate_required(self.instance_id, 'instance_id')
+        self.validate_required(self.session_id, 'session_id')
+        self.validate_required(self.turn_id, 'turn_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.agent_id is not None:
+            result['agent_id'] = self.agent_id
+        if self.instance_id is not None:
+            result['instance_id'] = self.instance_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.cursor is not None:
+            result['cursor'] = self.cursor
+        if self.page_size is not None:
+            result['page_size'] = self.page_size
+        if self.focus_step_id is not None:
+            result['focus_step_id'] = self.focus_step_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('agent_id') is not None:
+            self.agent_id = m.get('agent_id')
+        if m.get('instance_id') is not None:
+            self.instance_id = m.get('instance_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('cursor') is not None:
+            self.cursor = m.get('cursor')
+        if m.get('page_size') is not None:
+            self.page_size = m.get('page_size')
+        if m.get('focus_step_id') is not None:
+            self.focus_step_id = m.get('focus_step_id')
+        return self
+
+
+class StepsIotagentSessionTrajectoryResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        steps_json: str = None,
+        next_cursor: str = None,
+        total_steps: int = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 执行步骤列表(JSON)
+        self.steps_json = steps_json
+        # 下一页游标
+        self.next_cursor = next_cursor
+        # 总步骤数
+        self.total_steps = total_steps
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.steps_json is not None:
+            result['steps_json'] = self.steps_json
+        if self.next_cursor is not None:
+            result['next_cursor'] = self.next_cursor
+        if self.total_steps is not None:
+            result['total_steps'] = self.total_steps
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('steps_json') is not None:
+            self.steps_json = m.get('steps_json')
+        if m.get('next_cursor') is not None:
+            self.next_cursor = m.get('next_cursor')
+        if m.get('total_steps') is not None:
+            self.total_steps = m.get('total_steps')
         return self
 
 
@@ -63339,7 +63746,7 @@ class QueryTrustiotMiniappRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 跳转流水号，全局唯一
         self.trace_no = trace_no
-        # 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+        # 链接渠道：H5 或 MINIAPP
         self.channel = channel
         # 客户自定义的 C 端用户唯一标识，H5 必传、MINIAPP 禁传
         self.visit_user_id = visit_user_id
@@ -63430,8 +63837,6 @@ class QueryTrustiotMiniappResponse(TeaModel):
         redirect_url: str = None,
         valid_from: int = None,
         valid_to: int = None,
-        invalid_targets: List[AccessScopeItem] = None,
-        valid_target_count: int = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -63439,22 +63844,15 @@ class QueryTrustiotMiniappResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
+        # 一次性跳转链接。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
         self.redirect_url = redirect_url
-        # 链接生效时间，秒级时间戳
+        # 链接生效时间，毫秒级时间戳
         self.valid_from = valid_from
-        # 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
+        # 链接过期时间，毫秒级时间戳，valid_from 起 24 小时。过期后链接不可用
         self.valid_to = valid_to
-        # 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
-        self.invalid_targets = invalid_targets
-        # 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
-        self.valid_target_count = valid_target_count
 
     def validate(self):
-        if self.invalid_targets:
-            for k in self.invalid_targets:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -63474,12 +63872,6 @@ class QueryTrustiotMiniappResponse(TeaModel):
             result['valid_from'] = self.valid_from
         if self.valid_to is not None:
             result['valid_to'] = self.valid_to
-        result['invalid_targets'] = []
-        if self.invalid_targets is not None:
-            for k in self.invalid_targets:
-                result['invalid_targets'].append(k.to_map() if k else None)
-        if self.valid_target_count is not None:
-            result['valid_target_count'] = self.valid_target_count
         return result
 
     def from_map(self, m: dict = None):
@@ -63496,13 +63888,6 @@ class QueryTrustiotMiniappResponse(TeaModel):
             self.valid_from = m.get('valid_from')
         if m.get('valid_to') is not None:
             self.valid_to = m.get('valid_to')
-        self.invalid_targets = []
-        if m.get('invalid_targets') is not None:
-            for k in m.get('invalid_targets'):
-                temp_model = AccessScopeItem()
-                self.invalid_targets.append(temp_model.from_map(k))
-        if m.get('valid_target_count') is not None:
-            self.valid_target_count = m.get('valid_target_count')
         return self
 
 
