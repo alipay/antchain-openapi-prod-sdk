@@ -2361,53 +2361,68 @@ func (s *SubAgentInfo) SetInstanceId(v string) *SubAgentInfo {
 	return s
 }
 
-// 对话轮次中的模型调用量信息
+// 轮次模型调用用量
 type TurnModelCallsUsages struct {
-	// 模型名称
+	// 模型名
 	// example:
 	//
-	// deepseek-v4.1-flash
-	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
-	// 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+	// undefined
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 调用状态
 	// example:
 	//
-	// COMPLETED
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 输入 token
+	// undefined
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 输入token
 	// example:
 	//
-	// 20
-	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty" require:"true"`
-	// 输出 token
+	// undefined
+	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty"`
+	// 输出token
 	// example:
 	//
-	// 1024
-	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty" require:"true"`
-	// 总 token
+	// undefined
+	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty"`
+	// 总token
 	// example:
 	//
-	// 1024
-	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty" require:"true"`
-	// 推理 token（可选，有才返回）
+	// undefined
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty"`
+	// 推理token
 	// example:
 	//
-	// 1024
+	// undefined
 	ReasoningTokens *int64 `json:"reasoning_tokens,omitempty" xml:"reasoning_tokens,omitempty"`
-	// 缓存读取 token（可选）
+	// 缓存读取token
 	// example:
 	//
-	// 1024
+	// undefined
 	CachedReadTokens *int64 `json:"cached_read_tokens,omitempty" xml:"cached_read_tokens,omitempty"`
-	// 缓存写入 token（可选）
+	// 缓存写入token
 	// example:
 	//
-	// 1024
+	// undefined
 	CachedWriteTokens *int64 `json:"cached_write_tokens,omitempty" xml:"cached_write_tokens,omitempty"`
-	// 当前模型调用耗时
+	// 单次模型调用耗时(毫秒)
 	// example:
 	//
-	// 1000
-	ModelDurationMs *int64 `json:"model_duration_ms,omitempty" xml:"model_duration_ms,omitempty" require:"true"`
+	// undefined
+	ModelDurationMs *int64 `json:"model_duration_ms,omitempty" xml:"model_duration_ms,omitempty"`
+	// 轮次ID
+	// example:
+	//
+	// undefined
+	TurnId *string `json:"turn_id,omitempty" xml:"turn_id,omitempty"`
+	// 该轮用量是否完整计量
+	// example:
+	//
+	// undefined
+	Complete *bool `json:"complete,omitempty" xml:"complete,omitempty"`
+	// 轮次总耗时(毫秒，含模型调用+工具执行)
+	// example:
+	//
+	// undefined
+	TurnDurationMs *int64 `json:"turn_duration_ms,omitempty" xml:"turn_duration_ms,omitempty"`
 }
 
 func (s TurnModelCallsUsages) String() string {
@@ -2460,6 +2475,21 @@ func (s *TurnModelCallsUsages) SetCachedWriteTokens(v int64) *TurnModelCallsUsag
 
 func (s *TurnModelCallsUsages) SetModelDurationMs(v int64) *TurnModelCallsUsages {
 	s.ModelDurationMs = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetTurnId(v string) *TurnModelCallsUsages {
+	s.TurnId = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetComplete(v bool) *TurnModelCallsUsages {
+	s.Complete = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetTurnDurationMs(v int64) *TurnModelCallsUsages {
+	s.TurnDurationMs = &v
 	return s
 }
 
@@ -11652,6 +11682,78 @@ func (s *RentBillItem) SetBillItemMoney(v string) *RentBillItem {
 
 func (s *RentBillItem) SetPaymentState(v string) *RentBillItem {
 	s.PaymentState = &v
+	return s
+}
+
+// 上下文占用分析
+type ContextOccupancy struct {
+	// 最后一次模型调用的模型名
+	// example:
+	//
+	// deepseek-flash
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 当前上下文占用token数
+	// example:
+	//
+	// 5000
+	EstimatedInputTokens *int64 `json:"estimated_input_tokens,omitempty" xml:"estimated_input_tokens,omitempty"`
+	// 模型上下文窗口上限
+	// example:
+	//
+	// 128000
+	ContextWindowTokens *int64 `json:"context_window_tokens,omitempty" xml:"context_window_tokens,omitempty"`
+	// 上下文占用比率
+	// example:
+	//
+	// 0.039
+	InputWindowRatio *int64 `json:"input_window_ratio,omitempty" xml:"input_window_ratio,omitempty"`
+	// 剩余上下文预算token数
+	// example:
+	//
+	// 123000
+	RemainingInputBudgetTokens *int64 `json:"remaining_input_budget_tokens,omitempty" xml:"remaining_input_budget_tokens,omitempty"`
+	// 告警级别
+	// example:
+	//
+	// NORMAL
+	Warning *string `json:"warning,omitempty" xml:"warning,omitempty"`
+}
+
+func (s ContextOccupancy) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContextOccupancy) GoString() string {
+	return s.String()
+}
+
+func (s *ContextOccupancy) SetModel(v string) *ContextOccupancy {
+	s.Model = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetEstimatedInputTokens(v int64) *ContextOccupancy {
+	s.EstimatedInputTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetContextWindowTokens(v int64) *ContextOccupancy {
+	s.ContextWindowTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetInputWindowRatio(v int64) *ContextOccupancy {
+	s.InputWindowRatio = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetRemainingInputBudgetTokens(v int64) *ContextOccupancy {
+	s.RemainingInputBudgetTokens = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetWarning(v string) *ContextOccupancy {
+	s.Warning = &v
 	return s
 }
 
@@ -25290,6 +25392,8 @@ type UsageIotagentSessionResponse struct {
 	Total *int64 `json:"total,omitempty" xml:"total,omitempty"`
 	// 本页轮次明细
 	Turns []*TurnModelCallsUsages `json:"turns,omitempty" xml:"turns,omitempty" type:"Repeated"`
+	// 上下文占用分析（基于最后一次模型调用估算）
+	Context *ContextOccupancy `json:"context,omitempty" xml:"context,omitempty"`
 }
 
 func (s UsageIotagentSessionResponse) String() string {
@@ -25327,6 +25431,11 @@ func (s *UsageIotagentSessionResponse) SetTotal(v int64) *UsageIotagentSessionRe
 
 func (s *UsageIotagentSessionResponse) SetTurns(v []*TurnModelCallsUsages) *UsageIotagentSessionResponse {
 	s.Turns = v
+	return s
+}
+
+func (s *UsageIotagentSessionResponse) SetContext(v *ContextOccupancy) *UsageIotagentSessionResponse {
+	s.Context = v
 	return s
 }
 
@@ -25908,6 +26017,279 @@ func (s *QueryAskdataSourceResponse) SetConfigType(v string) *QueryAskdataSource
 
 func (s *QueryAskdataSourceResponse) SetAlias(v string) *QueryAskdataSourceResponse {
 	s.Alias = &v
+	return s
+}
+
+type TrajectoryIotagentSessionRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 作用域类型 TURNS|CONTEXT_OPERATIONS，默认 TURNS
+	Scope *string `json:"scope,omitempty" xml:"scope,omitempty"`
+	// 分页游标，首次为空
+	Cursor *string `json:"cursor,omitempty" xml:"cursor,omitempty"`
+	// 每页大小 1-50，默认 20
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 诊断标签过滤，逗号分隔
+	Diagnostics *string `json:"diagnostics,omitempty" xml:"diagnostics,omitempty"`
+	// 关键词搜索，最长100字
+	Keyword *string `json:"keyword,omitempty" xml:"keyword,omitempty"`
+	// 排序 NONE|DURATION|TOKENS
+	TopBy *string `json:"top_by,omitempty" xml:"top_by,omitempty"`
+}
+
+func (s TrajectoryIotagentSessionRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrajectoryIotagentSessionRequest) GoString() string {
+	return s.String()
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetAuthToken(v string) *TrajectoryIotagentSessionRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetProductInstanceId(v string) *TrajectoryIotagentSessionRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetAgentId(v string) *TrajectoryIotagentSessionRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetInstanceId(v string) *TrajectoryIotagentSessionRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetSessionId(v string) *TrajectoryIotagentSessionRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetScope(v string) *TrajectoryIotagentSessionRequest {
+	s.Scope = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetCursor(v string) *TrajectoryIotagentSessionRequest {
+	s.Cursor = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetPageSize(v int64) *TrajectoryIotagentSessionRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetDiagnostics(v string) *TrajectoryIotagentSessionRequest {
+	s.Diagnostics = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetKeyword(v string) *TrajectoryIotagentSessionRequest {
+	s.Keyword = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionRequest) SetTopBy(v string) *TrajectoryIotagentSessionRequest {
+	s.TopBy = &v
+	return s
+}
+
+type TrajectoryIotagentSessionResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 轮次索引列表(JSON)
+	ScopesJson *string `json:"scopes_json,omitempty" xml:"scopes_json,omitempty"`
+	// 覆盖状态(JSON)
+	CoverageJson *string `json:"coverage_json,omitempty" xml:"coverage_json,omitempty"`
+	// 下一页游标
+	NextCursor *string `json:"next_cursor,omitempty" xml:"next_cursor,omitempty"`
+	// 总轮次数
+	TotalScopes *int64 `json:"total_scopes,omitempty" xml:"total_scopes,omitempty"`
+}
+
+func (s TrajectoryIotagentSessionResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TrajectoryIotagentSessionResponse) GoString() string {
+	return s.String()
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetReqMsgId(v string) *TrajectoryIotagentSessionResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetResultCode(v string) *TrajectoryIotagentSessionResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetResultMsg(v string) *TrajectoryIotagentSessionResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetScopesJson(v string) *TrajectoryIotagentSessionResponse {
+	s.ScopesJson = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetCoverageJson(v string) *TrajectoryIotagentSessionResponse {
+	s.CoverageJson = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetNextCursor(v string) *TrajectoryIotagentSessionResponse {
+	s.NextCursor = &v
+	return s
+}
+
+func (s *TrajectoryIotagentSessionResponse) SetTotalScopes(v int64) *TrajectoryIotagentSessionResponse {
+	s.TotalScopes = &v
+	return s
+}
+
+type StepsIotagentSessionTrajectoryRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 智能体ID
+	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
+	// 实例ID
+	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 轮次ID或操作ID
+	TurnId *string `json:"turn_id,omitempty" xml:"turn_id,omitempty" require:"true"`
+	// 分页游标，首次为空
+	Cursor *string `json:"cursor,omitempty" xml:"cursor,omitempty"`
+	// 每页大小 1-200，默认 100
+	PageSize *int64 `json:"page_size,omitempty" xml:"page_size,omitempty"`
+	// 定位步骤ID，首次定位用，不可与cursor同传
+	FocusStepId *string `json:"focus_step_id,omitempty" xml:"focus_step_id,omitempty"`
+}
+
+func (s StepsIotagentSessionTrajectoryRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StepsIotagentSessionTrajectoryRequest) GoString() string {
+	return s.String()
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetAuthToken(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetProductInstanceId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetAgentId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.AgentId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetInstanceId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.InstanceId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetSessionId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetTurnId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.TurnId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetCursor(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.Cursor = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetPageSize(v int64) *StepsIotagentSessionTrajectoryRequest {
+	s.PageSize = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryRequest) SetFocusStepId(v string) *StepsIotagentSessionTrajectoryRequest {
+	s.FocusStepId = &v
+	return s
+}
+
+type StepsIotagentSessionTrajectoryResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 执行步骤列表(JSON)
+	StepsJson *string `json:"steps_json,omitempty" xml:"steps_json,omitempty"`
+	// 下一页游标
+	NextCursor *string `json:"next_cursor,omitempty" xml:"next_cursor,omitempty"`
+	// 总步骤数
+	TotalSteps *int64 `json:"total_steps,omitempty" xml:"total_steps,omitempty"`
+}
+
+func (s StepsIotagentSessionTrajectoryResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s StepsIotagentSessionTrajectoryResponse) GoString() string {
+	return s.String()
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetReqMsgId(v string) *StepsIotagentSessionTrajectoryResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetResultCode(v string) *StepsIotagentSessionTrajectoryResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetResultMsg(v string) *StepsIotagentSessionTrajectoryResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetStepsJson(v string) *StepsIotagentSessionTrajectoryResponse {
+	s.StepsJson = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetNextCursor(v string) *StepsIotagentSessionTrajectoryResponse {
+	s.NextCursor = &v
+	return s
+}
+
+func (s *StepsIotagentSessionTrajectoryResponse) SetTotalSteps(v int64) *StepsIotagentSessionTrajectoryResponse {
+	s.TotalSteps = &v
 	return s
 }
 
@@ -54897,7 +55279,7 @@ type QueryTrustiotMiniappRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 跳转流水号，全局唯一
 	TraceNo *string `json:"trace_no,omitempty" xml:"trace_no,omitempty" require:"true"`
-	// 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+	// 链接渠道：H5 或 MINIAPP
 	Channel *string `json:"channel,omitempty" xml:"channel,omitempty" require:"true"`
 	// 客户自定义的 C 端用户唯一标识，H5 必传、MINIAPP 禁传
 	VisitUserId *string `json:"visit_user_id,omitempty" xml:"visit_user_id,omitempty"`
@@ -54978,16 +55360,12 @@ type QueryTrustiotMiniappResponse struct {
 	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
-	// 一次性跳转链接：`{渠道登录页地址}?redirectToken=访问令牌`。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
+	// 一次性跳转链接。链接整体 24 小时有效（见 valid_to），令牌一次性消费、用后即失效
 	RedirectUrl *string `json:"redirect_url,omitempty" xml:"redirect_url,omitempty"`
-	// 链接生效时间，秒级时间戳
+	// 链接生效时间，毫秒级时间戳
 	ValidFrom *int64 `json:"valid_from,omitempty" xml:"valid_from,omitempty"`
-	// 链接过期时间，秒级时间戳，valid_from 起 24 小时。过期后链接不可用
+	// 链接过期时间，毫秒级时间戳，valid_from 起 24 小时。过期后链接不可用
 	ValidTo *int64 `json:"valid_to,omitempty" xml:"valid_to,omitempty"`
-	// 清单访问中未命中登记的访问目标回显，结构与 access_scope 条目相同（scene + 设备清单）。部分无效不影响签发，全部无效返回 422（NO_VALID_DEVICE）。主体访问（类型0）恒为空数组
-	InvalidTargets []*AccessScopeItem `json:"invalid_targets,omitempty" xml:"invalid_targets,omitempty" type:"Repeated"`
-	// 链接实际生效的目标数：范围解析含直接子设备并集、按场景与目标去重后的总数。清单访问与主体访问均返回该口径
-	ValidTargetCount *int64 `json:"valid_target_count,omitempty" xml:"valid_target_count,omitempty"`
 }
 
 func (s QueryTrustiotMiniappResponse) String() string {
@@ -55025,16 +55403,6 @@ func (s *QueryTrustiotMiniappResponse) SetValidFrom(v int64) *QueryTrustiotMinia
 
 func (s *QueryTrustiotMiniappResponse) SetValidTo(v int64) *QueryTrustiotMiniappResponse {
 	s.ValidTo = &v
-	return s
-}
-
-func (s *QueryTrustiotMiniappResponse) SetInvalidTargets(v []*AccessScopeItem) *QueryTrustiotMiniappResponse {
-	s.InvalidTargets = v
-	return s
-}
-
-func (s *QueryTrustiotMiniappResponse) SetValidTargetCount(v int64) *QueryTrustiotMiniappResponse {
-	s.ValidTargetCount = &v
 	return s
 }
 
@@ -57174,7 +57542,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.5"),
+				"sdk_version":      tea.String("1.22.10"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -60669,6 +61037,78 @@ func (client *Client) QueryAskdataSourceEx(request *QueryAskdataSourceRequest, h
 	}
 	_result = &QueryAskdataSourceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.askdata.source.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+//
+// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+func (client *Client) TrajectoryIotagentSession(request *TrajectoryIotagentSessionRequest) (_result *TrajectoryIotagentSessionResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &TrajectoryIotagentSessionResponse{}
+	_body, _err := client.TrajectoryIotagentSessionEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+//
+// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+func (client *Client) TrajectoryIotagentSessionEx(request *TrajectoryIotagentSessionRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *TrajectoryIotagentSessionResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &TrajectoryIotagentSessionResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.trajectory"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询单轮/操作的执行步骤详情，展开执行树
+//
+// Summary: 查询单轮/操作的执行步骤详情，展开执行树
+func (client *Client) StepsIotagentSessionTrajectory(request *StepsIotagentSessionTrajectoryRequest) (_result *StepsIotagentSessionTrajectoryResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &StepsIotagentSessionTrajectoryResponse{}
+	_body, _err := client.StepsIotagentSessionTrajectoryEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询单轮/操作的执行步骤详情，展开执行树
+//
+// Summary: 查询单轮/操作的执行步骤详情，展开执行树
+func (client *Client) StepsIotagentSessionTrajectoryEx(request *StepsIotagentSessionTrajectoryRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *StepsIotagentSessionTrajectoryResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &StepsIotagentSessionTrajectoryResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("blockchain.bot.iotagent.session.trajectory.steps"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
