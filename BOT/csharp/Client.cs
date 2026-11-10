@@ -158,7 +158,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.5"},
+                        {"sdk_version", "1.22.10"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.BOT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.22.5"},
+                        {"sdk_version", "1.22.10"},
                         {"_prod_code", "BOT"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4777,6 +4777,98 @@ namespace AntChain.SDK.BOT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAskdataSourceResponse>(await DoRequestAsync("1.0", "blockchain.bot.askdata.source.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        /// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</para>
+        /// </description>
+        public TrajectoryIotagentSessionResponse TrajectoryIotagentSession(TrajectoryIotagentSessionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return TrajectoryIotagentSessionEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        /// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</para>
+        /// </description>
+        public async Task<TrajectoryIotagentSessionResponse> TrajectoryIotagentSessionAsync(TrajectoryIotagentSessionRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await TrajectoryIotagentSessionExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        /// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</para>
+        /// </description>
+        public TrajectoryIotagentSessionResponse TrajectoryIotagentSessionEx(TrajectoryIotagentSessionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TrajectoryIotagentSessionResponse>(DoRequest("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数
+        /// Summary: 查询会话执行轨迹索引，按作用域返回轮次列表、诊断摘要和统计计数</para>
+        /// </description>
+        public async Task<TrajectoryIotagentSessionResponse> TrajectoryIotagentSessionExAsync(TrajectoryIotagentSessionRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<TrajectoryIotagentSessionResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotagent.session.trajectory", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询单轮/操作的执行步骤详情，展开执行树
+        /// Summary: 查询单轮/操作的执行步骤详情，展开执行树</para>
+        /// </description>
+        public StepsIotagentSessionTrajectoryResponse StepsIotagentSessionTrajectory(StepsIotagentSessionTrajectoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return StepsIotagentSessionTrajectoryEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询单轮/操作的执行步骤详情，展开执行树
+        /// Summary: 查询单轮/操作的执行步骤详情，展开执行树</para>
+        /// </description>
+        public async Task<StepsIotagentSessionTrajectoryResponse> StepsIotagentSessionTrajectoryAsync(StepsIotagentSessionTrajectoryRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await StepsIotagentSessionTrajectoryExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询单轮/操作的执行步骤详情，展开执行树
+        /// Summary: 查询单轮/操作的执行步骤详情，展开执行树</para>
+        /// </description>
+        public StepsIotagentSessionTrajectoryResponse StepsIotagentSessionTrajectoryEx(StepsIotagentSessionTrajectoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StepsIotagentSessionTrajectoryResponse>(DoRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询单轮/操作的执行步骤详情，展开执行树
+        /// Summary: 查询单轮/操作的执行步骤详情，展开执行树</para>
+        /// </description>
+        public async Task<StepsIotagentSessionTrajectoryResponse> StepsIotagentSessionTrajectoryExAsync(StepsIotagentSessionTrajectoryRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<StepsIotagentSessionTrajectoryResponse>(await DoRequestAsync("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

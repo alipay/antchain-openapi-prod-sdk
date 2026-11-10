@@ -39,6 +39,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public List<TurnModelCallsUsages> Turns { get; set; }
 
+        // 上下文占用分析（基于最后一次模型调用估算）
+        [NameInMap("context")]
+        [Validation(Required=false)]
+        public ContextOccupancy Context { get; set; }
+
     }
 
 }

@@ -23,7 +23,7 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=true)]
         public string TraceNo { get; set; }
 
-        // 链接渠道：H5 或 MINIAPP，缺省按 MINIAPP
+        // 链接渠道：H5 或 MINIAPP
         [NameInMap("channel")]
         [Validation(Required=true)]
         public string Channel { get; set; }
