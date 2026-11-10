@@ -32114,6 +32114,7 @@ class QueryDubbridgePetorderResponse(TeaModel):
         payment_channel_code: str = None,
         pay_institution_code: str = None,
         install_num: str = None,
+        service_fee: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -32133,7 +32134,7 @@ class QueryDubbridgePetorderResponse(TeaModel):
         self.buyer_user_id = buyer_user_id
         # 本次交易打款给卖家的时间
         self.send_pay_date = send_pay_date
-        # 实收金额
+        # 实收金额，单位元
         self.receipt_amount = receipt_amount
         # 支付渠道编码
         self.payment_channel_code = payment_channel_code
@@ -32141,6 +32142,8 @@ class QueryDubbridgePetorderResponse(TeaModel):
         self.pay_institution_code = pay_institution_code
         # 分期期数，只有发生贴息交易时才存在
         self.install_num = install_num
+        # 支付手续费，单位元
+        self.service_fee = service_fee
 
     def validate(self):
         pass
@@ -32177,6 +32180,8 @@ class QueryDubbridgePetorderResponse(TeaModel):
             result['pay_institution_code'] = self.pay_institution_code
         if self.install_num is not None:
             result['install_num'] = self.install_num
+        if self.service_fee is not None:
+            result['service_fee'] = self.service_fee
         return result
 
     def from_map(self, m: dict = None):
@@ -32207,6 +32212,8 @@ class QueryDubbridgePetorderResponse(TeaModel):
             self.pay_institution_code = m.get('pay_institution_code')
         if m.get('install_num') is not None:
             self.install_num = m.get('install_num')
+        if m.get('service_fee') is not None:
+            self.service_fee = m.get('service_fee')
         return self
 
 
