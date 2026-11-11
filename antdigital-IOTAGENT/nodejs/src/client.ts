@@ -1683,6 +1683,55 @@ export class GoodsIdAndCount extends $tea.Model {
   }
 }
 
+// 上下文占用分项明细（按 系统提示词/Skills/工具定义/对话 四类拆分，估算值，加总约等于 estimated_input_tokens）
+export class ContextBreakdown extends $tea.Model {
+  // 系统提示词占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  systemPrompt?: number;
+  // Skill/插件提示词占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  skills?: number;
+  // 工具定义占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  toolDefinitions?: number;
+  // 对话历史占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  conversation?: number;
+  static names(): { [key: string]: string } {
+    return {
+      systemPrompt: 'system_prompt',
+      skills: 'skills',
+      toolDefinitions: 'tool_definitions',
+      conversation: 'conversation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      systemPrompt: 'number',
+      skills: 'number',
+      toolDefinitions: 'number',
+      conversation: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询业务数据交易结果对象数据
 export class QueryChainDataTransactionResultData extends $tea.Model {
   // 所属业务
@@ -2109,62 +2158,80 @@ export class SubAgentInfo extends $tea.Model {
   }
 }
 
-// 对话轮次中的模型调用量信息
+// 轮次模型调用用量
 export class TurnModelCallsUsages extends $tea.Model {
-  // 模型名称
+  // 模型名
   /**
    * @example
-   * deepseek-v4.1-flash
+   * undefined
    */
-  model: string;
-  // 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+  model?: string;
+  // 调用状态
   /**
    * @example
-   * COMPLETED
+   * undefined
    */
-  status: string;
-  // 输入 token
+  status?: string;
+  // 输入token
   /**
    * @example
-   * 20
+   * undefined
    */
-  inputTokens: number;
-  // 输出 token
+  inputTokens?: number;
+  // 输出token
   /**
    * @example
-   * 1024
+   * undefined
    */
-  outputTokens: number;
-  // 总 token
+  outputTokens?: number;
+  // 总token
   /**
    * @example
-   * 1024
+   * undefined
    */
-  totalTokens: number;
-  // 推理 token（可选，有才返回）
+  totalTokens?: number;
+  // 推理token
   /**
    * @example
-   * 1024
+   * undefined
    */
   reasoningTokens?: number;
-  // 缓存读取 token（可选）
+  // 缓存读取token
   /**
    * @example
-   * 1024
+   * undefined
    */
   cachedReadTokens?: number;
-  // 缓存写入 token（可选）
+  // 缓存写入token
   /**
    * @example
-   * 1024
+   * undefined
    */
   cachedWriteTokens?: number;
-  // 当前模型调用耗时
+  // 单次模型调用耗时(毫秒)
   /**
    * @example
-   * 1000
+   * undefined
    */
-  modelDurationMs: number;
+  modelDurationMs?: number;
+  // 轮次ID
+  /**
+   * @example
+   * undefined
+   */
+  turnId?: string;
+  // 该轮用量是否完整计量
+  /**
+   * @example
+   * undefined
+   */
+  complete?: boolean;
+  // 轮次总耗时(毫秒，含模型调用+工具执行)
+  /**
+   * @example
+   * undefined
+   */
+  turnDurationMs?: number;
   static names(): { [key: string]: string } {
     return {
       model: 'model',
@@ -2176,6 +2243,9 @@ export class TurnModelCallsUsages extends $tea.Model {
       cachedReadTokens: 'cached_read_tokens',
       cachedWriteTokens: 'cached_write_tokens',
       modelDurationMs: 'model_duration_ms',
+      turnId: 'turn_id',
+      complete: 'complete',
+      turnDurationMs: 'turn_duration_ms',
     };
   }
 
@@ -2190,6 +2260,9 @@ export class TurnModelCallsUsages extends $tea.Model {
       cachedReadTokens: 'number',
       cachedWriteTokens: 'number',
       modelDurationMs: 'number',
+      turnId: 'string',
+      complete: 'boolean',
+      turnDurationMs: 'number',
     };
   }
 
@@ -10452,6 +10525,12 @@ export class ContextOccupancy extends $tea.Model {
    * NORMAL
    */
   warning?: string;
+  // 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+  /**
+   * @example
+   * undefined
+   */
+  contextBreakdown?: ContextBreakdown;
   static names(): { [key: string]: string } {
     return {
       model: 'model',
@@ -10460,6 +10539,7 @@ export class ContextOccupancy extends $tea.Model {
       inputWindowRatio: 'input_window_ratio',
       remainingInputBudgetTokens: 'remaining_input_budget_tokens',
       warning: 'warning',
+      contextBreakdown: 'context_breakdown',
     };
   }
 
@@ -10471,6 +10551,7 @@ export class ContextOccupancy extends $tea.Model {
       inputWindowRatio: 'number',
       remainingInputBudgetTokens: 'number',
       warning: 'string',
+      contextBreakdown: ContextBreakdown,
     };
   }
 
@@ -19438,7 +19519,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.3",
+          sdk_version: "1.4.0",
           _prod_code: "IOTAGENT",
           _prod_channel: "undefined",
         };
