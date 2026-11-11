@@ -1881,6 +1881,58 @@ func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
 	return s
 }
 
+// 上下文占用分项明细（按 系统提示词/Skills/工具定义/对话 四类拆分，估算值，加总约等于 estimated_input_tokens）
+type ContextBreakdown struct {
+	// 系统提示词占用token数（估算）
+	// example:
+	//
+	// undefined
+	SystemPrompt *int64 `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// Skill/插件提示词占用token数（估算）
+	// example:
+	//
+	// undefined
+	Skills *int64 `json:"skills,omitempty" xml:"skills,omitempty"`
+	// 工具定义占用token数（估算）
+	// example:
+	//
+	// undefined
+	ToolDefinitions *int64 `json:"tool_definitions,omitempty" xml:"tool_definitions,omitempty"`
+	// 对话历史占用token数（估算）
+	// example:
+	//
+	// undefined
+	Conversation *int64 `json:"conversation,omitempty" xml:"conversation,omitempty"`
+}
+
+func (s ContextBreakdown) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContextBreakdown) GoString() string {
+	return s.String()
+}
+
+func (s *ContextBreakdown) SetSystemPrompt(v int64) *ContextBreakdown {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetSkills(v int64) *ContextBreakdown {
+	s.Skills = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetToolDefinitions(v int64) *ContextBreakdown {
+	s.ToolDefinitions = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetConversation(v int64) *ContextBreakdown {
+	s.Conversation = &v
+	return s
+}
+
 // 查询业务数据交易结果对象数据
 type QueryChainDataTransactionResultData struct {
 	// 所属业务
@@ -11717,6 +11769,11 @@ type ContextOccupancy struct {
 	//
 	// NORMAL
 	Warning *string `json:"warning,omitempty" xml:"warning,omitempty"`
+	// 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+	// example:
+	//
+	// undefined
+	ContextBreakdown *ContextBreakdown `json:"context_breakdown,omitempty" xml:"context_breakdown,omitempty"`
 }
 
 func (s ContextOccupancy) String() string {
@@ -11754,6 +11811,11 @@ func (s *ContextOccupancy) SetRemainingInputBudgetTokens(v int64) *ContextOccupa
 
 func (s *ContextOccupancy) SetWarning(v string) *ContextOccupancy {
 	s.Warning = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetContextBreakdown(v *ContextBreakdown) *ContextOccupancy {
+	s.ContextBreakdown = v
 	return s
 }
 
@@ -57542,7 +57604,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.10"),
+				"sdk_version":      tea.String("1.22.11"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
