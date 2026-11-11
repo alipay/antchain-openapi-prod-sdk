@@ -1683,6 +1683,55 @@ export class GoodsIdAndCount extends $tea.Model {
   }
 }
 
+// 上下文占用分项明细（按 系统提示词/Skills/工具定义/对话 四类拆分，估算值，加总约等于 estimated_input_tokens）
+export class ContextBreakdown extends $tea.Model {
+  // 系统提示词占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  systemPrompt?: number;
+  // Skill/插件提示词占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  skills?: number;
+  // 工具定义占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  toolDefinitions?: number;
+  // 对话历史占用token数（估算）
+  /**
+   * @example
+   * undefined
+   */
+  conversation?: number;
+  static names(): { [key: string]: string } {
+    return {
+      systemPrompt: 'system_prompt',
+      skills: 'skills',
+      toolDefinitions: 'tool_definitions',
+      conversation: 'conversation',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      systemPrompt: 'number',
+      skills: 'number',
+      toolDefinitions: 'number',
+      conversation: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 查询业务数据交易结果对象数据
 export class QueryChainDataTransactionResultData extends $tea.Model {
   // 所属业务
@@ -10476,6 +10525,12 @@ export class ContextOccupancy extends $tea.Model {
    * NORMAL
    */
   warning?: string;
+  // 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+  /**
+   * @example
+   * undefined
+   */
+  contextBreakdown?: ContextBreakdown;
   static names(): { [key: string]: string } {
     return {
       model: 'model',
@@ -10484,6 +10539,7 @@ export class ContextOccupancy extends $tea.Model {
       inputWindowRatio: 'input_window_ratio',
       remainingInputBudgetTokens: 'remaining_input_budget_tokens',
       warning: 'warning',
+      contextBreakdown: 'context_breakdown',
     };
   }
 
@@ -10495,6 +10551,7 @@ export class ContextOccupancy extends $tea.Model {
       inputWindowRatio: 'number',
       remainingInputBudgetTokens: 'number',
       warning: 'string',
+      contextBreakdown: ContextBreakdown,
     };
   }
 
@@ -46028,7 +46085,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.10",
+          sdk_version: "1.22.11",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
