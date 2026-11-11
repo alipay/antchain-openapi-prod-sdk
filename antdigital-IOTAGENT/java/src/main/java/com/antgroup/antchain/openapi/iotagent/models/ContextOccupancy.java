@@ -52,6 +52,14 @@ public class ContextOccupancy extends TeaModel {
     @NameInMap("warning")
     public String warning;
 
+    // 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+    /**
+     * <strong>example:</strong>
+     * <p>undefined</p>
+     */
+    @NameInMap("context_breakdown")
+    public ContextBreakdown contextBreakdown;
+
     public static ContextOccupancy build(java.util.Map<String, ?> map) throws Exception {
         ContextOccupancy self = new ContextOccupancy();
         return TeaModel.build(map, self);
@@ -103,6 +111,14 @@ public class ContextOccupancy extends TeaModel {
     }
     public String getWarning() {
         return this.warning;
+    }
+
+    public ContextOccupancy setContextBreakdown(ContextBreakdown contextBreakdown) {
+        this.contextBreakdown = contextBreakdown;
+        return this;
+    }
+    public ContextBreakdown getContextBreakdown() {
+        return this.contextBreakdown;
     }
 
 }
