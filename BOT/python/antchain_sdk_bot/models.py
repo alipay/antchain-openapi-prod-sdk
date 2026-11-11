@@ -1675,6 +1675,55 @@ class GoodsIdAndCount(TeaModel):
         return self
 
 
+class ContextBreakdown(TeaModel):
+    def __init__(
+        self,
+        system_prompt: int = None,
+        skills: int = None,
+        tool_definitions: int = None,
+        conversation: int = None,
+    ):
+        # 系统提示词占用token数（估算）
+        self.system_prompt = system_prompt
+        # Skill/插件提示词占用token数（估算）
+        self.skills = skills
+        # 工具定义占用token数（估算）
+        self.tool_definitions = tool_definitions
+        # 对话历史占用token数（估算）
+        self.conversation = conversation
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.system_prompt is not None:
+            result['system_prompt'] = self.system_prompt
+        if self.skills is not None:
+            result['skills'] = self.skills
+        if self.tool_definitions is not None:
+            result['tool_definitions'] = self.tool_definitions
+        if self.conversation is not None:
+            result['conversation'] = self.conversation
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('system_prompt') is not None:
+            self.system_prompt = m.get('system_prompt')
+        if m.get('skills') is not None:
+            self.skills = m.get('skills')
+        if m.get('tool_definitions') is not None:
+            self.tool_definitions = m.get('tool_definitions')
+        if m.get('conversation') is not None:
+            self.conversation = m.get('conversation')
+        return self
+
+
 class QueryChainDataTransactionResultData(TeaModel):
     def __init__(
         self,
@@ -10812,6 +10861,7 @@ class ContextOccupancy(TeaModel):
         input_window_ratio: int = None,
         remaining_input_budget_tokens: int = None,
         warning: str = None,
+        context_breakdown: ContextBreakdown = None,
     ):
         # 最后一次模型调用的模型名
         self.model = model
@@ -10825,9 +10875,12 @@ class ContextOccupancy(TeaModel):
         self.remaining_input_budget_tokens = remaining_input_budget_tokens
         # 告警级别
         self.warning = warning
+        # 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+        self.context_breakdown = context_breakdown
 
     def validate(self):
-        pass
+        if self.context_breakdown:
+            self.context_breakdown.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10847,6 +10900,8 @@ class ContextOccupancy(TeaModel):
             result['remaining_input_budget_tokens'] = self.remaining_input_budget_tokens
         if self.warning is not None:
             result['warning'] = self.warning
+        if self.context_breakdown is not None:
+            result['context_breakdown'] = self.context_breakdown.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -10863,6 +10918,9 @@ class ContextOccupancy(TeaModel):
             self.remaining_input_budget_tokens = m.get('remaining_input_budget_tokens')
         if m.get('warning') is not None:
             self.warning = m.get('warning')
+        if m.get('context_breakdown') is not None:
+            temp_model = ContextBreakdown()
+            self.context_breakdown = temp_model.from_map(m['context_breakdown'])
         return self
 
 
