@@ -1881,6 +1881,58 @@ func (s *GoodsIdAndCount) SetCount(v int64) *GoodsIdAndCount {
 	return s
 }
 
+// 上下文占用分项明细（按 系统提示词/Skills/工具定义/对话 四类拆分，估算值，加总约等于 estimated_input_tokens）
+type ContextBreakdown struct {
+	// 系统提示词占用token数（估算）
+	// example:
+	//
+	// undefined
+	SystemPrompt *int64 `json:"system_prompt,omitempty" xml:"system_prompt,omitempty"`
+	// Skill/插件提示词占用token数（估算）
+	// example:
+	//
+	// undefined
+	Skills *int64 `json:"skills,omitempty" xml:"skills,omitempty"`
+	// 工具定义占用token数（估算）
+	// example:
+	//
+	// undefined
+	ToolDefinitions *int64 `json:"tool_definitions,omitempty" xml:"tool_definitions,omitempty"`
+	// 对话历史占用token数（估算）
+	// example:
+	//
+	// undefined
+	Conversation *int64 `json:"conversation,omitempty" xml:"conversation,omitempty"`
+}
+
+func (s ContextBreakdown) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ContextBreakdown) GoString() string {
+	return s.String()
+}
+
+func (s *ContextBreakdown) SetSystemPrompt(v int64) *ContextBreakdown {
+	s.SystemPrompt = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetSkills(v int64) *ContextBreakdown {
+	s.Skills = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetToolDefinitions(v int64) *ContextBreakdown {
+	s.ToolDefinitions = &v
+	return s
+}
+
+func (s *ContextBreakdown) SetConversation(v int64) *ContextBreakdown {
+	s.Conversation = &v
+	return s
+}
+
 // 查询业务数据交易结果对象数据
 type QueryChainDataTransactionResultData struct {
 	// 所属业务
@@ -2361,53 +2413,68 @@ func (s *SubAgentInfo) SetInstanceId(v string) *SubAgentInfo {
 	return s
 }
 
-// 对话轮次中的模型调用量信息
+// 轮次模型调用用量
 type TurnModelCallsUsages struct {
-	// 模型名称
+	// 模型名
 	// example:
 	//
-	// deepseek-v4.1-flash
-	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
-	// 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+	// undefined
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 调用状态
 	// example:
 	//
-	// COMPLETED
-	Status *string `json:"status,omitempty" xml:"status,omitempty" require:"true"`
-	// 输入 token
+	// undefined
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 输入token
 	// example:
 	//
-	// 20
-	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty" require:"true"`
-	// 输出 token
+	// undefined
+	InputTokens *int64 `json:"input_tokens,omitempty" xml:"input_tokens,omitempty"`
+	// 输出token
 	// example:
 	//
-	// 1024
-	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty" require:"true"`
-	// 总 token
+	// undefined
+	OutputTokens *int64 `json:"output_tokens,omitempty" xml:"output_tokens,omitempty"`
+	// 总token
 	// example:
 	//
-	// 1024
-	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty" require:"true"`
-	// 推理 token（可选，有才返回）
+	// undefined
+	TotalTokens *int64 `json:"total_tokens,omitempty" xml:"total_tokens,omitempty"`
+	// 推理token
 	// example:
 	//
-	// 1024
+	// undefined
 	ReasoningTokens *int64 `json:"reasoning_tokens,omitempty" xml:"reasoning_tokens,omitempty"`
-	// 缓存读取 token（可选）
+	// 缓存读取token
 	// example:
 	//
-	// 1024
+	// undefined
 	CachedReadTokens *int64 `json:"cached_read_tokens,omitempty" xml:"cached_read_tokens,omitempty"`
-	// 缓存写入 token（可选）
+	// 缓存写入token
 	// example:
 	//
-	// 1024
+	// undefined
 	CachedWriteTokens *int64 `json:"cached_write_tokens,omitempty" xml:"cached_write_tokens,omitempty"`
-	// 当前模型调用耗时
+	// 单次模型调用耗时(毫秒)
 	// example:
 	//
-	// 1000
-	ModelDurationMs *int64 `json:"model_duration_ms,omitempty" xml:"model_duration_ms,omitempty" require:"true"`
+	// undefined
+	ModelDurationMs *int64 `json:"model_duration_ms,omitempty" xml:"model_duration_ms,omitempty"`
+	// 轮次ID
+	// example:
+	//
+	// undefined
+	TurnId *string `json:"turn_id,omitempty" xml:"turn_id,omitempty"`
+	// 该轮用量是否完整计量
+	// example:
+	//
+	// undefined
+	Complete *bool `json:"complete,omitempty" xml:"complete,omitempty"`
+	// 轮次总耗时(毫秒，含模型调用+工具执行)
+	// example:
+	//
+	// undefined
+	TurnDurationMs *int64 `json:"turn_duration_ms,omitempty" xml:"turn_duration_ms,omitempty"`
 }
 
 func (s TurnModelCallsUsages) String() string {
@@ -2460,6 +2527,21 @@ func (s *TurnModelCallsUsages) SetCachedWriteTokens(v int64) *TurnModelCallsUsag
 
 func (s *TurnModelCallsUsages) SetModelDurationMs(v int64) *TurnModelCallsUsages {
 	s.ModelDurationMs = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetTurnId(v string) *TurnModelCallsUsages {
+	s.TurnId = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetComplete(v bool) *TurnModelCallsUsages {
+	s.Complete = &v
+	return s
+}
+
+func (s *TurnModelCallsUsages) SetTurnDurationMs(v int64) *TurnModelCallsUsages {
+	s.TurnDurationMs = &v
 	return s
 }
 
@@ -11687,6 +11769,11 @@ type ContextOccupancy struct {
 	//
 	// NORMAL
 	Warning *string `json:"warning,omitempty" xml:"warning,omitempty"`
+	// 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+	// example:
+	//
+	// undefined
+	ContextBreakdown *ContextBreakdown `json:"context_breakdown,omitempty" xml:"context_breakdown,omitempty"`
 }
 
 func (s ContextOccupancy) String() string {
@@ -11724,6 +11811,11 @@ func (s *ContextOccupancy) SetRemainingInputBudgetTokens(v int64) *ContextOccupa
 
 func (s *ContextOccupancy) SetWarning(v string) *ContextOccupancy {
 	s.Warning = &v
+	return s
+}
+
+func (s *ContextOccupancy) SetContextBreakdown(v *ContextBreakdown) *ContextOccupancy {
+	s.ContextBreakdown = v
 	return s
 }
 
@@ -22570,7 +22662,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.3"),
+				"sdk_version":      tea.String("1.4.0"),
 				"_prod_code":       tea.String("IOTAGENT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
