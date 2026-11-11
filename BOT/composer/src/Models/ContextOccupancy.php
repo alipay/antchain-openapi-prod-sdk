@@ -5,6 +5,8 @@ namespace AntChain\BOT\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\BOT\Models\ContextBreakdown;
+
 class ContextOccupancy extends Model {
     protected $_name = [
         'model' => 'model',
@@ -13,6 +15,7 @@ class ContextOccupancy extends Model {
         'inputWindowRatio' => 'input_window_ratio',
         'remainingInputBudgetTokens' => 'remaining_input_budget_tokens',
         'warning' => 'warning',
+        'contextBreakdown' => 'context_breakdown',
     ];
     public function validate() {}
     public function toMap() {
@@ -34,6 +37,9 @@ class ContextOccupancy extends Model {
         }
         if (null !== $this->warning) {
             $res['warning'] = $this->warning;
+        }
+        if (null !== $this->contextBreakdown) {
+            $res['context_breakdown'] = null !== $this->contextBreakdown ? $this->contextBreakdown->toMap() : null;
         }
         return $res;
     }
@@ -60,6 +66,9 @@ class ContextOccupancy extends Model {
         }
         if(isset($map['warning'])){
             $model->warning = $map['warning'];
+        }
+        if(isset($map['context_breakdown'])){
+            $model->contextBreakdown = ContextBreakdown::fromMap($map['context_breakdown']);
         }
         return $model;
     }
@@ -104,5 +113,12 @@ class ContextOccupancy extends Model {
      * @var string
      */
     public $warning;
+
+    // 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+    /**
+     * @example undefined
+     * @var ContextBreakdown
+     */
+    public $contextBreakdown;
 
 }
