@@ -1675,6 +1675,55 @@ class GoodsIdAndCount(TeaModel):
         return self
 
 
+class ContextBreakdown(TeaModel):
+    def __init__(
+        self,
+        system_prompt: int = None,
+        skills: int = None,
+        tool_definitions: int = None,
+        conversation: int = None,
+    ):
+        # 系统提示词占用token数（估算）
+        self.system_prompt = system_prompt
+        # Skill/插件提示词占用token数（估算）
+        self.skills = skills
+        # 工具定义占用token数（估算）
+        self.tool_definitions = tool_definitions
+        # 对话历史占用token数（估算）
+        self.conversation = conversation
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.system_prompt is not None:
+            result['system_prompt'] = self.system_prompt
+        if self.skills is not None:
+            result['skills'] = self.skills
+        if self.tool_definitions is not None:
+            result['tool_definitions'] = self.tool_definitions
+        if self.conversation is not None:
+            result['conversation'] = self.conversation
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('system_prompt') is not None:
+            self.system_prompt = m.get('system_prompt')
+        if m.get('skills') is not None:
+            self.skills = m.get('skills')
+        if m.get('tool_definitions') is not None:
+            self.tool_definitions = m.get('tool_definitions')
+        if m.get('conversation') is not None:
+            self.conversation = m.get('conversation')
+        return self
+
+
 class QueryChainDataTransactionResultData(TeaModel):
     def __init__(
         self,
@@ -2155,33 +2204,37 @@ class TurnModelCallsUsages(TeaModel):
         cached_read_tokens: int = None,
         cached_write_tokens: int = None,
         model_duration_ms: int = None,
+        turn_id: str = None,
+        complete: bool = None,
+        turn_duration_ms: int = None,
     ):
-        # 模型名称
+        # 模型名
         self.model = model
-        # 调用状态：COMPLETED / FAILED / CANCELLED / UNKNOWN
+        # 调用状态
         self.status = status
-        # 输入 token
+        # 输入token
         self.input_tokens = input_tokens
-        # 输出 token
+        # 输出token
         self.output_tokens = output_tokens
-        # 总 token
+        # 总token
         self.total_tokens = total_tokens
-        # 推理 token（可选，有才返回）
+        # 推理token
         self.reasoning_tokens = reasoning_tokens
-        # 缓存读取 token（可选）
+        # 缓存读取token
         self.cached_read_tokens = cached_read_tokens
-        # 缓存写入 token（可选）
+        # 缓存写入token
         self.cached_write_tokens = cached_write_tokens
-        # 当前模型调用耗时
+        # 单次模型调用耗时(毫秒)
         self.model_duration_ms = model_duration_ms
+        # 轮次ID
+        self.turn_id = turn_id
+        # 该轮用量是否完整计量
+        self.complete = complete
+        # 轮次总耗时(毫秒，含模型调用+工具执行)
+        self.turn_duration_ms = turn_duration_ms
 
     def validate(self):
-        self.validate_required(self.model, 'model')
-        self.validate_required(self.status, 'status')
-        self.validate_required(self.input_tokens, 'input_tokens')
-        self.validate_required(self.output_tokens, 'output_tokens')
-        self.validate_required(self.total_tokens, 'total_tokens')
-        self.validate_required(self.model_duration_ms, 'model_duration_ms')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -2207,6 +2260,12 @@ class TurnModelCallsUsages(TeaModel):
             result['cached_write_tokens'] = self.cached_write_tokens
         if self.model_duration_ms is not None:
             result['model_duration_ms'] = self.model_duration_ms
+        if self.turn_id is not None:
+            result['turn_id'] = self.turn_id
+        if self.complete is not None:
+            result['complete'] = self.complete
+        if self.turn_duration_ms is not None:
+            result['turn_duration_ms'] = self.turn_duration_ms
         return result
 
     def from_map(self, m: dict = None):
@@ -2229,6 +2288,12 @@ class TurnModelCallsUsages(TeaModel):
             self.cached_write_tokens = m.get('cached_write_tokens')
         if m.get('model_duration_ms') is not None:
             self.model_duration_ms = m.get('model_duration_ms')
+        if m.get('turn_id') is not None:
+            self.turn_id = m.get('turn_id')
+        if m.get('complete') is not None:
+            self.complete = m.get('complete')
+        if m.get('turn_duration_ms') is not None:
+            self.turn_duration_ms = m.get('turn_duration_ms')
         return self
 
 
@@ -10796,6 +10861,7 @@ class ContextOccupancy(TeaModel):
         input_window_ratio: int = None,
         remaining_input_budget_tokens: int = None,
         warning: str = None,
+        context_breakdown: ContextBreakdown = None,
     ):
         # 最后一次模型调用的模型名
         self.model = model
@@ -10809,9 +10875,12 @@ class ContextOccupancy(TeaModel):
         self.remaining_input_budget_tokens = remaining_input_budget_tokens
         # 告警级别
         self.warning = warning
+        # 上下文占用分项明细（估算值）：system_prompt=系统提示词, skills=Skill/插件提示词, tool_definitions=工具定义, conversation=对话历史
+        self.context_breakdown = context_breakdown
 
     def validate(self):
-        pass
+        if self.context_breakdown:
+            self.context_breakdown.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -10831,6 +10900,8 @@ class ContextOccupancy(TeaModel):
             result['remaining_input_budget_tokens'] = self.remaining_input_budget_tokens
         if self.warning is not None:
             result['warning'] = self.warning
+        if self.context_breakdown is not None:
+            result['context_breakdown'] = self.context_breakdown.to_map()
         return result
 
     def from_map(self, m: dict = None):
@@ -10847,6 +10918,9 @@ class ContextOccupancy(TeaModel):
             self.remaining_input_budget_tokens = m.get('remaining_input_budget_tokens')
         if m.get('warning') is not None:
             self.warning = m.get('warning')
+        if m.get('context_breakdown') is not None:
+            temp_model = ContextBreakdown()
+            self.context_breakdown = temp_model.from_map(m['context_breakdown'])
         return self
 
 
