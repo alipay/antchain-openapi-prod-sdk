@@ -48,6 +48,10 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     @NameInMap("total_subsidy_interest")
     public String totalSubsidyInterest;
 
+    // LPR发布日期
+    @NameInMap("lpr_effect_date")
+    public String lprEffectDate;
+
     public static CountDubbridgeRepayReftrialResponse build(java.util.Map<String, ?> map) throws Exception {
         CountDubbridgeRepayReftrialResponse self = new CountDubbridgeRepayReftrialResponse();
         return TeaModel.build(map, self);
@@ -139,6 +143,14 @@ public class CountDubbridgeRepayReftrialResponse extends TeaModel {
     }
     public String getTotalSubsidyInterest() {
         return this.totalSubsidyInterest;
+    }
+
+    public CountDubbridgeRepayReftrialResponse setLprEffectDate(String lprEffectDate) {
+        this.lprEffectDate = lprEffectDate;
+        return this;
+    }
+    public String getLprEffectDate() {
+        return this.lprEffectDate;
     }
 
 }
