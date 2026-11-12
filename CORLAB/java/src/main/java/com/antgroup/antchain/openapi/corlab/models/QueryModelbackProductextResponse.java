@@ -18,7 +18,7 @@ public class QueryModelbackProductextResponse extends TeaModel {
 
     // 产品内容
     @NameInMap("product_context")
-    public ProductExtContext productContext;
+    public java.util.List<ProductExtContext> productContext;
 
     public static QueryModelbackProductextResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryModelbackProductextResponse self = new QueryModelbackProductextResponse();
@@ -49,11 +49,11 @@ public class QueryModelbackProductextResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryModelbackProductextResponse setProductContext(ProductExtContext productContext) {
+    public QueryModelbackProductextResponse setProductContext(java.util.List<ProductExtContext> productContext) {
         this.productContext = productContext;
         return this;
     }
-    public ProductExtContext getProductContext() {
+    public java.util.List<ProductExtContext> getProductContext() {
         return this.productContext;
     }
 
