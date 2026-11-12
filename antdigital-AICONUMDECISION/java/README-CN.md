@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-aiconumdecision</artifactId>
-   <version>1.0.7</version>
+   <version>1.1.2</version>
 </dependency>
 ```
 
