@@ -1,0 +1,291 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.corlab.models;
+
+import com.aliyun.tea.*;
+
+public class CreateFeatureminingPlanRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 数据来源
+    @NameInMap("data_source")
+    @Validation(required = true)
+    public String dataSource;
+
+    // 业务领域
+    @NameInMap("risk_domain")
+    @Validation(required = true)
+    public String riskDomain;
+
+    // 业务版块
+    @NameInMap("risk_category")
+    @Validation(required = true)
+    public String riskCategory;
+
+    // 业务场景
+    @NameInMap("risk_scene")
+    @Validation(required = true)
+    public String riskScene;
+
+    // agent目标导向
+    @NameInMap("demand_detail")
+    public String demandDetail;
+
+    // 交易表/浏览表
+    @NameInMap("depend_tables")
+    @Validation(required = true)
+    public String dependTables;
+
+    // 运行小时数
+    @NameInMap("run_hours")
+    @Validation(required = true)
+    public Long runHours;
+
+    // 15
+    @NameInMap("run_minutes")
+    public Long runMinutes;
+
+    // 100
+    @NameInMap("feature_num")
+    @Validation(required = true)
+    public Long featureNum;
+
+    // iv要求
+    @NameInMap("iv")
+    public String iv;
+
+    // 1702
+    /**
+     * <p>待上传文件</p>
+     */
+    @NameInMap("fileObject")
+    public java.io.InputStream fileObject;
+
+    /**
+     * <p>待上传文件名</p>
+     */
+    @NameInMap("fileObjectName")
+    public String fileObjectName;
+
+    @NameInMap("file_id")
+    @Validation(required = true)
+    public Long fileId;
+
+    // 客群
+    @NameInMap("customer_group")
+    public String customerGroup;
+
+    // 是否进行模型评估
+    @NameInMap("model_evaluate")
+    @Validation(required = true)
+    public Boolean modelEvaluate;
+
+    // 基模选择
+    @NameInMap("basic_model")
+    @Validation(required = true)
+    public String basicModel;
+
+    // baseLine信息
+    @NameInMap("base_line_ids")
+    @Validation(required = true)
+    public java.util.List<Long> baseLineIds;
+
+    // 结果判断，后期使用
+    @NameInMap("direction")
+    public String direction;
+
+    // 计划开始时间
+    @NameInMap("start_date")
+    @Validation(required = true)
+    public String startDate;
+
+    // 结束时间
+    @NameInMap("end_date")
+    public String endDate;
+
+    public static CreateFeatureminingPlanRequest build(java.util.Map<String, ?> map) throws Exception {
+        CreateFeatureminingPlanRequest self = new CreateFeatureminingPlanRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public CreateFeatureminingPlanRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public CreateFeatureminingPlanRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public CreateFeatureminingPlanRequest setDataSource(String dataSource) {
+        this.dataSource = dataSource;
+        return this;
+    }
+    public String getDataSource() {
+        return this.dataSource;
+    }
+
+    public CreateFeatureminingPlanRequest setRiskDomain(String riskDomain) {
+        this.riskDomain = riskDomain;
+        return this;
+    }
+    public String getRiskDomain() {
+        return this.riskDomain;
+    }
+
+    public CreateFeatureminingPlanRequest setRiskCategory(String riskCategory) {
+        this.riskCategory = riskCategory;
+        return this;
+    }
+    public String getRiskCategory() {
+        return this.riskCategory;
+    }
+
+    public CreateFeatureminingPlanRequest setRiskScene(String riskScene) {
+        this.riskScene = riskScene;
+        return this;
+    }
+    public String getRiskScene() {
+        return this.riskScene;
+    }
+
+    public CreateFeatureminingPlanRequest setDemandDetail(String demandDetail) {
+        this.demandDetail = demandDetail;
+        return this;
+    }
+    public String getDemandDetail() {
+        return this.demandDetail;
+    }
+
+    public CreateFeatureminingPlanRequest setDependTables(String dependTables) {
+        this.dependTables = dependTables;
+        return this;
+    }
+    public String getDependTables() {
+        return this.dependTables;
+    }
+
+    public CreateFeatureminingPlanRequest setRunHours(Long runHours) {
+        this.runHours = runHours;
+        return this;
+    }
+    public Long getRunHours() {
+        return this.runHours;
+    }
+
+    public CreateFeatureminingPlanRequest setRunMinutes(Long runMinutes) {
+        this.runMinutes = runMinutes;
+        return this;
+    }
+    public Long getRunMinutes() {
+        return this.runMinutes;
+    }
+
+    public CreateFeatureminingPlanRequest setFeatureNum(Long featureNum) {
+        this.featureNum = featureNum;
+        return this;
+    }
+    public Long getFeatureNum() {
+        return this.featureNum;
+    }
+
+    public CreateFeatureminingPlanRequest setIv(String iv) {
+        this.iv = iv;
+        return this;
+    }
+    public String getIv() {
+        return this.iv;
+    }
+
+    public CreateFeatureminingPlanRequest setFileObject(java.io.InputStream fileObject) {
+        this.fileObject = fileObject;
+        return this;
+    }
+    public java.io.InputStream getFileObject() {
+        return this.fileObject;
+    }
+
+    public CreateFeatureminingPlanRequest setFileObjectName(String fileObjectName) {
+        this.fileObjectName = fileObjectName;
+        return this;
+    }
+    public String getFileObjectName() {
+        return this.fileObjectName;
+    }
+
+    public CreateFeatureminingPlanRequest setFileId(Long fileId) {
+        this.fileId = fileId;
+        return this;
+    }
+    public Long getFileId() {
+        return this.fileId;
+    }
+
+    public CreateFeatureminingPlanRequest setCustomerGroup(String customerGroup) {
+        this.customerGroup = customerGroup;
+        return this;
+    }
+    public String getCustomerGroup() {
+        return this.customerGroup;
+    }
+
+    public CreateFeatureminingPlanRequest setModelEvaluate(Boolean modelEvaluate) {
+        this.modelEvaluate = modelEvaluate;
+        return this;
+    }
+    public Boolean getModelEvaluate() {
+        return this.modelEvaluate;
+    }
+
+    public CreateFeatureminingPlanRequest setBasicModel(String basicModel) {
+        this.basicModel = basicModel;
+        return this;
+    }
+    public String getBasicModel() {
+        return this.basicModel;
+    }
+
+    public CreateFeatureminingPlanRequest setBaseLineIds(java.util.List<Long> baseLineIds) {
+        this.baseLineIds = baseLineIds;
+        return this;
+    }
+    public java.util.List<Long> getBaseLineIds() {
+        return this.baseLineIds;
+    }
+
+    public CreateFeatureminingPlanRequest setDirection(String direction) {
+        this.direction = direction;
+        return this;
+    }
+    public String getDirection() {
+        return this.direction;
+    }
+
+    public CreateFeatureminingPlanRequest setStartDate(String startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+    public String getStartDate() {
+        return this.startDate;
+    }
+
+    public CreateFeatureminingPlanRequest setEndDate(String endDate) {
+        this.endDate = endDate;
+        return this;
+    }
+    public String getEndDate() {
+        return this.endDate;
+    }
+
+}
