@@ -45,6 +45,15 @@ public class ProductExtContext extends TeaModel {
     @Validation(required = true)
     public java.util.List<String> scoreFields;
 
+    // 返回样本模版文件下载url
+    /**
+     * <strong>example:</strong>
+     * <p><a href="http://oss">http://oss</a></p>
+     */
+    @NameInMap("template_file_down_url")
+    @Validation(required = true)
+    public String templateFileDownUrl;
+
     public static ProductExtContext build(java.util.Map<String, ?> map) throws Exception {
         ProductExtContext self = new ProductExtContext();
         return TeaModel.build(map, self);
@@ -88,6 +97,14 @@ public class ProductExtContext extends TeaModel {
     }
     public java.util.List<String> getScoreFields() {
         return this.scoreFields;
+    }
+
+    public ProductExtContext setTemplateFileDownUrl(String templateFileDownUrl) {
+        this.templateFileDownUrl = templateFileDownUrl;
+        return this;
+    }
+    public String getTemplateFileDownUrl() {
+        return this.templateFileDownUrl;
     }
 
 }
