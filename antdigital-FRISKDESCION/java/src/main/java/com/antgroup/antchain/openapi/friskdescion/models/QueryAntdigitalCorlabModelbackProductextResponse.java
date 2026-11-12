@@ -17,8 +17,8 @@ public class QueryAntdigitalCorlabModelbackProductextResponse extends TeaModel {
     public String resultMsg;
 
     // 产品内容
-    @NameInMap("product_ext_context")
-    public java.util.List<ProductExtContext> productExtContext;
+    @NameInMap("product_context")
+    public java.util.List<ProductExtContext> productContext;
 
     public static QueryAntdigitalCorlabModelbackProductextResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAntdigitalCorlabModelbackProductextResponse self = new QueryAntdigitalCorlabModelbackProductextResponse();
@@ -49,12 +49,12 @@ public class QueryAntdigitalCorlabModelbackProductextResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public QueryAntdigitalCorlabModelbackProductextResponse setProductExtContext(java.util.List<ProductExtContext> productExtContext) {
-        this.productExtContext = productExtContext;
+    public QueryAntdigitalCorlabModelbackProductextResponse setProductContext(java.util.List<ProductExtContext> productContext) {
+        this.productContext = productContext;
         return this;
     }
-    public java.util.List<ProductExtContext> getProductExtContext() {
-        return this.productExtContext;
+    public java.util.List<ProductExtContext> getProductContext() {
+        return this.productContext;
     }
 
 }
