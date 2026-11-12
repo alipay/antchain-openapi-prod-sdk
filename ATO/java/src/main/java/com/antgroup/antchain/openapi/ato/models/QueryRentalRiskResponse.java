@@ -32,6 +32,10 @@ public class QueryRentalRiskResponse extends TeaModel {
     @NameInMap("reject_reason")
     public String rejectReason;
 
+    // 风控区间
+    @NameInMap("risk_rank")
+    public Long riskRank;
+
     public static QueryRentalRiskResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryRentalRiskResponse self = new QueryRentalRiskResponse();
         return TeaModel.build(map, self);
@@ -91,6 +95,14 @@ public class QueryRentalRiskResponse extends TeaModel {
     }
     public String getRejectReason() {
         return this.rejectReason;
+    }
+
+    public QueryRentalRiskResponse setRiskRank(Long riskRank) {
+        this.riskRank = riskRank;
+        return this;
+    }
+    public Long getRiskRank() {
+        return this.riskRank;
     }
 
 }

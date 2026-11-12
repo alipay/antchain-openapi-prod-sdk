@@ -52,6 +52,15 @@ public class RentalRiskStrategy extends TeaModel {
     @Validation(required = true)
     public String action;
 
+    // 风控区间
+    /**
+     * <strong>example:</strong>
+     * <p>1</p>
+     */
+    @NameInMap("risk_rank")
+    @Validation(required = true)
+    public Long riskRank;
+
     public static RentalRiskStrategy build(java.util.Map<String, ?> map) throws Exception {
         RentalRiskStrategy self = new RentalRiskStrategy();
         return TeaModel.build(map, self);
@@ -95,6 +104,14 @@ public class RentalRiskStrategy extends TeaModel {
     }
     public String getAction() {
         return this.action;
+    }
+
+    public RentalRiskStrategy setRiskRank(Long riskRank) {
+        this.riskRank = riskRank;
+        return this;
+    }
+    public Long getRiskRank() {
+        return this.riskRank;
     }
 
 }
