@@ -1098,7 +1098,7 @@ export class QueryModelbackProductextRequest extends $tea.Model {
   authToken?: string;
   productInstanceId?: string;
   // 通过产品Code查询出相关产品的产品名、模版字段等信息
-  productCodes: string[];
+  productCodes?: string[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1128,7 +1128,7 @@ export class QueryModelbackProductextResponse extends $tea.Model {
   // 异常信息的文本描述
   resultMsg?: string;
   // 产品内容
-  productContext?: ProductExtContext;
+  productContext?: ProductExtContext[];
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1143,7 +1143,7 @@ export class QueryModelbackProductextResponse extends $tea.Model {
       reqMsgId: 'string',
       resultCode: 'string',
       resultMsg: 'string',
-      productContext: ProductExtContext,
+      productContext: { 'type': 'array', 'itemType': ProductExtContext },
     };
   }
 
@@ -1357,7 +1357,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.3.0",
+          sdk_version: "1.3.2",
           _prod_code: "CORLAB",
           _prod_channel: "default",
         };
