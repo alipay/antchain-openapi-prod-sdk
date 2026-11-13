@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.1.3"),
+                    new TeaPair("sdk_version", "2.1.4"),
                     new TeaPair("_prod_code", "CREATIVERENDER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -418,6 +418,111 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.file.upload.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentFileUploadResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</p>
+     */
+    public ExecAntcloudMarketingagentCreativeScriptResponse execAntcloudMarketingagentCreativeScript(ExecAntcloudMarketingagentCreativeScriptRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</p>
+     */
+    public ExecAntcloudMarketingagentCreativeScriptResponse execAntcloudMarketingagentCreativeScriptEx(ExecAntcloudMarketingagentCreativeScriptRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.script.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeScriptResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeScriptResponse queryAntcloudMarketingagentCreativeScript(QueryAntcloudMarketingagentCreativeScriptRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeScriptResponse queryAntcloudMarketingagentCreativeScriptEx(QueryAntcloudMarketingagentCreativeScriptRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.script.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeScriptResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</p>
+     */
+    public ExecAntcloudMarketingagentCreativeScriptexpandResponse execAntcloudMarketingagentCreativeScriptexpand(ExecAntcloudMarketingagentCreativeScriptexpandRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</p>
+     */
+    public ExecAntcloudMarketingagentCreativeScriptexpandResponse execAntcloudMarketingagentCreativeScriptexpandEx(ExecAntcloudMarketingagentCreativeScriptexpandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeScriptexpandResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeScriptexpandResponse queryAntcloudMarketingagentCreativeScriptexpand(QueryAntcloudMarketingagentCreativeScriptexpandRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeScriptexpandResponse queryAntcloudMarketingagentCreativeScriptexpandEx(QueryAntcloudMarketingagentCreativeScriptexpandRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeScriptexpandResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeTemplateResponse queryAntcloudMarketingagentCreativeTemplate(QueryAntcloudMarketingagentCreativeTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</p>
+     */
+    public QueryAntcloudMarketingagentCreativeTemplateResponse queryAntcloudMarketingagentCreativeTemplateEx(QueryAntcloudMarketingagentCreativeTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeTemplateResponse());
     }
 
     /**
