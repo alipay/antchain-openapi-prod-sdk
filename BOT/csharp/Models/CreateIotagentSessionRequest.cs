@@ -28,6 +28,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string UserId { get; set; }
 
+        // 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+        [NameInMap("client_id")]
+        [Validation(Required=false)]
+        public string ClientId { get; set; }
+
         // 实例ID
         [NameInMap("instance_id")]
         [Validation(Required=true)]
