@@ -11,6 +11,7 @@ class CreateIotagentSessionRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'agentId' => 'agent_id',
         'userId' => 'user_id',
+        'clientId' => 'client_id',
         'instanceId' => 'instance_id',
     ];
     public function validate() {
@@ -30,6 +31,9 @@ class CreateIotagentSessionRequest extends Model {
         }
         if (null !== $this->userId) {
             $res['user_id'] = $this->userId;
+        }
+        if (null !== $this->clientId) {
+            $res['client_id'] = $this->clientId;
         }
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
@@ -53,6 +57,9 @@ class CreateIotagentSessionRequest extends Model {
         }
         if(isset($map['user_id'])){
             $model->userId = $map['user_id'];
+        }
+        if(isset($map['client_id'])){
+            $model->clientId = $map['client_id'];
         }
         if(isset($map['instance_id'])){
             $model->instanceId = $map['instance_id'];
@@ -81,6 +88,12 @@ class CreateIotagentSessionRequest extends Model {
      * @var string
      */
     public $userId;
+
+    // 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+    /**
+     * @var string
+     */
+    public $clientId;
 
     // 实例ID
     /**
