@@ -20,7 +20,7 @@ namespace AntChain.SDK.CORLAB.Models
 
         // 通过产品Code查询出相关产品的产品名、模版字段等信息
         [NameInMap("product_codes")]
-        [Validation(Required=true)]
+        [Validation(Required=false)]
         public List<string> ProductCodes { get; set; }
 
     }
