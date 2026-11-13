@@ -22365,6 +22365,7 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         lpr: str = None,
         lpr_point: str = None,
         total_subsidy_interest: str = None,
+        lpr_effect_date: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -22388,6 +22389,8 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
         self.lpr_point = lpr_point
         # 总应还商贴
         self.total_subsidy_interest = total_subsidy_interest
+        # LPR发布日期
+        self.lpr_effect_date = lpr_effect_date
 
     def validate(self):
         if self.repay_trail_list:
@@ -22427,6 +22430,8 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
             result['lpr_point'] = self.lpr_point
         if self.total_subsidy_interest is not None:
             result['total_subsidy_interest'] = self.total_subsidy_interest
+        if self.lpr_effect_date is not None:
+            result['lpr_effect_date'] = self.lpr_effect_date
         return result
 
     def from_map(self, m: dict = None):
@@ -22457,6 +22462,8 @@ class CountDubbridgeRepayReftrialResponse(TeaModel):
             self.lpr_point = m.get('lpr_point')
         if m.get('total_subsidy_interest') is not None:
             self.total_subsidy_interest = m.get('total_subsidy_interest')
+        if m.get('lpr_effect_date') is not None:
+            self.lpr_effect_date = m.get('lpr_effect_date')
         return self
 
 
