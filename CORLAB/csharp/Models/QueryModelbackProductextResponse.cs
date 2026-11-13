@@ -27,7 +27,7 @@ namespace AntChain.SDK.CORLAB.Models
         // 产品内容
         [NameInMap("product_context")]
         [Validation(Required=false)]
-        public ProductExtContext ProductContext { get; set; }
+        public List<ProductExtContext> ProductContext { get; set; }
 
     }
 
