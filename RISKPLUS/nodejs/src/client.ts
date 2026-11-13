@@ -17686,6 +17686,8 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
   lprPoint?: string;
   // 总应还商贴
   totalSubsidyInterest?: string;
+  // LPR发布日期
+  lprEffectDate?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -17699,6 +17701,7 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       lpr: 'lpr',
       lprPoint: 'lpr_point',
       totalSubsidyInterest: 'total_subsidy_interest',
+      lprEffectDate: 'lpr_effect_date',
     };
   }
 
@@ -17715,6 +17718,7 @@ export class CountDubbridgeRepayReftrialResponse extends $tea.Model {
       lpr: 'string',
       lprPoint: 'string',
       totalSubsidyInterest: 'string',
+      lprEffectDate: 'string',
     };
   }
 
@@ -38715,7 +38719,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.33.15",
+          sdk_version: "1.33.16",
           _prod_code: "RISKPLUS",
           _prod_channel: "undefined",
         };
