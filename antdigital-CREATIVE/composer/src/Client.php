@@ -21,6 +21,26 @@ use AntChain\CREATIVE\Models\UploadAssetRequest;
 use AntChain\CREATIVE\Models\UploadAssetResponse;
 use AntChain\CREATIVE\Models\QueryAssetRequest;
 use AntChain\CREATIVE\Models\QueryAssetResponse;
+use AntChain\CREATIVE\Models\UploadMaasAssetRequest;
+use AntChain\CREATIVE\Models\UploadMaasAssetResponse;
+use AntChain\CREATIVE\Models\QueryMaasAssetRequest;
+use AntChain\CREATIVE\Models\QueryMaasAssetResponse;
+use AntChain\CREATIVE\Models\PushMaasVideoRequest;
+use AntChain\CREATIVE\Models\PushMaasVideoResponse;
+use AntChain\CREATIVE\Models\QueryMaasVideoRequest;
+use AntChain\CREATIVE\Models\QueryMaasVideoResponse;
+use AntChain\CREATIVE\Models\PushMaasImageRequest;
+use AntChain\CREATIVE\Models\PushMaasImageResponse;
+use AntChain\CREATIVE\Models\QueryMaasImageRequest;
+use AntChain\CREATIVE\Models\QueryMaasImageResponse;
+use AntChain\CREATIVE\Models\PushMaasAudioRequest;
+use AntChain\CREATIVE\Models\PushMaasAudioResponse;
+use AntChain\CREATIVE\Models\QueryMaasAudioRequest;
+use AntChain\CREATIVE\Models\QueryMaasAudioResponse;
+use AntChain\CREATIVE\Models\ExecMaasChatsyncRequest;
+use AntChain\CREATIVE\Models\ExecMaasChatsyncResponse;
+use AntChain\CREATIVE\Models\ExecMaasPriceRequest;
+use AntChain\CREATIVE\Models\ExecMaasPriceResponse;
 
 class Client {
     protected $_endpoint;
@@ -130,7 +150,7 @@ class Client {
                 "period" => Utils::defaultNumber($runtime->backoffPeriod, 1)
             ],
             "ignoreSSL" => $runtime->ignoreSSL,
-            // 附加信息
+            // 只计一次的请求级费用明细
         ];
         $_lastRequest = null;
         $_lastException = null;
@@ -157,7 +177,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.10",
+                    "sdk_version" => "1.1.0",
                     "_prod_code" => "CREATIVE",
                     "_prod_channel" => "default"
                 ];
@@ -300,5 +320,255 @@ class Client {
     public function queryAssetEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAssetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.asset.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 上传资产
+     * Summary: 上传资产
+     * @param UploadMaasAssetRequest $request
+     * @return UploadMaasAssetResponse
+     */
+    public function uploadMaasAsset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadMaasAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 上传资产
+     * Summary: 上传资产
+     * @param UploadMaasAssetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadMaasAssetResponse
+     */
+    public function uploadMaasAssetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadMaasAssetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.asset.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询资产
+     * Summary: 查询资产
+     * @param QueryMaasAssetRequest $request
+     * @return QueryMaasAssetResponse
+     */
+    public function queryMaasAsset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMaasAssetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询资产
+     * Summary: 查询资产
+     * @param QueryMaasAssetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMaasAssetResponse
+     */
+    public function queryMaasAssetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMaasAssetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.asset.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建视频任务
+     * Summary: 创建视频任务
+     * @param PushMaasVideoRequest $request
+     * @return PushMaasVideoResponse
+     */
+    public function pushMaasVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushMaasVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建视频任务
+     * Summary: 创建视频任务
+     * @param PushMaasVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushMaasVideoResponse
+     */
+    public function pushMaasVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushMaasVideoResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.video.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询视频任务
+     * Summary: 查询视频任务
+     * @param QueryMaasVideoRequest $request
+     * @return QueryMaasVideoResponse
+     */
+    public function queryMaasVideo($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMaasVideoEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询视频任务
+     * Summary: 查询视频任务
+     * @param QueryMaasVideoRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMaasVideoResponse
+     */
+    public function queryMaasVideoEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMaasVideoResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.video.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 生成图片
+     * Summary: 生成图片
+     * @param PushMaasImageRequest $request
+     * @return PushMaasImageResponse
+     */
+    public function pushMaasImage($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushMaasImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 生成图片
+     * Summary: 生成图片
+     * @param PushMaasImageRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushMaasImageResponse
+     */
+    public function pushMaasImageEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushMaasImageResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.image.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询图片任务
+     * Summary: 查询图片任务
+     * @param QueryMaasImageRequest $request
+     * @return QueryMaasImageResponse
+     */
+    public function queryMaasImage($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMaasImageEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询图片任务
+     * Summary: 查询图片任务
+     * @param QueryMaasImageRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMaasImageResponse
+     */
+    public function queryMaasImageEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMaasImageResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.image.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建音频任务
+     * Summary: 创建音频任务
+     * @param PushMaasAudioRequest $request
+     * @return PushMaasAudioResponse
+     */
+    public function pushMaasAudio($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushMaasAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建音频任务
+     * Summary: 创建音频任务
+     * @param PushMaasAudioRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushMaasAudioResponse
+     */
+    public function pushMaasAudioEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushMaasAudioResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.audio.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询音频任务
+     * Summary: 查询音频任务
+     * @param QueryMaasAudioRequest $request
+     * @return QueryMaasAudioResponse
+     */
+    public function queryMaasAudio($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryMaasAudioEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询音频任务
+     * Summary: 查询音频任务
+     * @param QueryMaasAudioRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryMaasAudioResponse
+     */
+    public function queryMaasAudioEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryMaasAudioResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.audio.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本同步调用
+     * Summary: 文本同步调用
+     * @param ExecMaasChatsyncRequest $request
+     * @return ExecMaasChatsyncResponse
+     */
+    public function execMaasChatsync($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execMaasChatsyncEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本同步调用
+     * Summary: 文本同步调用
+     * @param ExecMaasChatsyncRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecMaasChatsyncResponse
+     */
+    public function execMaasChatsyncEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecMaasChatsyncResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.chatsync.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 价格试算
+     * Summary: 价格试算
+     * @param ExecMaasPriceRequest $request
+     * @return ExecMaasPriceResponse
+     */
+    public function execMaasPrice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execMaasPriceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 价格试算
+     * Summary: 价格试算
+     * @param ExecMaasPriceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecMaasPriceResponse
+     */
+    public function execMaasPriceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecMaasPriceResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
