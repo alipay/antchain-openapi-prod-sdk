@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_corlab.
 
-Created on 12/11/2026
+Created on 13/11/2026
 
 @author: Ant Chain SDK
 """

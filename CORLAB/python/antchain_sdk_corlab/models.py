@@ -1523,7 +1523,7 @@ class QueryModelbackProductextRequest(TeaModel):
         self.product_codes = product_codes
 
     def validate(self):
-        self.validate_required(self.product_codes, 'product_codes')
+        pass
 
     def to_map(self):
         _map = super().to_map()
@@ -1556,7 +1556,7 @@ class QueryModelbackProductextResponse(TeaModel):
         req_msg_id: str = None,
         result_code: str = None,
         result_msg: str = None,
-        product_context: ProductExtContext = None,
+        product_context: List[ProductExtContext] = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1569,7 +1569,9 @@ class QueryModelbackProductextResponse(TeaModel):
 
     def validate(self):
         if self.product_context:
-            self.product_context.validate()
+            for k in self.product_context:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -1583,8 +1585,10 @@ class QueryModelbackProductextResponse(TeaModel):
             result['result_code'] = self.result_code
         if self.result_msg is not None:
             result['result_msg'] = self.result_msg
+        result['product_context'] = []
         if self.product_context is not None:
-            result['product_context'] = self.product_context.to_map()
+            for k in self.product_context:
+                result['product_context'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1595,9 +1599,11 @@ class QueryModelbackProductextResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        self.product_context = []
         if m.get('product_context') is not None:
-            temp_model = ProductExtContext()
-            self.product_context = temp_model.from_map(m['product_context'])
+            for k in m.get('product_context'):
+                temp_model = ProductExtContext()
+                self.product_context.append(temp_model.from_map(k))
         return self
 
 
