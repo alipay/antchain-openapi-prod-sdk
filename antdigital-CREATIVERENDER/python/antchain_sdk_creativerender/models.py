@@ -271,81 +271,6 @@ class Message(TeaModel):
         return self
 
 
-class Artifact(TeaModel):
-    def __init__(
-        self,
-        parts: List[Part] = None,
-    ):
-        # The content of the artifact. Must contain at least one part.
-        self.parts = parts
-
-    def validate(self):
-        if self.parts:
-            for k in self.parts:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['parts'] = []
-        if self.parts is not None:
-            for k in self.parts:
-                result['parts'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        self.parts = []
-        if m.get('parts') is not None:
-            for k in m.get('parts'):
-                temp_model = Part()
-                self.parts.append(temp_model.from_map(k))
-        return self
-
-
-class TaskStatus(TeaModel):
-    def __init__(
-        self,
-        state: str = None,
-        message: Message = None,
-    ):
-        # The current state of this task.
-        self.state = state
-        # A message associated with the status.
-        self.message = message
-
-    def validate(self):
-        self.validate_required(self.state, 'state')
-        self.validate_required(self.message, 'message')
-        if self.message:
-            self.message.validate()
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.state is not None:
-            result['state'] = self.state
-        if self.message is not None:
-            result['message'] = self.message.to_map()
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('message') is not None:
-            temp_model = Message()
-            self.message = temp_model.from_map(m['message'])
-        return self
-
-
 class LongImageSegment(TeaModel):
     def __init__(
         self,
@@ -430,6 +355,186 @@ class LongImageSegment(TeaModel):
         return self
 
 
+class Artifact(TeaModel):
+    def __init__(
+        self,
+        parts: List[Part] = None,
+    ):
+        # The content of the artifact. Must contain at least one part.
+        self.parts = parts
+
+    def validate(self):
+        if self.parts:
+            for k in self.parts:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['parts'] = []
+        if self.parts is not None:
+            for k in self.parts:
+                result['parts'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        self.parts = []
+        if m.get('parts') is not None:
+            for k in m.get('parts'):
+                temp_model = Part()
+                self.parts.append(temp_model.from_map(k))
+        return self
+
+
+class TaskStatus(TeaModel):
+    def __init__(
+        self,
+        state: str = None,
+        message: Message = None,
+    ):
+        # The current state of this task.
+        self.state = state
+        # A message associated with the status.
+        self.message = message
+
+    def validate(self):
+        self.validate_required(self.state, 'state')
+        self.validate_required(self.message, 'message')
+        if self.message:
+            self.message.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.state is not None:
+            result['state'] = self.state
+        if self.message is not None:
+            result['message'] = self.message.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('message') is not None:
+            temp_model = Message()
+            self.message = temp_model.from_map(m['message'])
+        return self
+
+
+class CreativeAssetRef(TeaModel):
+    def __init__(
+        self,
+        source_type: str = None,
+        material_id: str = None,
+        url: str = None,
+        usage_hint: str = None,
+    ):
+        # 素材来源
+        self.source_type = source_type
+        # 素材ID，只有素材来源于creative的素材库中才需要填入
+        self.material_id = material_id
+        # 可公网访问的素材url地址
+        self.url = url
+        # 使用提示
+        self.usage_hint = usage_hint
+
+    def validate(self):
+        self.validate_required(self.source_type, 'source_type')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.source_type is not None:
+            result['source_type'] = self.source_type
+        if self.material_id is not None:
+            result['material_id'] = self.material_id
+        if self.url is not None:
+            result['url'] = self.url
+        if self.usage_hint is not None:
+            result['usage_hint'] = self.usage_hint
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('source_type') is not None:
+            self.source_type = m.get('source_type')
+        if m.get('material_id') is not None:
+            self.material_id = m.get('material_id')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('usage_hint') is not None:
+            self.usage_hint = m.get('usage_hint')
+        return self
+
+
+class VideoOutput(TeaModel):
+    def __init__(
+        self,
+        type: str = None,
+        url: str = None,
+        id: str = None,
+        duration: int = None,
+        expire_time: int = None,
+    ):
+        # 产物类型
+        self.type = type
+        # 可下载的视频地址
+        self.url = url
+        # 产物 ID
+        self.id = id
+        # 实际视频时长，单位秒
+        self.duration = duration
+        # URL 过期时间，毫秒时间戳；能确定时返回
+        self.expire_time = expire_time
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['type'] = self.type
+        if self.url is not None:
+            result['url'] = self.url
+        if self.id is not None:
+            result['id'] = self.id
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.expire_time is not None:
+            result['expire_time'] = self.expire_time
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('url') is not None:
+            self.url = m.get('url')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('expire_time') is not None:
+            self.expire_time = m.get('expire_time')
+        return self
+
+
 class AssistantExtra(TeaModel):
     def __init__(
         self,
@@ -484,6 +589,86 @@ class AssistantExtra(TeaModel):
             for k in m.get('sub_images'):
                 temp_model = LongImageSegment()
                 self.sub_images.append(temp_model.from_map(k))
+        return self
+
+
+class CreativeVideoAssetRef(TeaModel):
+    def __init__(
+        self,
+        entity_id: str = None,
+        material_type: str = None,
+        source_type: str = None,
+        path: str = None,
+        name: str = None,
+        size_bytes: int = None,
+        duration_seconds: int = None,
+        thumbnail_file_id: str = None,
+    ):
+        # prompt 中 @{名称,entityId} 对应的实体 ID；同一实体可跨图片、音频、视频复用。
+        self.entity_id = entity_id
+        # 素材类型：IMAGE、AUDIO、VIDEO。
+        self.material_type = material_type
+        # 素材来源：MATERIAL（素材库）、AFTS（本地上传）、URL（外部可访问地址）。OpenAPI 支持 URL，与 input_elements 一致；后端需解析/转存后再交算法。
+        self.source_type = source_type
+        # 由 source_type 决定：MATERIAL 传 materialId；AFTS 传 /creative/file/upload 返回的 fileId；URL 传外部可访问的绝对 http/https URL。
+        self.path = path
+        # 前端展示名称，不作为生成校验依据。
+        self.name = name
+        # 文件大小快照，单位字节；AFTS 来源必填，由前端传入。
+        self.size_bytes = size_bytes
+        # 音视频时长快照，单位秒；AFTS 音频、视频必填。
+        self.duration_seconds = duration_seconds
+        # 视频缩略图 AFTS 文件 ID，可由 /creative/file/upload 返回的 fileId 提供。
+        self.thumbnail_file_id = thumbnail_file_id
+
+    def validate(self):
+        self.validate_required(self.entity_id, 'entity_id')
+        self.validate_required(self.material_type, 'material_type')
+        self.validate_required(self.source_type, 'source_type')
+        self.validate_required(self.path, 'path')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_id is not None:
+            result['entity_id'] = self.entity_id
+        if self.material_type is not None:
+            result['material_type'] = self.material_type
+        if self.source_type is not None:
+            result['source_type'] = self.source_type
+        if self.path is not None:
+            result['path'] = self.path
+        if self.name is not None:
+            result['name'] = self.name
+        if self.size_bytes is not None:
+            result['size_bytes'] = self.size_bytes
+        if self.duration_seconds is not None:
+            result['duration_seconds'] = self.duration_seconds
+        if self.thumbnail_file_id is not None:
+            result['thumbnail_file_id'] = self.thumbnail_file_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('entity_id') is not None:
+            self.entity_id = m.get('entity_id')
+        if m.get('material_type') is not None:
+            self.material_type = m.get('material_type')
+        if m.get('source_type') is not None:
+            self.source_type = m.get('source_type')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('size_bytes') is not None:
+            self.size_bytes = m.get('size_bytes')
+        if m.get('duration_seconds') is not None:
+            self.duration_seconds = m.get('duration_seconds')
+        if m.get('thumbnail_file_id') is not None:
+            self.thumbnail_file_id = m.get('thumbnail_file_id')
         return self
 
 
@@ -674,111 +859,6 @@ class CreativeMaterial(TeaModel):
             self.owner_name = m.get('owner_name')
         if m.get('gmt_create') is not None:
             self.gmt_create = m.get('gmt_create')
-        return self
-
-
-class CreativeAssetRef(TeaModel):
-    def __init__(
-        self,
-        source_type: str = None,
-        material_id: str = None,
-        url: str = None,
-        usage_hint: str = None,
-    ):
-        # 素材来源
-        self.source_type = source_type
-        # 素材ID，只有素材来源于creative的素材库中才需要填入
-        self.material_id = material_id
-        # 可公网访问的素材url地址
-        self.url = url
-        # 使用提示
-        self.usage_hint = usage_hint
-
-    def validate(self):
-        self.validate_required(self.source_type, 'source_type')
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.source_type is not None:
-            result['source_type'] = self.source_type
-        if self.material_id is not None:
-            result['material_id'] = self.material_id
-        if self.url is not None:
-            result['url'] = self.url
-        if self.usage_hint is not None:
-            result['usage_hint'] = self.usage_hint
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('source_type') is not None:
-            self.source_type = m.get('source_type')
-        if m.get('material_id') is not None:
-            self.material_id = m.get('material_id')
-        if m.get('url') is not None:
-            self.url = m.get('url')
-        if m.get('usage_hint') is not None:
-            self.usage_hint = m.get('usage_hint')
-        return self
-
-
-class VideoOutput(TeaModel):
-    def __init__(
-        self,
-        type: str = None,
-        url: str = None,
-        id: str = None,
-        duration: int = None,
-        expire_time: int = None,
-    ):
-        # 产物类型
-        self.type = type
-        # 可下载的视频地址
-        self.url = url
-        # 产物 ID
-        self.id = id
-        # 实际视频时长，单位秒
-        self.duration = duration
-        # URL 过期时间，毫秒时间戳；能确定时返回
-        self.expire_time = expire_time
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super().to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.type is not None:
-            result['type'] = self.type
-        if self.url is not None:
-            result['url'] = self.url
-        if self.id is not None:
-            result['id'] = self.id
-        if self.duration is not None:
-            result['duration'] = self.duration
-        if self.expire_time is not None:
-            result['expire_time'] = self.expire_time
-        return result
-
-    def from_map(self, m: dict = None):
-        m = m or dict()
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('url') is not None:
-            self.url = m.get('url')
-        if m.get('id') is not None:
-            self.id = m.get('id')
-        if m.get('duration') is not None:
-            self.duration = m.get('duration')
-        if m.get('expire_time') is not None:
-            self.expire_time = m.get('expire_time')
         return self
 
 
@@ -2311,6 +2391,496 @@ class ExecAntcloudMarketingagentFileUploadResponse(TeaModel):
             self.oss_file_path = m.get('oss_file_path')
         if m.get('access_url') is not None:
             self.access_url = m.get('access_url')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeScriptRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        prompt: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 待扩写的原始脚本或简要描述，复用现有文生视频的脚本扩写逻辑
+        self.prompt = prompt
+
+    def validate(self):
+        self.validate_required(self.prompt, 'prompt')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeScriptResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 脚本扩写任务标识，用于查询扩写任务
+        self.task_id = task_id
+        # 脚本扩写任务状态，沿用现有任务状态体系
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeScriptRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 发起脚本扩写接口返回的任务标识
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeScriptResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+        expanded_script: str = None,
+        error_code: str = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 脚本扩写任务标识，用于查询扩写任务
+        self.task_id = task_id
+        # 脚本扩写任务状态，沿用现有任务状态体系
+        self.status = status
+        # 扩写后的脚本文本，任务成功时返回
+        self.expanded_script = expanded_script
+        # 脚本扩写任务失败码，失败时返回
+        self.error_code = error_code
+        # 脚本扩写任务失败原因，失败时返回
+        self.error_message = error_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.expanded_script is not None:
+            result['expanded_script'] = self.expanded_script
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('expanded_script') is not None:
+            self.expanded_script = m.get('expanded_script')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeScriptexpandRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        prompt: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 待扩写的原始脚本或简要描述
+        self.prompt = prompt
+
+    def validate(self):
+        self.validate_required(self.prompt, 'prompt')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        return self
+
+
+class ExecAntcloudMarketingagentCreativeScriptexpandResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 脚本扩写任务标识，用于查询
+        self.task_id = task_id
+        # 脚本扩写任务状态，沿用现有任务状态体系
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeScriptexpandRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 发起脚本扩写接口返回的任务标识
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeScriptexpandResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+        expanded_script: str = None,
+        error_code: str = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 脚本扩写任务标识，用于查询
+        self.task_id = task_id
+        # 脚本扩写任务状态
+        self.status = status
+        # 扩写后的脚本文本，成功时返回
+        self.expanded_script = expanded_script
+        # 任务失败码，失败时返回
+        self.error_code = error_code
+        # 任务失败原因，失败时返回
+        self.error_message = error_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.expanded_script is not None:
+            result['expanded_script'] = self.expanded_script
+        if self.error_code is not None:
+            result['error_code'] = self.error_code
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('expanded_script') is not None:
+            self.expanded_script = m.get('expanded_script')
+        if m.get('error_code') is not None:
+            self.error_code = m.get('error_code')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeTemplateRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        template_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 模板素材ID，对应creative_material.material_id；仅支持当前租户有权访问的图片或视频参考模板
+        self.template_id = template_id
+
+    def validate(self):
+        self.validate_required(self.template_id, 'template_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.template_id is not None:
+            result['template_id'] = self.template_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('template_id') is not None:
+            self.template_id = m.get('template_id')
+        return self
+
+
+class QueryAntcloudMarketingagentCreativeTemplateResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        template_prompt: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 模板提示词，前端可据此回填生成输入
+        self.template_prompt = template_prompt
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.template_prompt is not None:
+            result['template_prompt'] = self.template_prompt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('template_prompt') is not None:
+            self.template_prompt = m.get('template_prompt')
         return self
 
 

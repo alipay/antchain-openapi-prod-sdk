@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.3',
+                    'sdk_version': '2.1.4',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.3',
+                    'sdk_version': '2.1.4',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -869,6 +869,286 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.ExecAntcloudMarketingagentFileUploadResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.file.upload.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_script(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_script_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_script_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_script_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_script_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.script.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_script_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeScriptResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.script.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_script(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_script_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_script_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_script_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_script_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.script.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_script_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeScriptResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.script.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_scriptexpand(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_scriptexpand_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_scriptexpand_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_scriptexpand_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_scriptexpand_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.scriptexpand.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_scriptexpand_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeScriptexpandResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.scriptexpand.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_scriptexpand(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_scriptexpand_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_scriptexpand_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_scriptexpand_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_scriptexpand_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.scriptexpand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_scriptexpand_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse:
+        """
+        Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeScriptexpandResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.scriptexpand.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_template(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeTemplateRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse:
+        """
+        Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_template_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_template_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeTemplateRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse:
+        """
+        Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_template_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_template_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse:
+        """
+        Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_template_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse:
+        """
+        Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
