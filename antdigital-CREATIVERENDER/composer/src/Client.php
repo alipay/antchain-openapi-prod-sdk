@@ -34,6 +34,16 @@ use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeImageeditR
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentFileUploadRequest;
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentFileUploadResponse;
 use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeScriptRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeScriptResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeScriptexpandRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeScriptexpandResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptexpandRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptexpandResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeTemplateRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeTemplateResponse;
 use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
@@ -171,7 +181,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.1.3",
+                    "sdk_version" => "2.1.4",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -484,6 +494,131 @@ class Client {
         }
         Utils::validateModel($request);
         return ExecAntcloudMarketingagentFileUploadResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.file.upload.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * @param ExecAntcloudMarketingagentCreativeScriptRequest $request
+     * @return ExecAntcloudMarketingagentCreativeScriptResponse
+     */
+    public function execAntcloudMarketingagentCreativeScript($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeScriptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+     * @param ExecAntcloudMarketingagentCreativeScriptRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeScriptResponse
+     */
+    public function execAntcloudMarketingagentCreativeScriptEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeScriptResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.script.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * @param QueryAntcloudMarketingagentCreativeScriptRequest $request
+     * @return QueryAntcloudMarketingagentCreativeScriptResponse
+     */
+    public function queryAntcloudMarketingagentCreativeScript($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeScriptEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+     * @param QueryAntcloudMarketingagentCreativeScriptRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeScriptResponse
+     */
+    public function queryAntcloudMarketingagentCreativeScriptEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeScriptResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.script.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * @param ExecAntcloudMarketingagentCreativeScriptexpandRequest $request
+     * @return ExecAntcloudMarketingagentCreativeScriptexpandResponse
+     */
+    public function execAntcloudMarketingagentCreativeScriptexpand($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeScriptexpandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+     * @param ExecAntcloudMarketingagentCreativeScriptexpandRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeScriptexpandResponse
+     */
+    public function execAntcloudMarketingagentCreativeScriptexpandEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeScriptexpandResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * @param QueryAntcloudMarketingagentCreativeScriptexpandRequest $request
+     * @return QueryAntcloudMarketingagentCreativeScriptexpandResponse
+     */
+    public function queryAntcloudMarketingagentCreativeScriptexpand($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeScriptexpandEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+     * @param QueryAntcloudMarketingagentCreativeScriptexpandRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeScriptexpandResponse
+     */
+    public function queryAntcloudMarketingagentCreativeScriptexpandEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeScriptexpandResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * @param QueryAntcloudMarketingagentCreativeTemplateRequest $request
+     * @return QueryAntcloudMarketingagentCreativeTemplateResponse
+     */
+    public function queryAntcloudMarketingagentCreativeTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+     * @param QueryAntcloudMarketingagentCreativeTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeTemplateResponse
+     */
+    public function queryAntcloudMarketingagentCreativeTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeTemplateResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
