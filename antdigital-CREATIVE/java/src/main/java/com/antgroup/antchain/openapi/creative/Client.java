@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.10"),
+                    new TeaPair("sdk_version", "1.1.0"),
                     new TeaPair("_prod_code", "CREATIVE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -270,5 +270,215 @@ public class Client {
     public QueryAssetResponse queryAssetEx(QueryAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 上传资产
+     * Summary: 上传资产</p>
+     */
+    public UploadMaasAssetResponse uploadMaasAsset(UploadMaasAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadMaasAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 上传资产
+     * Summary: 上传资产</p>
+     */
+    public UploadMaasAssetResponse uploadMaasAssetEx(UploadMaasAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.asset.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadMaasAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询资产
+     * Summary: 查询资产</p>
+     */
+    public QueryMaasAssetResponse queryMaasAsset(QueryMaasAssetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMaasAssetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询资产
+     * Summary: 查询资产</p>
+     */
+    public QueryMaasAssetResponse queryMaasAssetEx(QueryMaasAssetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.asset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMaasAssetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建视频任务
+     * Summary: 创建视频任务</p>
+     */
+    public PushMaasVideoResponse pushMaasVideo(PushMaasVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushMaasVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建视频任务
+     * Summary: 创建视频任务</p>
+     */
+    public PushMaasVideoResponse pushMaasVideoEx(PushMaasVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.video.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMaasVideoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询视频任务
+     * Summary: 查询视频任务</p>
+     */
+    public QueryMaasVideoResponse queryMaasVideo(QueryMaasVideoRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMaasVideoEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询视频任务
+     * Summary: 查询视频任务</p>
+     */
+    public QueryMaasVideoResponse queryMaasVideoEx(QueryMaasVideoRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.video.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMaasVideoResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成图片
+     * Summary: 生成图片</p>
+     */
+    public PushMaasImageResponse pushMaasImage(PushMaasImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushMaasImageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 生成图片
+     * Summary: 生成图片</p>
+     */
+    public PushMaasImageResponse pushMaasImageEx(PushMaasImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.image.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMaasImageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询图片任务
+     * Summary: 查询图片任务</p>
+     */
+    public QueryMaasImageResponse queryMaasImage(QueryMaasImageRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMaasImageEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询图片任务
+     * Summary: 查询图片任务</p>
+     */
+    public QueryMaasImageResponse queryMaasImageEx(QueryMaasImageRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.image.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMaasImageResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建音频任务
+     * Summary: 创建音频任务</p>
+     */
+    public PushMaasAudioResponse pushMaasAudio(PushMaasAudioRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushMaasAudioEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建音频任务
+     * Summary: 创建音频任务</p>
+     */
+    public PushMaasAudioResponse pushMaasAudioEx(PushMaasAudioRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.audio.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushMaasAudioResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询音频任务
+     * Summary: 查询音频任务</p>
+     */
+    public QueryMaasAudioResponse queryMaasAudio(QueryMaasAudioRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryMaasAudioEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询音频任务
+     * Summary: 查询音频任务</p>
+     */
+    public QueryMaasAudioResponse queryMaasAudioEx(QueryMaasAudioRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.audio.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryMaasAudioResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文本同步调用
+     * Summary: 文本同步调用</p>
+     */
+    public ExecMaasChatsyncResponse execMaasChatsync(ExecMaasChatsyncRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMaasChatsyncEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文本同步调用
+     * Summary: 文本同步调用</p>
+     */
+    public ExecMaasChatsyncResponse execMaasChatsyncEx(ExecMaasChatsyncRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.chatsync.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMaasChatsyncResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 价格试算
+     * Summary: 价格试算</p>
+     */
+    public ExecMaasPriceResponse execMaasPrice(ExecMaasPriceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execMaasPriceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 价格试算
+     * Summary: 价格试算</p>
+     */
+    public ExecMaasPriceResponse execMaasPriceEx(ExecMaasPriceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMaasPriceResponse());
     }
 }
