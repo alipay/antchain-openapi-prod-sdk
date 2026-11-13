@@ -21,6 +21,7 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         'lpr' => 'lpr',
         'lprPoint' => 'lpr_point',
         'totalSubsidyInterest' => 'total_subsidy_interest',
+        'lprEffectDate' => 'lpr_effect_date',
     ];
     public function validate() {}
     public function toMap() {
@@ -63,6 +64,9 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         }
         if (null !== $this->totalSubsidyInterest) {
             $res['total_subsidy_interest'] = $this->totalSubsidyInterest;
+        }
+        if (null !== $this->lprEffectDate) {
+            $res['lpr_effect_date'] = $this->lprEffectDate;
         }
         return $res;
     }
@@ -110,6 +114,9 @@ class CountDubbridgeRepayReftrialResponse extends Model {
         }
         if(isset($map['total_subsidy_interest'])){
             $model->totalSubsidyInterest = $map['total_subsidy_interest'];
+        }
+        if(isset($map['lpr_effect_date'])){
+            $model->lprEffectDate = $map['lpr_effect_date'];
         }
         return $model;
     }
@@ -178,5 +185,11 @@ class CountDubbridgeRepayReftrialResponse extends Model {
      * @var string
      */
     public $totalSubsidyInterest;
+
+    // LPR发布日期
+    /**
+     * @var string
+     */
+    public $lprEffectDate;
 
 }
