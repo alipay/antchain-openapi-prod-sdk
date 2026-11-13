@@ -19696,6 +19696,8 @@ export class CreateIotagentSessionRequest extends $tea.Model {
   agentId: string;
   // 用户ID
   userId?: string;
+  // 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+  clientId?: string;
   // 实例ID
   instanceId: string;
   static names(): { [key: string]: string } {
@@ -19704,6 +19706,7 @@ export class CreateIotagentSessionRequest extends $tea.Model {
       productInstanceId: 'product_instance_id',
       agentId: 'agent_id',
       userId: 'user_id',
+      clientId: 'client_id',
       instanceId: 'instance_id',
     };
   }
@@ -19714,6 +19717,7 @@ export class CreateIotagentSessionRequest extends $tea.Model {
       productInstanceId: 'string',
       agentId: 'string',
       userId: 'string',
+      clientId: 'string',
       instanceId: 'string',
     };
   }
@@ -46085,7 +46089,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.11",
+          sdk_version: "1.22.12",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
