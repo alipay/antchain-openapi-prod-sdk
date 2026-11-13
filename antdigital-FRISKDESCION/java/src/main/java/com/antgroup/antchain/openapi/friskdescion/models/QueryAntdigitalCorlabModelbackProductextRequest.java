@@ -13,7 +13,6 @@ public class QueryAntdigitalCorlabModelbackProductextRequest extends TeaModel {
 
     // 通过产品Code查询出相关产品的产品名、模版字段等信息
     @NameInMap("product_codes")
-    @Validation(required = true)
     public java.util.List<String> productCodes;
 
     public static QueryAntdigitalCorlabModelbackProductextRequest build(java.util.Map<String, ?> map) throws Exception {
