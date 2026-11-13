@@ -6,6 +6,7 @@ import (
 	util "github.com/alibabacloud-go/tea-utils/v2/service"
 	"github.com/alibabacloud-go/tea/tea"
 	antchainutil "github.com/antchain-openapi-sdk-go/antchain-util/service"
+	"io"
 )
 
 // Description:
@@ -280,54 +281,6 @@ func (s *Message) SetContextId(v string) *Message {
 	return s
 }
 
-// Artifacts represent task outputs.
-type Artifact struct {
-	// The content of the artifact. Must contain at least one part.
-	Parts []*Part `json:"parts,omitempty" xml:"parts,omitempty" type:"Repeated"`
-}
-
-func (s Artifact) String() string {
-	return tea.Prettify(s)
-}
-
-func (s Artifact) GoString() string {
-	return s.String()
-}
-
-func (s *Artifact) SetParts(v []*Part) *Artifact {
-	s.Parts = v
-	return s
-}
-
-// A container for the status of a task
-type TaskStatus struct {
-	// The current state of this task.
-	// example:
-	//
-	// TASK_STATE_COMPLETED
-	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
-	// A message associated with the status.
-	Message *Message `json:"message,omitempty" xml:"message,omitempty" require:"true"`
-}
-
-func (s TaskStatus) String() string {
-	return tea.Prettify(s)
-}
-
-func (s TaskStatus) GoString() string {
-	return s.String()
-}
-
-func (s *TaskStatus) SetState(v string) *TaskStatus {
-	s.State = &v
-	return s
-}
-
-func (s *TaskStatus) SetMessage(v *Message) *TaskStatus {
-	s.Message = v
-	return s
-}
-
 // 基金长图分段当前快照，包含头图和正文段图及其版本信息。
 type LongImageSegment struct {
 	// 全局唯一的分段业务 ID。
@@ -430,6 +383,168 @@ func (s *LongImageSegment) SetLastSuccessImageUrl(v string) *LongImageSegment {
 	return s
 }
 
+// Artifacts represent task outputs.
+type Artifact struct {
+	// The content of the artifact. Must contain at least one part.
+	Parts []*Part `json:"parts,omitempty" xml:"parts,omitempty" type:"Repeated"`
+}
+
+func (s Artifact) String() string {
+	return tea.Prettify(s)
+}
+
+func (s Artifact) GoString() string {
+	return s.String()
+}
+
+func (s *Artifact) SetParts(v []*Part) *Artifact {
+	s.Parts = v
+	return s
+}
+
+// A container for the status of a task
+type TaskStatus struct {
+	// The current state of this task.
+	// example:
+	//
+	// TASK_STATE_COMPLETED
+	State *string `json:"state,omitempty" xml:"state,omitempty" require:"true"`
+	// A message associated with the status.
+	Message *Message `json:"message,omitempty" xml:"message,omitempty" require:"true"`
+}
+
+func (s TaskStatus) String() string {
+	return tea.Prettify(s)
+}
+
+func (s TaskStatus) GoString() string {
+	return s.String()
+}
+
+func (s *TaskStatus) SetState(v string) *TaskStatus {
+	s.State = &v
+	return s
+}
+
+func (s *TaskStatus) SetMessage(v *Message) *TaskStatus {
+	s.Message = v
+	return s
+}
+
+// 参考样式素材引用
+type CreativeAssetRef struct {
+	// 素材来源
+	// example:
+	//
+	// URL
+	SourceType *string `json:"source_type,omitempty" xml:"source_type,omitempty" require:"true"`
+	// 素材ID，只有素材来源于creative的素材库中才需要填入
+	// example:
+	//
+	// 5bf62f7dd73b4efa8dea7a2665cd2173
+	MaterialId *string `json:"material_id,omitempty" xml:"material_id,omitempty"`
+	// 可公网访问的素材url地址
+	// example:
+	//
+	// https://mdn.alipayobjects.com/wofi_creative/afts/file/80mwSruGUE4AAAAAAAAAAAAA-FZ4AQJr
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 使用提示
+	// example:
+	//
+	// 二维码保持清晰
+	UsageHint *string `json:"usage_hint,omitempty" xml:"usage_hint,omitempty"`
+}
+
+func (s CreativeAssetRef) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreativeAssetRef) GoString() string {
+	return s.String()
+}
+
+func (s *CreativeAssetRef) SetSourceType(v string) *CreativeAssetRef {
+	s.SourceType = &v
+	return s
+}
+
+func (s *CreativeAssetRef) SetMaterialId(v string) *CreativeAssetRef {
+	s.MaterialId = &v
+	return s
+}
+
+func (s *CreativeAssetRef) SetUrl(v string) *CreativeAssetRef {
+	s.Url = &v
+	return s
+}
+
+func (s *CreativeAssetRef) SetUsageHint(v string) *CreativeAssetRef {
+	s.UsageHint = &v
+	return s
+}
+
+// 视频输出结果
+type VideoOutput struct {
+	// 产物类型
+	// example:
+	//
+	// video
+	Type *string `json:"type,omitempty" xml:"type,omitempty"`
+	// 可下载的视频地址
+	// example:
+	//
+	// https://example.com/result.mp4
+	Url *string `json:"url,omitempty" xml:"url,omitempty"`
+	// 产物 ID
+	// example:
+	//
+	// video-001
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 实际视频时长，单位秒
+	// example:
+	//
+	// 15
+	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
+	// URL 过期时间，毫秒时间戳；能确定时返回
+	// example:
+	//
+	// 1790000000000
+	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
+}
+
+func (s VideoOutput) String() string {
+	return tea.Prettify(s)
+}
+
+func (s VideoOutput) GoString() string {
+	return s.String()
+}
+
+func (s *VideoOutput) SetType(v string) *VideoOutput {
+	s.Type = &v
+	return s
+}
+
+func (s *VideoOutput) SetUrl(v string) *VideoOutput {
+	s.Url = &v
+	return s
+}
+
+func (s *VideoOutput) SetId(v string) *VideoOutput {
+	s.Id = &v
+	return s
+}
+
+func (s *VideoOutput) SetDuration(v int64) *VideoOutput {
+	s.Duration = &v
+	return s
+}
+
+func (s *VideoOutput) SetExpireTime(v int64) *VideoOutput {
+	s.ExpireTime = &v
+	return s
+}
+
 // ASSISTANT 消息特有信息
 type AssistantExtra struct {
 	// 任务id
@@ -479,6 +594,98 @@ func (s *AssistantExtra) SetResultUrl(v []*string) *AssistantExtra {
 
 func (s *AssistantExtra) SetSubImages(v []*LongImageSegment) *AssistantExtra {
 	s.SubImages = v
+	return s
+}
+
+// 视频多模态参考素材。source_type 支持 MATERIAL/AFTS/URL；URL 时 path 为外部可访问地址。entity_id 与 prompt 中 @{名称,entityId} 绑定。
+type CreativeVideoAssetRef struct {
+	// prompt 中 @{名称,entityId} 对应的实体 ID；同一实体可跨图片、音频、视频复用。
+	// example:
+	//
+	// e-44b6e1086a08
+	EntityId *string `json:"entity_id,omitempty" xml:"entity_id,omitempty" require:"true"`
+	// 素材类型：IMAGE、AUDIO、VIDEO。
+	// example:
+	//
+	// VIDEO
+	MaterialType *string `json:"material_type,omitempty" xml:"material_type,omitempty" require:"true"`
+	// 素材来源：MATERIAL（素材库）、AFTS（本地上传）、URL（外部可访问地址）。OpenAPI 支持 URL，与 input_elements 一致；后端需解析/转存后再交算法。
+	// example:
+	//
+	// URL
+	SourceType *string `json:"source_type,omitempty" xml:"source_type,omitempty" require:"true"`
+	// 由 source_type 决定：MATERIAL 传 materialId；AFTS 传 /creative/file/upload 返回的 fileId；URL 传外部可访问的绝对 http/https URL。
+	// example:
+	//
+	// https://example.com/ref.mp4
+	Path *string `json:"path,omitempty" xml:"path,omitempty" require:"true"`
+	// 前端展示名称，不作为生成校验依据。
+	// example:
+	//
+	// 小王
+	Name *string `json:"name,omitempty" xml:"name,omitempty"`
+	// 文件大小快照，单位字节；AFTS 来源必填，由前端传入。
+	// example:
+	//
+	// 1048576
+	SizeBytes *int64 `json:"size_bytes,omitempty" xml:"size_bytes,omitempty"`
+	// 音视频时长快照，单位秒；AFTS 音频、视频必填。
+	// example:
+	//
+	// 5.06
+	DurationSeconds *int64 `json:"duration_seconds,omitempty" xml:"duration_seconds,omitempty"`
+	// 视频缩略图 AFTS 文件 ID，可由 /creative/file/upload 返回的 fileId 提供。
+	// example:
+	//
+	// thumb-file-id
+	ThumbnailFileId *string `json:"thumbnail_file_id,omitempty" xml:"thumbnail_file_id,omitempty"`
+}
+
+func (s CreativeVideoAssetRef) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreativeVideoAssetRef) GoString() string {
+	return s.String()
+}
+
+func (s *CreativeVideoAssetRef) SetEntityId(v string) *CreativeVideoAssetRef {
+	s.EntityId = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetMaterialType(v string) *CreativeVideoAssetRef {
+	s.MaterialType = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetSourceType(v string) *CreativeVideoAssetRef {
+	s.SourceType = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetPath(v string) *CreativeVideoAssetRef {
+	s.Path = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetName(v string) *CreativeVideoAssetRef {
+	s.Name = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetSizeBytes(v int64) *CreativeVideoAssetRef {
+	s.SizeBytes = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetDurationSeconds(v int64) *CreativeVideoAssetRef {
+	s.DurationSeconds = &v
+	return s
+}
+
+func (s *CreativeVideoAssetRef) SetThumbnailFileId(v string) *CreativeVideoAssetRef {
+	s.ThumbnailFileId = &v
 	return s
 }
 
@@ -716,120 +923,6 @@ func (s *CreativeMaterial) SetGmtCreate(v string) *CreativeMaterial {
 	return s
 }
 
-// 参考样式素材引用
-type CreativeAssetRef struct {
-	// 素材来源
-	// example:
-	//
-	// URL
-	SourceType *string `json:"source_type,omitempty" xml:"source_type,omitempty" require:"true"`
-	// 素材ID，只有素材来源于creative的素材库中才需要填入
-	// example:
-	//
-	// 5bf62f7dd73b4efa8dea7a2665cd2173
-	MaterialId *string `json:"material_id,omitempty" xml:"material_id,omitempty"`
-	// 可公网访问的素材url地址
-	// example:
-	//
-	// https://mdn.alipayobjects.com/wofi_creative/afts/file/80mwSruGUE4AAAAAAAAAAAAA-FZ4AQJr
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 使用提示
-	// example:
-	//
-	// 二维码保持清晰
-	UsageHint *string `json:"usage_hint,omitempty" xml:"usage_hint,omitempty"`
-}
-
-func (s CreativeAssetRef) String() string {
-	return tea.Prettify(s)
-}
-
-func (s CreativeAssetRef) GoString() string {
-	return s.String()
-}
-
-func (s *CreativeAssetRef) SetSourceType(v string) *CreativeAssetRef {
-	s.SourceType = &v
-	return s
-}
-
-func (s *CreativeAssetRef) SetMaterialId(v string) *CreativeAssetRef {
-	s.MaterialId = &v
-	return s
-}
-
-func (s *CreativeAssetRef) SetUrl(v string) *CreativeAssetRef {
-	s.Url = &v
-	return s
-}
-
-func (s *CreativeAssetRef) SetUsageHint(v string) *CreativeAssetRef {
-	s.UsageHint = &v
-	return s
-}
-
-// 视频输出结果
-type VideoOutput struct {
-	// 产物类型
-	// example:
-	//
-	// video
-	Type *string `json:"type,omitempty" xml:"type,omitempty"`
-	// 可下载的视频地址
-	// example:
-	//
-	// https://example.com/result.mp4
-	Url *string `json:"url,omitempty" xml:"url,omitempty"`
-	// 产物 ID
-	// example:
-	//
-	// video-001
-	Id *string `json:"id,omitempty" xml:"id,omitempty"`
-	// 实际视频时长，单位秒
-	// example:
-	//
-	// 15
-	Duration *int64 `json:"duration,omitempty" xml:"duration,omitempty"`
-	// URL 过期时间，毫秒时间戳；能确定时返回
-	// example:
-	//
-	// 1790000000000
-	ExpireTime *int64 `json:"expire_time,omitempty" xml:"expire_time,omitempty"`
-}
-
-func (s VideoOutput) String() string {
-	return tea.Prettify(s)
-}
-
-func (s VideoOutput) GoString() string {
-	return s.String()
-}
-
-func (s *VideoOutput) SetType(v string) *VideoOutput {
-	s.Type = &v
-	return s
-}
-
-func (s *VideoOutput) SetUrl(v string) *VideoOutput {
-	s.Url = &v
-	return s
-}
-
-func (s *VideoOutput) SetId(v string) *VideoOutput {
-	s.Id = &v
-	return s
-}
-
-func (s *VideoOutput) SetDuration(v int64) *VideoOutput {
-	s.Duration = &v
-	return s
-}
-
-func (s *VideoOutput) SetExpireTime(v int64) *VideoOutput {
-	s.ExpireTime = &v
-	return s
-}
-
 // Task is the core unit of action for A2A. It has a current status and when results are created for the task they are stored in the artifact.
 type Task struct {
 	// Unique identifier (e.g. UUID) for the task, generated by the server for a new task.
@@ -873,6 +966,38 @@ func (s *Task) SetStatus(v *TaskStatus) *Task {
 
 func (s *Task) SetArtifacts(v []*Artifact) *Task {
 	s.Artifacts = v
+	return s
+}
+
+// 键值对
+type XNameValuePair struct {
+	// 键名
+	// example:
+	//
+	// key
+	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
+	// 键值
+	// example:
+	//
+	// value
+	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
+}
+
+func (s XNameValuePair) String() string {
+	return tea.Prettify(s)
+}
+
+func (s XNameValuePair) GoString() string {
+	return s.String()
+}
+
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
+	s.Name = &v
+	return s
+}
+
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
+	s.Value = &v
 	return s
 }
 
@@ -1942,6 +2067,608 @@ func (s *QueryAntcloudMarketingagentCreativeImageeditResponse) SetFailReason(v s
 	return s
 }
 
+type ExecAntcloudMarketingagentFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+}
+
+func (s ExecAntcloudMarketingagentFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadRequest) SetFileObject(v io.Reader) *ExecAntcloudMarketingagentFileUploadRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadRequest) SetFileObjectName(v string) *ExecAntcloudMarketingagentFileUploadRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadRequest) SetFileId(v string) *ExecAntcloudMarketingagentFileUploadRequest {
+	s.FileId = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传后的 AFTS 文件 ID
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// OSS 对象路径
+	OssFilePath *string `json:"oss_file_path,omitempty" xml:"oss_file_path,omitempty"`
+	// 图片访问地址，可用于视频生成 input_elements[].url
+	AccessUrl *string `json:"access_url,omitempty" xml:"access_url,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetResultCode(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetFileId(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetOssFilePath(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.OssFilePath = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentFileUploadResponse) SetAccessUrl(v string) *ExecAntcloudMarketingagentFileUploadResponse {
+	s.AccessUrl = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentCreativeScriptRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 待扩写的原始脚本或简要描述，复用现有文生视频的脚本扩写逻辑
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty" require:"true"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentCreativeScriptRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptRequest) SetPrompt(v string) *ExecAntcloudMarketingagentCreativeScriptRequest {
+	s.Prompt = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentCreativeScriptResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 脚本扩写任务标识，用于查询扩写任务
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 脚本扩写任务状态，沿用现有任务状态体系
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentCreativeScriptResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptResponse) SetResultCode(v string) *ExecAntcloudMarketingagentCreativeScriptResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentCreativeScriptResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptResponse) SetTaskId(v string) *ExecAntcloudMarketingagentCreativeScriptResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptResponse) SetStatus(v string) *ExecAntcloudMarketingagentCreativeScriptResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeScriptRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 发起脚本扩写接口返回的任务标识
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentCreativeScriptRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptRequest) SetTaskId(v string) *QueryAntcloudMarketingagentCreativeScriptRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeScriptResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 脚本扩写任务标识，用于查询扩写任务
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 脚本扩写任务状态，沿用现有任务状态体系
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 扩写后的脚本文本，任务成功时返回
+	ExpandedScript *string `json:"expanded_script,omitempty" xml:"expanded_script,omitempty"`
+	// 脚本扩写任务失败码，失败时返回
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 脚本扩写任务失败原因，失败时返回
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetResultCode(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetTaskId(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetStatus(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetExpandedScript(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ExpandedScript = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetErrorCode(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptResponse) SetErrorMessage(v string) *QueryAntcloudMarketingagentCreativeScriptResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentCreativeScriptexpandRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 待扩写的原始脚本或简要描述
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty" require:"true"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptexpandRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptexpandRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentCreativeScriptexpandRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandRequest) SetPrompt(v string) *ExecAntcloudMarketingagentCreativeScriptexpandRequest {
+	s.Prompt = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentCreativeScriptexpandResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 脚本扩写任务标识，用于查询
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 脚本扩写任务状态，沿用现有任务状态体系
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptexpandResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentCreativeScriptexpandResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandResponse) SetResultCode(v string) *ExecAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandResponse) SetTaskId(v string) *ExecAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeScriptexpandResponse) SetStatus(v string) *ExecAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeScriptexpandRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 发起脚本扩写接口返回的任务标识
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptexpandRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptexpandRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentCreativeScriptexpandRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandRequest) SetTaskId(v string) *QueryAntcloudMarketingagentCreativeScriptexpandRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeScriptexpandResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 脚本扩写任务标识，用于查询
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 脚本扩写任务状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 扩写后的脚本文本，成功时返回
+	ExpandedScript *string `json:"expanded_script,omitempty" xml:"expanded_script,omitempty"`
+	// 任务失败码，失败时返回
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 任务失败原因，失败时返回
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptexpandResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeScriptexpandResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetResultCode(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetTaskId(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetStatus(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetExpandedScript(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ExpandedScript = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetErrorCode(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeScriptexpandResponse) SetErrorMessage(v string) *QueryAntcloudMarketingagentCreativeScriptexpandResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeTemplateRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 模板素材ID，对应creative_material.material_id；仅支持当前租户有权访问的图片或视频参考模板
+	TemplateId *string `json:"template_id,omitempty" xml:"template_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeTemplateRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeTemplateRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentCreativeTemplateRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateRequest) SetTemplateId(v string) *QueryAntcloudMarketingagentCreativeTemplateRequest {
+	s.TemplateId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentCreativeTemplateResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 模板提示词，前端可据此回填生成输入
+	TemplatePrompt *string `json:"template_prompt,omitempty" xml:"template_prompt,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentCreativeTemplateResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentCreativeTemplateResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentCreativeTemplateResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateResponse) SetResultCode(v string) *QueryAntcloudMarketingagentCreativeTemplateResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentCreativeTemplateResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentCreativeTemplateResponse) SetTemplatePrompt(v string) *QueryAntcloudMarketingagentCreativeTemplateResponse {
+	s.TemplatePrompt = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 上传文件作用的openapi method
+	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
+	// 文件标签，多个标签;分割
+	FileLabel *string `json:"file_label,omitempty" xml:"file_label,omitempty" maxLength:"100"`
+	// 自定义的文件元数据
+	FileMetadata *string `json:"file_metadata,omitempty" xml:"file_metadata,omitempty" maxLength:"1000"`
+	// 文件名，不传则随机生成文件名
+	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
+	// 文件的多媒体类型
+	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCode(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileLabel(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileLabel = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileMetadata(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileMetadata = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetFileName(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.FileName = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.MimeType = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
+type CreateAntcloudGatewayxFileUploadResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 上传有效期
+	ExpiredTime *string `json:"expired_time,omitempty" xml:"expired_time,omitempty" pattern:"\\d{4}[-]\\d{1,2}[-]\\d{1,2}[T]\\d{2}:\\d{2}:\\d{2}([Z]|([\\.]\\d{1,9})?[\\+]\\d{2}[\\:]?\\d{2})"`
+	// 32位文件唯一id
+	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
+	// 放入http请求头里
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	// 文件上传地址
+	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CreateAntcloudGatewayxFileUploadResponse) GoString() string {
+	return s.String()
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetReqMsgId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultCode(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetResultMsg(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetExpiredTime(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.ExpiredTime = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.FileId = &v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadHeaders = v
+	return s
+}
+
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadUrl(v string) *CreateAntcloudGatewayxFileUploadResponse {
+	s.UploadUrl = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -2072,7 +2799,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.2"),
+				"sdk_version":      tea.String("2.1.4"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -2447,6 +3174,288 @@ func (client *Client) QueryAntcloudMarketingagentCreativeImageeditEx(request *Qu
 	}
 	_result = &QueryAntcloudMarketingagentCreativeImageeditResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.imageedit.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+//
+// Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+func (client *Client) ExecAntcloudMarketingagentFileUpload(request *ExecAntcloudMarketingagentFileUploadRequest) (_result *ExecAntcloudMarketingagentFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentFileUploadResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+//
+// Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+func (client *Client) ExecAntcloudMarketingagentFileUploadEx(request *ExecAntcloudMarketingagentFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentFileUploadResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antcloud.marketingagent.file.upload.exec"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			execAntcloudMarketingagentFileUploadResponse := &ExecAntcloudMarketingagentFileUploadResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = execAntcloudMarketingagentFileUploadResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.file.upload.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+//
+// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+func (client *Client) ExecAntcloudMarketingagentCreativeScript(request *ExecAntcloudMarketingagentCreativeScriptRequest) (_result *ExecAntcloudMarketingagentCreativeScriptResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentCreativeScriptResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentCreativeScriptEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+//
+// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+func (client *Client) ExecAntcloudMarketingagentCreativeScriptEx(request *ExecAntcloudMarketingagentCreativeScriptRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentCreativeScriptResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentCreativeScriptResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.script.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+//
+// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+func (client *Client) QueryAntcloudMarketingagentCreativeScript(request *QueryAntcloudMarketingagentCreativeScriptRequest) (_result *QueryAntcloudMarketingagentCreativeScriptResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentCreativeScriptResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentCreativeScriptEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+//
+// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+func (client *Client) QueryAntcloudMarketingagentCreativeScriptEx(request *QueryAntcloudMarketingagentCreativeScriptRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentCreativeScriptResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentCreativeScriptResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.script.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+//
+// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+func (client *Client) ExecAntcloudMarketingagentCreativeScriptexpand(request *ExecAntcloudMarketingagentCreativeScriptexpandRequest) (_result *ExecAntcloudMarketingagentCreativeScriptexpandResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentCreativeScriptexpandResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+//
+// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+func (client *Client) ExecAntcloudMarketingagentCreativeScriptexpandEx(request *ExecAntcloudMarketingagentCreativeScriptexpandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentCreativeScriptexpandResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentCreativeScriptexpandResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.scriptexpand.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+//
+// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+func (client *Client) QueryAntcloudMarketingagentCreativeScriptexpand(request *QueryAntcloudMarketingagentCreativeScriptexpandRequest) (_result *QueryAntcloudMarketingagentCreativeScriptexpandResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentCreativeScriptexpandResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+//
+// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+func (client *Client) QueryAntcloudMarketingagentCreativeScriptexpandEx(request *QueryAntcloudMarketingagentCreativeScriptexpandRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentCreativeScriptexpandResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentCreativeScriptexpandResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.scriptexpand.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+//
+// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+func (client *Client) QueryAntcloudMarketingagentCreativeTemplate(request *QueryAntcloudMarketingagentCreativeTemplateRequest) (_result *QueryAntcloudMarketingagentCreativeTemplateResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentCreativeTemplateResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentCreativeTemplateEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+//
+// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+func (client *Client) QueryAntcloudMarketingagentCreativeTemplateEx(request *QueryAntcloudMarketingagentCreativeTemplateRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentCreativeTemplateResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentCreativeTemplateResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.creative.template.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUpload(request *CreateAntcloudGatewayxFileUploadRequest) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.CreateAntcloudGatewayxFileUploadEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建HTTP PUT提交的文件上传
+//
+// Summary: 文件上传创建
+func (client *Client) CreateAntcloudGatewayxFileUploadEx(request *CreateAntcloudGatewayxFileUploadRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *CreateAntcloudGatewayxFileUploadResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &CreateAntcloudGatewayxFileUploadResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.gatewayx.file.upload.create"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
