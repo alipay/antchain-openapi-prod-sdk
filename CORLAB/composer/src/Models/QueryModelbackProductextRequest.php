@@ -11,9 +11,7 @@ class QueryModelbackProductextRequest extends Model {
         'productInstanceId' => 'product_instance_id',
         'productCodes' => 'product_codes',
     ];
-    public function validate() {
-        Model::validateRequired('productCodes', $this->productCodes, true);
-    }
+    public function validate() {}
     public function toMap() {
         $res = [];
         if (null !== $this->authToken) {
