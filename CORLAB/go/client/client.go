@@ -1328,7 +1328,7 @@ type QueryModelbackProductextRequest struct {
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 通过产品Code查询出相关产品的产品名、模版字段等信息
-	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" require:"true" type:"Repeated"`
+	ProductCodes []*string `json:"product_codes,omitempty" xml:"product_codes,omitempty" type:"Repeated"`
 }
 
 func (s QueryModelbackProductextRequest) String() string {
@@ -1643,7 +1643,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.1"),
+				"sdk_version":      tea.String("1.3.2"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
