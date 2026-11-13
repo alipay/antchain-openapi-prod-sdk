@@ -110,7 +110,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 附加信息
+            # 只计一次的请求级费用明细
         }
         _last_request = None
         _last_exception = None
@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.10',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -214,7 +214,7 @@ class Client:
                 'period': UtilClient.default_number(runtime.backoff_period, 1)
             },
             'ignoreSSL': runtime.ignore_ssl,
-            # 附加信息
+            # 只计一次的请求级费用明细
         }
         _last_request = None
         _last_exception = None
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.10',
+                    'sdk_version': '1.1.0',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -497,4 +497,564 @@ class Client:
         return TeaCore.from_map(
             creative_models.QueryAssetResponse(),
             await self.do_request_async('1.0', 'antdigital.creative.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_maas_asset(
+        self,
+        request: creative_models.UploadMaasAssetRequest,
+    ) -> creative_models.UploadMaasAssetResponse:
+        """
+        Description: 上传资产
+        Summary: 上传资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_maas_asset_ex(request, headers, runtime)
+
+    async def upload_maas_asset_async(
+        self,
+        request: creative_models.UploadMaasAssetRequest,
+    ) -> creative_models.UploadMaasAssetResponse:
+        """
+        Description: 上传资产
+        Summary: 上传资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_maas_asset_ex_async(request, headers, runtime)
+
+    def upload_maas_asset_ex(
+        self,
+        request: creative_models.UploadMaasAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.UploadMaasAssetResponse:
+        """
+        Description: 上传资产
+        Summary: 上传资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.UploadMaasAssetResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.asset.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_maas_asset_ex_async(
+        self,
+        request: creative_models.UploadMaasAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.UploadMaasAssetResponse:
+        """
+        Description: 上传资产
+        Summary: 上传资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.UploadMaasAssetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.asset.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_maas_asset(
+        self,
+        request: creative_models.QueryMaasAssetRequest,
+    ) -> creative_models.QueryMaasAssetResponse:
+        """
+        Description: 查询资产
+        Summary: 查询资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_maas_asset_ex(request, headers, runtime)
+
+    async def query_maas_asset_async(
+        self,
+        request: creative_models.QueryMaasAssetRequest,
+    ) -> creative_models.QueryMaasAssetResponse:
+        """
+        Description: 查询资产
+        Summary: 查询资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_maas_asset_ex_async(request, headers, runtime)
+
+    def query_maas_asset_ex(
+        self,
+        request: creative_models.QueryMaasAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasAssetResponse:
+        """
+        Description: 查询资产
+        Summary: 查询资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasAssetResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_maas_asset_ex_async(
+        self,
+        request: creative_models.QueryMaasAssetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasAssetResponse:
+        """
+        Description: 查询资产
+        Summary: 查询资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasAssetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.asset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_maas_video(
+        self,
+        request: creative_models.PushMaasVideoRequest,
+    ) -> creative_models.PushMaasVideoResponse:
+        """
+        Description: 创建视频任务
+        Summary: 创建视频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_maas_video_ex(request, headers, runtime)
+
+    async def push_maas_video_async(
+        self,
+        request: creative_models.PushMaasVideoRequest,
+    ) -> creative_models.PushMaasVideoResponse:
+        """
+        Description: 创建视频任务
+        Summary: 创建视频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_maas_video_ex_async(request, headers, runtime)
+
+    def push_maas_video_ex(
+        self,
+        request: creative_models.PushMaasVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasVideoResponse:
+        """
+        Description: 创建视频任务
+        Summary: 创建视频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasVideoResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.video.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_maas_video_ex_async(
+        self,
+        request: creative_models.PushMaasVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasVideoResponse:
+        """
+        Description: 创建视频任务
+        Summary: 创建视频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasVideoResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.video.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_maas_video(
+        self,
+        request: creative_models.QueryMaasVideoRequest,
+    ) -> creative_models.QueryMaasVideoResponse:
+        """
+        Description: 查询视频任务
+        Summary: 查询视频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_maas_video_ex(request, headers, runtime)
+
+    async def query_maas_video_async(
+        self,
+        request: creative_models.QueryMaasVideoRequest,
+    ) -> creative_models.QueryMaasVideoResponse:
+        """
+        Description: 查询视频任务
+        Summary: 查询视频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_maas_video_ex_async(request, headers, runtime)
+
+    def query_maas_video_ex(
+        self,
+        request: creative_models.QueryMaasVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasVideoResponse:
+        """
+        Description: 查询视频任务
+        Summary: 查询视频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasVideoResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_maas_video_ex_async(
+        self,
+        request: creative_models.QueryMaasVideoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasVideoResponse:
+        """
+        Description: 查询视频任务
+        Summary: 查询视频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasVideoResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.video.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_maas_image(
+        self,
+        request: creative_models.PushMaasImageRequest,
+    ) -> creative_models.PushMaasImageResponse:
+        """
+        Description: 生成图片
+        Summary: 生成图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_maas_image_ex(request, headers, runtime)
+
+    async def push_maas_image_async(
+        self,
+        request: creative_models.PushMaasImageRequest,
+    ) -> creative_models.PushMaasImageResponse:
+        """
+        Description: 生成图片
+        Summary: 生成图片
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_maas_image_ex_async(request, headers, runtime)
+
+    def push_maas_image_ex(
+        self,
+        request: creative_models.PushMaasImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasImageResponse:
+        """
+        Description: 生成图片
+        Summary: 生成图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasImageResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.image.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_maas_image_ex_async(
+        self,
+        request: creative_models.PushMaasImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasImageResponse:
+        """
+        Description: 生成图片
+        Summary: 生成图片
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasImageResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.image.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_maas_image(
+        self,
+        request: creative_models.QueryMaasImageRequest,
+    ) -> creative_models.QueryMaasImageResponse:
+        """
+        Description: 查询图片任务
+        Summary: 查询图片任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_maas_image_ex(request, headers, runtime)
+
+    async def query_maas_image_async(
+        self,
+        request: creative_models.QueryMaasImageRequest,
+    ) -> creative_models.QueryMaasImageResponse:
+        """
+        Description: 查询图片任务
+        Summary: 查询图片任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_maas_image_ex_async(request, headers, runtime)
+
+    def query_maas_image_ex(
+        self,
+        request: creative_models.QueryMaasImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasImageResponse:
+        """
+        Description: 查询图片任务
+        Summary: 查询图片任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasImageResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_maas_image_ex_async(
+        self,
+        request: creative_models.QueryMaasImageRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasImageResponse:
+        """
+        Description: 查询图片任务
+        Summary: 查询图片任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasImageResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.image.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_maas_audio(
+        self,
+        request: creative_models.PushMaasAudioRequest,
+    ) -> creative_models.PushMaasAudioResponse:
+        """
+        Description: 创建音频任务
+        Summary: 创建音频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_maas_audio_ex(request, headers, runtime)
+
+    async def push_maas_audio_async(
+        self,
+        request: creative_models.PushMaasAudioRequest,
+    ) -> creative_models.PushMaasAudioResponse:
+        """
+        Description: 创建音频任务
+        Summary: 创建音频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_maas_audio_ex_async(request, headers, runtime)
+
+    def push_maas_audio_ex(
+        self,
+        request: creative_models.PushMaasAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasAudioResponse:
+        """
+        Description: 创建音频任务
+        Summary: 创建音频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasAudioResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.audio.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_maas_audio_ex_async(
+        self,
+        request: creative_models.PushMaasAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushMaasAudioResponse:
+        """
+        Description: 创建音频任务
+        Summary: 创建音频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushMaasAudioResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.audio.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_maas_audio(
+        self,
+        request: creative_models.QueryMaasAudioRequest,
+    ) -> creative_models.QueryMaasAudioResponse:
+        """
+        Description: 查询音频任务
+        Summary: 查询音频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_maas_audio_ex(request, headers, runtime)
+
+    async def query_maas_audio_async(
+        self,
+        request: creative_models.QueryMaasAudioRequest,
+    ) -> creative_models.QueryMaasAudioResponse:
+        """
+        Description: 查询音频任务
+        Summary: 查询音频任务
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_maas_audio_ex_async(request, headers, runtime)
+
+    def query_maas_audio_ex(
+        self,
+        request: creative_models.QueryMaasAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasAudioResponse:
+        """
+        Description: 查询音频任务
+        Summary: 查询音频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasAudioResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_maas_audio_ex_async(
+        self,
+        request: creative_models.QueryMaasAudioRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryMaasAudioResponse:
+        """
+        Description: 查询音频任务
+        Summary: 查询音频任务
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryMaasAudioResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.audio.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_maas_chatsync(
+        self,
+        request: creative_models.ExecMaasChatsyncRequest,
+    ) -> creative_models.ExecMaasChatsyncResponse:
+        """
+        Description: 文本同步调用
+        Summary: 文本同步调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_maas_chatsync_ex(request, headers, runtime)
+
+    async def exec_maas_chatsync_async(
+        self,
+        request: creative_models.ExecMaasChatsyncRequest,
+    ) -> creative_models.ExecMaasChatsyncResponse:
+        """
+        Description: 文本同步调用
+        Summary: 文本同步调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_maas_chatsync_ex_async(request, headers, runtime)
+
+    def exec_maas_chatsync_ex(
+        self,
+        request: creative_models.ExecMaasChatsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasChatsyncResponse:
+        """
+        Description: 文本同步调用
+        Summary: 文本同步调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasChatsyncResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.chatsync.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_maas_chatsync_ex_async(
+        self,
+        request: creative_models.ExecMaasChatsyncRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasChatsyncResponse:
+        """
+        Description: 文本同步调用
+        Summary: 文本同步调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasChatsyncResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.chatsync.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_maas_price(
+        self,
+        request: creative_models.ExecMaasPriceRequest,
+    ) -> creative_models.ExecMaasPriceResponse:
+        """
+        Description: 价格试算
+        Summary: 价格试算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_maas_price_ex(request, headers, runtime)
+
+    async def exec_maas_price_async(
+        self,
+        request: creative_models.ExecMaasPriceRequest,
+    ) -> creative_models.ExecMaasPriceResponse:
+        """
+        Description: 价格试算
+        Summary: 价格试算
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_maas_price_ex_async(request, headers, runtime)
+
+    def exec_maas_price_ex(
+        self,
+        request: creative_models.ExecMaasPriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasPriceResponse:
+        """
+        Description: 价格试算
+        Summary: 价格试算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasPriceResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.price.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_maas_price_ex_async(
+        self,
+        request: creative_models.ExecMaasPriceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasPriceResponse:
+        """
+        Description: 价格试算
+        Summary: 价格试算
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasPriceResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.price.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
