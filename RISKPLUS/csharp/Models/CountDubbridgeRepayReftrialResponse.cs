@@ -64,6 +64,11 @@ namespace AntChain.SDK.RISKPLUS.Models
         [Validation(Required=false)]
         public string TotalSubsidyInterest { get; set; }
 
+        // LPR发布日期
+        [NameInMap("lpr_effect_date")]
+        [Validation(Required=false)]
+        public string LprEffectDate { get; set; }
+
     }
 
 }
