@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.10"},
+                        {"sdk_version", "1.1.0"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -541,6 +541,466 @@ namespace AntChain.SDK.CREATIVE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAssetResponse>(await DoRequestAsync("1.0", "antdigital.creative.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 上传资产
+        /// Summary: 上传资产</para>
+        /// </description>
+        public UploadMaasAssetResponse UploadMaasAsset(UploadMaasAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return UploadMaasAssetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 上传资产
+        /// Summary: 上传资产</para>
+        /// </description>
+        public async Task<UploadMaasAssetResponse> UploadMaasAssetAsync(UploadMaasAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await UploadMaasAssetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 上传资产
+        /// Summary: 上传资产</para>
+        /// </description>
+        public UploadMaasAssetResponse UploadMaasAssetEx(UploadMaasAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadMaasAssetResponse>(DoRequest("1.0", "antdigital.creative.maas.asset.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 上传资产
+        /// Summary: 上传资产</para>
+        /// </description>
+        public async Task<UploadMaasAssetResponse> UploadMaasAssetExAsync(UploadMaasAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<UploadMaasAssetResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.asset.upload", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询资产
+        /// Summary: 查询资产</para>
+        /// </description>
+        public QueryMaasAssetResponse QueryMaasAsset(QueryMaasAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMaasAssetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询资产
+        /// Summary: 查询资产</para>
+        /// </description>
+        public async Task<QueryMaasAssetResponse> QueryMaasAssetAsync(QueryMaasAssetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMaasAssetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询资产
+        /// Summary: 查询资产</para>
+        /// </description>
+        public QueryMaasAssetResponse QueryMaasAssetEx(QueryMaasAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasAssetResponse>(DoRequest("1.0", "antdigital.creative.maas.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询资产
+        /// Summary: 查询资产</para>
+        /// </description>
+        public async Task<QueryMaasAssetResponse> QueryMaasAssetExAsync(QueryMaasAssetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasAssetResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.asset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建视频任务
+        /// Summary: 创建视频任务</para>
+        /// </description>
+        public PushMaasVideoResponse PushMaasVideo(PushMaasVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushMaasVideoEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建视频任务
+        /// Summary: 创建视频任务</para>
+        /// </description>
+        public async Task<PushMaasVideoResponse> PushMaasVideoAsync(PushMaasVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushMaasVideoExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建视频任务
+        /// Summary: 创建视频任务</para>
+        /// </description>
+        public PushMaasVideoResponse PushMaasVideoEx(PushMaasVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasVideoResponse>(DoRequest("1.0", "antdigital.creative.maas.video.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建视频任务
+        /// Summary: 创建视频任务</para>
+        /// </description>
+        public async Task<PushMaasVideoResponse> PushMaasVideoExAsync(PushMaasVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasVideoResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.video.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询视频任务
+        /// Summary: 查询视频任务</para>
+        /// </description>
+        public QueryMaasVideoResponse QueryMaasVideo(QueryMaasVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMaasVideoEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询视频任务
+        /// Summary: 查询视频任务</para>
+        /// </description>
+        public async Task<QueryMaasVideoResponse> QueryMaasVideoAsync(QueryMaasVideoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMaasVideoExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询视频任务
+        /// Summary: 查询视频任务</para>
+        /// </description>
+        public QueryMaasVideoResponse QueryMaasVideoEx(QueryMaasVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasVideoResponse>(DoRequest("1.0", "antdigital.creative.maas.video.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询视频任务
+        /// Summary: 查询视频任务</para>
+        /// </description>
+        public async Task<QueryMaasVideoResponse> QueryMaasVideoExAsync(QueryMaasVideoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasVideoResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.video.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 生成图片
+        /// Summary: 生成图片</para>
+        /// </description>
+        public PushMaasImageResponse PushMaasImage(PushMaasImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushMaasImageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 生成图片
+        /// Summary: 生成图片</para>
+        /// </description>
+        public async Task<PushMaasImageResponse> PushMaasImageAsync(PushMaasImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushMaasImageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 生成图片
+        /// Summary: 生成图片</para>
+        /// </description>
+        public PushMaasImageResponse PushMaasImageEx(PushMaasImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasImageResponse>(DoRequest("1.0", "antdigital.creative.maas.image.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 生成图片
+        /// Summary: 生成图片</para>
+        /// </description>
+        public async Task<PushMaasImageResponse> PushMaasImageExAsync(PushMaasImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasImageResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.image.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询图片任务
+        /// Summary: 查询图片任务</para>
+        /// </description>
+        public QueryMaasImageResponse QueryMaasImage(QueryMaasImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMaasImageEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询图片任务
+        /// Summary: 查询图片任务</para>
+        /// </description>
+        public async Task<QueryMaasImageResponse> QueryMaasImageAsync(QueryMaasImageRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMaasImageExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询图片任务
+        /// Summary: 查询图片任务</para>
+        /// </description>
+        public QueryMaasImageResponse QueryMaasImageEx(QueryMaasImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasImageResponse>(DoRequest("1.0", "antdigital.creative.maas.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询图片任务
+        /// Summary: 查询图片任务</para>
+        /// </description>
+        public async Task<QueryMaasImageResponse> QueryMaasImageExAsync(QueryMaasImageRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasImageResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.image.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建音频任务
+        /// Summary: 创建音频任务</para>
+        /// </description>
+        public PushMaasAudioResponse PushMaasAudio(PushMaasAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushMaasAudioEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建音频任务
+        /// Summary: 创建音频任务</para>
+        /// </description>
+        public async Task<PushMaasAudioResponse> PushMaasAudioAsync(PushMaasAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushMaasAudioExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建音频任务
+        /// Summary: 创建音频任务</para>
+        /// </description>
+        public PushMaasAudioResponse PushMaasAudioEx(PushMaasAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasAudioResponse>(DoRequest("1.0", "antdigital.creative.maas.audio.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建音频任务
+        /// Summary: 创建音频任务</para>
+        /// </description>
+        public async Task<PushMaasAudioResponse> PushMaasAudioExAsync(PushMaasAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushMaasAudioResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.audio.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询音频任务
+        /// Summary: 查询音频任务</para>
+        /// </description>
+        public QueryMaasAudioResponse QueryMaasAudio(QueryMaasAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryMaasAudioEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询音频任务
+        /// Summary: 查询音频任务</para>
+        /// </description>
+        public async Task<QueryMaasAudioResponse> QueryMaasAudioAsync(QueryMaasAudioRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryMaasAudioExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询音频任务
+        /// Summary: 查询音频任务</para>
+        /// </description>
+        public QueryMaasAudioResponse QueryMaasAudioEx(QueryMaasAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasAudioResponse>(DoRequest("1.0", "antdigital.creative.maas.audio.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询音频任务
+        /// Summary: 查询音频任务</para>
+        /// </description>
+        public async Task<QueryMaasAudioResponse> QueryMaasAudioExAsync(QueryMaasAudioRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryMaasAudioResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.audio.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本同步调用
+        /// Summary: 文本同步调用</para>
+        /// </description>
+        public ExecMaasChatsyncResponse ExecMaasChatsync(ExecMaasChatsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMaasChatsyncEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本同步调用
+        /// Summary: 文本同步调用</para>
+        /// </description>
+        public async Task<ExecMaasChatsyncResponse> ExecMaasChatsyncAsync(ExecMaasChatsyncRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMaasChatsyncExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本同步调用
+        /// Summary: 文本同步调用</para>
+        /// </description>
+        public ExecMaasChatsyncResponse ExecMaasChatsyncEx(ExecMaasChatsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasChatsyncResponse>(DoRequest("1.0", "antdigital.creative.maas.chatsync.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本同步调用
+        /// Summary: 文本同步调用</para>
+        /// </description>
+        public async Task<ExecMaasChatsyncResponse> ExecMaasChatsyncExAsync(ExecMaasChatsyncRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasChatsyncResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.chatsync.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 价格试算
+        /// Summary: 价格试算</para>
+        /// </description>
+        public ExecMaasPriceResponse ExecMaasPrice(ExecMaasPriceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMaasPriceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 价格试算
+        /// Summary: 价格试算</para>
+        /// </description>
+        public async Task<ExecMaasPriceResponse> ExecMaasPriceAsync(ExecMaasPriceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMaasPriceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 价格试算
+        /// Summary: 价格试算</para>
+        /// </description>
+        public ExecMaasPriceResponse ExecMaasPriceEx(ExecMaasPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasPriceResponse>(DoRequest("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 价格试算
+        /// Summary: 价格试算</para>
+        /// </description>
+        public async Task<ExecMaasPriceResponse> ExecMaasPriceExAsync(ExecMaasPriceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasPriceResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
