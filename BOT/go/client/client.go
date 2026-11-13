@@ -22841,6 +22841,8 @@ type CreateIotagentSessionRequest struct {
 	AgentId *string `json:"agent_id,omitempty" xml:"agent_id,omitempty" require:"true"`
 	// 用户ID
 	UserId *string `json:"user_id,omitempty" xml:"user_id,omitempty"`
+	// 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+	ClientId *string `json:"client_id,omitempty" xml:"client_id,omitempty"`
 	// 实例ID
 	InstanceId *string `json:"instance_id,omitempty" xml:"instance_id,omitempty" require:"true"`
 }
@@ -22870,6 +22872,11 @@ func (s *CreateIotagentSessionRequest) SetAgentId(v string) *CreateIotagentSessi
 
 func (s *CreateIotagentSessionRequest) SetUserId(v string) *CreateIotagentSessionRequest {
 	s.UserId = &v
+	return s
+}
+
+func (s *CreateIotagentSessionRequest) SetClientId(v string) *CreateIotagentSessionRequest {
+	s.ClientId = &v
 	return s
 }
 
@@ -57604,7 +57611,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.11"),
+				"sdk_version":      tea.String("1.22.12"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
