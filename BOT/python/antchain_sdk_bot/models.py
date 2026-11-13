@@ -23365,6 +23365,7 @@ class CreateIotagentSessionRequest(TeaModel):
         product_instance_id: str = None,
         agent_id: str = None,
         user_id: str = None,
+        client_id: str = None,
         instance_id: str = None,
     ):
         # OAuth模式下的授权token
@@ -23374,6 +23375,8 @@ class CreateIotagentSessionRequest(TeaModel):
         self.agent_id = agent_id
         # 用户ID
         self.user_id = user_id
+        # 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+        self.client_id = client_id
         # 实例ID
         self.instance_id = instance_id
 
@@ -23395,6 +23398,8 @@ class CreateIotagentSessionRequest(TeaModel):
             result['agent_id'] = self.agent_id
         if self.user_id is not None:
             result['user_id'] = self.user_id
+        if self.client_id is not None:
+            result['client_id'] = self.client_id
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
         return result
@@ -23409,6 +23414,8 @@ class CreateIotagentSessionRequest(TeaModel):
             self.agent_id = m.get('agent_id')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
+        if m.get('client_id') is not None:
+            self.client_id = m.get('client_id')
         if m.get('instance_id') is not None:
             self.instance_id = m.get('instance_id')
         return self
