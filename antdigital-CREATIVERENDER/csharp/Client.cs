@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.3"},
+                        {"sdk_version", "2.1.4"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.3"},
+                        {"sdk_version", "2.1.4"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -865,6 +865,236 @@ namespace AntChain.SDK.CREATIVERENDER
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecAntcloudMarketingagentFileUploadResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.file.upload.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        /// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeScriptResponse ExecAntcloudMarketingagentCreativeScript(ExecAntcloudMarketingagentCreativeScriptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        /// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeScriptResponse> ExecAntcloudMarketingagentCreativeScriptAsync(ExecAntcloudMarketingagentCreativeScriptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentCreativeScriptExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        /// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeScriptResponse ExecAntcloudMarketingagentCreativeScriptEx(ExecAntcloudMarketingagentCreativeScriptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeScriptResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.script.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+        /// Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeScriptResponse> ExecAntcloudMarketingagentCreativeScriptExAsync(ExecAntcloudMarketingagentCreativeScriptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeScriptResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.script.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeScriptResponse QueryAntcloudMarketingagentCreativeScript(QueryAntcloudMarketingagentCreativeScriptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeScriptResponse> QueryAntcloudMarketingagentCreativeScriptAsync(QueryAntcloudMarketingagentCreativeScriptRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentCreativeScriptExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeScriptResponse QueryAntcloudMarketingagentCreativeScriptEx(QueryAntcloudMarketingagentCreativeScriptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeScriptResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.script.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeScriptResponse> QueryAntcloudMarketingagentCreativeScriptExAsync(QueryAntcloudMarketingagentCreativeScriptRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeScriptResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.script.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        /// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeScriptexpandResponse ExecAntcloudMarketingagentCreativeScriptexpand(ExecAntcloudMarketingagentCreativeScriptexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        /// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeScriptexpandResponse> ExecAntcloudMarketingagentCreativeScriptexpandAsync(ExecAntcloudMarketingagentCreativeScriptexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentCreativeScriptexpandExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        /// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeScriptexpandResponse ExecAntcloudMarketingagentCreativeScriptexpandEx(ExecAntcloudMarketingagentCreativeScriptexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeScriptexpandResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+        /// Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeScriptexpandResponse> ExecAntcloudMarketingagentCreativeScriptexpandExAsync(ExecAntcloudMarketingagentCreativeScriptexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeScriptexpandResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.scriptexpand.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeScriptexpandResponse QueryAntcloudMarketingagentCreativeScriptexpand(QueryAntcloudMarketingagentCreativeScriptexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeScriptexpandResponse> QueryAntcloudMarketingagentCreativeScriptexpandAsync(QueryAntcloudMarketingagentCreativeScriptexpandRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentCreativeScriptexpandExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeScriptexpandResponse QueryAntcloudMarketingagentCreativeScriptexpandEx(QueryAntcloudMarketingagentCreativeScriptexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeScriptexpandResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+        /// Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeScriptexpandResponse> QueryAntcloudMarketingagentCreativeScriptexpandExAsync(QueryAntcloudMarketingagentCreativeScriptexpandRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeScriptexpandResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.scriptexpand.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        /// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeTemplateResponse QueryAntcloudMarketingagentCreativeTemplate(QueryAntcloudMarketingagentCreativeTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentCreativeTemplateEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        /// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeTemplateResponse> QueryAntcloudMarketingagentCreativeTemplateAsync(QueryAntcloudMarketingagentCreativeTemplateRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentCreativeTemplateExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        /// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeTemplateResponse QueryAntcloudMarketingagentCreativeTemplateEx(QueryAntcloudMarketingagentCreativeTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeTemplateResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+        /// Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeTemplateResponse> QueryAntcloudMarketingagentCreativeTemplateExAsync(QueryAntcloudMarketingagentCreativeTemplateRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeTemplateResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
