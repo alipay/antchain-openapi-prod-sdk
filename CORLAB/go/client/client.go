@@ -1362,7 +1362,7 @@ type QueryModelbackProductextResponse struct {
 	// 异常信息的文本描述
 	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
 	// 产品内容
-	ProductContext *ProductExtContext `json:"product_context,omitempty" xml:"product_context,omitempty"`
+	ProductContext []*ProductExtContext `json:"product_context,omitempty" xml:"product_context,omitempty" type:"Repeated"`
 }
 
 func (s QueryModelbackProductextResponse) String() string {
@@ -1388,7 +1388,7 @@ func (s *QueryModelbackProductextResponse) SetResultMsg(v string) *QueryModelbac
 	return s
 }
 
-func (s *QueryModelbackProductextResponse) SetProductContext(v *ProductExtContext) *QueryModelbackProductextResponse {
+func (s *QueryModelbackProductextResponse) SetProductContext(v []*ProductExtContext) *QueryModelbackProductextResponse {
 	s.ProductContext = v
 	return s
 }
@@ -1643,7 +1643,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.3.0"),
+				"sdk_version":      tea.String("1.3.1"),
 				"_prod_code":       tea.String("CORLAB"),
 				"_prod_channel":    tea.String("default"),
 			}
