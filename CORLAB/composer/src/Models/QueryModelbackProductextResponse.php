@@ -27,7 +27,13 @@ class QueryModelbackProductextResponse extends Model {
             $res['result_msg'] = $this->resultMsg;
         }
         if (null !== $this->productContext) {
-            $res['product_context'] = null !== $this->productContext ? $this->productContext->toMap() : null;
+            $res['product_context'] = [];
+            if(null !== $this->productContext && is_array($this->productContext)){
+                $n = 0;
+                foreach($this->productContext as $item){
+                    $res['product_context'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -47,7 +53,13 @@ class QueryModelbackProductextResponse extends Model {
             $model->resultMsg = $map['result_msg'];
         }
         if(isset($map['product_context'])){
-            $model->productContext = ProductExtContext::fromMap($map['product_context']);
+            if(!empty($map['product_context'])){
+                $model->productContext = [];
+                $n = 0;
+                foreach($map['product_context'] as $item) {
+                    $model->productContext[$n++] = null !== $item ? ProductExtContext::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -71,7 +83,7 @@ class QueryModelbackProductextResponse extends Model {
 
     // 产品内容
     /**
-     * @var ProductExtContext
+     * @var ProductExtContext[]
      */
     public $productContext;
 
