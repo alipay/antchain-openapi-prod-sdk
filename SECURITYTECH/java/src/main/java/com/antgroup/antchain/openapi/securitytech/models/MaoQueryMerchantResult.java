@@ -84,6 +84,22 @@ public class MaoQueryMerchantResult extends TeaModel {
     @NameInMap("onboarding_time")
     public String onboardingTime;
 
+    // 行业名字
+    /**
+     * <strong>example:</strong>
+     * <p>PET</p>
+     */
+    @NameInMap("industry_name")
+    public String industryName;
+
+    // 二级行业名字
+    /**
+     * <strong>example:</strong>
+     * <p>电瓶车</p>
+     */
+    @NameInMap("sub_category_name")
+    public String subCategoryName;
+
     public static MaoQueryMerchantResult build(java.util.Map<String, ?> map) throws Exception {
         MaoQueryMerchantResult self = new MaoQueryMerchantResult();
         return TeaModel.build(map, self);
@@ -167,6 +183,22 @@ public class MaoQueryMerchantResult extends TeaModel {
     }
     public String getOnboardingTime() {
         return this.onboardingTime;
+    }
+
+    public MaoQueryMerchantResult setIndustryName(String industryName) {
+        this.industryName = industryName;
+        return this;
+    }
+    public String getIndustryName() {
+        return this.industryName;
+    }
+
+    public MaoQueryMerchantResult setSubCategoryName(String subCategoryName) {
+        this.subCategoryName = subCategoryName;
+        return this;
+    }
+    public String getSubCategoryName() {
+        return this.subCategoryName;
     }
 
 }
