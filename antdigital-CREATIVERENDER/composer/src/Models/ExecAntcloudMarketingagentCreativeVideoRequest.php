@@ -6,6 +6,7 @@ namespace AntChain\CREATIVERENDER\Models;
 use AlibabaCloud\Tea\Model;
 
 use AntChain\CREATIVERENDER\Models\CreativeAssetRef;
+use AntChain\CREATIVERENDER\Models\CreativeVideoAssetRef;
 
 class ExecAntcloudMarketingagentCreativeVideoRequest extends Model {
     protected $_name = [
@@ -20,6 +21,7 @@ class ExecAntcloudMarketingagentCreativeVideoRequest extends Model {
         'generateAudio' => 'generate_audio',
         'expandScript' => 'expand_script',
         'generateSubtitle' => 'generate_subtitle',
+        'mediaRefs' => 'media_refs',
     ];
     public function validate() {
         Model::validateRequired('prompt', $this->prompt, true);
@@ -64,6 +66,15 @@ class ExecAntcloudMarketingagentCreativeVideoRequest extends Model {
         }
         if (null !== $this->generateSubtitle) {
             $res['generate_subtitle'] = $this->generateSubtitle;
+        }
+        if (null !== $this->mediaRefs) {
+            $res['media_refs'] = [];
+            if(null !== $this->mediaRefs && is_array($this->mediaRefs)){
+                $n = 0;
+                foreach($this->mediaRefs as $item){
+                    $res['media_refs'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
         }
         return $res;
     }
@@ -111,6 +122,15 @@ class ExecAntcloudMarketingagentCreativeVideoRequest extends Model {
         }
         if(isset($map['generate_subtitle'])){
             $model->generateSubtitle = $map['generate_subtitle'];
+        }
+        if(isset($map['media_refs'])){
+            if(!empty($map['media_refs'])){
+                $model->mediaRefs = [];
+                $n = 0;
+                foreach($map['media_refs'] as $item) {
+                    $model->mediaRefs[$n++] = null !== $item ? CreativeVideoAssetRef::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -179,5 +199,11 @@ class ExecAntcloudMarketingagentCreativeVideoRequest extends Model {
      * @var bool
      */
     public $generateSubtitle;
+
+    // 统一多模态参考素材；entity_id 与 prompt 中 @{名称,entityId} 对应。source_type 支持 MATERIAL、AFTS、URL；URL 时 path 传外部可访问的绝对 URL，与 input_elements 的外部 URL 用法一致。后端需校验 URL 并解析/转存供算法访问。与 input_elements 不可同时非空；支持图片、音频、视频及跨模态实体绑定。纯音频输入不支持，音频+视频可用。
+    /**
+     * @var CreativeVideoAssetRef[]
+     */
+    public $mediaRefs;
 
 }
