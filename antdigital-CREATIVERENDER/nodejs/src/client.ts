@@ -2,6 +2,7 @@
 import AntchainUtil from '@antchain/alipay-util';
 import Util, * as $Util from '@alicloud/tea-util';
 import RPCUtil from '@alicloud/rpc-util';
+import { Readable } from 'stream';
 import * as $tea from '@alicloud/tea-typescript';
 
 /**
@@ -273,56 +274,6 @@ export class Message extends $tea.Model {
   }
 }
 
-// Artifacts represent task outputs.
-export class Artifact extends $tea.Model {
-  // The content of the artifact. Must contain at least one part.
-  parts?: Part[];
-  static names(): { [key: string]: string } {
-    return {
-      parts: 'parts',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      parts: { 'type': 'array', 'itemType': Part },
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// A container for the status of a task
-export class TaskStatus extends $tea.Model {
-  // The current state of this task.
-  /**
-   * @example
-   * TASK_STATE_COMPLETED
-   */
-  state: string;
-  // A message associated with the status.
-  message: Message;
-  static names(): { [key: string]: string } {
-    return {
-      state: 'state',
-      message: 'message',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      state: 'string',
-      message: Message,
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // 基金长图分段当前快照，包含头图和正文段图及其版本信息。
 export class LongImageSegment extends $tea.Model {
   // 全局唯一的分段业务 ID。
@@ -412,6 +363,162 @@ export class LongImageSegment extends $tea.Model {
   }
 }
 
+// Artifacts represent task outputs.
+export class Artifact extends $tea.Model {
+  // The content of the artifact. Must contain at least one part.
+  parts?: Part[];
+  static names(): { [key: string]: string } {
+    return {
+      parts: 'parts',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      parts: { 'type': 'array', 'itemType': Part },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// A container for the status of a task
+export class TaskStatus extends $tea.Model {
+  // The current state of this task.
+  /**
+   * @example
+   * TASK_STATE_COMPLETED
+   */
+  state: string;
+  // A message associated with the status.
+  message: Message;
+  static names(): { [key: string]: string } {
+    return {
+      state: 'state',
+      message: 'message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      state: 'string',
+      message: Message,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 参考样式素材引用
+export class CreativeAssetRef extends $tea.Model {
+  // 素材来源
+  /**
+   * @example
+   * URL
+   */
+  sourceType: string;
+  // 素材ID，只有素材来源于creative的素材库中才需要填入
+  /**
+   * @example
+   * 5bf62f7dd73b4efa8dea7a2665cd2173
+   */
+  materialId?: string;
+  // 可公网访问的素材url地址
+  /**
+   * @example
+   * https://mdn.alipayobjects.com/wofi_creative/afts/file/80mwSruGUE4AAAAAAAAAAAAA-FZ4AQJr
+   */
+  url?: string;
+  // 使用提示
+  /**
+   * @example
+   * 二维码保持清晰
+   */
+  usageHint?: string;
+  static names(): { [key: string]: string } {
+    return {
+      sourceType: 'source_type',
+      materialId: 'material_id',
+      url: 'url',
+      usageHint: 'usage_hint',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      sourceType: 'string',
+      materialId: 'string',
+      url: 'string',
+      usageHint: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 视频输出结果
+export class VideoOutput extends $tea.Model {
+  // 产物类型
+  /**
+   * @example
+   * video
+   */
+  type?: string;
+  // 可下载的视频地址
+  /**
+   * @example
+   * https://example.com/result.mp4
+   */
+  url?: string;
+  // 产物 ID
+  /**
+   * @example
+   * video-001
+   */
+  id?: string;
+  // 实际视频时长，单位秒
+  /**
+   * @example
+   * 15
+   */
+  duration?: number;
+  // URL 过期时间，毫秒时间戳；能确定时返回
+  /**
+   * @example
+   * 1790000000000
+   */
+  expireTime?: number;
+  static names(): { [key: string]: string } {
+    return {
+      type: 'type',
+      url: 'url',
+      id: 'id',
+      duration: 'duration',
+      expireTime: 'expire_time',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      type: 'string',
+      url: 'string',
+      id: 'string',
+      duration: 'number',
+      expireTime: 'number',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // ASSISTANT 消息特有信息
 export class AssistantExtra extends $tea.Model {
   // 任务id
@@ -453,6 +560,87 @@ export class AssistantExtra extends $tea.Model {
       renderStatus: 'string',
       resultUrl: { 'type': 'array', 'itemType': 'string' },
       subImages: { 'type': 'array', 'itemType': LongImageSegment },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 视频多模态参考素材。source_type 支持 MATERIAL/AFTS/URL；URL 时 path 为外部可访问地址。entity_id 与 prompt 中 @{名称,entityId} 绑定。
+export class CreativeVideoAssetRef extends $tea.Model {
+  // prompt 中 @{名称,entityId} 对应的实体 ID；同一实体可跨图片、音频、视频复用。
+  /**
+   * @example
+   * e-44b6e1086a08
+   */
+  entityId: string;
+  // 素材类型：IMAGE、AUDIO、VIDEO。
+  /**
+   * @example
+   * VIDEO
+   */
+  materialType: string;
+  // 素材来源：MATERIAL（素材库）、AFTS（本地上传）、URL（外部可访问地址）。OpenAPI 支持 URL，与 input_elements 一致；后端需解析/转存后再交算法。
+  /**
+   * @example
+   * URL
+   */
+  sourceType: string;
+  // 由 source_type 决定：MATERIAL 传 materialId；AFTS 传 /creative/file/upload 返回的 fileId；URL 传外部可访问的绝对 http/https URL。
+  /**
+   * @example
+   * https://example.com/ref.mp4
+   */
+  path: string;
+  // 前端展示名称，不作为生成校验依据。
+  /**
+   * @example
+   * 小王
+   */
+  name?: string;
+  // 文件大小快照，单位字节；AFTS 来源必填，由前端传入。
+  /**
+   * @example
+   * 1048576
+   */
+  sizeBytes?: number;
+  // 音视频时长快照，单位秒；AFTS 音频、视频必填。
+  /**
+   * @example
+   * 5.06
+   */
+  durationSeconds?: number;
+  // 视频缩略图 AFTS 文件 ID，可由 /creative/file/upload 返回的 fileId 提供。
+  /**
+   * @example
+   * thumb-file-id
+   */
+  thumbnailFileId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      entityId: 'entity_id',
+      materialType: 'material_type',
+      sourceType: 'source_type',
+      path: 'path',
+      name: 'name',
+      sizeBytes: 'size_bytes',
+      durationSeconds: 'duration_seconds',
+      thumbnailFileId: 'thumbnail_file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      entityId: 'string',
+      materialType: 'string',
+      sourceType: 'string',
+      path: 'string',
+      name: 'string',
+      sizeBytes: 'number',
+      durationSeconds: 'number',
+      thumbnailFileId: 'string',
     };
   }
 
@@ -663,112 +851,6 @@ export class CreativeMaterial extends $tea.Model {
   }
 }
 
-// 参考样式素材引用
-export class CreativeAssetRef extends $tea.Model {
-  // 素材来源
-  /**
-   * @example
-   * URL
-   */
-  sourceType: string;
-  // 素材ID，只有素材来源于creative的素材库中才需要填入
-  /**
-   * @example
-   * 5bf62f7dd73b4efa8dea7a2665cd2173
-   */
-  materialId?: string;
-  // 可公网访问的素材url地址
-  /**
-   * @example
-   * https://mdn.alipayobjects.com/wofi_creative/afts/file/80mwSruGUE4AAAAAAAAAAAAA-FZ4AQJr
-   */
-  url?: string;
-  // 使用提示
-  /**
-   * @example
-   * 二维码保持清晰
-   */
-  usageHint?: string;
-  static names(): { [key: string]: string } {
-    return {
-      sourceType: 'source_type',
-      materialId: 'material_id',
-      url: 'url',
-      usageHint: 'usage_hint',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      sourceType: 'string',
-      materialId: 'string',
-      url: 'string',
-      usageHint: 'string',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
-// 视频输出结果
-export class VideoOutput extends $tea.Model {
-  // 产物类型
-  /**
-   * @example
-   * video
-   */
-  type?: string;
-  // 可下载的视频地址
-  /**
-   * @example
-   * https://example.com/result.mp4
-   */
-  url?: string;
-  // 产物 ID
-  /**
-   * @example
-   * video-001
-   */
-  id?: string;
-  // 实际视频时长，单位秒
-  /**
-   * @example
-   * 15
-   */
-  duration?: number;
-  // URL 过期时间，毫秒时间戳；能确定时返回
-  /**
-   * @example
-   * 1790000000000
-   */
-  expireTime?: number;
-  static names(): { [key: string]: string } {
-    return {
-      type: 'type',
-      url: 'url',
-      id: 'id',
-      duration: 'duration',
-      expireTime: 'expire_time',
-    };
-  }
-
-  static types(): { [key: string]: any } {
-    return {
-      type: 'string',
-      url: 'string',
-      id: 'string',
-      duration: 'number',
-      expireTime: 'number',
-    };
-  }
-
-  constructor(map?: { [key: string]: any }) {
-    super(map);
-  }
-}
-
 // Task is the core unit of action for A2A. It has a current status and when results are created for the task they are stored in the artifact.
 export class Task extends $tea.Model {
   // Unique identifier (e.g. UUID) for the task, generated by the server for a new task.
@@ -802,6 +884,39 @@ export class Task extends $tea.Model {
       contextId: 'string',
       status: TaskStatus,
       artifacts: { 'type': 'array', 'itemType': Artifact },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+// 键值对
+export class XNameValuePair extends $tea.Model {
+  // 键名
+  /**
+   * @example
+   * key
+   */
+  name: string;
+  // 键值
+  /**
+   * @example
+   * value
+   */
+  value: string;
+  static names(): { [key: string]: string } {
+    return {
+      name: 'name',
+      value: 'value',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      name: 'string',
+      value: 'string',
     };
   }
 
@@ -1305,6 +1420,8 @@ export class ExecAntcloudMarketingagentCreativeVideoRequest extends $tea.Model {
   expandScript?: boolean;
   // 是否生成字幕，默认 true
   generateSubtitle?: boolean;
+  // 统一多模态参考素材；entity_id 与 prompt 中 @{名称,entityId} 对应。source_type 支持 MATERIAL、AFTS、URL；URL 时 path 传外部可访问的绝对 URL，与 input_elements 的外部 URL 用法一致。后端需校验 URL 并解析/转存供算法访问。与 input_elements 不可同时非空；支持图片、音频、视频及跨模态实体绑定。纯音频输入不支持，音频+视频可用。
+  mediaRefs?: CreativeVideoAssetRef[];
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -1318,6 +1435,7 @@ export class ExecAntcloudMarketingagentCreativeVideoRequest extends $tea.Model {
       generateAudio: 'generate_audio',
       expandScript: 'expand_script',
       generateSubtitle: 'generate_subtitle',
+      mediaRefs: 'media_refs',
     };
   }
 
@@ -1334,6 +1452,7 @@ export class ExecAntcloudMarketingagentCreativeVideoRequest extends $tea.Model {
       generateAudio: 'boolean',
       expandScript: 'boolean',
       generateSubtitle: 'boolean',
+      mediaRefs: { 'type': 'array', 'itemType': CreativeVideoAssetRef },
     };
   }
 
@@ -1594,6 +1713,492 @@ export class QueryAntcloudMarketingagentCreativeImageeditResponse extends $tea.M
   }
 }
 
+export class ExecAntcloudMarketingagentFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传后的 AFTS 文件 ID
+  fileId?: string;
+  // OSS 对象路径
+  ossFilePath?: string;
+  // 图片访问地址，可用于视频生成 input_elements[].url
+  accessUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      fileId: 'file_id',
+      ossFilePath: 'oss_file_path',
+      accessUrl: 'access_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      fileId: 'string',
+      ossFilePath: 'string',
+      accessUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentCreativeScriptRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 待扩写的原始脚本或简要描述，复用现有文生视频的脚本扩写逻辑
+  prompt: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      prompt: 'prompt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      prompt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentCreativeScriptResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 脚本扩写任务标识，用于查询扩写任务
+  taskId?: string;
+  // 脚本扩写任务状态，沿用现有任务状态体系
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeScriptRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 发起脚本扩写接口返回的任务标识
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeScriptResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 脚本扩写任务标识，用于查询扩写任务
+  taskId?: string;
+  // 脚本扩写任务状态，沿用现有任务状态体系
+  status?: string;
+  // 扩写后的脚本文本，任务成功时返回
+  expandedScript?: string;
+  // 脚本扩写任务失败码，失败时返回
+  errorCode?: string;
+  // 脚本扩写任务失败原因，失败时返回
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+      expandedScript: 'expanded_script',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+      expandedScript: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentCreativeScriptexpandRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 待扩写的原始脚本或简要描述
+  prompt: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      prompt: 'prompt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      prompt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentCreativeScriptexpandResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 脚本扩写任务标识，用于查询
+  taskId?: string;
+  // 脚本扩写任务状态，沿用现有任务状态体系
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeScriptexpandRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 发起脚本扩写接口返回的任务标识
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeScriptexpandResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 脚本扩写任务标识，用于查询
+  taskId?: string;
+  // 脚本扩写任务状态
+  status?: string;
+  // 扩写后的脚本文本，成功时返回
+  expandedScript?: string;
+  // 任务失败码，失败时返回
+  errorCode?: string;
+  // 任务失败原因，失败时返回
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+      expandedScript: 'expanded_script',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+      expandedScript: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeTemplateRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 模板素材ID，对应creative_material.material_id；仅支持当前租户有权访问的图片或视频参考模板
+  templateId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      templateId: 'template_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      templateId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentCreativeTemplateResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 模板提示词，前端可据此回填生成输入
+  templatePrompt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      templatePrompt: 'template_prompt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      templatePrompt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 上传文件作用的openapi method
+  apiCode: string;
+  // 文件标签，多个标签;分割
+  fileLabel?: string;
+  // 自定义的文件元数据
+  fileMetadata?: string;
+  // 文件名，不传则随机生成文件名
+  fileName?: string;
+  // 文件的多媒体类型
+  mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      apiCode: 'api_code',
+      fileLabel: 'file_label',
+      fileMetadata: 'file_metadata',
+      fileName: 'file_name',
+      mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      apiCode: 'string',
+      fileLabel: 'string',
+      fileMetadata: 'string',
+      fileName: 'string',
+      mimeType: 'string',
+      apiCluster: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 上传有效期
+  expiredTime?: string;
+  // 32位文件唯一id
+  fileId?: string;
+  // 放入http请求头里
+  uploadHeaders?: XNameValuePair[];
+  // 文件上传地址
+  uploadUrl?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      expiredTime: 'expired_time',
+      fileId: 'file_id',
+      uploadHeaders: 'upload_headers',
+      uploadUrl: 'upload_url',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      expiredTime: 'string',
+      fileId: 'string',
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
+      uploadUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -1711,7 +2316,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.1.2",
+          sdk_version: "2.1.5",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
@@ -1946,6 +2551,175 @@ export default class Client {
   async queryAntcloudMarketingagentCreativeImageeditEx(request: QueryAntcloudMarketingagentCreativeImageeditRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeImageeditResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudMarketingagentCreativeImageeditResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.imageedit.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeImageeditResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+   * Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+   */
+  async execAntcloudMarketingagentFileUpload(request: ExecAntcloudMarketingagentFileUploadRequest): Promise<ExecAntcloudMarketingagentFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+   * Summary: 上传创意图片文件，返回文件 ID、OSS 路径和可访问 URL，供文生视频使用。支持 JPG、JPEG、PNG，文件最大 30 MiB。
+   */
+  async execAntcloudMarketingagentFileUploadEx(request: ExecAntcloudMarketingagentFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentFileUploadResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.marketingagent.file.upload.exec",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let execAntcloudMarketingagentFileUploadResponse = new ExecAntcloudMarketingagentFileUploadResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return execAntcloudMarketingagentFileUploadResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentFileUploadResponse>(await this.doRequest("1.0", "antcloud.marketingagent.file.upload.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentFileUploadResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+   * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+   */
+  async execAntcloudMarketingagentCreativeScript(request: ExecAntcloudMarketingagentCreativeScriptRequest): Promise<ExecAntcloudMarketingagentCreativeScriptResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+   * Summary: 发起脚本扩写，复用现有文生视频的脚本扩写逻辑，异步返回任务标识。现有文生视频接口保持不变。
+   */
+  async execAntcloudMarketingagentCreativeScriptEx(request: ExecAntcloudMarketingagentCreativeScriptRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentCreativeScriptResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentCreativeScriptResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.script.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeScriptResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+   * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+   */
+  async queryAntcloudMarketingagentCreativeScript(request: QueryAntcloudMarketingagentCreativeScriptRequest): Promise<QueryAntcloudMarketingagentCreativeScriptResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentCreativeScriptEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+   * Summary: 查询脚本扩写任务状态、扩写结果及失败信息。复用现有扩写逻辑，现有文生视频接口保持不变。
+   */
+  async queryAntcloudMarketingagentCreativeScriptEx(request: QueryAntcloudMarketingagentCreativeScriptRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeScriptResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentCreativeScriptResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.script.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeScriptResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+   * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+   */
+  async execAntcloudMarketingagentCreativeScriptexpand(request: ExecAntcloudMarketingagentCreativeScriptexpandRequest): Promise<ExecAntcloudMarketingagentCreativeScriptexpandResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+   * Summary: 发起脚本扩写，复用现有文生视频脚本扩写逻辑，异步返回任务标识。
+   */
+  async execAntcloudMarketingagentCreativeScriptexpandEx(request: ExecAntcloudMarketingagentCreativeScriptexpandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentCreativeScriptexpandResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentCreativeScriptexpandResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeScriptexpandResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+   * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+   */
+  async queryAntcloudMarketingagentCreativeScriptexpand(request: QueryAntcloudMarketingagentCreativeScriptexpandRequest): Promise<QueryAntcloudMarketingagentCreativeScriptexpandResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentCreativeScriptexpandEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+   * Summary: 查询脚本扩写任务状态、扩写结果及失败信息，复用现有扩写逻辑。
+   */
+  async queryAntcloudMarketingagentCreativeScriptexpandEx(request: QueryAntcloudMarketingagentCreativeScriptexpandRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeScriptexpandResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentCreativeScriptexpandResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.scriptexpand.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeScriptexpandResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+   * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+   */
+  async queryAntcloudMarketingagentCreativeTemplate(request: QueryAntcloudMarketingagentCreativeTemplateRequest): Promise<QueryAntcloudMarketingagentCreativeTemplateResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentCreativeTemplateEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+   * Summary: 按 templateId 查询参考样式图片或视频模板的提示词。templateId 对应模板素材 materialId，返回 templatePrompt；按调用方租户和素材权限校验。
+   */
+  async queryAntcloudMarketingagentCreativeTemplateEx(request: QueryAntcloudMarketingagentCreativeTemplateRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentCreativeTemplateResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentCreativeTemplateResponse>(await this.doRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeTemplateResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUpload(request: CreateAntcloudGatewayxFileUploadRequest): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createAntcloudGatewayxFileUploadEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建HTTP PUT提交的文件上传
+   * Summary: 文件上传创建
+   */
+  async createAntcloudGatewayxFileUploadEx(request: CreateAntcloudGatewayxFileUploadRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateAntcloudGatewayxFileUploadResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateAntcloudGatewayxFileUploadResponse>(await this.doRequest("1.0", "antcloud.gatewayx.file.upload.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateAntcloudGatewayxFileUploadResponse({}));
   }
 
 }
