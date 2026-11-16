@@ -21,6 +21,11 @@ public class ApplyAidashboardDeviceRequest extends TeaModel {
     @Validation(required = true)
     public String devicePubKey;
 
+    // 设备序列号
+    @NameInMap("sn")
+    @Validation(required = true)
+    public String sn;
+
     public static ApplyAidashboardDeviceRequest build(java.util.Map<String, ?> map) throws Exception {
         ApplyAidashboardDeviceRequest self = new ApplyAidashboardDeviceRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class ApplyAidashboardDeviceRequest extends TeaModel {
     }
     public String getDevicePubKey() {
         return this.devicePubKey;
+    }
+
+    public ApplyAidashboardDeviceRequest setSn(String sn) {
+        this.sn = sn;
+        return this;
+    }
+    public String getSn() {
+        return this.sn;
     }
 
 }
