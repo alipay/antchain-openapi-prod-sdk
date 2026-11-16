@@ -26,6 +26,10 @@ public class UploadAssetRequest extends TeaModel {
     @Validation(required = true)
     public String assetName;
 
+    // 在这个模型上使用资产
+    @NameInMap("use_model")
+    public String useModel;
+
     public static UploadAssetRequest build(java.util.Map<String, ?> map) throws Exception {
         UploadAssetRequest self = new UploadAssetRequest();
         return TeaModel.build(map, self);
@@ -69,6 +73,14 @@ public class UploadAssetRequest extends TeaModel {
     }
     public String getAssetName() {
         return this.assetName;
+    }
+
+    public UploadAssetRequest setUseModel(String useModel) {
+        this.useModel = useModel;
+        return this;
+    }
+    public String getUseModel() {
+        return this.useModel;
     }
 
 }
