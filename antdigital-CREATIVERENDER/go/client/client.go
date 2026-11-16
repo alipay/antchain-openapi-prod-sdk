@@ -1680,6 +1680,8 @@ type ExecAntcloudMarketingagentCreativeVideoRequest struct {
 	ExpandScript *bool `json:"expand_script,omitempty" xml:"expand_script,omitempty"`
 	// 是否生成字幕，默认 true
 	GenerateSubtitle *bool `json:"generate_subtitle,omitempty" xml:"generate_subtitle,omitempty"`
+	// 统一多模态参考素材；entity_id 与 prompt 中 @{名称,entityId} 对应。source_type 支持 MATERIAL、AFTS、URL；URL 时 path 传外部可访问的绝对 URL，与 input_elements 的外部 URL 用法一致。后端需校验 URL 并解析/转存供算法访问。与 input_elements 不可同时非空；支持图片、音频、视频及跨模态实体绑定。纯音频输入不支持，音频+视频可用。
+	MediaRefs []*CreativeVideoAssetRef `json:"media_refs,omitempty" xml:"media_refs,omitempty" type:"Repeated"`
 }
 
 func (s ExecAntcloudMarketingagentCreativeVideoRequest) String() string {
@@ -1742,6 +1744,11 @@ func (s *ExecAntcloudMarketingagentCreativeVideoRequest) SetExpandScript(v bool)
 
 func (s *ExecAntcloudMarketingagentCreativeVideoRequest) SetGenerateSubtitle(v bool) *ExecAntcloudMarketingagentCreativeVideoRequest {
 	s.GenerateSubtitle = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentCreativeVideoRequest) SetMediaRefs(v []*CreativeVideoAssetRef) *ExecAntcloudMarketingagentCreativeVideoRequest {
+	s.MediaRefs = v
 	return s
 }
 
@@ -2799,7 +2806,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.1.4"),
+				"sdk_version":      tea.String("2.1.5"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
