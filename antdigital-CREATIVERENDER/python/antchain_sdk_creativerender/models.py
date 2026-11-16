@@ -1787,6 +1787,7 @@ class ExecAntcloudMarketingagentCreativeVideoRequest(TeaModel):
         generate_audio: bool = None,
         expand_script: bool = None,
         generate_subtitle: bool = None,
+        media_refs: List[CreativeVideoAssetRef] = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1810,11 +1811,17 @@ class ExecAntcloudMarketingagentCreativeVideoRequest(TeaModel):
         self.expand_script = expand_script
         # 是否生成字幕，默认 true
         self.generate_subtitle = generate_subtitle
+        # 统一多模态参考素材；entity_id 与 prompt 中 @{名称,entityId} 对应。source_type 支持 MATERIAL、AFTS、URL；URL 时 path 传外部可访问的绝对 URL，与 input_elements 的外部 URL 用法一致。后端需校验 URL 并解析/转存供算法访问。与 input_elements 不可同时非空；支持图片、音频、视频及跨模态实体绑定。纯音频输入不支持，音频+视频可用。
+        self.media_refs = media_refs
 
     def validate(self):
         self.validate_required(self.prompt, 'prompt')
         if self.input_elements:
             for k in self.input_elements:
+                if k:
+                    k.validate()
+        if self.media_refs:
+            for k in self.media_refs:
                 if k:
                     k.validate()
 
@@ -1848,6 +1855,10 @@ class ExecAntcloudMarketingagentCreativeVideoRequest(TeaModel):
             result['expand_script'] = self.expand_script
         if self.generate_subtitle is not None:
             result['generate_subtitle'] = self.generate_subtitle
+        result['media_refs'] = []
+        if self.media_refs is not None:
+            for k in self.media_refs:
+                result['media_refs'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -1877,6 +1888,11 @@ class ExecAntcloudMarketingagentCreativeVideoRequest(TeaModel):
             self.expand_script = m.get('expand_script')
         if m.get('generate_subtitle') is not None:
             self.generate_subtitle = m.get('generate_subtitle')
+        self.media_refs = []
+        if m.get('media_refs') is not None:
+            for k in m.get('media_refs'):
+                temp_model = CreativeVideoAssetRef()
+                self.media_refs.append(temp_model.from_map(k))
         return self
 
 
