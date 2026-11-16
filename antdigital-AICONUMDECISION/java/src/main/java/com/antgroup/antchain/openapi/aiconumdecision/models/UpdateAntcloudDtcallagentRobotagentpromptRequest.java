@@ -19,9 +19,9 @@ public class UpdateAntcloudDtcallagentRobotagentpromptRequest extends TeaModel {
     public String instanceCode;
 
     // agentid
-    @NameInMap("flow_id")
+    @NameInMap("robot_code")
     @Validation(required = true)
-    public String flowId;
+    public String robotCode;
 
     // 提示词内容
     @NameInMap("sys_content_agent")
@@ -57,12 +57,12 @@ public class UpdateAntcloudDtcallagentRobotagentpromptRequest extends TeaModel {
         return this.instanceCode;
     }
 
-    public UpdateAntcloudDtcallagentRobotagentpromptRequest setFlowId(String flowId) {
-        this.flowId = flowId;
+    public UpdateAntcloudDtcallagentRobotagentpromptRequest setRobotCode(String robotCode) {
+        this.robotCode = robotCode;
         return this;
     }
-    public String getFlowId() {
-        return this.flowId;
+    public String getRobotCode() {
+        return this.robotCode;
     }
 
     public UpdateAntcloudDtcallagentRobotagentpromptRequest setSysContentAgent(String sysContentAgent) {
