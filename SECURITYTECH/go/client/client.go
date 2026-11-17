@@ -4292,6 +4292,16 @@ type MaoQueryMerchantResult struct {
 	//
 	// 入驻时间
 	OnboardingTime *string `json:"onboarding_time,omitempty" xml:"onboarding_time,omitempty"`
+	// 行业名字
+	// example:
+	//
+	// PET
+	IndustryName *string `json:"industry_name,omitempty" xml:"industry_name,omitempty"`
+	// 二级行业名字
+	// example:
+	//
+	// 电瓶车
+	SubCategoryName *string `json:"sub_category_name,omitempty" xml:"sub_category_name,omitempty"`
 }
 
 func (s MaoQueryMerchantResult) String() string {
@@ -4349,6 +4359,16 @@ func (s *MaoQueryMerchantResult) SetPendingApply(v string) *MaoQueryMerchantResu
 
 func (s *MaoQueryMerchantResult) SetOnboardingTime(v string) *MaoQueryMerchantResult {
 	s.OnboardingTime = &v
+	return s
+}
+
+func (s *MaoQueryMerchantResult) SetIndustryName(v string) *MaoQueryMerchantResult {
+	s.IndustryName = &v
+	return s
+}
+
+func (s *MaoQueryMerchantResult) SetSubCategoryName(v string) *MaoQueryMerchantResult {
+	s.SubCategoryName = &v
 	return s
 }
 
@@ -14433,6 +14453,118 @@ func (s *ReportHealthDataResponse) SetResultMsg(v string) *ReportHealthDataRespo
 	return s
 }
 
+type ApplyAidashboardDeviceRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// ai仪表产品key
+	ProductKey *string `json:"product_key,omitempty" xml:"product_key,omitempty" require:"true"`
+	// 设备公钥
+	DevicePubKey *string `json:"device_pub_key,omitempty" xml:"device_pub_key,omitempty" require:"true"`
+	// 设备序列号
+	Sn *string `json:"sn,omitempty" xml:"sn,omitempty" require:"true"`
+}
+
+func (s ApplyAidashboardDeviceRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyAidashboardDeviceRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyAidashboardDeviceRequest) SetAuthToken(v string) *ApplyAidashboardDeviceRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceRequest) SetProductInstanceId(v string) *ApplyAidashboardDeviceRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceRequest) SetProductKey(v string) *ApplyAidashboardDeviceRequest {
+	s.ProductKey = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceRequest) SetDevicePubKey(v string) *ApplyAidashboardDeviceRequest {
+	s.DevicePubKey = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceRequest) SetSn(v string) *ApplyAidashboardDeviceRequest {
+	s.Sn = &v
+	return s
+}
+
+type ApplyAidashboardDeviceResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 设备唯一ID
+	Uuid *string `json:"uuid,omitempty" xml:"uuid,omitempty"`
+	// 服务端公钥
+	ServerPubKey *string `json:"server_pub_key,omitempty" xml:"server_pub_key,omitempty"`
+	// 证书信息
+	CertData *string `json:"cert_data,omitempty" xml:"cert_data,omitempty"`
+	// 证书签名
+	CertSign *string `json:"cert_sign,omitempty" xml:"cert_sign,omitempty"`
+	// 响应签名
+	ResponseSign *string `json:"response_sign,omitempty" xml:"response_sign,omitempty"`
+}
+
+func (s ApplyAidashboardDeviceResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ApplyAidashboardDeviceResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetReqMsgId(v string) *ApplyAidashboardDeviceResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetResultCode(v string) *ApplyAidashboardDeviceResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetResultMsg(v string) *ApplyAidashboardDeviceResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetUuid(v string) *ApplyAidashboardDeviceResponse {
+	s.Uuid = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetServerPubKey(v string) *ApplyAidashboardDeviceResponse {
+	s.ServerPubKey = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetCertData(v string) *ApplyAidashboardDeviceResponse {
+	s.CertData = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetCertSign(v string) *ApplyAidashboardDeviceResponse {
+	s.CertSign = &v
+	return s
+}
+
+func (s *ApplyAidashboardDeviceResponse) SetResponseSign(v string) *ApplyAidashboardDeviceResponse {
+	s.ResponseSign = &v
+	return s
+}
+
 type CreateBssecpicRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -18990,7 +19122,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.7.40"),
+				"sdk_version":      tea.String("1.7.43"),
 				"_prod_code":       tea.String("SECURITYTECH"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -22279,6 +22411,42 @@ func (client *Client) ReportHealthDataEx(request *ReportHealthDataRequest, heade
 	}
 	_result = &ReportHealthDataResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.health.data.report"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 申请产测资料
+//
+// Summary: 申请产测资料
+func (client *Client) ApplyAidashboardDevice(request *ApplyAidashboardDeviceRequest) (_result *ApplyAidashboardDeviceResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ApplyAidashboardDeviceResponse{}
+	_body, _err := client.ApplyAidashboardDeviceEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 申请产测资料
+//
+// Summary: 申请产测资料
+func (client *Client) ApplyAidashboardDeviceEx(request *ApplyAidashboardDeviceRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ApplyAidashboardDeviceResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ApplyAidashboardDeviceResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antsecuritytech.gateway.aidashboard.device.apply"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
