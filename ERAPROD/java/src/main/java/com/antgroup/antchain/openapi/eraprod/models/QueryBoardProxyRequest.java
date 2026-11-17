@@ -27,11 +27,11 @@ public class QueryBoardProxyRequest extends TeaModel {
 
     // 单条绝对质量线，rerank 低于此直接剔除
     @NameInMap("abs_quality")
-    public Long absQuality;
+    public String absQuality;
 
     // 断层相对落差阈值
     @NameInMap("gap_gamma")
-    public Long gapGamma;
+    public String gapGamma;
 
     public static QueryBoardProxyRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryBoardProxyRequest self = new QueryBoardProxyRequest();
@@ -78,19 +78,19 @@ public class QueryBoardProxyRequest extends TeaModel {
         return this.topN;
     }
 
-    public QueryBoardProxyRequest setAbsQuality(Long absQuality) {
+    public QueryBoardProxyRequest setAbsQuality(String absQuality) {
         this.absQuality = absQuality;
         return this;
     }
-    public Long getAbsQuality() {
+    public String getAbsQuality() {
         return this.absQuality;
     }
 
-    public QueryBoardProxyRequest setGapGamma(Long gapGamma) {
+    public QueryBoardProxyRequest setGapGamma(String gapGamma) {
         this.gapGamma = gapGamma;
         return this;
     }
-    public Long getGapGamma() {
+    public String getGapGamma() {
         return this.gapGamma;
     }
 
