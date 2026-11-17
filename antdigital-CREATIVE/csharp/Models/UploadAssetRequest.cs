@@ -33,6 +33,11 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=true)]
         public string AssetName { get; set; }
 
+        // 在这个模型上使用资产
+        [NameInMap("use_model")]
+        [Validation(Required=false)]
+        public string UseModel { get; set; }
+
     }
 
 }
