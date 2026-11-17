@@ -3933,6 +3933,18 @@ export class MaoQueryMerchantResult extends $tea.Model {
    * 入驻时间
    */
   onboardingTime?: string;
+  // 行业名字
+  /**
+   * @example
+   * PET
+   */
+  industryName?: string;
+  // 二级行业名字
+  /**
+   * @example
+   * 电瓶车
+   */
+  subCategoryName?: string;
   static names(): { [key: string]: string } {
     return {
       merchantId: 'merchant_id',
@@ -3945,6 +3957,8 @@ export class MaoQueryMerchantResult extends $tea.Model {
       merchantInfo: 'merchant_info',
       pendingApply: 'pending_apply',
       onboardingTime: 'onboarding_time',
+      industryName: 'industry_name',
+      subCategoryName: 'sub_category_name',
     };
   }
 
@@ -3960,6 +3974,8 @@ export class MaoQueryMerchantResult extends $tea.Model {
       merchantInfo: MaoMerchantInfo,
       pendingApply: 'string',
       onboardingTime: 'string',
+      industryName: 'string',
+      subCategoryName: 'string',
     };
   }
 
@@ -11850,6 +11866,89 @@ export class ReportHealthDataResponse extends $tea.Model {
   }
 }
 
+export class ApplyAidashboardDeviceRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // ai仪表产品key
+  productKey: string;
+  // 设备公钥
+  devicePubKey: string;
+  // 设备序列号
+  sn: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      productKey: 'product_key',
+      devicePubKey: 'device_pub_key',
+      sn: 'sn',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      productKey: 'string',
+      devicePubKey: 'string',
+      sn: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ApplyAidashboardDeviceResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 设备唯一ID
+  uuid?: string;
+  // 服务端公钥
+  serverPubKey?: string;
+  // 证书信息
+  certData?: string;
+  // 证书签名
+  certSign?: string;
+  // 响应签名
+  responseSign?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      uuid: 'uuid',
+      serverPubKey: 'server_pub_key',
+      certData: 'cert_data',
+      certSign: 'cert_sign',
+      responseSign: 'response_sign',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      uuid: 'string',
+      serverPubKey: 'string',
+      certData: 'string',
+      certSign: 'string',
+      responseSign: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateBssecpicRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -15248,7 +15347,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.7.40",
+          sdk_version: "1.7.43",
           _prod_code: "SECURITYTECH",
           _prod_channel: "undefined",
         };
@@ -17187,6 +17286,27 @@ export default class Client {
   async reportHealthDataEx(request: ReportHealthDataRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReportHealthDataResponse> {
     Util.validateModel(request);
     return $tea.cast<ReportHealthDataResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReportHealthDataResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 申请产测资料
+   * Summary: 申请产测资料
+   */
+  async applyAidashboardDevice(request: ApplyAidashboardDeviceRequest): Promise<ApplyAidashboardDeviceResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.applyAidashboardDeviceEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 申请产测资料
+   * Summary: 申请产测资料
+   */
+  async applyAidashboardDeviceEx(request: ApplyAidashboardDeviceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ApplyAidashboardDeviceResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ApplyAidashboardDeviceResponse>(await this.doRequest("1.0", "antsecuritytech.gateway.aidashboard.device.apply", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ApplyAidashboardDeviceResponse({}));
   }
 
   /**
