@@ -158,7 +158,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.40"},
+                        {"sdk_version", "1.7.43"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.SECURITYTECH
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.7.40"},
+                        {"sdk_version", "1.7.43"},
                         {"_prod_code", "SECURITYTECH"},
                         {"_prod_channel", "undefined"},
                     };
@@ -4503,6 +4503,52 @@ namespace AntChain.SDK.SECURITYTECH
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ReportHealthDataResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.health.data.report", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 申请产测资料
+        /// Summary: 申请产测资料</para>
+        /// </description>
+        public ApplyAidashboardDeviceResponse ApplyAidashboardDevice(ApplyAidashboardDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ApplyAidashboardDeviceEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 申请产测资料
+        /// Summary: 申请产测资料</para>
+        /// </description>
+        public async Task<ApplyAidashboardDeviceResponse> ApplyAidashboardDeviceAsync(ApplyAidashboardDeviceRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ApplyAidashboardDeviceExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 申请产测资料
+        /// Summary: 申请产测资料</para>
+        /// </description>
+        public ApplyAidashboardDeviceResponse ApplyAidashboardDeviceEx(ApplyAidashboardDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAidashboardDeviceResponse>(DoRequest("1.0", "antsecuritytech.gateway.aidashboard.device.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 申请产测资料
+        /// Summary: 申请产测资料</para>
+        /// </description>
+        public async Task<ApplyAidashboardDeviceResponse> ApplyAidashboardDeviceExAsync(ApplyAidashboardDeviceRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ApplyAidashboardDeviceResponse>(await DoRequestAsync("1.0", "antsecuritytech.gateway.aidashboard.device.apply", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>

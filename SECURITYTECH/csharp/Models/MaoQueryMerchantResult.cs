@@ -100,6 +100,24 @@ namespace AntChain.SDK.SECURITYTECH.Models
         [Validation(Required=false)]
         public string OnboardingTime { get; set; }
 
+        // 行业名字
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>PET</para>
+        /// </summary>
+        [NameInMap("industry_name")]
+        [Validation(Required=false)]
+        public string IndustryName { get; set; }
+
+        // 二级行业名字
+        /// <summary>
+        /// <b>Example:</b>
+        /// <para>电瓶车</para>
+        /// </summary>
+        [NameInMap("sub_category_name")]
+        [Validation(Required=false)]
+        public string SubCategoryName { get; set; }
+
     }
 
 }
