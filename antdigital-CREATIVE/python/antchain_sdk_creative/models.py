@@ -1319,6 +1319,7 @@ class UploadAssetRequest(TeaModel):
         asset_type: str = None,
         file_url: str = None,
         asset_name: str = None,
+        use_model: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -1329,6 +1330,8 @@ class UploadAssetRequest(TeaModel):
         self.file_url = file_url
         # 资产名称
         self.asset_name = asset_name
+        # 在这个模型上使用资产
+        self.use_model = use_model
 
     def validate(self):
         self.validate_required(self.asset_type, 'asset_type')
@@ -1351,6 +1354,8 @@ class UploadAssetRequest(TeaModel):
             result['file_url'] = self.file_url
         if self.asset_name is not None:
             result['asset_name'] = self.asset_name
+        if self.use_model is not None:
+            result['use_model'] = self.use_model
         return result
 
     def from_map(self, m: dict = None):
@@ -1365,6 +1370,8 @@ class UploadAssetRequest(TeaModel):
             self.file_url = m.get('file_url')
         if m.get('asset_name') is not None:
             self.asset_name = m.get('asset_name')
+        if m.get('use_model') is not None:
+            self.use_model = m.get('use_model')
         return self
 
 
