@@ -18,7 +18,7 @@ public class RentalSignSchemeCreateRequest extends TeaModel {
      * <p>20000</p>
      */
     @NameInMap("preauth_amount")
-    public String preauthAmount;
+    public Long preauthAmount;
 
     // 代扣协议额度（分），所有含信用减免的方案必须等于 creditReduceAmount；仅预授权=0
     /**
@@ -58,11 +58,11 @@ public class RentalSignSchemeCreateRequest extends TeaModel {
         return this.depositType;
     }
 
-    public RentalSignSchemeCreateRequest setPreauthAmount(String preauthAmount) {
+    public RentalSignSchemeCreateRequest setPreauthAmount(Long preauthAmount) {
         this.preauthAmount = preauthAmount;
         return this;
     }
-    public String getPreauthAmount() {
+    public Long getPreauthAmount() {
         return this.preauthAmount;
     }
 
