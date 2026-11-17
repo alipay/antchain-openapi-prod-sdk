@@ -12,6 +12,7 @@ class UploadAssetRequest extends Model {
         'assetType' => 'asset_type',
         'fileUrl' => 'file_url',
         'assetName' => 'asset_name',
+        'useModel' => 'use_model',
     ];
     public function validate() {
         Model::validateRequired('assetType', $this->assetType, true);
@@ -35,6 +36,9 @@ class UploadAssetRequest extends Model {
         if (null !== $this->assetName) {
             $res['asset_name'] = $this->assetName;
         }
+        if (null !== $this->useModel) {
+            $res['use_model'] = $this->useModel;
+        }
         return $res;
     }
     /**
@@ -57,6 +61,9 @@ class UploadAssetRequest extends Model {
         }
         if(isset($map['asset_name'])){
             $model->assetName = $map['asset_name'];
+        }
+        if(isset($map['use_model'])){
+            $model->useModel = $map['use_model'];
         }
         return $model;
     }
@@ -88,5 +95,11 @@ class UploadAssetRequest extends Model {
      * @var string
      */
     public $assetName;
+
+    // 在这个模型上使用资产
+    /**
+     * @var string
+     */
+    public $useModel;
 
 }
