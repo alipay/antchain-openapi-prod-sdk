@@ -4152,6 +4152,8 @@ class MaoQueryMerchantResult(TeaModel):
         merchant_info: MaoMerchantInfo = None,
         pending_apply: str = None,
         onboarding_time: str = None,
+        industry_name: str = None,
+        sub_category_name: str = None,
     ):
         # 商户号
         self.merchant_id = merchant_id
@@ -4173,6 +4175,10 @@ class MaoQueryMerchantResult(TeaModel):
         self.pending_apply = pending_apply
         # 入驻时间
         self.onboarding_time = onboarding_time
+        # 行业名字
+        self.industry_name = industry_name
+        # 二级行业名字
+        self.sub_category_name = sub_category_name
 
     def validate(self):
         if self.merchant_info:
@@ -4204,6 +4210,10 @@ class MaoQueryMerchantResult(TeaModel):
             result['pending_apply'] = self.pending_apply
         if self.onboarding_time is not None:
             result['onboarding_time'] = self.onboarding_time
+        if self.industry_name is not None:
+            result['industry_name'] = self.industry_name
+        if self.sub_category_name is not None:
+            result['sub_category_name'] = self.sub_category_name
         return result
 
     def from_map(self, m: dict = None):
@@ -4229,6 +4239,10 @@ class MaoQueryMerchantResult(TeaModel):
             self.pending_apply = m.get('pending_apply')
         if m.get('onboarding_time') is not None:
             self.onboarding_time = m.get('onboarding_time')
+        if m.get('industry_name') is not None:
+            self.industry_name = m.get('industry_name')
+        if m.get('sub_category_name') is not None:
+            self.sub_category_name = m.get('sub_category_name')
         return self
 
 
@@ -16572,6 +16586,140 @@ class ReportHealthDataResponse(TeaModel):
             self.result_code = m.get('result_code')
         if m.get('result_msg') is not None:
             self.result_msg = m.get('result_msg')
+        return self
+
+
+class ApplyAidashboardDeviceRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        product_key: str = None,
+        device_pub_key: str = None,
+        sn: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # ai仪表产品key
+        self.product_key = product_key
+        # 设备公钥
+        self.device_pub_key = device_pub_key
+        # 设备序列号
+        self.sn = sn
+
+    def validate(self):
+        self.validate_required(self.product_key, 'product_key')
+        self.validate_required(self.device_pub_key, 'device_pub_key')
+        self.validate_required(self.sn, 'sn')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.product_key is not None:
+            result['product_key'] = self.product_key
+        if self.device_pub_key is not None:
+            result['device_pub_key'] = self.device_pub_key
+        if self.sn is not None:
+            result['sn'] = self.sn
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('product_key') is not None:
+            self.product_key = m.get('product_key')
+        if m.get('device_pub_key') is not None:
+            self.device_pub_key = m.get('device_pub_key')
+        if m.get('sn') is not None:
+            self.sn = m.get('sn')
+        return self
+
+
+class ApplyAidashboardDeviceResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        uuid: str = None,
+        server_pub_key: str = None,
+        cert_data: str = None,
+        cert_sign: str = None,
+        response_sign: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 设备唯一ID
+        self.uuid = uuid
+        # 服务端公钥
+        self.server_pub_key = server_pub_key
+        # 证书信息
+        self.cert_data = cert_data
+        # 证书签名
+        self.cert_sign = cert_sign
+        # 响应签名
+        self.response_sign = response_sign
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.uuid is not None:
+            result['uuid'] = self.uuid
+        if self.server_pub_key is not None:
+            result['server_pub_key'] = self.server_pub_key
+        if self.cert_data is not None:
+            result['cert_data'] = self.cert_data
+        if self.cert_sign is not None:
+            result['cert_sign'] = self.cert_sign
+        if self.response_sign is not None:
+            result['response_sign'] = self.response_sign
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('uuid') is not None:
+            self.uuid = m.get('uuid')
+        if m.get('server_pub_key') is not None:
+            self.server_pub_key = m.get('server_pub_key')
+        if m.get('cert_data') is not None:
+            self.cert_data = m.get('cert_data')
+        if m.get('cert_sign') is not None:
+            self.cert_sign = m.get('cert_sign')
+        if m.get('response_sign') is not None:
+            self.response_sign = m.get('response_sign')
         return self
 
 
