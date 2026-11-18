@@ -55,7 +55,7 @@ class QueryMaasImageRequest extends Model {
      */
     public $productInstanceId;
 
-    // 图片任务 ID
+    // 图片任务ID
     /**
      * @var string
      */

@@ -125,7 +125,7 @@ class PushMaasImageResponse extends Model {
      */
     public $resultMsg;
 
-    // 图片任务 ID
+    // 图片任务ID
     /**
      * @var string
      */
@@ -143,7 +143,7 @@ class PushMaasImageResponse extends Model {
      */
     public $model;
 
-    // 图片 URL 列表
+    // 图片URL列表
     /**
      * @var ImageUrlsList
      */

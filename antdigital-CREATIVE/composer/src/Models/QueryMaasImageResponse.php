@@ -132,7 +132,7 @@ class QueryMaasImageResponse extends Model {
      */
     public $resultMsg;
 
-    // 图片任务 ID
+    // 图片任务ID
     /**
      * @var string
      */
@@ -156,7 +156,7 @@ class QueryMaasImageResponse extends Model {
      */
     public $createdAt;
 
-    // 图片 URL 列表（成功时返回）
+    // 图片URL列表（成功时返回）
     /**
      * @var ImageUrlsList
      */

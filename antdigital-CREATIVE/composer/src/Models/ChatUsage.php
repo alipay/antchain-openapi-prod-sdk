@@ -56,21 +56,21 @@ class ChatUsage extends Model {
         }
         return $model;
     }
-    // 输入 token 数
+    // 输入token数
     /**
      * @example 121212
      * @var string
      */
     public $promptTokens;
 
-    // 输出 token 数
+    // 输出token数
     /**
      * @example 1111
      * @var string
      */
     public $completionTokens;
 
-    // 总 token 数
+    // 总token数
     /**
      * @example 121212
      * @var string

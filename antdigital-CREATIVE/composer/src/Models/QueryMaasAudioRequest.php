@@ -53,7 +53,7 @@ class QueryMaasAudioRequest extends Model {
      */
     public $productInstanceId;
 
-    // 音频任务 ID
+    // 音频任务ID
     /**
      * @var string
      */

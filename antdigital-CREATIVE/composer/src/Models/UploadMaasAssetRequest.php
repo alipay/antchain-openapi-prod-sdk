@@ -85,7 +85,7 @@ class UploadMaasAssetRequest extends Model {
      */
     public $requestId;
 
-    // 文件公网可访问 URL
+    // 文件公网可访问URL
     /**
      * @var string
      */

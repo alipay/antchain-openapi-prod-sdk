@@ -81,7 +81,7 @@ class UploadMaasAssetResponse extends Model {
      */
     public $resultMsg;
 
-    // 平台素材 ID
+    // 平台素材ID
     /**
      * @var string
      */

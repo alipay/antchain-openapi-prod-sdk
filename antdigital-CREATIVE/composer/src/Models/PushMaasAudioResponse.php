@@ -81,7 +81,7 @@ class PushMaasAudioResponse extends Model {
      */
     public $resultMsg;
 
-    // 音频任务 ID
+    // 音频任务ID
     /**
      * @var string
      */

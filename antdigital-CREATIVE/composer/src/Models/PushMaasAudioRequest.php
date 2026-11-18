@@ -141,19 +141,19 @@ class PushMaasAudioRequest extends Model {
      */
     public $text;
 
-    // 音频链接，REFERENCE_TO_AUDIO 时非空
+    // 音频链接，REFERENCE_TO_AUDIO时非空
     /**
      * @var string[]
      */
     public $audioUrls;
 
-    // 图片链接，IMAGE_TO_AUDIO 时非空
+    // 图片链接，IMAGE_TO_AUDIO时非空
     /**
      * @var string[]
      */
     public $imageUrls;
 
-    // 扩展参数 JSON 字符串，内容按模型扩展参数对象组织
+    // 扩展参数JSON字符串，内容按模型扩展参数对象组织
     /**
      * @var string
      */

@@ -118,7 +118,7 @@ class QueryMaasAssetResponse extends Model {
      */
     public $resultMsg;
 
-    // 资产 ID
+    // 资产ID
     /**
      * @var string
      */
@@ -160,7 +160,7 @@ class QueryMaasAssetResponse extends Model {
      */
     public $updatedAt;
 
-    // 处理失败时返回，包含 code / message
+    // 处理失败时返回，包含code/message
     /**
      * @var Error
      */

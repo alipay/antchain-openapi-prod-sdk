@@ -81,7 +81,7 @@ class PushMaasVideoResponse extends Model {
      */
     public $resultMsg;
 
-    // 视频任务 ID
+    // 视频任务ID
     /**
      * @var string
      */

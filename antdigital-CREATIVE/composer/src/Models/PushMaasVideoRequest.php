@@ -159,25 +159,25 @@ class PushMaasVideoRequest extends Model {
      */
     public $content;
 
-    // 视频时长（秒）
+    // 视频时长(s)
     /**
      * @var string
      */
     public $duration;
 
-    // 宽高比，如 16:9、9:16
+    // 宽高比，如16:9、9:16
     /**
      * @var string
      */
     public $ratio;
 
-    // 分辨率，如 720P、1080P
+    // 分辨率，如720P、1080P
     /**
      * @var string
      */
     public $resolution;
 
-    // 是否生成音轨，默认 false
+    // 是否生成音轨，默认false
     /**
      * @var bool
      */

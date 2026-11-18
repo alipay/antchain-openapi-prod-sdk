@@ -97,7 +97,7 @@ class ExecMaasChatsyncResponse extends Model {
      */
     public $resultMsg;
 
-    // 本次模型调用 ID
+    // 本次模型调用ID
     /**
      * @var string
      */

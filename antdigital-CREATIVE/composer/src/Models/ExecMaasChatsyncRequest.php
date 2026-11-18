@@ -110,7 +110,7 @@ class ExecMaasChatsyncRequest extends Model {
      */
     public $messages;
 
-    // 模型参数 JSON 字符串
+    // 模型参数JSON字符串
     /**
      * @var string
      */

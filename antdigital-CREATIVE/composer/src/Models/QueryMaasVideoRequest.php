@@ -55,7 +55,7 @@ class QueryMaasVideoRequest extends Model {
      */
     public $productInstanceId;
 
-    // 视频任务 ID
+    // 视频任务ID
     /**
      * @var string
      */

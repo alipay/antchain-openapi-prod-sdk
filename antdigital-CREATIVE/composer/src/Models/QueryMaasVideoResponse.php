@@ -185,25 +185,25 @@ class QueryMaasVideoResponse extends Model {
      */
     public $model;
 
-    // 创建时间，Unix 秒级时间戳
+    // 创建时间，Unix秒级时间戳
     /**
      * @var string
      */
     public $createdAt;
 
-    // 更新时间，Unix 秒级时间戳
+    // 更新时间，Unix秒级时间戳
     /**
      * @var string
      */
     public $updatedAt;
 
-    // 视频 URL（成功时返回）
+    // 视频 URL(成功时返回)
     /**
      * @var VideoUrl
      */
     public $content;
 
-    // 视频时长（秒
+    // 视频时长(s)
     /**
      * @var string
      */

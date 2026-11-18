@@ -55,7 +55,7 @@ class QueryMaasAssetRequest extends Model {
      */
     public $productInstanceId;
 
-    // 资产 ID
+    // 资产ID
     /**
      * @var string
      */

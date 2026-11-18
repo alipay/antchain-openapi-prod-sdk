@@ -144,7 +144,7 @@ class QueryMaasAudioResponse extends Model {
      */
     public $resultMsg;
 
-    // 音频任务 ID
+    // 音频任务ID
     /**
      * @var string
      */
@@ -162,7 +162,7 @@ class QueryMaasAudioResponse extends Model {
      */
     public $model;
 
-    // 创建时间，Unix 秒级时间戳
+    // 创建时间，Unix秒级时间戳
     /**
      * @var string
      */
@@ -180,7 +180,7 @@ class QueryMaasAudioResponse extends Model {
      */
     public $usage;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     /**
      * @var string
      */
