@@ -44,7 +44,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string CreatedAt { get; set; }
 
-        // 图片URL列表（成功时返回）
+        // 图片URL列表(成功时返回)
         [NameInMap("content")]
         [Validation(Required=false)]
         public ImageUrlsList Content { get; set; }
@@ -54,7 +54,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public List<ImageUsage> Usage { get; set; }
 
-        // 非标准化补充信息，JSON 字符串
+        // 非标准化补充信息，JSON字符串
         [NameInMap("extra_info")]
         [Validation(Required=false)]
         public string ExtraInfo { get; set; }

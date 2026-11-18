@@ -63,7 +63,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public bool? Watermark { get; set; }
 
-        // 扩展参数 JSON 字符串
+        // 扩展参数JSON字符串
         [NameInMap("ext_params")]
         [Validation(Required=false)]
         public string ExtParams { get; set; }

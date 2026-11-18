@@ -55,10 +55,10 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string FreeQuota { get; set; }
 
-        // 计费数量（扣除免费额度后的值）
+        // 计费数量(扣除免费额度后的值)
         /// <summary>
         /// <b>Example:</b>
-        /// <para>计费数量（扣除免费额度后的值）</para>
+        /// <para>计费数量(扣除免费额度后的值)</para>
         /// </summary>
         [NameInMap("billable_quantity")]
         [Validation(Required=false)]

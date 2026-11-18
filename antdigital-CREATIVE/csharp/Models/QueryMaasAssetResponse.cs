@@ -39,7 +39,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string AssetType { get; set; }
 
-        // 资产访问 URL，仅在已取得可访问地址时返回
+        // 资产访问URL，仅在已取得可访问地址时返回
         [NameInMap("url")]
         [Validation(Required=false)]
         public string Url { get; set; }
@@ -49,12 +49,12 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Name { get; set; }
 
-        // 创建时间，Unix 秒级时间戳，可选
+        // 创建时间，Unix秒级时间戳，可选
         [NameInMap("created_at")]
         [Validation(Required=false)]
         public string CreatedAt { get; set; }
 
-        // 更新时间，Unix 秒级时间戳，可选
+        // 更新时间，Unix秒级时间戳，可选
         [NameInMap("updated_at")]
         [Validation(Required=false)]
         public string UpdatedAt { get; set; }

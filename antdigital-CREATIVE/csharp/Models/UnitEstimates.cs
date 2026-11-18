@@ -10,7 +10,7 @@ namespace AntChain.SDK.CREATIVE.Models
 {
     // 各输出单元的试算明细
     public class UnitEstimates : TeaModel {
-        // 从 0 开始，与请求的 units[] 顺序一致
+        // 从0开始，与请求的 units[] 顺序一致
         /// <summary>
         /// <b>Example:</b>
         /// <para>1</para>

@@ -13,13 +13,13 @@ namespace AntChain.SDK.CREATIVE.Models
         // 分辨率
         /// <summary>
         /// <b>Example:</b>
-        /// <para>720p，1080p</para>
+        /// <para>720p、1080p</para>
         /// </summary>
         [NameInMap("resolution")]
         [Validation(Required=false)]
         public string Resolution { get; set; }
 
-        // 视频时长（单位：秒）
+        // 视频时长(s)
         /// <summary>
         /// <b>Example:</b>
         /// <para>15</para>
@@ -37,7 +37,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Ratio { get; set; }
 
-        // 消耗 token 数
+        // 消耗token数
         /// <summary>
         /// <b>Example:</b>
         /// <para>10800</para>

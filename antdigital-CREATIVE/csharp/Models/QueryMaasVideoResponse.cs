@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 视频任务 ID
+        // 视频任务ID
         [NameInMap("task_id")]
         [Validation(Required=false)]
         public string TaskId { get; set; }
@@ -49,7 +49,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string UpdatedAt { get; set; }
 
-        // 视频 URL(成功时返回)
+        // 视频URL(成功时返回)
         [NameInMap("content")]
         [Validation(Required=false)]
         public VideoUrl Content { get; set; }

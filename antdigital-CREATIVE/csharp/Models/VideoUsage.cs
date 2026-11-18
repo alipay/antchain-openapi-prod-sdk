@@ -28,7 +28,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Unit { get; set; }
 
-        // 视频时长（秒）
+        // 视频时长(s)
         /// <summary>
         /// <b>Example:</b>
         /// <para>10</para>

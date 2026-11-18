@@ -19,7 +19,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=true)]
         public string Type { get; set; }
 
-        // type=text 时提供，文本
+        // type=text时提供，文本
         /// <summary>
         /// <b>Example:</b>
         /// <para>生成一只猫</para>
@@ -28,7 +28,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Text { get; set; }
 
-        // type=image_url 时提供
+        // type=image_url时提供
         /// <summary>
         /// <b>Example:</b>
         /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>
@@ -37,7 +37,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public ContentUrl ImageUrl { get; set; }
 
-        // type=audio_url 时提供
+        // type=audio_url时提供
         /// <summary>
         /// <b>Example:</b>
         /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>
@@ -46,7 +46,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public ContentUrl AudioUrl { get; set; }
 
-        // type=video_url 时提供
+        // type=video_url时提供
         /// <summary>
         /// <b>Example:</b>
         /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>

@@ -28,7 +28,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Unit { get; set; }
 
-        // 音频时长（秒）
+        // 音频时长(s)
         /// <summary>
         /// <b>Example:</b>
         /// <para>10.6</para>
@@ -46,7 +46,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public long? Count { get; set; }
 
-        // 本次音频生成的实际消耗金额（必返）
+        // 本次音频生成的实际消耗金额(必返)
         /// <summary>
         /// <b>Example:</b>
         /// <para>10.11</para>
