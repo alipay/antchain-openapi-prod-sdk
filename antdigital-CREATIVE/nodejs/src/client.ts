@@ -277,7 +277,7 @@ export class RequestItems extends $tea.Model {
   }
 }
 
-// content 内 type 为 image_url﻿、audio_url、video_url﻿ 所需要的 url
+// content内type为[image_url﻿|audio_url|video_url﻿]所需要的url
 export class ContentUrl extends $tea.Model {
   // url
   /**
@@ -325,19 +325,19 @@ export class ImageUrlsList extends $tea.Model {
 
 // 消耗
 export class ChatUsage extends $tea.Model {
-  // 输入 token 数
+  // 输入token数
   /**
    * @example
    * 121212
    */
   promptTokens?: string;
-  // 输出 token 数
+  // 输出token数
   /**
    * @example
    * 1111
    */
   completionTokens?: string;
-  // 总 token 数
+  // 总token数
   /**
    * @example
    * 121212
@@ -804,7 +804,7 @@ export class ExtraInfo extends $tea.Model {
   }
 }
 
-// 处理失败时返回，包含 code / message
+// 处理失败时返回，包含code/message
 export class Error extends $tea.Model {
   // 错误码
   /**
@@ -1359,7 +1359,7 @@ export class UploadMaasAssetRequest extends $tea.Model {
   productInstanceId?: string;
   // 幂等标识，由客户端生成
   requestId: string;
-  // 文件公网可访问 URL
+  // 文件公网可访问URL
   fileUrl: string;
   // 资产类型
   assetType: string;
@@ -1399,7 +1399,7 @@ export class UploadMaasAssetResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 平台素材 ID
+  // 平台素材ID
   assetId?: string;
   // 状态
   status?: string;
@@ -1436,7 +1436,7 @@ export class QueryMaasAssetRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 资产 ID
+  // 资产ID
   assetId: string;
   static names(): { [key: string]: string } {
     return {
@@ -1466,7 +1466,7 @@ export class QueryMaasAssetResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 资产 ID
+  // 资产ID
   assetId?: string;
   // 状态
   status?: string;
@@ -1480,7 +1480,7 @@ export class QueryMaasAssetResponse extends $tea.Model {
   createdAt?: string;
   // 更新时间，Unix 秒级时间戳，可选
   updatedAt?: string;
-  // 处理失败时返回，包含 code / message
+  // 处理失败时返回，包含code/message
   error?: Error;
   static names(): { [key: string]: string } {
     return {
@@ -1531,13 +1531,13 @@ export class PushMaasVideoRequest extends $tea.Model {
   capabilityType: string;
   // 非空内容列表，至少含文本或素材
   content: ContentInfo[];
-  // 视频时长（秒）
+  // 视频时长(s)
   duration?: string;
-  // 宽高比，如 16:9、9:16
+  // 宽高比，如16:9、9:16
   ratio?: string;
-  // 分辨率，如 720P、1080P
+  // 分辨率，如720P、1080P
   resolution?: string;
-  // 是否生成音轨，默认 false
+  // 是否生成音轨，默认false
   generateAudio?: boolean;
   // 是否添加水印
   watermark?: boolean;
@@ -1589,7 +1589,7 @@ export class PushMaasVideoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 视频任务 ID
+  // 视频任务ID
   taskId?: string;
   // 任务状态
   status?: string;
@@ -1626,7 +1626,7 @@ export class QueryMaasVideoRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 视频任务 ID
+  // 视频任务ID
   taskId: string;
   static names(): { [key: string]: string } {
     return {
@@ -1662,13 +1662,13 @@ export class QueryMaasVideoResponse extends $tea.Model {
   status?: string;
   // 实际使用的模型
   model?: string;
-  // 创建时间，Unix 秒级时间戳
+  // 创建时间，Unix秒级时间戳
   createdAt?: string;
-  // 更新时间，Unix 秒级时间戳
+  // 更新时间，Unix秒级时间戳
   updatedAt?: string;
-  // 视频 URL（成功时返回）
+  // 视频 URL(成功时返回)
   content?: VideoUrl;
-  // 视频时长（秒
+  // 视频时长(s)
   duration?: string;
   // 宽高比
   ratio?: string;
@@ -1795,13 +1795,13 @@ export class PushMaasImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 图片任务 ID
+  // 图片任务ID
   taskId?: string;
   // 任务状态
   status?: string;
   // 实际使用的模型
   model?: string;
-  // 图片 URL 列表
+  // 图片URL列表
   content?: ImageUrlsList;
   // 用量数组
   usage?: ImageUsage[];
@@ -1848,7 +1848,7 @@ export class QueryMaasImageRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 图片任务 ID
+  // 图片任务ID
   taskId: string;
   static names(): { [key: string]: string } {
     return {
@@ -1878,7 +1878,7 @@ export class QueryMaasImageResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 图片任务 ID
+  // 图片任务ID
   taskId?: string;
   // 任务状态
   status?: string;
@@ -1886,7 +1886,7 @@ export class QueryMaasImageResponse extends $tea.Model {
   model?: string;
   // 创建时间，Unix 秒级时间戳
   createdAt?: string;
-  // 图片 URL 列表（成功时返回）
+  // 图片URL列表（成功时返回）
   content?: ImageUrlsList;
   // 用量数组
   usage?: ImageUsage[];
@@ -1945,11 +1945,11 @@ export class PushMaasAudioRequest extends $tea.Model {
   prompt: string;
   // 需要朗读的文本，仅支持该参数的模型使用
   text?: string;
-  // 音频链接，REFERENCE_TO_AUDIO 时非空
+  // 音频链接，REFERENCE_TO_AUDIO时非空
   audioUrls?: string[];
-  // 图片链接，IMAGE_TO_AUDIO 时非空
+  // 图片链接，IMAGE_TO_AUDIO时非空
   imageUrls?: string[];
-  // 扩展参数 JSON 字符串，内容按模型扩展参数对象组织
+  // 扩展参数JSON字符串，内容按模型扩展参数对象组织
   extParams?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1993,7 +1993,7 @@ export class PushMaasAudioResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 音频任务 ID
+  // 音频任务ID
   taskId?: string;
   // 任务状态
   status?: string;
@@ -2030,7 +2030,7 @@ export class QueryMaasAudioRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 音频任务 ID
+  // 音频任务ID
   taskId?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2060,19 +2060,19 @@ export class QueryMaasAudioResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 音频任务 ID
+  // 音频任务ID
   taskId?: string;
   // 任务状态
   status?: string;
   // 实际使用的模型
   model?: string;
-  // 创建时间，Unix 秒级时间戳
+  // 创建时间，Unix秒级时间戳
   createdAt?: string;
   // 音频信息
   content?: AudioList[];
   // 用量
   usage?: AudioUsage[];
-  // 非标准化补充信息，JSON 字符串
+  // 非标准化补充信息，JSON字符串
   extraInfo?: string;
   // 失败时返回
   error?: Error;
@@ -2123,7 +2123,7 @@ export class ExecMaasChatsyncRequest extends $tea.Model {
   model: string;
   // 非空消息列表
   messages: ChatMessages[];
-  // 模型参数 JSON 字符串
+  // 模型参数JSON字符串
   extParams?: string;
   static names(): { [key: string]: string } {
     return {
@@ -2159,7 +2159,7 @@ export class ExecMaasChatsyncResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 本次模型调用 ID
+  // 本次模型调用ID
   id?: string;
   // 实际使用的模型
   model?: string;
@@ -2428,7 +2428,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.1",
+          sdk_version: "1.1.3",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
