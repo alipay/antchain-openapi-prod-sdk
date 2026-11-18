@@ -21,6 +21,31 @@ public class StartSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 租户id
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
+    // 签约回调地址
+    @NameInMap("return_url")
+    public String returnUrl;
+
+    // 用户姓名
+    @NameInMap("user_name")
+    public String userName;
+
+    // 用户手机号
+    @NameInMap("user_phone_number")
+    public String userPhoneNumber;
+
+    // 证件类型，发起预授权时须为 CRED_PSN_CH_IDCARD
+    @NameInMap("user_cert_no_type")
+    public String userCertNoType;
+
+    // 证件号，加密落库；发起预授权时与 user_name 一同校验
+    @NameInMap("user_cert_no")
+    public String userCertNo;
+
     public static StartSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         StartSignFlowRequest self = new StartSignFlowRequest();
         return TeaModel.build(map, self);
@@ -56,6 +81,54 @@ public class StartSignFlowRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public StartSignFlowRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
+    }
+
+    public StartSignFlowRequest setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+        return this;
+    }
+    public String getReturnUrl() {
+        return this.returnUrl;
+    }
+
+    public StartSignFlowRequest setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public StartSignFlowRequest setUserPhoneNumber(String userPhoneNumber) {
+        this.userPhoneNumber = userPhoneNumber;
+        return this;
+    }
+    public String getUserPhoneNumber() {
+        return this.userPhoneNumber;
+    }
+
+    public StartSignFlowRequest setUserCertNoType(String userCertNoType) {
+        this.userCertNoType = userCertNoType;
+        return this;
+    }
+    public String getUserCertNoType() {
+        return this.userCertNoType;
+    }
+
+    public StartSignFlowRequest setUserCertNo(String userCertNo) {
+        this.userCertNo = userCertNo;
+        return this;
+    }
+    public String getUserCertNo() {
+        return this.userCertNo;
     }
 
 }

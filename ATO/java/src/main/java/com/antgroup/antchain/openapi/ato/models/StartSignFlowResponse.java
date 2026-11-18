@@ -16,9 +16,13 @@ public class StartSignFlowResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 受理结果与拉起参数，RentalSignInitiateResp 对象的 JSON 字符串
-    @NameInMap("response_data")
-    public RentalSignInitiateResp responseData;
+    // 受理后的签约单状态
+    @NameInMap("status")
+    public String status;
+
+    // 本次受理返回的拉起参数列表，一个能力一条；空列表表示本次受理没有可返回的拉起参数（如重复受理）
+    @NameInMap("actions")
+    public java.util.List<SignActionInfo> actions;
 
     public static StartSignFlowResponse build(java.util.Map<String, ?> map) throws Exception {
         StartSignFlowResponse self = new StartSignFlowResponse();
@@ -49,12 +53,20 @@ public class StartSignFlowResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public StartSignFlowResponse setResponseData(RentalSignInitiateResp responseData) {
-        this.responseData = responseData;
+    public StartSignFlowResponse setStatus(String status) {
+        this.status = status;
         return this;
     }
-    public RentalSignInitiateResp getResponseData() {
-        return this.responseData;
+    public String getStatus() {
+        return this.status;
+    }
+
+    public StartSignFlowResponse setActions(java.util.List<SignActionInfo> actions) {
+        this.actions = actions;
+        return this;
+    }
+    public java.util.List<SignActionInfo> getActions() {
+        return this.actions;
     }
 
 }

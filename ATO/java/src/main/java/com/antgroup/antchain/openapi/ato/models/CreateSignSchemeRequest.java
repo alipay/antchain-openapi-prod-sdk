@@ -21,10 +21,42 @@ public class CreateSignSchemeRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // 初始押金方案，JSON 字符串，参考 RentalSignSchemeCreateRequest 定义
-    @NameInMap("scheme_info")
+    // 押金方案
+    @NameInMap("deposit_type")
     @Validation(required = true)
-    public RentalSignSchemeCreateRequest schemeInfo;
+    public String depositType;
+
+    // 信用减免金额（分）。仅免押=depositAmount，仅预授权=0，免押&预授权 ∈ (0, depositAmount)
+    @NameInMap("credit_reduce_amount")
+    public Long creditReduceAmount;
+
+    // 预授权申请冻结额（分）。仅预授权=depositAmount；免押&预授权满足 0 < preauth_amount ≤ depositAmount；仅免押=0
+    @NameInMap("preauth_amount")
+    public Long preauthAmount;
+
+    // 代扣协议额度（分），所有含信用减免的方案必须等于 creditReduceAmount；仅预授权=0
+    @NameInMap("withhold_quota")
+    public Long withholdQuota;
+
+    // 签约后允许的超期时长（分钟）；签约完成时随订单域 signed 透传，用于订单侧计算关单时间
+    @NameInMap("signed_overdue_minutes")
+    @Validation(required = true)
+    public Long signedOverdueMinutes;
+
+    // 租户 ID
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
+    // 签约场景：RENTAL（短租）
+    @NameInMap("scene")
+    @Validation(required = true)
+    public String scene;
+
+    // 是否需要合同签署
+    @NameInMap("contract_enabled")
+    @Validation(required = true)
+    public Boolean contractEnabled;
 
     public static CreateSignSchemeRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateSignSchemeRequest self = new CreateSignSchemeRequest();
@@ -63,12 +95,68 @@ public class CreateSignSchemeRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public CreateSignSchemeRequest setSchemeInfo(RentalSignSchemeCreateRequest schemeInfo) {
-        this.schemeInfo = schemeInfo;
+    public CreateSignSchemeRequest setDepositType(String depositType) {
+        this.depositType = depositType;
         return this;
     }
-    public RentalSignSchemeCreateRequest getSchemeInfo() {
-        return this.schemeInfo;
+    public String getDepositType() {
+        return this.depositType;
+    }
+
+    public CreateSignSchemeRequest setCreditReduceAmount(Long creditReduceAmount) {
+        this.creditReduceAmount = creditReduceAmount;
+        return this;
+    }
+    public Long getCreditReduceAmount() {
+        return this.creditReduceAmount;
+    }
+
+    public CreateSignSchemeRequest setPreauthAmount(Long preauthAmount) {
+        this.preauthAmount = preauthAmount;
+        return this;
+    }
+    public Long getPreauthAmount() {
+        return this.preauthAmount;
+    }
+
+    public CreateSignSchemeRequest setWithholdQuota(Long withholdQuota) {
+        this.withholdQuota = withholdQuota;
+        return this;
+    }
+    public Long getWithholdQuota() {
+        return this.withholdQuota;
+    }
+
+    public CreateSignSchemeRequest setSignedOverdueMinutes(Long signedOverdueMinutes) {
+        this.signedOverdueMinutes = signedOverdueMinutes;
+        return this;
+    }
+    public Long getSignedOverdueMinutes() {
+        return this.signedOverdueMinutes;
+    }
+
+    public CreateSignSchemeRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
+    }
+
+    public CreateSignSchemeRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public CreateSignSchemeRequest setContractEnabled(Boolean contractEnabled) {
+        this.contractEnabled = contractEnabled;
+        return this;
+    }
+    public Boolean getContractEnabled() {
+        return this.contractEnabled;
     }
 
 }

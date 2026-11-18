@@ -41,14 +41,6 @@ public class SignCapabilityResult extends TeaModel {
     @NameInMap("fail_msg")
     public String failMsg;
 
-    // 能力资源号：预授权为 planNo（授权计划号）；代扣为 agreementNo（协议号）；合同为 contractSignNo（签署单号）。能力尚未发起时为空
-    /**
-     * <strong>example:</strong>
-     * <p>planNo</p>
-     */
-    @NameInMap("resource_ref")
-    public String resourceRef;
-
     public static SignCapabilityResult build(java.util.Map<String, ?> map) throws Exception {
         SignCapabilityResult self = new SignCapabilityResult();
         return TeaModel.build(map, self);
@@ -84,14 +76,6 @@ public class SignCapabilityResult extends TeaModel {
     }
     public String getFailMsg() {
         return this.failMsg;
-    }
-
-    public SignCapabilityResult setResourceRef(String resourceRef) {
-        this.resourceRef = resourceRef;
-        return this;
-    }
-    public String getResourceRef() {
-        return this.resourceRef;
     }
 
 }

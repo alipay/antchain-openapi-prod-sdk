@@ -21,6 +21,11 @@ public class QuerySignSchemeRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
+    // 租户id
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
+
     public static QuerySignSchemeRequest build(java.util.Map<String, ?> map) throws Exception {
         QuerySignSchemeRequest self = new QuerySignSchemeRequest();
         return TeaModel.build(map, self);
@@ -56,6 +61,14 @@ public class QuerySignSchemeRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
+    }
+
+    public QuerySignSchemeRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }

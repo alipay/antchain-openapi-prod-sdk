@@ -21,10 +21,32 @@ public class ModifySignSchemeRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // 调整后的押金方案，JSON 字符串，参考 RentalSignSchemeModRequest 定义
-    @NameInMap("scheme_info")
+    // 押金方案
+    @NameInMap("deposit_type")
     @Validation(required = true)
-    public RentalSignSchemeModRequest schemeInfo;
+    public String depositType;
+
+    // 信用减免金额（分）。仅免押=depositAmount，仅预授权=0，免押&预授权 ∈ (0, depositAmount)
+    @NameInMap("credit_reduce_amount")
+    public Long creditReduceAmount;
+
+    // 预授权申请冻结额（分）。仅预授权=depositAmount；免押&预授权满足 0 < preauth_amount ≤ depositAmount；仅免押=0
+    @NameInMap("preauth_amount")
+    public Long preauthAmount;
+
+    // 代扣协议额度（分），所有含信用减免的方案必须等于 credit_reduce_amount；仅预授权=0
+    @NameInMap("withhold_quota")
+    public Long withholdQuota;
+
+    // 签约后允许的超期时长（分钟）；建单/修改落库后用于签约完成时 signed 透传
+    @NameInMap("signed_overdue_minutes")
+    @Validation(required = true)
+    public Long signedOverdueMinutes;
+
+    // 租户id
+    @NameInMap("tenant_id")
+    @Validation(required = true)
+    public String tenantId;
 
     public static ModifySignSchemeRequest build(java.util.Map<String, ?> map) throws Exception {
         ModifySignSchemeRequest self = new ModifySignSchemeRequest();
@@ -63,12 +85,52 @@ public class ModifySignSchemeRequest extends TeaModel {
         return this.merchantId;
     }
 
-    public ModifySignSchemeRequest setSchemeInfo(RentalSignSchemeModRequest schemeInfo) {
-        this.schemeInfo = schemeInfo;
+    public ModifySignSchemeRequest setDepositType(String depositType) {
+        this.depositType = depositType;
         return this;
     }
-    public RentalSignSchemeModRequest getSchemeInfo() {
-        return this.schemeInfo;
+    public String getDepositType() {
+        return this.depositType;
+    }
+
+    public ModifySignSchemeRequest setCreditReduceAmount(Long creditReduceAmount) {
+        this.creditReduceAmount = creditReduceAmount;
+        return this;
+    }
+    public Long getCreditReduceAmount() {
+        return this.creditReduceAmount;
+    }
+
+    public ModifySignSchemeRequest setPreauthAmount(Long preauthAmount) {
+        this.preauthAmount = preauthAmount;
+        return this;
+    }
+    public Long getPreauthAmount() {
+        return this.preauthAmount;
+    }
+
+    public ModifySignSchemeRequest setWithholdQuota(Long withholdQuota) {
+        this.withholdQuota = withholdQuota;
+        return this;
+    }
+    public Long getWithholdQuota() {
+        return this.withholdQuota;
+    }
+
+    public ModifySignSchemeRequest setSignedOverdueMinutes(Long signedOverdueMinutes) {
+        this.signedOverdueMinutes = signedOverdueMinutes;
+        return this;
+    }
+    public Long getSignedOverdueMinutes() {
+        return this.signedOverdueMinutes;
+    }
+
+    public ModifySignSchemeRequest setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+        return this;
+    }
+    public String getTenantId() {
+        return this.tenantId;
     }
 
 }
