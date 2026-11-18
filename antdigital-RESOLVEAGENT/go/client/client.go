@@ -192,12 +192,12 @@ type ImportTaskBatchRequest struct {
 	// OAuth模式下的授权token
 	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
-	// 任务id
-	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 	// 批次号
 	BatchNo *string `json:"batch_no,omitempty" xml:"batch_no,omitempty" require:"true"`
 	// 导入名单列表
 	List []*string `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
 }
 
 func (s ImportTaskBatchRequest) String() string {
@@ -218,11 +218,6 @@ func (s *ImportTaskBatchRequest) SetProductInstanceId(v string) *ImportTaskBatch
 	return s
 }
 
-func (s *ImportTaskBatchRequest) SetTaskId(v string) *ImportTaskBatchRequest {
-	s.TaskId = &v
-	return s
-}
-
 func (s *ImportTaskBatchRequest) SetBatchNo(v string) *ImportTaskBatchRequest {
 	s.BatchNo = &v
 	return s
@@ -230,6 +225,11 @@ func (s *ImportTaskBatchRequest) SetBatchNo(v string) *ImportTaskBatchRequest {
 
 func (s *ImportTaskBatchRequest) SetList(v []*string) *ImportTaskBatchRequest {
 	s.List = v
+	return s
+}
+
+func (s *ImportTaskBatchRequest) SetTaskId(v string) *ImportTaskBatchRequest {
+	s.TaskId = &v
 	return s
 }
 
@@ -363,6 +363,398 @@ func (s *ImportTaskRateinfoResponse) SetData(v string) *ImportTaskRateinfoRespon
 	return s
 }
 
+type QueryCustomerOverdueRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户号
+	CustomerAccount *string `json:"customer_account,omitempty" xml:"customer_account,omitempty" require:"true"`
+	// 产品类型
+	ProductType *string `json:"product_type,omitempty" xml:"product_type,omitempty" require:"true"`
+}
+
+func (s QueryCustomerOverdueRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCustomerOverdueRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCustomerOverdueRequest) SetAuthToken(v string) *QueryCustomerOverdueRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueRequest) SetProductInstanceId(v string) *QueryCustomerOverdueRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueRequest) SetCustomerAccount(v string) *QueryCustomerOverdueRequest {
+	s.CustomerAccount = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueRequest) SetProductType(v string) *QueryCustomerOverdueRequest {
+	s.ProductType = &v
+	return s
+}
+
+type QueryCustomerOverdueResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// S:成功,F:失败
+	Flag *string `json:"flag,omitempty" xml:"flag,omitempty"`
+	// 0:成功,1:失败
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 成功or失败
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// true : 逾期 false: 不逾期
+	Data *bool `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s QueryCustomerOverdueResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryCustomerOverdueResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryCustomerOverdueResponse) SetReqMsgId(v string) *QueryCustomerOverdueResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetResultCode(v string) *QueryCustomerOverdueResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetResultMsg(v string) *QueryCustomerOverdueResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetFlag(v string) *QueryCustomerOverdueResponse {
+	s.Flag = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetCode(v int64) *QueryCustomerOverdueResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetMsg(v string) *QueryCustomerOverdueResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *QueryCustomerOverdueResponse) SetData(v bool) *QueryCustomerOverdueResponse {
+	s.Data = &v
+	return s
+}
+
+type PushCustomerLogininfoRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 客户号
+	CustNo *string `json:"cust_no,omitempty" xml:"cust_no,omitempty" require:"true"`
+	// 客户行为
+	ActionInfo *string `json:"action_info,omitempty" xml:"action_info,omitempty" require:"true"`
+}
+
+func (s PushCustomerLogininfoRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushCustomerLogininfoRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushCustomerLogininfoRequest) SetAuthToken(v string) *PushCustomerLogininfoRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoRequest) SetProductInstanceId(v string) *PushCustomerLogininfoRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoRequest) SetCustNo(v string) *PushCustomerLogininfoRequest {
+	s.CustNo = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoRequest) SetActionInfo(v string) *PushCustomerLogininfoRequest {
+	s.ActionInfo = &v
+	return s
+}
+
+type PushCustomerLogininfoResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// S:成功,F:失败
+	Flag *string `json:"flag,omitempty" xml:"flag,omitempty"`
+	// 0:成功,1:失败
+	Code *int64 `json:"code,omitempty" xml:"code,omitempty"`
+	// 成功or失败
+	Msg *string `json:"msg,omitempty" xml:"msg,omitempty"`
+	// 结果信息
+	Data *string `json:"data,omitempty" xml:"data,omitempty"`
+}
+
+func (s PushCustomerLogininfoResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushCustomerLogininfoResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushCustomerLogininfoResponse) SetReqMsgId(v string) *PushCustomerLogininfoResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetResultCode(v string) *PushCustomerLogininfoResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetResultMsg(v string) *PushCustomerLogininfoResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetFlag(v string) *PushCustomerLogininfoResponse {
+	s.Flag = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetCode(v int64) *PushCustomerLogininfoResponse {
+	s.Code = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetMsg(v string) *PushCustomerLogininfoResponse {
+	s.Msg = &v
+	return s
+}
+
+func (s *PushCustomerLogininfoResponse) SetData(v string) *PushCustomerLogininfoResponse {
+	s.Data = &v
+	return s
+}
+
+type ImportCommonCustomerRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次号
+	BatchId *string `json:"batch_id,omitempty" xml:"batch_id,omitempty" require:"true"`
+	// 导入名单
+	List []*string `json:"list,omitempty" xml:"list,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ImportCommonCustomerRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCommonCustomerRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCommonCustomerRequest) SetAuthToken(v string) *ImportCommonCustomerRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportCommonCustomerRequest) SetProductInstanceId(v string) *ImportCommonCustomerRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportCommonCustomerRequest) SetBatchId(v string) *ImportCommonCustomerRequest {
+	s.BatchId = &v
+	return s
+}
+
+func (s *ImportCommonCustomerRequest) SetList(v []*string) *ImportCommonCustomerRequest {
+	s.List = v
+	return s
+}
+
+type ImportCommonCustomerResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ImportCommonCustomerResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCommonCustomerResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCommonCustomerResponse) SetReqMsgId(v string) *ImportCommonCustomerResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportCommonCustomerResponse) SetResultCode(v string) *ImportCommonCustomerResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportCommonCustomerResponse) SetResultMsg(v string) *ImportCommonCustomerResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+type ImportCustomerRealtimeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 批次幂等键（≤64 字符)
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 挂靠的任务 ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+	// 名单行 JSON 数组，每个元素为一名单行 JSON 字符串
+	CustInfo []*string `json:"cust_info,omitempty" xml:"cust_info,omitempty" require:"true" type:"Repeated"`
+}
+
+func (s ImportCustomerRealtimeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCustomerRealtimeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCustomerRealtimeRequest) SetAuthToken(v string) *ImportCustomerRealtimeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeRequest) SetProductInstanceId(v string) *ImportCustomerRealtimeRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeRequest) SetRequestId(v string) *ImportCustomerRealtimeRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeRequest) SetTaskId(v string) *ImportCustomerRealtimeRequest {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeRequest) SetCustInfo(v []*string) *ImportCustomerRealtimeRequest {
+	s.CustInfo = v
+	return s
+}
+
+type ImportCustomerRealtimeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 原样回传请求中的 requestId
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 我方生成的批次流水号，用于对账与追踪
+	ProviderBatchId *string `json:"provider_batch_id,omitempty" xml:"provider_batch_id,omitempty"`
+	// 名单行总数（= custInfo 行数）
+	TotalCount *int64 `json:"total_count,omitempty" xml:"total_count,omitempty"`
+	// 受理成功、进入外呼队列的行数
+	AcceptedCount *int64 `json:"accepted_count,omitempty" xml:"accepted_count,omitempty"`
+	// 校验未通过被拒绝的行数
+	RejectedCount *int64 `json:"rejected_count,omitempty" xml:"rejected_count,omitempty"`
+	// 受理成功的 serialNo 列表
+	AcceptedSerialNos []*string `json:"accepted_serial_nos,omitempty" xml:"accepted_serial_nos,omitempty" type:"Repeated"`
+	// 被拒绝的 serialNo → 拒绝原因
+	RejectedItems *string `json:"rejected_items,omitempty" xml:"rejected_items,omitempty"`
+}
+
+func (s ImportCustomerRealtimeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ImportCustomerRealtimeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ImportCustomerRealtimeResponse) SetReqMsgId(v string) *ImportCustomerRealtimeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetResultCode(v string) *ImportCustomerRealtimeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetResultMsg(v string) *ImportCustomerRealtimeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetRequestId(v string) *ImportCustomerRealtimeResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetProviderBatchId(v string) *ImportCustomerRealtimeResponse {
+	s.ProviderBatchId = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetTotalCount(v int64) *ImportCustomerRealtimeResponse {
+	s.TotalCount = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetAcceptedCount(v int64) *ImportCustomerRealtimeResponse {
+	s.AcceptedCount = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetRejectedCount(v int64) *ImportCustomerRealtimeResponse {
+	s.RejectedCount = &v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetAcceptedSerialNos(v []*string) *ImportCustomerRealtimeResponse {
+	s.AcceptedSerialNos = v
+	return s
+}
+
+func (s *ImportCustomerRealtimeResponse) SetRejectedItems(v string) *ImportCustomerRealtimeResponse {
+	s.RejectedItems = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -493,7 +885,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.1"),
+				"sdk_version":      tea.String("2.1.0"),
 				"_prod_code":       tea.String("RESOLVEAGENT"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -616,6 +1008,150 @@ func (client *Client) ImportTaskRateinfoEx(request *ImportTaskRateinfoRequest, h
 	}
 	_result = &ImportTaskRateinfoResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.resolveagent.task.rateinfo.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后360客户是否逾期查询接口
+//
+// Summary: 贷后360客户是否逾期查询接口
+func (client *Client) QueryCustomerOverdue(request *QueryCustomerOverdueRequest) (_result *QueryCustomerOverdueResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryCustomerOverdueResponse{}
+	_body, _err := client.QueryCustomerOverdueEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后360客户是否逾期查询接口
+//
+// Summary: 贷后360客户是否逾期查询接口
+func (client *Client) QueryCustomerOverdueEx(request *QueryCustomerOverdueRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryCustomerOverdueResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryCustomerOverdueResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.resolveagent.customer.overdue.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 360站内信用户信息推送
+//
+// Summary: 360站内信用户信息推送
+func (client *Client) PushCustomerLogininfo(request *PushCustomerLogininfoRequest) (_result *PushCustomerLogininfoResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushCustomerLogininfoResponse{}
+	_body, _err := client.PushCustomerLogininfoEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 360站内信用户信息推送
+//
+// Summary: 360站内信用户信息推送
+func (client *Client) PushCustomerLogininfoEx(request *PushCustomerLogininfoRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushCustomerLogininfoResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushCustomerLogininfoResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.resolveagent.customer.logininfo.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后催调通用导入接口
+//
+// Summary: 贷后催调通用导入接口
+func (client *Client) ImportCommonCustomer(request *ImportCommonCustomerRequest) (_result *ImportCommonCustomerResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportCommonCustomerResponse{}
+	_body, _err := client.ImportCommonCustomerEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后催调通用导入接口
+//
+// Summary: 贷后催调通用导入接口
+func (client *Client) ImportCommonCustomerEx(request *ImportCommonCustomerRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCommonCustomerResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportCommonCustomerResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.resolveagent.common.customer.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后催调实时导入接口
+//
+// Summary: 贷后催调实时导入接口
+func (client *Client) ImportCustomerRealtime(request *ImportCustomerRealtimeRequest) (_result *ImportCustomerRealtimeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ImportCustomerRealtimeResponse{}
+	_body, _err := client.ImportCustomerRealtimeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 贷后催调实时导入接口
+//
+// Summary: 贷后催调实时导入接口
+func (client *Client) ImportCustomerRealtimeEx(request *ImportCustomerRealtimeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ImportCustomerRealtimeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ImportCustomerRealtimeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.resolveagent.customer.realtime.import"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}

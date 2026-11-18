@@ -1,4 +1,4 @@
-module github.com/alipay/antdigital-resolveagent
+module github.com/antchain-openapi-sdk-go/antdigital-resolveagent
 
 go 1.22.1
 
