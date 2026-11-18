@@ -18,11 +18,6 @@ namespace AntChain.SDK.RESOLVEAGENT.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 任务id
-        [NameInMap("task_id")]
-        [Validation(Required=true)]
-        public string TaskId { get; set; }
-
         // 批次号
         [NameInMap("batch_no")]
         [Validation(Required=true)]
@@ -32,6 +27,11 @@ namespace AntChain.SDK.RESOLVEAGENT.Models
         [NameInMap("list")]
         [Validation(Required=true)]
         public List<string> List { get; set; }
+
+        // 任务id
+        [NameInMap("task_id")]
+        [Validation(Required=true)]
+        public string TaskId { get; set; }
 
     }
 

@@ -158,7 +158,7 @@ namespace AntChain.SDK.RESOLVEAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "2.1.0"},
                         {"_prod_code", "RESOLVEAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RESOLVEAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.0.1"},
+                        {"sdk_version", "2.1.0"},
                         {"_prod_code", "RESOLVEAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -449,6 +449,190 @@ namespace AntChain.SDK.RESOLVEAGENT
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ImportTaskRateinfoResponse>(await DoRequestAsync("1.0", "antdigital.resolveagent.task.rateinfo.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后360客户是否逾期查询接口
+        /// Summary: 贷后360客户是否逾期查询接口</para>
+        /// </description>
+        public QueryCustomerOverdueResponse QueryCustomerOverdue(QueryCustomerOverdueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryCustomerOverdueEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后360客户是否逾期查询接口
+        /// Summary: 贷后360客户是否逾期查询接口</para>
+        /// </description>
+        public async Task<QueryCustomerOverdueResponse> QueryCustomerOverdueAsync(QueryCustomerOverdueRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryCustomerOverdueExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后360客户是否逾期查询接口
+        /// Summary: 贷后360客户是否逾期查询接口</para>
+        /// </description>
+        public QueryCustomerOverdueResponse QueryCustomerOverdueEx(QueryCustomerOverdueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCustomerOverdueResponse>(DoRequest("1.0", "antdigital.resolveagent.customer.overdue.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后360客户是否逾期查询接口
+        /// Summary: 贷后360客户是否逾期查询接口</para>
+        /// </description>
+        public async Task<QueryCustomerOverdueResponse> QueryCustomerOverdueExAsync(QueryCustomerOverdueRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryCustomerOverdueResponse>(await DoRequestAsync("1.0", "antdigital.resolveagent.customer.overdue.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 360站内信用户信息推送
+        /// Summary: 360站内信用户信息推送</para>
+        /// </description>
+        public PushCustomerLogininfoResponse PushCustomerLogininfo(PushCustomerLogininfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushCustomerLogininfoEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 360站内信用户信息推送
+        /// Summary: 360站内信用户信息推送</para>
+        /// </description>
+        public async Task<PushCustomerLogininfoResponse> PushCustomerLogininfoAsync(PushCustomerLogininfoRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushCustomerLogininfoExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 360站内信用户信息推送
+        /// Summary: 360站内信用户信息推送</para>
+        /// </description>
+        public PushCustomerLogininfoResponse PushCustomerLogininfoEx(PushCustomerLogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushCustomerLogininfoResponse>(DoRequest("1.0", "antdigital.resolveagent.customer.logininfo.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 360站内信用户信息推送
+        /// Summary: 360站内信用户信息推送</para>
+        /// </description>
+        public async Task<PushCustomerLogininfoResponse> PushCustomerLogininfoExAsync(PushCustomerLogininfoRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushCustomerLogininfoResponse>(await DoRequestAsync("1.0", "antdigital.resolveagent.customer.logininfo.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调通用导入接口
+        /// Summary: 贷后催调通用导入接口</para>
+        /// </description>
+        public ImportCommonCustomerResponse ImportCommonCustomer(ImportCommonCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportCommonCustomerEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调通用导入接口
+        /// Summary: 贷后催调通用导入接口</para>
+        /// </description>
+        public async Task<ImportCommonCustomerResponse> ImportCommonCustomerAsync(ImportCommonCustomerRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportCommonCustomerExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调通用导入接口
+        /// Summary: 贷后催调通用导入接口</para>
+        /// </description>
+        public ImportCommonCustomerResponse ImportCommonCustomerEx(ImportCommonCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCommonCustomerResponse>(DoRequest("1.0", "antdigital.resolveagent.common.customer.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调通用导入接口
+        /// Summary: 贷后催调通用导入接口</para>
+        /// </description>
+        public async Task<ImportCommonCustomerResponse> ImportCommonCustomerExAsync(ImportCommonCustomerRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCommonCustomerResponse>(await DoRequestAsync("1.0", "antdigital.resolveagent.common.customer.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调实时导入接口
+        /// Summary: 贷后催调实时导入接口</para>
+        /// </description>
+        public ImportCustomerRealtimeResponse ImportCustomerRealtime(ImportCustomerRealtimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ImportCustomerRealtimeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调实时导入接口
+        /// Summary: 贷后催调实时导入接口</para>
+        /// </description>
+        public async Task<ImportCustomerRealtimeResponse> ImportCustomerRealtimeAsync(ImportCustomerRealtimeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ImportCustomerRealtimeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调实时导入接口
+        /// Summary: 贷后催调实时导入接口</para>
+        /// </description>
+        public ImportCustomerRealtimeResponse ImportCustomerRealtimeEx(ImportCustomerRealtimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCustomerRealtimeResponse>(DoRequest("1.0", "antdigital.resolveagent.customer.realtime.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 贷后催调实时导入接口
+        /// Summary: 贷后催调实时导入接口</para>
+        /// </description>
+        public async Task<ImportCustomerRealtimeResponse> ImportCustomerRealtimeExAsync(ImportCustomerRealtimeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ImportCustomerRealtimeResponse>(await DoRequestAsync("1.0", "antdigital.resolveagent.customer.realtime.import", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
