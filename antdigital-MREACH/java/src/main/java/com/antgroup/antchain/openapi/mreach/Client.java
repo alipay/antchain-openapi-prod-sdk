@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.2"),
+                    new TeaPair("sdk_version", "1.1.3"),
                     new TeaPair("_prod_code", "MREACH"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -232,6 +232,27 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public QueryAntfinMpaasfaceverifyTestResponse queryAntfinMpaasfaceverifyTest(QueryAntfinMpaasfaceverifyTestRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntfinMpaasfaceverifyTestEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 测试
+     * Summary: 测试</p>
+     */
+    public QueryAntfinMpaasfaceverifyTestResponse queryAntfinMpaasfaceverifyTestEx(QueryAntfinMpaasfaceverifyTestRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antfin.mpaasfaceverify.test.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntfinMpaasfaceverifyTestResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 短信发送API
      * Summary: 短信发送API</p>
      */
@@ -312,5 +333,68 @@ public class Client {
     public QueryCardsmsDomesticResponse queryCardsmsDomesticEx(QueryCardsmsDomesticRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.mreach.cardsms.domestic.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryCardsmsDomesticResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息交互回复
+     * Summary: 5G消息交互回复</p>
+     */
+    public ReplyRcsResponse replyRcs(ReplyRcsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.replyRcsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息交互回复
+     * Summary: 5G消息交互回复</p>
+     */
+    public ReplyRcsResponse replyRcsEx(ReplyRcsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mreach.rcs.reply", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ReplyRcsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息主动下行接口
+     * Summary: 5G消息主动下行接口</p>
+     */
+    public PushRcsResponse pushRcs(PushRcsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRcsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息主动下行接口
+     * Summary: 5G消息主动下行接口</p>
+     */
+    public PushRcsResponse pushRcsEx(PushRcsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mreach.rcs.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRcsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息查询接口
+     * Summary: 5G消息查询接口</p>
+     */
+    public QueryRcsResponse queryRcs(QueryRcsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryRcsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 5G消息查询接口
+     * Summary: 5G消息查询接口</p>
+     */
+    public QueryRcsResponse queryRcsEx(QueryRcsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.mreach.rcs.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRcsResponse());
     }
 }
