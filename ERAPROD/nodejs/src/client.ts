@@ -312,6 +312,10 @@ export class QueryBoardProxyRequest extends $tea.Model {
   boardId: string;
   // 返回条数
   topN?: number;
+  // 单条绝对质量线，rerank 低于此直接剔除
+  absQuality?: string;
+  // 断层相对落差阈值
+  gapGamma?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -319,6 +323,8 @@ export class QueryBoardProxyRequest extends $tea.Model {
       keyword: 'keyword',
       boardId: 'board_id',
       topN: 'top_n',
+      absQuality: 'abs_quality',
+      gapGamma: 'gap_gamma',
     };
   }
 
@@ -329,6 +335,8 @@ export class QueryBoardProxyRequest extends $tea.Model {
       keyword: 'string',
       boardId: 'string',
       topN: 'number',
+      absQuality: 'string',
+      gapGamma: 'string',
     };
   }
 
@@ -338,6 +346,77 @@ export class QueryBoardProxyRequest extends $tea.Model {
 }
 
 export class QueryBoardProxyResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 结果
+  resultJson?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      resultJson: 'result_json',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      resultJson: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWatermarkFileRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 资料id
+  datumItemCode: string;
+  // 工号
+  employeeNo: string;
+  // 项目id
+  projectId: string;
+  // 投标资源id
+  tenderResourceId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      datumItemCode: 'datum_item_code',
+      employeeNo: 'employee_no',
+      projectId: 'project_id',
+      tenderResourceId: 'tender_resource_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      datumItemCode: 'string',
+      employeeNo: 'string',
+      projectId: 'string',
+      tenderResourceId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryWatermarkFileResponse extends $tea.Model {
   // 请求唯一ID，用于链路跟踪和问题排查
   reqMsgId?: string;
   // 结果码，一般OK表示调用成功
@@ -486,7 +565,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.2.4",
           _prod_code: "ERAPROD",
           _prod_channel: "default",
         };
@@ -595,6 +674,27 @@ export default class Client {
   async queryBoardProxyEx(request: QueryBoardProxyRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryBoardProxyResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryBoardProxyResponse>(await this.doRequest("1.0", "antdigital.eraprod.board.proxy.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryBoardProxyResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 投标水印
+   * Summary: 投标水印
+   */
+  async queryWatermarkFile(request: QueryWatermarkFileRequest): Promise<QueryWatermarkFileResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryWatermarkFileEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 投标水印
+   * Summary: 投标水印
+   */
+  async queryWatermarkFileEx(request: QueryWatermarkFileRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryWatermarkFileResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryWatermarkFileResponse>(await this.doRequest("1.0", "antdigital.eraprod.watermark.file.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryWatermarkFileResponse({}));
   }
 
 }
