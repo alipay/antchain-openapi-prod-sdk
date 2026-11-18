@@ -12,6 +12,8 @@ class QueryBoardProxyRequest extends Model {
         'keyword' => 'keyword',
         'boardId' => 'board_id',
         'topN' => 'top_n',
+        'absQuality' => 'abs_quality',
+        'gapGamma' => 'gap_gamma',
     ];
     public function validate() {
         Model::validateRequired('keyword', $this->keyword, true);
@@ -33,6 +35,12 @@ class QueryBoardProxyRequest extends Model {
         }
         if (null !== $this->topN) {
             $res['top_n'] = $this->topN;
+        }
+        if (null !== $this->absQuality) {
+            $res['abs_quality'] = $this->absQuality;
+        }
+        if (null !== $this->gapGamma) {
+            $res['gap_gamma'] = $this->gapGamma;
         }
         return $res;
     }
@@ -56,6 +64,12 @@ class QueryBoardProxyRequest extends Model {
         }
         if(isset($map['top_n'])){
             $model->topN = $map['top_n'];
+        }
+        if(isset($map['abs_quality'])){
+            $model->absQuality = $map['abs_quality'];
+        }
+        if(isset($map['gap_gamma'])){
+            $model->gapGamma = $map['gap_gamma'];
         }
         return $model;
     }
@@ -87,5 +101,17 @@ class QueryBoardProxyRequest extends Model {
      * @var int
      */
     public $topN;
+
+    // 单条绝对质量线，rerank 低于此直接剔除
+    /**
+     * @var string
+     */
+    public $absQuality;
+
+    // 断层相对落差阈值
+    /**
+     * @var string
+     */
+    public $gapGamma;
 
 }

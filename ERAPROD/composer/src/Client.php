@@ -19,6 +19,8 @@ use AntChain\ERAPROD\Models\OperateAgentProxyRequest;
 use AntChain\ERAPROD\Models\OperateAgentProxyResponse;
 use AntChain\ERAPROD\Models\QueryBoardProxyRequest;
 use AntChain\ERAPROD\Models\QueryBoardProxyResponse;
+use AntChain\ERAPROD\Models\QueryWatermarkFileRequest;
+use AntChain\ERAPROD\Models\QueryWatermarkFileResponse;
 
 class Client {
     protected $_endpoint;
@@ -154,7 +156,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.1",
+                    "sdk_version" => "1.2.4",
                     "_prod_code" => "ERAPROD",
                     "_prod_channel" => "default"
                 ];
@@ -272,5 +274,30 @@ class Client {
     public function queryBoardProxyEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryBoardProxyResponse::fromMap($this->doRequest("1.0", "antdigital.eraprod.board.proxy.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 投标水印
+     * Summary: 投标水印
+     * @param QueryWatermarkFileRequest $request
+     * @return QueryWatermarkFileResponse
+     */
+    public function queryWatermarkFile($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryWatermarkFileEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 投标水印
+     * Summary: 投标水印
+     * @param QueryWatermarkFileRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryWatermarkFileResponse
+     */
+    public function queryWatermarkFileEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryWatermarkFileResponse::fromMap($this->doRequest("1.0", "antdigital.eraprod.watermark.file.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
