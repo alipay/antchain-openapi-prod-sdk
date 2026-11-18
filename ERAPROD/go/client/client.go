@@ -345,6 +345,10 @@ type QueryBoardProxyRequest struct {
 	BoardId *string `json:"board_id,omitempty" xml:"board_id,omitempty" require:"true"`
 	// 返回条数
 	TopN *int64 `json:"top_n,omitempty" xml:"top_n,omitempty"`
+	// 单条绝对质量线，rerank 低于此直接剔除
+	AbsQuality *string `json:"abs_quality,omitempty" xml:"abs_quality,omitempty"`
+	// 断层相对落差阈值
+	GapGamma *string `json:"gap_gamma,omitempty" xml:"gap_gamma,omitempty"`
 }
 
 func (s QueryBoardProxyRequest) String() string {
@@ -377,6 +381,16 @@ func (s *QueryBoardProxyRequest) SetBoardId(v string) *QueryBoardProxyRequest {
 
 func (s *QueryBoardProxyRequest) SetTopN(v int64) *QueryBoardProxyRequest {
 	s.TopN = &v
+	return s
+}
+
+func (s *QueryBoardProxyRequest) SetAbsQuality(v string) *QueryBoardProxyRequest {
+	s.AbsQuality = &v
+	return s
+}
+
+func (s *QueryBoardProxyRequest) SetGapGamma(v string) *QueryBoardProxyRequest {
+	s.GapGamma = &v
 	return s
 }
 
@@ -415,6 +429,97 @@ func (s *QueryBoardProxyResponse) SetResultMsg(v string) *QueryBoardProxyRespons
 }
 
 func (s *QueryBoardProxyResponse) SetResultJson(v string) *QueryBoardProxyResponse {
+	s.ResultJson = &v
+	return s
+}
+
+type QueryWatermarkFileRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 资料id
+	DatumItemCode *string `json:"datum_item_code,omitempty" xml:"datum_item_code,omitempty" require:"true"`
+	// 工号
+	EmployeeNo *string `json:"employee_no,omitempty" xml:"employee_no,omitempty" require:"true"`
+	// 项目id
+	ProjectId *string `json:"project_id,omitempty" xml:"project_id,omitempty" require:"true"`
+	// 投标资源id
+	TenderResourceId *string `json:"tender_resource_id,omitempty" xml:"tender_resource_id,omitempty"`
+}
+
+func (s QueryWatermarkFileRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWatermarkFileRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWatermarkFileRequest) SetAuthToken(v string) *QueryWatermarkFileRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryWatermarkFileRequest) SetProductInstanceId(v string) *QueryWatermarkFileRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryWatermarkFileRequest) SetDatumItemCode(v string) *QueryWatermarkFileRequest {
+	s.DatumItemCode = &v
+	return s
+}
+
+func (s *QueryWatermarkFileRequest) SetEmployeeNo(v string) *QueryWatermarkFileRequest {
+	s.EmployeeNo = &v
+	return s
+}
+
+func (s *QueryWatermarkFileRequest) SetProjectId(v string) *QueryWatermarkFileRequest {
+	s.ProjectId = &v
+	return s
+}
+
+func (s *QueryWatermarkFileRequest) SetTenderResourceId(v string) *QueryWatermarkFileRequest {
+	s.TenderResourceId = &v
+	return s
+}
+
+type QueryWatermarkFileResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 结果
+	ResultJson *string `json:"result_json,omitempty" xml:"result_json,omitempty"`
+}
+
+func (s QueryWatermarkFileResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryWatermarkFileResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryWatermarkFileResponse) SetReqMsgId(v string) *QueryWatermarkFileResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryWatermarkFileResponse) SetResultCode(v string) *QueryWatermarkFileResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryWatermarkFileResponse) SetResultMsg(v string) *QueryWatermarkFileResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryWatermarkFileResponse) SetResultJson(v string) *QueryWatermarkFileResponse {
 	s.ResultJson = &v
 	return s
 }
@@ -549,7 +654,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.2.4"),
 				"_prod_code":       tea.String("ERAPROD"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -708,6 +813,42 @@ func (client *Client) QueryBoardProxyEx(request *QueryBoardProxyRequest, headers
 	}
 	_result = &QueryBoardProxyResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.eraprod.board.proxy.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 投标水印
+//
+// Summary: 投标水印
+func (client *Client) QueryWatermarkFile(request *QueryWatermarkFileRequest) (_result *QueryWatermarkFileResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryWatermarkFileResponse{}
+	_body, _err := client.QueryWatermarkFileEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 投标水印
+//
+// Summary: 投标水印
+func (client *Client) QueryWatermarkFileEx(request *QueryWatermarkFileRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryWatermarkFileResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryWatermarkFileResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.eraprod.watermark.file.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
