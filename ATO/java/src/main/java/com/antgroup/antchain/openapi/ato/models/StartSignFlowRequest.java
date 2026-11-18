@@ -46,6 +46,24 @@ public class StartSignFlowRequest extends TeaModel {
     @NameInMap("user_cert_no")
     public String userCertNo;
 
+    // 签署的电子合同模板信息，JSONArray格式
+    // 
+    // 说明：
+    // 
+    // templateId：配置的模板id
+    // 
+    // templateArgs：模板配置，其中key=模板文本域中配置的名称
+    // 
+    // value=需要填充的值
+    // 
+    // 例如：
+    // 
+    // 模板f28038577d664015bfc1034c4a125121中的一个文本域字段叫textA，需要替换成“测试值”，则传入
+    // 
+    // [{"templateId":"f28038577d664015bfc1034c4a125121","templateArgs":{"textA":"测试值"}}]
+    @NameInMap("template_list")
+    public String templateList;
+
     public static StartSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         StartSignFlowRequest self = new StartSignFlowRequest();
         return TeaModel.build(map, self);
@@ -129,6 +147,14 @@ public class StartSignFlowRequest extends TeaModel {
     }
     public String getUserCertNo() {
         return this.userCertNo;
+    }
+
+    public StartSignFlowRequest setTemplateList(String templateList) {
+        this.templateList = templateList;
+        return this;
+    }
+    public String getTemplateList() {
+        return this.templateList;
     }
 
 }
