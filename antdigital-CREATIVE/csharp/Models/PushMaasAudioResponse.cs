@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 音频任务 ID
+        // 音频任务ID
         [NameInMap("task_id")]
         [Validation(Required=false)]
         public string TaskId { get; set; }

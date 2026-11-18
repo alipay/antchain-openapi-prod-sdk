@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CREATIVE.Models
 {
-    // 处理失败时返回，包含 code / message
+    // 处理失败时返回，包含code/message
     public class Error : TeaModel {
         // 错误码
         /// <summary>

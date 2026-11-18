@@ -43,17 +43,17 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Text { get; set; }
 
-        // 音频链接，REFERENCE_TO_AUDIO 时非空
+        // 音频链接，REFERENCE_TO_AUDIO时非空
         [NameInMap("audio_urls")]
         [Validation(Required=false)]
         public List<string> AudioUrls { get; set; }
 
-        // 图片链接，IMAGE_TO_AUDIO 时非空
+        // 图片链接，IMAGE_TO_AUDIO时非空
         [NameInMap("image_urls")]
         [Validation(Required=false)]
         public List<string> ImageUrls { get; set; }
 
-        // 扩展参数 JSON 字符串，内容按模型扩展参数对象组织
+        // 扩展参数JSON字符串，内容按模型扩展参数对象组织
         [NameInMap("ext_params")]
         [Validation(Required=false)]
         public string ExtParams { get; set; }

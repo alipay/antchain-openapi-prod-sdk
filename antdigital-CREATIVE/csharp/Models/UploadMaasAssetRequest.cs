@@ -23,7 +23,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
-        // 文件公网可访问 URL
+        // 文件公网可访问URL
         [NameInMap("file_url")]
         [Validation(Required=true)]
         public string FileUrl { get; set; }

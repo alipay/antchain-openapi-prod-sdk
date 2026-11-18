@@ -8,7 +8,7 @@ using Tea;
 
 namespace AntChain.SDK.CREATIVE.Models
 {
-    // content 内 type 为 image_url﻿、audio_url、video_url﻿ 所需要的 url
+    // content内type为[image_url﻿|audio_url|video_url﻿]所需要的url
     public class ContentUrl : TeaModel {
         // url
         /// <summary>

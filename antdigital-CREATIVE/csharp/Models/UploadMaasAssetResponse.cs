@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 平台素材 ID
+        // 平台素材ID
         [NameInMap("asset_id")]
         [Validation(Required=false)]
         public string AssetId { get; set; }

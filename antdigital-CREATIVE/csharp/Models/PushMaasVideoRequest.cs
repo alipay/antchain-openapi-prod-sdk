@@ -38,22 +38,22 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=true)]
         public List<ContentInfo> Content { get; set; }
 
-        // 视频时长（秒）
+        // 视频时长(s)
         [NameInMap("duration")]
         [Validation(Required=false)]
         public string Duration { get; set; }
 
-        // 宽高比，如 16:9、9:16
+        // 宽高比，如16:9、9:16
         [NameInMap("ratio")]
         [Validation(Required=false)]
         public string Ratio { get; set; }
 
-        // 分辨率，如 720P、1080P
+        // 分辨率，如720P、1080P
         [NameInMap("resolution")]
         [Validation(Required=false)]
         public string Resolution { get; set; }
 
-        // 是否生成音轨，默认 false
+        // 是否生成音轨，默认false
         [NameInMap("generate_audio")]
         [Validation(Required=false)]
         public bool? GenerateAudio { get; set; }

@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 图片任务 ID
+        // 图片任务ID
         [NameInMap("task_id")]
         [Validation(Required=false)]
         public string TaskId { get; set; }
@@ -44,7 +44,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string CreatedAt { get; set; }
 
-        // 图片 URL 列表（成功时返回）
+        // 图片URL列表（成功时返回）
         [NameInMap("content")]
         [Validation(Required=false)]
         public ImageUrlsList Content { get; set; }

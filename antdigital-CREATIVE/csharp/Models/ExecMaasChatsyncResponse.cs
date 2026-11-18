@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 本次模型调用 ID
+        // 本次模型调用ID
         [NameInMap("id")]
         [Validation(Required=false)]
         public string Id { get; set; }

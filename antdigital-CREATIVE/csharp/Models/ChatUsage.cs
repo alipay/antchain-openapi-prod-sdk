@@ -10,7 +10,7 @@ namespace AntChain.SDK.CREATIVE.Models
 {
     // 消耗
     public class ChatUsage : TeaModel {
-        // 输入 token 数
+        // 输入token数
         /// <summary>
         /// <b>Example:</b>
         /// <para>121212</para>
@@ -19,7 +19,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string PromptTokens { get; set; }
 
-        // 输出 token 数
+        // 输出token数
         /// <summary>
         /// <b>Example:</b>
         /// <para>1111</para>
@@ -28,7 +28,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string CompletionTokens { get; set; }
 
-        // 总 token 数
+        // 总token数
         /// <summary>
         /// <b>Example:</b>
         /// <para>121212</para>

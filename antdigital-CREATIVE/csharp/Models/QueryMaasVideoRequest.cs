@@ -18,7 +18,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 视频任务 ID
+        // 视频任务ID
         [NameInMap("task_id")]
         [Validation(Required=true)]
         public string TaskId { get; set; }

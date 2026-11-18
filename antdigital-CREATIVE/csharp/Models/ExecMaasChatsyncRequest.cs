@@ -33,7 +33,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=true)]
         public List<ChatMessages> Messages { get; set; }
 
-        // 模型参数 JSON 字符串
+        // 模型参数JSON字符串
         [NameInMap("ext_params")]
         [Validation(Required=false)]
         public string ExtParams { get; set; }

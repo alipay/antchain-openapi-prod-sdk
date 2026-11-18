@@ -18,7 +18,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ProductInstanceId { get; set; }
 
-        // 资产 ID
+        // 资产ID
         [NameInMap("asset_id")]
         [Validation(Required=true)]
         public string AssetId { get; set; }

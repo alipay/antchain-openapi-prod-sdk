@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 音频任务 ID
+        // 音频任务ID
         [NameInMap("task_id")]
         [Validation(Required=false)]
         public string TaskId { get; set; }
@@ -39,7 +39,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Model { get; set; }
 
-        // 创建时间，Unix 秒级时间戳
+        // 创建时间，Unix秒级时间戳
         [NameInMap("created_at")]
         [Validation(Required=false)]
         public string CreatedAt { get; set; }
@@ -54,7 +54,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public List<AudioUsage> Usage { get; set; }
 
-        // 非标准化补充信息，JSON 字符串
+        // 非标准化补充信息，JSON字符串
         [NameInMap("extra_info")]
         [Validation(Required=false)]
         public string ExtraInfo { get; set; }

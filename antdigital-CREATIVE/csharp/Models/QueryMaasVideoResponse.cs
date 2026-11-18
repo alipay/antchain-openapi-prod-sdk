@@ -39,22 +39,22 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Model { get; set; }
 
-        // 创建时间，Unix 秒级时间戳
+        // 创建时间，Unix秒级时间戳
         [NameInMap("created_at")]
         [Validation(Required=false)]
         public string CreatedAt { get; set; }
 
-        // 更新时间，Unix 秒级时间戳
+        // 更新时间，Unix秒级时间戳
         [NameInMap("updated_at")]
         [Validation(Required=false)]
         public string UpdatedAt { get; set; }
 
-        // 视频 URL（成功时返回）
+        // 视频 URL(成功时返回)
         [NameInMap("content")]
         [Validation(Required=false)]
         public VideoUrl Content { get; set; }
 
-        // 视频时长（秒
+        // 视频时长(s)
         [NameInMap("duration")]
         [Validation(Required=false)]
         public string Duration { get; set; }

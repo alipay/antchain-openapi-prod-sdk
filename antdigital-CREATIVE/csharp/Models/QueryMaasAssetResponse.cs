@@ -24,7 +24,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 资产 ID
+        // 资产ID
         [NameInMap("asset_id")]
         [Validation(Required=false)]
         public string AssetId { get; set; }
@@ -59,7 +59,7 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string UpdatedAt { get; set; }
 
-        // 处理失败时返回，包含 code / message
+        // 处理失败时返回，包含code/message
         [NameInMap("error")]
         [Validation(Required=false)]
         public Error Error { get; set; }
