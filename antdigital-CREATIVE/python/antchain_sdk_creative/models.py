@@ -310,11 +310,11 @@ class ChatUsage(TeaModel):
         original_price: str = None,
         currency: str = None,
     ):
-        # 输入 token 数
+        # 输入token数
         self.prompt_tokens = prompt_tokens
-        # 输出 token 数
+        # 输出token数
         self.completion_tokens = completion_tokens
-        # 总 token 数
+        # 总token数
         self.total_tokens = total_tokens
         # 本次调用实际消耗金额
         self.original_price = original_price
@@ -1578,7 +1578,7 @@ class UploadMaasAssetRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 幂等标识，由客户端生成
         self.request_id = request_id
-        # 文件公网可访问 URL
+        # 文件公网可访问URL
         self.file_url = file_url
         # 资产类型
         self.asset_type = asset_type
@@ -1644,7 +1644,7 @@ class UploadMaasAssetResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 平台素材 ID
+        # 平台素材ID
         self.asset_id = asset_id
         # 状态
         self.status = status
@@ -1701,7 +1701,7 @@ class QueryMaasAssetRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 资产 ID
+        # 资产ID
         self.asset_id = asset_id
 
     def validate(self):
@@ -1753,7 +1753,7 @@ class QueryMaasAssetResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 资产 ID
+        # 资产ID
         self.asset_id = asset_id
         # 状态
         self.status = status
@@ -1767,7 +1767,7 @@ class QueryMaasAssetResponse(TeaModel):
         self.created_at = created_at
         # 更新时间，Unix 秒级时间戳，可选
         self.updated_at = updated_at
-        # 处理失败时返回，包含 code / message
+        # 处理失败时返回，包含code/message
         self.error = error
 
     def validate(self):
@@ -1859,13 +1859,13 @@ class PushMaasVideoRequest(TeaModel):
         self.capability_type = capability_type
         # 非空内容列表，至少含文本或素材
         self.content = content
-        # 视频时长（秒）
+        # 视频时长(s)
         self.duration = duration
-        # 宽高比，如 16:9、9:16
+        # 宽高比，如16:9、9:16
         self.ratio = ratio
-        # 分辨率，如 720P、1080P
+        # 分辨率，如720P、1080P
         self.resolution = resolution
-        # 是否生成音轨，默认 false
+        # 是否生成音轨，默认false
         self.generate_audio = generate_audio
         # 是否添加水印
         self.watermark = watermark
@@ -1964,7 +1964,7 @@ class PushMaasVideoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 视频任务 ID
+        # 视频任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
@@ -2021,7 +2021,7 @@ class QueryMaasVideoRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 视频任务 ID
+        # 视频任务ID
         self.task_id = task_id
 
     def validate(self):
@@ -2084,13 +2084,13 @@ class QueryMaasVideoResponse(TeaModel):
         self.status = status
         # 实际使用的模型
         self.model = model
-        # 创建时间，Unix 秒级时间戳
+        # 创建时间，Unix秒级时间戳
         self.created_at = created_at
-        # 更新时间，Unix 秒级时间戳
+        # 更新时间，Unix秒级时间戳
         self.updated_at = updated_at
-        # 视频 URL（成功时返回）
+        # 视频 URL(成功时返回)
         self.content = content
-        # 视频时长（秒
+        # 视频时长(s)
         self.duration = duration
         # 宽高比
         self.ratio = ratio
@@ -2319,13 +2319,13 @@ class PushMaasImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 图片任务 ID
+        # 图片任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
         # 实际使用的模型
         self.model = model
-        # 图片 URL 列表
+        # 图片URL列表
         self.content = content
         # 用量数组
         self.usage = usage
@@ -2414,7 +2414,7 @@ class QueryMaasImageRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 图片任务 ID
+        # 图片任务ID
         self.task_id = task_id
 
     def validate(self):
@@ -2466,7 +2466,7 @@ class QueryMaasImageResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 图片任务 ID
+        # 图片任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
@@ -2474,7 +2474,7 @@ class QueryMaasImageResponse(TeaModel):
         self.model = model
         # 创建时间，Unix 秒级时间戳
         self.created_at = created_at
-        # 图片 URL 列表（成功时返回）
+        # 图片URL列表（成功时返回）
         self.content = content
         # 用量数组
         self.usage = usage
@@ -2584,11 +2584,11 @@ class PushMaasAudioRequest(TeaModel):
         self.prompt = prompt
         # 需要朗读的文本，仅支持该参数的模型使用
         self.text = text
-        # 音频链接，REFERENCE_TO_AUDIO 时非空
+        # 音频链接，REFERENCE_TO_AUDIO时非空
         self.audio_urls = audio_urls
-        # 图片链接，IMAGE_TO_AUDIO 时非空
+        # 图片链接，IMAGE_TO_AUDIO时非空
         self.image_urls = image_urls
-        # 扩展参数 JSON 字符串，内容按模型扩展参数对象组织
+        # 扩展参数JSON字符串，内容按模型扩展参数对象组织
         self.ext_params = ext_params
 
     def validate(self):
@@ -2666,7 +2666,7 @@ class PushMaasAudioResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 音频任务 ID
+        # 音频任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
@@ -2723,7 +2723,7 @@ class QueryMaasAudioRequest(TeaModel):
         # OAuth模式下的授权token
         self.auth_token = auth_token
         self.product_instance_id = product_instance_id
-        # 音频任务 ID
+        # 音频任务ID
         self.task_id = task_id
 
     def validate(self):
@@ -2775,19 +2775,19 @@ class QueryMaasAudioResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 音频任务 ID
+        # 音频任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
         # 实际使用的模型
         self.model = model
-        # 创建时间，Unix 秒级时间戳
+        # 创建时间，Unix秒级时间戳
         self.created_at = created_at
         # 音频信息
         self.content = content
         # 用量
         self.usage = usage
-        # 非标准化补充信息，JSON 字符串
+        # 非标准化补充信息，JSON字符串
         self.extra_info = extra_info
         # 失败时返回
         self.error = error
@@ -2891,7 +2891,7 @@ class ExecMaasChatsyncRequest(TeaModel):
         self.model = model
         # 非空消息列表
         self.messages = messages
-        # 模型参数 JSON 字符串
+        # 模型参数JSON字符串
         self.ext_params = ext_params
 
     def validate(self):
@@ -2963,7 +2963,7 @@ class ExecMaasChatsyncResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 本次模型调用 ID
+        # 本次模型调用ID
         self.id = id
         # 实际使用的模型
         self.model = model
