@@ -16,7 +16,7 @@ public class QueryMaasAudioResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 音频任务 ID
+    // 音频任务ID
     @NameInMap("task_id")
     public String taskId;
 
@@ -28,7 +28,7 @@ public class QueryMaasAudioResponse extends TeaModel {
     @NameInMap("model")
     public String model;
 
-    // 创建时间，Unix 秒级时间戳
+    // 创建时间，Unix秒级时间戳
     @NameInMap("created_at")
     public String createdAt;
 
@@ -40,7 +40,7 @@ public class QueryMaasAudioResponse extends TeaModel {
     @NameInMap("usage")
     public java.util.List<AudioUsage> usage;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     @NameInMap("extra_info")
     public String extraInfo;
 

@@ -28,19 +28,19 @@ public class QueryMaasVideoResponse extends TeaModel {
     @NameInMap("model")
     public String model;
 
-    // 创建时间，Unix 秒级时间戳
+    // 创建时间，Unix秒级时间戳
     @NameInMap("created_at")
     public String createdAt;
 
-    // 更新时间，Unix 秒级时间戳
+    // 更新时间，Unix秒级时间戳
     @NameInMap("updated_at")
     public String updatedAt;
 
-    // 视频 URL（成功时返回）
+    // 视频 URL(成功时返回)
     @NameInMap("content")
     public VideoUrl content;
 
-    // 视频时长（秒
+    // 视频时长(s)
     @NameInMap("duration")
     public String duration;
 

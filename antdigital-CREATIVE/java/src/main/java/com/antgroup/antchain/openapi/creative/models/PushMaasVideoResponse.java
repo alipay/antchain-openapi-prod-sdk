@@ -16,7 +16,7 @@ public class PushMaasVideoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 视频任务 ID
+    // 视频任务ID
     @NameInMap("task_id")
     public String taskId;
 

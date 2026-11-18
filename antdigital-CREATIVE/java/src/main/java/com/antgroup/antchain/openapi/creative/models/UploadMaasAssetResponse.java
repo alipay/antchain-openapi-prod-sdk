@@ -16,7 +16,7 @@ public class UploadMaasAssetResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 平台素材 ID
+    // 平台素材ID
     @NameInMap("asset_id")
     public String assetId;
 

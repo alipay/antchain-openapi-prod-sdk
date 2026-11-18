@@ -16,7 +16,7 @@ public class ExecMaasChatsyncResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 本次模型调用 ID
+    // 本次模型调用ID
     @NameInMap("id")
     public String id;
 

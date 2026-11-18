@@ -16,7 +16,7 @@ public class PushMaasImageResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 图片任务 ID
+    // 图片任务ID
     @NameInMap("task_id")
     public String taskId;
 
@@ -28,7 +28,7 @@ public class PushMaasImageResponse extends TeaModel {
     @NameInMap("model")
     public String model;
 
-    // 图片 URL 列表
+    // 图片URL列表
     @NameInMap("content")
     public ImageUrlsList content;
 

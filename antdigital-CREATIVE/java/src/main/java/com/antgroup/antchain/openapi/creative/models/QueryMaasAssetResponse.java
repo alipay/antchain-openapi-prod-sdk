@@ -16,7 +16,7 @@ public class QueryMaasAssetResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 资产 ID
+    // 资产ID
     @NameInMap("asset_id")
     public String assetId;
 
@@ -44,7 +44,7 @@ public class QueryMaasAssetResponse extends TeaModel {
     @NameInMap("updated_at")
     public String updatedAt;
 
-    // 处理失败时返回，包含 code / message
+    // 处理失败时返回，包含code/message
     @NameInMap("error")
     public Error error;
 

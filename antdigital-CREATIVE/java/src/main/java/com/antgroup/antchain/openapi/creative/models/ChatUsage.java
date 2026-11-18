@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.creative.models;
 import com.aliyun.tea.*;
 
 public class ChatUsage extends TeaModel {
-    // 输入 token 数
+    // 输入token数
     /**
      * <strong>example:</strong>
      * <p>121212</p>
@@ -12,7 +12,7 @@ public class ChatUsage extends TeaModel {
     @NameInMap("prompt_tokens")
     public String promptTokens;
 
-    // 输出 token 数
+    // 输出token数
     /**
      * <strong>example:</strong>
      * <p>1111</p>
@@ -20,7 +20,7 @@ public class ChatUsage extends TeaModel {
     @NameInMap("completion_tokens")
     public String completionTokens;
 
-    // 总 token 数
+    // 总token数
     /**
      * <strong>example:</strong>
      * <p>121212</p>

@@ -11,7 +11,7 @@ public class QueryMaasImageRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 图片任务 ID
+    // 图片任务ID
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;

@@ -11,7 +11,7 @@ public class QueryMaasAssetRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 资产 ID
+    // 资产ID
     @NameInMap("asset_id")
     @Validation(required = true)
     public String assetId;

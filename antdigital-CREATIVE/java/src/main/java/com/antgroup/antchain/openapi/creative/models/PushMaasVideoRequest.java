@@ -31,19 +31,19 @@ public class PushMaasVideoRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<ContentInfo> content;
 
-    // 视频时长（秒）
+    // 视频时长(s)
     @NameInMap("duration")
     public String duration;
 
-    // 宽高比，如 16:9、9:16
+    // 宽高比，如16:9、9:16
     @NameInMap("ratio")
     public String ratio;
 
-    // 分辨率，如 720P、1080P
+    // 分辨率，如720P、1080P
     @NameInMap("resolution")
     public String resolution;
 
-    // 是否生成音轨，默认 false
+    // 是否生成音轨，默认false
     @NameInMap("generate_audio")
     public Boolean generateAudio;
 

@@ -11,7 +11,7 @@ public class QueryMaasAudioRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 音频任务 ID
+    // 音频任务ID
     @NameInMap("task_id")
     public String taskId;
 

@@ -11,7 +11,7 @@ public class QueryMaasVideoRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 视频任务 ID
+    // 视频任务ID
     @NameInMap("task_id")
     @Validation(required = true)
     public String taskId;

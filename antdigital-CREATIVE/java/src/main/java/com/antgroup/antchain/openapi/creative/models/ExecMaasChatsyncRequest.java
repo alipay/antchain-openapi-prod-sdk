@@ -26,7 +26,7 @@ public class ExecMaasChatsyncRequest extends TeaModel {
     @Validation(required = true)
     public java.util.List<ChatMessages> messages;
 
-    // 模型参数 JSON 字符串
+    // 模型参数JSON字符串
     @NameInMap("ext_params")
     public String extParams;
 

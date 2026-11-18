@@ -16,7 +16,7 @@ public class UploadMaasAssetRequest extends TeaModel {
     @Validation(required = true)
     public String requestId;
 
-    // 文件公网可访问 URL
+    // 文件公网可访问URL
     @NameInMap("file_url")
     @Validation(required = true)
     public String fileUrl;

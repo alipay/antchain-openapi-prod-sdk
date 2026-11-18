@@ -16,7 +16,7 @@ public class PushMaasAudioResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 音频任务 ID
+    // 音频任务ID
     @NameInMap("task_id")
     public String taskId;
 
