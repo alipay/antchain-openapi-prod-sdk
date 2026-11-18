@@ -184,19 +184,19 @@ export class ImportTaskBatchRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
-  // 任务id
-  taskId: string;
   // 批次号
   batchNo: string;
   // 导入名单列表
   list: string[];
+  // 任务id
+  taskId: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
-      taskId: 'task_id',
       batchNo: 'batch_no',
       list: 'list',
+      taskId: 'task_id',
     };
   }
 
@@ -204,9 +204,9 @@ export class ImportTaskBatchRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
-      taskId: 'string',
       batchNo: 'string',
       list: { 'type': 'array', 'itemType': 'string' },
+      taskId: 'string',
     };
   }
 
@@ -310,6 +310,306 @@ export class ImportTaskRateinfoResponse extends $tea.Model {
       code: 'number',
       msg: 'string',
       data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCustomerOverdueRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户号
+  customerAccount: string;
+  // 产品类型
+  productType: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      customerAccount: 'customer_account',
+      productType: 'product_type',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      customerAccount: 'string',
+      productType: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCustomerOverdueResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // S:成功,F:失败
+  flag?: string;
+  // 0:成功,1:失败
+  code?: number;
+  // 成功or失败
+  msg?: string;
+  // true : 逾期 false: 不逾期
+  data?: boolean;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      flag: 'flag',
+      code: 'code',
+      msg: 'msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      flag: 'string',
+      code: 'number',
+      msg: 'string',
+      data: 'boolean',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushCustomerLogininfoRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 客户号
+  custNo: string;
+  // 客户行为
+  actionInfo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      custNo: 'cust_no',
+      actionInfo: 'action_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      custNo: 'string',
+      actionInfo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushCustomerLogininfoResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // S:成功,F:失败
+  flag?: string;
+  // 0:成功,1:失败
+  code?: number;
+  // 成功or失败
+  msg?: string;
+  // 结果信息
+  data?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      flag: 'flag',
+      code: 'code',
+      msg: 'msg',
+      data: 'data',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      flag: 'string',
+      code: 'number',
+      msg: 'string',
+      data: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCommonCustomerRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次号
+  batchId: string;
+  // 导入名单
+  list: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      batchId: 'batch_id',
+      list: 'list',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      batchId: 'string',
+      list: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCommonCustomerResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCustomerRealtimeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 批次幂等键（≤64 字符)
+  requestId: string;
+  // 挂靠的任务 ID
+  taskId: string;
+  // 名单行 JSON 数组，每个元素为一名单行 JSON 字符串
+  custInfo: string[];
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      taskId: 'task_id',
+      custInfo: 'cust_info',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      taskId: 'string',
+      custInfo: { 'type': 'array', 'itemType': 'string' },
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ImportCustomerRealtimeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 原样回传请求中的 requestId
+  requestId?: string;
+  // 我方生成的批次流水号，用于对账与追踪
+  providerBatchId?: string;
+  // 名单行总数（= custInfo 行数）
+  totalCount?: number;
+  // 受理成功、进入外呼队列的行数
+  acceptedCount?: number;
+  // 校验未通过被拒绝的行数
+  rejectedCount?: number;
+  // 受理成功的 serialNo 列表
+  acceptedSerialNos?: string[];
+  // 被拒绝的 serialNo → 拒绝原因
+  rejectedItems?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      providerBatchId: 'provider_batch_id',
+      totalCount: 'total_count',
+      acceptedCount: 'accepted_count',
+      rejectedCount: 'rejected_count',
+      acceptedSerialNos: 'accepted_serial_nos',
+      rejectedItems: 'rejected_items',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      providerBatchId: 'string',
+      totalCount: 'number',
+      acceptedCount: 'number',
+      rejectedCount: 'number',
+      acceptedSerialNos: { 'type': 'array', 'itemType': 'string' },
+      rejectedItems: 'string',
     };
   }
 
@@ -435,7 +735,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.1",
+          sdk_version: "2.1.0",
           _prod_code: "RESOLVEAGENT",
           _prod_channel: "default",
         };
@@ -523,6 +823,90 @@ export default class Client {
   async importTaskRateinfoEx(request: ImportTaskRateinfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportTaskRateinfoResponse> {
     Util.validateModel(request);
     return $tea.cast<ImportTaskRateinfoResponse>(await this.doRequest("1.0", "antdigital.resolveagent.task.rateinfo.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportTaskRateinfoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后360客户是否逾期查询接口
+   * Summary: 贷后360客户是否逾期查询接口
+   */
+  async queryCustomerOverdue(request: QueryCustomerOverdueRequest): Promise<QueryCustomerOverdueResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCustomerOverdueEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后360客户是否逾期查询接口
+   * Summary: 贷后360客户是否逾期查询接口
+   */
+  async queryCustomerOverdueEx(request: QueryCustomerOverdueRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCustomerOverdueResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCustomerOverdueResponse>(await this.doRequest("1.0", "antdigital.resolveagent.customer.overdue.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCustomerOverdueResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 360站内信用户信息推送
+   * Summary: 360站内信用户信息推送
+   */
+  async pushCustomerLogininfo(request: PushCustomerLogininfoRequest): Promise<PushCustomerLogininfoResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushCustomerLogininfoEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 360站内信用户信息推送
+   * Summary: 360站内信用户信息推送
+   */
+  async pushCustomerLogininfoEx(request: PushCustomerLogininfoRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushCustomerLogininfoResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushCustomerLogininfoResponse>(await this.doRequest("1.0", "antdigital.resolveagent.customer.logininfo.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushCustomerLogininfoResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后催调通用导入接口
+   * Summary: 贷后催调通用导入接口
+   */
+  async importCommonCustomer(request: ImportCommonCustomerRequest): Promise<ImportCommonCustomerResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importCommonCustomerEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后催调通用导入接口
+   * Summary: 贷后催调通用导入接口
+   */
+  async importCommonCustomerEx(request: ImportCommonCustomerRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportCommonCustomerResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportCommonCustomerResponse>(await this.doRequest("1.0", "antdigital.resolveagent.common.customer.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCommonCustomerResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后催调实时导入接口
+   * Summary: 贷后催调实时导入接口
+   */
+  async importCustomerRealtime(request: ImportCustomerRealtimeRequest): Promise<ImportCustomerRealtimeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.importCustomerRealtimeEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 贷后催调实时导入接口
+   * Summary: 贷后催调实时导入接口
+   */
+  async importCustomerRealtimeEx(request: ImportCustomerRealtimeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ImportCustomerRealtimeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ImportCustomerRealtimeResponse>(await this.doRequest("1.0", "antdigital.resolveagent.customer.realtime.import", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ImportCustomerRealtimeResponse({}));
   }
 
 }
