@@ -158,7 +158,7 @@ namespace AntChain.SDK.RESOLVEAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.0"},
+                        {"sdk_version", "2.1.1"},
                         {"_prod_code", "RESOLVEAGENT"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.RESOLVEAGENT
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.0"},
+                        {"sdk_version", "2.1.1"},
                         {"_prod_code", "RESOLVEAGENT"},
                         {"_prod_channel", "default"},
                     };
