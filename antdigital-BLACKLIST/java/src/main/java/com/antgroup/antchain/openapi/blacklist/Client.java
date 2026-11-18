@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.13"),
+                    new TeaPair("sdk_version", "1.1.14"),
                     new TeaPair("_prod_code", "BLACKLIST"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -627,6 +627,48 @@ public class Client {
     public SyncZolozhkRaasShourturlResponse syncZolozhkRaasShourturlEx(SyncZolozhkRaasShourturlRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.shourturl.sync", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SyncZolozhkRaasShourturlResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: workflow初始化接口
+     * Summary: workflow初始化接口</p>
+     */
+    public InitZolozhkRaasAgentflowResponse initZolozhkRaasAgentflow(InitZolozhkRaasAgentflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initZolozhkRaasAgentflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: workflow初始化接口
+     * Summary: workflow初始化接口</p>
+     */
+    public InitZolozhkRaasAgentflowResponse initZolozhkRaasAgentflowEx(InitZolozhkRaasAgentflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.agentflow.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitZolozhkRaasAgentflowResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: workflow checkResult接口
+     * Summary: workflow checkResult接口</p>
+     */
+    public QueryZolozhkRaasAgentflowResponse queryZolozhkRaasAgentflow(QueryZolozhkRaasAgentflowRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryZolozhkRaasAgentflowEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: workflow checkResult接口
+     * Summary: workflow checkResult接口</p>
+     */
+    public QueryZolozhkRaasAgentflowResponse queryZolozhkRaasAgentflowEx(QueryZolozhkRaasAgentflowRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "zolozhk.raas.agentflow.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryZolozhkRaasAgentflowResponse());
     }
 
     /**
