@@ -178,7 +178,7 @@ class RequestItems(TeaModel):
         self.quantity = quantity
         # 免费额度
         self.free_quota = free_quota
-        # 计费数量（扣除免费额度后的值）
+        # 计费数量(扣除免费额度后的值)
         self.billable_quantity = billable_quantity
         # 计费单位大小
         self.unit_size = unit_size
@@ -371,7 +371,7 @@ class UnitEstimates(TeaModel):
         amount: str = None,
         message: str = None,
     ):
-        # 从 0 开始，与请求的 units[] 顺序一致
+        # 从0开始，与请求的 units[] 顺序一致
         self.unit_index = unit_index
         # 当前单元是否命中
         self.matched = matched
@@ -470,11 +470,11 @@ class AudioUsage(TeaModel):
         self.usage_type = usage_type
         # 计量单位
         self.unit = unit
-        # 音频时长（秒）
+        # 音频时长(s)
         self.duration_seconds = duration_seconds
         # 音频数量
         self.count = count
-        # 本次音频生成的实际消耗金额（必返）
+        # 本次音频生成的实际消耗金额(必返)
         self.original_price = original_price
         # 币种
         self.currency = currency
@@ -531,13 +531,13 @@ class ContentInfo(TeaModel):
     ):
         # 类型
         self.type = type
-        # type=text 时提供，文本
+        # type=text时提供，文本
         self.text = text
-        # type=image_url 时提供
+        # type=image_url时提供
         self.image_url = image_url
-        # type=audio_url 时提供
+        # type=audio_url时提供
         self.audio_url = audio_url
-        # type=video_url 时提供
+        # type=video_url时提供
         self.video_url = video_url
         # 角色
         self.role = role
@@ -604,7 +604,7 @@ class VideoUsage(TeaModel):
         self.usage_type = usage_type
         # 计量单位
         self.unit = unit
-        # 视频时长（秒）
+        # 视频时长(s)
         self.duration_seconds = duration_seconds
         # 本次视频生成的实际消耗金额
         self.original_price = original_price
@@ -694,7 +694,7 @@ class VideoUrl(TeaModel):
         self,
         video_url: str = None,
     ):
-        # 视频 URL（成功时返回）
+        # 视频URL(成功时返回)
         self.video_url = video_url
 
     def validate(self):
@@ -962,11 +962,11 @@ class Usage(TeaModel):
     ):
         # 分辨率
         self.resolution = resolution
-        # 视频时长（单位：秒）
+        # 视频时长(s)
         self.duration = duration
         # 视频比例
         self.ratio = ratio
-        # 消耗 token 数
+        # 消耗token数
         self.completion_tokens = completion_tokens
         # 消耗credit数
         self.completion_credits = completion_credits
@@ -1759,13 +1759,13 @@ class QueryMaasAssetResponse(TeaModel):
         self.status = status
         # 资产类型
         self.asset_type = asset_type
-        # 资产访问 URL，仅在已取得可访问地址时返回
+        # 资产访问URL，仅在已取得可访问地址时返回
         self.url = url
         # 素材名称，可选
         self.name = name
-        # 创建时间，Unix 秒级时间戳，可选
+        # 创建时间，Unix秒级时间戳，可选
         self.created_at = created_at
-        # 更新时间，Unix 秒级时间戳，可选
+        # 更新时间，Unix秒级时间戳，可选
         self.updated_at = updated_at
         # 处理失败时返回，包含code/message
         self.error = error
@@ -1869,7 +1869,7 @@ class PushMaasVideoRequest(TeaModel):
         self.generate_audio = generate_audio
         # 是否添加水印
         self.watermark = watermark
-        # 扩展参数 JSON 字符串
+        # 扩展参数JSON字符串
         self.ext_params = ext_params
 
     def validate(self):
@@ -2078,7 +2078,7 @@ class QueryMaasVideoResponse(TeaModel):
         self.result_code = result_code
         # 异常信息的文本描述
         self.result_msg = result_msg
-        # 视频任务 ID
+        # 视频任务ID
         self.task_id = task_id
         # 任务状态
         self.status = status
@@ -2088,7 +2088,7 @@ class QueryMaasVideoResponse(TeaModel):
         self.created_at = created_at
         # 更新时间，Unix秒级时间戳
         self.updated_at = updated_at
-        # 视频 URL(成功时返回)
+        # 视频URL(成功时返回)
         self.content = content
         # 视频时长(s)
         self.duration = duration
@@ -2233,7 +2233,7 @@ class PushMaasImageRequest(TeaModel):
         self.size = size
         # 图片张数
         self.n = n
-        # 扩展参数 JSON 字符串
+        # 扩展参数JSON字符串
         self.ext_params = ext_params
 
     def validate(self):
@@ -2331,7 +2331,7 @@ class PushMaasImageResponse(TeaModel):
         self.usage = usage
         # 失败时返回
         self.error = error
-        # 非标准化补充信息，JSON 字符串
+        # 非标准化补充信息，JSON字符串
         self.extra_info = extra_info
 
     def validate(self):
@@ -2474,11 +2474,11 @@ class QueryMaasImageResponse(TeaModel):
         self.model = model
         # 创建时间，Unix 秒级时间戳
         self.created_at = created_at
-        # 图片URL列表（成功时返回）
+        # 图片URL列表(成功时返回)
         self.content = content
         # 用量数组
         self.usage = usage
-        # 非标准化补充信息，JSON 字符串
+        # 非标准化补充信息，JSON字符串
         self.extra_info = extra_info
         # 失败时返回
         self.error = error
