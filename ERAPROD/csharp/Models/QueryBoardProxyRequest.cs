@@ -33,6 +33,16 @@ namespace AntChain.SDK.ERAPROD.Models
         [Validation(Required=false)]
         public long? TopN { get; set; }
 
+        // 单条绝对质量线，rerank 低于此直接剔除
+        [NameInMap("abs_quality")]
+        [Validation(Required=false)]
+        public string AbsQuality { get; set; }
+
+        // 断层相对落差阈值
+        [NameInMap("gap_gamma")]
+        [Validation(Required=false)]
+        public string GapGamma { get; set; }
+
     }
 
 }
