@@ -277,7 +277,7 @@ export class RequestItems extends $tea.Model {
   }
 }
 
-// content内type为[image_url﻿|audio_url|video_url﻿]所需要的url
+// ContentUrl
 export class ContentUrl extends $tea.Model {
   // url
   /**
@@ -2428,7 +2428,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.4",
+          sdk_version: "1.1.5",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
