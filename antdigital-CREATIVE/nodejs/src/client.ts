@@ -212,10 +212,10 @@ export class RequestItems extends $tea.Model {
    * 免费额度
    */
   freeQuota?: string;
-  // 计费数量（扣除免费额度后的值）
+  // 计费数量(扣除免费额度后的值)
   /**
    * @example
-   * 计费数量（扣除免费额度后的值）
+   * 计费数量(扣除免费额度后的值)
    */
   billableQuantity?: string;
   // 计费单位大小
@@ -382,7 +382,7 @@ export class ChatUsage extends $tea.Model {
 
 // 各输出单元的试算明细
 export class UnitEstimates extends $tea.Model {
-  // 从 0 开始，与请求的 units[] 顺序一致
+  // 从0开始，与请求的 units[] 顺序一致
   /**
    * @example
    * 1
@@ -491,7 +491,7 @@ export class AudioUsage extends $tea.Model {
    * SECOND
    */
   unit?: string;
-  // 音频时长（秒）
+  // 音频时长(s)
   /**
    * @example
    * 10.6
@@ -503,7 +503,7 @@ export class AudioUsage extends $tea.Model {
    * 1
    */
   count?: number;
-  // 本次音频生成的实际消耗金额（必返）
+  // 本次音频生成的实际消耗金额(必返)
   /**
    * @example
    * 10.11
@@ -550,25 +550,25 @@ export class ContentInfo extends $tea.Model {
    * text
    */
   type: string;
-  // type=text 时提供，文本
+  // type=text时提供，文本
   /**
    * @example
    * 生成一只猫
    */
   text?: string;
-  // type=image_url 时提供
+  // type=image_url时提供
   /**
    * @example
    * www.test.com/123
    */
   imageUrl?: ContentUrl;
-  // type=audio_url 时提供
+  // type=audio_url时提供
   /**
    * @example
    * www.test.com/123
    */
   audioUrl?: ContentUrl;
-  // type=video_url 时提供
+  // type=video_url时提供
   /**
    * @example
    * www.test.com/123
@@ -621,7 +621,7 @@ export class VideoUsage extends $tea.Model {
    * SECOND
    */
   unit?: string;
-  // 视频时长（秒）
+  // 视频时长(s)
   /**
    * @example
    * 10
@@ -705,9 +705,9 @@ export class AudioList extends $tea.Model {
   }
 }
 
-// 视频 URL（成功时返回）
+// 视频URL(成功时返回)
 export class VideoUrl extends $tea.Model {
-  // 视频 URL（成功时返回）
+  // 视频URL(成功时返回)
   /**
    * @example
    * https://example.com/output.mp4
@@ -957,10 +957,10 @@ export class Usage extends $tea.Model {
   // 分辨率
   /**
    * @example
-   * 720p，1080p
+   * 720p、1080p
    */
   resolution?: string;
-  // 视频时长（单位：秒）
+  // 视频时长(s)
   /**
    * @example
    * 15
@@ -972,7 +972,7 @@ export class Usage extends $tea.Model {
    * 16:9
    */
   ratio?: string;
-  // 消耗 token 数
+  // 消耗token数
   /**
    * @example
    * 10800
@@ -1472,13 +1472,13 @@ export class QueryMaasAssetResponse extends $tea.Model {
   status?: string;
   // 资产类型
   assetType?: string;
-  // 资产访问 URL，仅在已取得可访问地址时返回
+  // 资产访问URL，仅在已取得可访问地址时返回
   url?: string;
   // 素材名称，可选
   name?: string;
-  // 创建时间，Unix 秒级时间戳，可选
+  // 创建时间，Unix秒级时间戳，可选
   createdAt?: string;
-  // 更新时间，Unix 秒级时间戳，可选
+  // 更新时间，Unix秒级时间戳，可选
   updatedAt?: string;
   // 处理失败时返回，包含code/message
   error?: Error;
@@ -1541,7 +1541,7 @@ export class PushMaasVideoRequest extends $tea.Model {
   generateAudio?: boolean;
   // 是否添加水印
   watermark?: boolean;
-  // 扩展参数 JSON 字符串
+  // 扩展参数JSON字符串
   extParams?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1656,7 +1656,7 @@ export class QueryMaasVideoResponse extends $tea.Model {
   resultCode?: string;
   // 异常信息的文本描述
   resultMsg?: string;
-  // 视频任务 ID
+  // 视频任务ID
   taskId?: string;
   // 任务状态
   status?: string;
@@ -1666,7 +1666,7 @@ export class QueryMaasVideoResponse extends $tea.Model {
   createdAt?: string;
   // 更新时间，Unix秒级时间戳
   updatedAt?: string;
-  // 视频 URL(成功时返回)
+  // 视频URL(成功时返回)
   content?: VideoUrl;
   // 视频时长(s)
   duration?: string;
@@ -1749,7 +1749,7 @@ export class PushMaasImageRequest extends $tea.Model {
   size?: string;
   // 图片张数
   n?: number;
-  // 扩展参数 JSON 字符串
+  // 扩展参数JSON字符串
   extParams?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1807,7 +1807,7 @@ export class PushMaasImageResponse extends $tea.Model {
   usage?: ImageUsage[];
   // 失败时返回
   error?: Error;
-  // 非标准化补充信息，JSON 字符串
+  // 非标准化补充信息，JSON字符串
   extraInfo?: string;
   static names(): { [key: string]: string } {
     return {
@@ -1886,11 +1886,11 @@ export class QueryMaasImageResponse extends $tea.Model {
   model?: string;
   // 创建时间，Unix 秒级时间戳
   createdAt?: string;
-  // 图片URL列表（成功时返回）
+  // 图片URL列表(成功时返回)
   content?: ImageUrlsList;
   // 用量数组
   usage?: ImageUsage[];
-  // 非标准化补充信息，JSON 字符串
+  // 非标准化补充信息，JSON字符串
   extraInfo?: string;
   // 失败时返回
   error?: Error;
@@ -2428,7 +2428,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.3",
+          sdk_version: "1.1.4",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
