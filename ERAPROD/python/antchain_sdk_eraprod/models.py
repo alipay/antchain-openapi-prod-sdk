@@ -349,6 +349,8 @@ class QueryBoardProxyRequest(TeaModel):
         keyword: str = None,
         board_id: str = None,
         top_n: int = None,
+        abs_quality: str = None,
+        gap_gamma: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -359,6 +361,10 @@ class QueryBoardProxyRequest(TeaModel):
         self.board_id = board_id
         # 返回条数
         self.top_n = top_n
+        # 单条绝对质量线，rerank 低于此直接剔除
+        self.abs_quality = abs_quality
+        # 断层相对落差阈值
+        self.gap_gamma = gap_gamma
 
     def validate(self):
         self.validate_required(self.keyword, 'keyword')
@@ -380,6 +386,10 @@ class QueryBoardProxyRequest(TeaModel):
             result['board_id'] = self.board_id
         if self.top_n is not None:
             result['top_n'] = self.top_n
+        if self.abs_quality is not None:
+            result['abs_quality'] = self.abs_quality
+        if self.gap_gamma is not None:
+            result['gap_gamma'] = self.gap_gamma
         return result
 
     def from_map(self, m: dict = None):
@@ -394,10 +404,127 @@ class QueryBoardProxyRequest(TeaModel):
             self.board_id = m.get('board_id')
         if m.get('top_n') is not None:
             self.top_n = m.get('top_n')
+        if m.get('abs_quality') is not None:
+            self.abs_quality = m.get('abs_quality')
+        if m.get('gap_gamma') is not None:
+            self.gap_gamma = m.get('gap_gamma')
         return self
 
 
 class QueryBoardProxyResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        result_json: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 结果
+        self.result_json = result_json
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.result_json is not None:
+            result['result_json'] = self.result_json
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('result_json') is not None:
+            self.result_json = m.get('result_json')
+        return self
+
+
+class QueryWatermarkFileRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        datum_item_code: str = None,
+        employee_no: str = None,
+        project_id: str = None,
+        tender_resource_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 资料id
+        self.datum_item_code = datum_item_code
+        # 工号
+        self.employee_no = employee_no
+        # 项目id
+        self.project_id = project_id
+        # 投标资源id
+        self.tender_resource_id = tender_resource_id
+
+    def validate(self):
+        self.validate_required(self.datum_item_code, 'datum_item_code')
+        self.validate_required(self.employee_no, 'employee_no')
+        self.validate_required(self.project_id, 'project_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.datum_item_code is not None:
+            result['datum_item_code'] = self.datum_item_code
+        if self.employee_no is not None:
+            result['employee_no'] = self.employee_no
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        if self.tender_resource_id is not None:
+            result['tender_resource_id'] = self.tender_resource_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('datum_item_code') is not None:
+            self.datum_item_code = m.get('datum_item_code')
+        if m.get('employee_no') is not None:
+            self.employee_no = m.get('employee_no')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        if m.get('tender_resource_id') is not None:
+            self.tender_resource_id = m.get('tender_resource_id')
+        return self
+
+
+class QueryWatermarkFileResponse(TeaModel):
     def __init__(
         self,
         req_msg_id: str = None,

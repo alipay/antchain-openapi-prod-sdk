@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.2.4',
                     '_prod_code': 'ERAPROD',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.2.4',
                     '_prod_code': 'ERAPROD',
                     '_prod_channel': 'default'
                 }
@@ -439,4 +439,60 @@ class Client:
         return TeaCore.from_map(
             eraprod_models.QueryBoardProxyResponse(),
             await self.do_request_async('1.0', 'antdigital.eraprod.board.proxy.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_watermark_file(
+        self,
+        request: eraprod_models.QueryWatermarkFileRequest,
+    ) -> eraprod_models.QueryWatermarkFileResponse:
+        """
+        Description: 投标水印
+        Summary: 投标水印
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_watermark_file_ex(request, headers, runtime)
+
+    async def query_watermark_file_async(
+        self,
+        request: eraprod_models.QueryWatermarkFileRequest,
+    ) -> eraprod_models.QueryWatermarkFileResponse:
+        """
+        Description: 投标水印
+        Summary: 投标水印
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_watermark_file_ex_async(request, headers, runtime)
+
+    def query_watermark_file_ex(
+        self,
+        request: eraprod_models.QueryWatermarkFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> eraprod_models.QueryWatermarkFileResponse:
+        """
+        Description: 投标水印
+        Summary: 投标水印
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            eraprod_models.QueryWatermarkFileResponse(),
+            self.do_request('1.0', 'antdigital.eraprod.watermark.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_watermark_file_ex_async(
+        self,
+        request: eraprod_models.QueryWatermarkFileRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> eraprod_models.QueryWatermarkFileResponse:
+        """
+        Description: 投标水印
+        Summary: 投标水印
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            eraprod_models.QueryWatermarkFileResponse(),
+            await self.do_request_async('1.0', 'antdigital.eraprod.watermark.file.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
