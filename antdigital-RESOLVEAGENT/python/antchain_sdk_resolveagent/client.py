@@ -134,7 +134,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '2.1.0',
                     '_prod_code': 'RESOLVEAGENT',
                     '_prod_channel': 'default'
                 }
@@ -237,7 +237,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.0.1',
+                    'sdk_version': '2.1.0',
                     '_prod_code': 'RESOLVEAGENT',
                     '_prod_channel': 'default'
                 }
@@ -383,4 +383,228 @@ class Client:
         return TeaCore.from_map(
             resolveagent_models.ImportTaskRateinfoResponse(),
             await self.do_request_async('1.0', 'antdigital.resolveagent.task.rateinfo.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_customer_overdue(
+        self,
+        request: resolveagent_models.QueryCustomerOverdueRequest,
+    ) -> resolveagent_models.QueryCustomerOverdueResponse:
+        """
+        Description: 贷后360客户是否逾期查询接口
+        Summary: 贷后360客户是否逾期查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_customer_overdue_ex(request, headers, runtime)
+
+    async def query_customer_overdue_async(
+        self,
+        request: resolveagent_models.QueryCustomerOverdueRequest,
+    ) -> resolveagent_models.QueryCustomerOverdueResponse:
+        """
+        Description: 贷后360客户是否逾期查询接口
+        Summary: 贷后360客户是否逾期查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_customer_overdue_ex_async(request, headers, runtime)
+
+    def query_customer_overdue_ex(
+        self,
+        request: resolveagent_models.QueryCustomerOverdueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.QueryCustomerOverdueResponse:
+        """
+        Description: 贷后360客户是否逾期查询接口
+        Summary: 贷后360客户是否逾期查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.QueryCustomerOverdueResponse(),
+            self.do_request('1.0', 'antdigital.resolveagent.customer.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_customer_overdue_ex_async(
+        self,
+        request: resolveagent_models.QueryCustomerOverdueRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.QueryCustomerOverdueResponse:
+        """
+        Description: 贷后360客户是否逾期查询接口
+        Summary: 贷后360客户是否逾期查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.QueryCustomerOverdueResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveagent.customer.overdue.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_customer_logininfo(
+        self,
+        request: resolveagent_models.PushCustomerLogininfoRequest,
+    ) -> resolveagent_models.PushCustomerLogininfoResponse:
+        """
+        Description: 360站内信用户信息推送
+        Summary: 360站内信用户信息推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_customer_logininfo_ex(request, headers, runtime)
+
+    async def push_customer_logininfo_async(
+        self,
+        request: resolveagent_models.PushCustomerLogininfoRequest,
+    ) -> resolveagent_models.PushCustomerLogininfoResponse:
+        """
+        Description: 360站内信用户信息推送
+        Summary: 360站内信用户信息推送
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_customer_logininfo_ex_async(request, headers, runtime)
+
+    def push_customer_logininfo_ex(
+        self,
+        request: resolveagent_models.PushCustomerLogininfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.PushCustomerLogininfoResponse:
+        """
+        Description: 360站内信用户信息推送
+        Summary: 360站内信用户信息推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.PushCustomerLogininfoResponse(),
+            self.do_request('1.0', 'antdigital.resolveagent.customer.logininfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_customer_logininfo_ex_async(
+        self,
+        request: resolveagent_models.PushCustomerLogininfoRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.PushCustomerLogininfoResponse:
+        """
+        Description: 360站内信用户信息推送
+        Summary: 360站内信用户信息推送
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.PushCustomerLogininfoResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveagent.customer.logininfo.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_common_customer(
+        self,
+        request: resolveagent_models.ImportCommonCustomerRequest,
+    ) -> resolveagent_models.ImportCommonCustomerResponse:
+        """
+        Description: 贷后催调通用导入接口
+        Summary: 贷后催调通用导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_common_customer_ex(request, headers, runtime)
+
+    async def import_common_customer_async(
+        self,
+        request: resolveagent_models.ImportCommonCustomerRequest,
+    ) -> resolveagent_models.ImportCommonCustomerResponse:
+        """
+        Description: 贷后催调通用导入接口
+        Summary: 贷后催调通用导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_common_customer_ex_async(request, headers, runtime)
+
+    def import_common_customer_ex(
+        self,
+        request: resolveagent_models.ImportCommonCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.ImportCommonCustomerResponse:
+        """
+        Description: 贷后催调通用导入接口
+        Summary: 贷后催调通用导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.ImportCommonCustomerResponse(),
+            self.do_request('1.0', 'antdigital.resolveagent.common.customer.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_common_customer_ex_async(
+        self,
+        request: resolveagent_models.ImportCommonCustomerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.ImportCommonCustomerResponse:
+        """
+        Description: 贷后催调通用导入接口
+        Summary: 贷后催调通用导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.ImportCommonCustomerResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveagent.common.customer.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_customer_realtime(
+        self,
+        request: resolveagent_models.ImportCustomerRealtimeRequest,
+    ) -> resolveagent_models.ImportCustomerRealtimeResponse:
+        """
+        Description: 贷后催调实时导入接口
+        Summary: 贷后催调实时导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_customer_realtime_ex(request, headers, runtime)
+
+    async def import_customer_realtime_async(
+        self,
+        request: resolveagent_models.ImportCustomerRealtimeRequest,
+    ) -> resolveagent_models.ImportCustomerRealtimeResponse:
+        """
+        Description: 贷后催调实时导入接口
+        Summary: 贷后催调实时导入接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_customer_realtime_ex_async(request, headers, runtime)
+
+    def import_customer_realtime_ex(
+        self,
+        request: resolveagent_models.ImportCustomerRealtimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.ImportCustomerRealtimeResponse:
+        """
+        Description: 贷后催调实时导入接口
+        Summary: 贷后催调实时导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.ImportCustomerRealtimeResponse(),
+            self.do_request('1.0', 'antdigital.resolveagent.customer.realtime.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_customer_realtime_ex_async(
+        self,
+        request: resolveagent_models.ImportCustomerRealtimeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> resolveagent_models.ImportCustomerRealtimeResponse:
+        """
+        Description: 贷后催调实时导入接口
+        Summary: 贷后催调实时导入接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            resolveagent_models.ImportCustomerRealtimeResponse(),
+            await self.do_request_async('1.0', 'antdigital.resolveagent.customer.realtime.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
