@@ -126,9 +126,9 @@ class RequestItems extends Model {
      */
     public $freeQuota;
 
-    // 计费数量（扣除免费额度后的值）
+    // 计费数量(扣除免费额度后的值)
     /**
-     * @example 计费数量（扣除免费额度后的值）
+     * @example 计费数量(扣除免费额度后的值)
      * @var string
      */
     public $billableQuantity;

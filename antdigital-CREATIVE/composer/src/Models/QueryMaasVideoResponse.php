@@ -167,7 +167,7 @@ class QueryMaasVideoResponse extends Model {
      */
     public $resultMsg;
 
-    // 视频任务 ID
+    // 视频任务ID
     /**
      * @var string
      */
@@ -197,7 +197,7 @@ class QueryMaasVideoResponse extends Model {
      */
     public $updatedAt;
 
-    // 视频 URL(成功时返回)
+    // 视频URL(成功时返回)
     /**
      * @var VideoUrl
      */

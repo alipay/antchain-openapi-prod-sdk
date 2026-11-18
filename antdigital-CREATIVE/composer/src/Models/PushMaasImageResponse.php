@@ -161,7 +161,7 @@ class PushMaasImageResponse extends Model {
      */
     public $error;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     /**
      * @var string
      */

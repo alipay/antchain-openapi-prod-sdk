@@ -58,12 +58,12 @@ class Usage extends Model {
     }
     // 分辨率
     /**
-     * @example 720p，1080p
+     * @example 720p、1080p
      * @var string
      */
     public $resolution;
 
-    // 视频时长（单位：秒）
+    // 视频时长(s)
     /**
      * @example 15
      * @var int
@@ -77,7 +77,7 @@ class Usage extends Model {
      */
     public $ratio;
 
-    // 消耗 token 数
+    // 消耗token数
     /**
      * @example 10800
      * @var int

@@ -156,7 +156,7 @@ class QueryMaasImageResponse extends Model {
      */
     public $createdAt;
 
-    // 图片URL列表（成功时返回）
+    // 图片URL列表(成功时返回)
     /**
      * @var ImageUrlsList
      */
@@ -168,7 +168,7 @@ class QueryMaasImageResponse extends Model {
      */
     public $usage;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     /**
      * @var string
      */

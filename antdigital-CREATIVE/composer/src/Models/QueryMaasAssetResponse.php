@@ -136,7 +136,7 @@ class QueryMaasAssetResponse extends Model {
      */
     public $assetType;
 
-    // 资产访问 URL，仅在已取得可访问地址时返回
+    // 资产访问URL，仅在已取得可访问地址时返回
     /**
      * @var string
      */
@@ -148,13 +148,13 @@ class QueryMaasAssetResponse extends Model {
      */
     public $name;
 
-    // 创建时间，Unix 秒级时间戳，可选
+    // 创建时间，Unix秒级时间戳，可选
     /**
      * @var string
      */
     public $createdAt;
 
-    // 更新时间，Unix 秒级时间戳，可选
+    // 更新时间，Unix秒级时间戳，可选
     /**
      * @var string
      */

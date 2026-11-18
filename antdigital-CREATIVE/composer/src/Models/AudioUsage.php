@@ -77,7 +77,7 @@ class AudioUsage extends Model {
      */
     public $unit;
 
-    // 音频时长（秒）
+    // 音频时长(s)
     /**
      * @example 10.6
      * @var string
@@ -91,7 +91,7 @@ class AudioUsage extends Model {
      */
     public $count;
 
-    // 本次音频生成的实际消耗金额（必返）
+    // 本次音频生成的实际消耗金额(必返)
     /**
      * @example 10.11
      * @var string

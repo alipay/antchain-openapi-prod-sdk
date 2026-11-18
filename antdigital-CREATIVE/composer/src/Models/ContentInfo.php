@@ -74,28 +74,28 @@ class ContentInfo extends Model {
      */
     public $type;
 
-    // type=text 时提供，文本
+    // type=text时提供，文本
     /**
      * @example 生成一只猫
      * @var string
      */
     public $text;
 
-    // type=image_url 时提供
+    // type=image_url时提供
     /**
      * @example www.test.com/123
      * @var ContentUrl
      */
     public $imageUrl;
 
-    // type=audio_url 时提供
+    // type=audio_url时提供
     /**
      * @example www.test.com/123
      * @var ContentUrl
      */
     public $audioUrl;
 
-    // type=video_url 时提供
+    // type=video_url时提供
     /**
      * @example www.test.com/123
      * @var ContentUrl

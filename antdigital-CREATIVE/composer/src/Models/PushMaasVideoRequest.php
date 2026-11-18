@@ -189,7 +189,7 @@ class PushMaasVideoRequest extends Model {
      */
     public $watermark;
 
-    // 扩展参数 JSON 字符串
+    // 扩展参数JSON字符串
     /**
      * @var string
      */

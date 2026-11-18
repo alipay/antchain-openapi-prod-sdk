@@ -28,7 +28,7 @@ class VideoUrl extends Model {
         }
         return $model;
     }
-    // 视频 URL（成功时返回）
+    // 视频URL(成功时返回)
     /**
      * @example https://example.com/output.mp4
      * @var string

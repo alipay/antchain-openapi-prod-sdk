@@ -70,7 +70,7 @@ class VideoUsage extends Model {
      */
     public $unit;
 
-    // 视频时长（秒）
+    // 视频时长(s)
     /**
      * @example 10
      * @var string
