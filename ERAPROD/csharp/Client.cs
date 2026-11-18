@@ -158,7 +158,7 @@ namespace AntChain.SDK.ERAPROD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.4"},
                         {"_prod_code", "ERAPROD"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.ERAPROD
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.4"},
                         {"_prod_code", "ERAPROD"},
                         {"_prod_channel", "default"},
                     };
@@ -495,6 +495,52 @@ namespace AntChain.SDK.ERAPROD
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryBoardProxyResponse>(await DoRequestAsync("1.0", "antdigital.eraprod.board.proxy.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 投标水印
+        /// Summary: 投标水印</para>
+        /// </description>
+        public QueryWatermarkFileResponse QueryWatermarkFile(QueryWatermarkFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryWatermarkFileEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 投标水印
+        /// Summary: 投标水印</para>
+        /// </description>
+        public async Task<QueryWatermarkFileResponse> QueryWatermarkFileAsync(QueryWatermarkFileRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryWatermarkFileExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 投标水印
+        /// Summary: 投标水印</para>
+        /// </description>
+        public QueryWatermarkFileResponse QueryWatermarkFileEx(QueryWatermarkFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWatermarkFileResponse>(DoRequest("1.0", "antdigital.eraprod.watermark.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 投标水印
+        /// Summary: 投标水印</para>
+        /// </description>
+        public async Task<QueryWatermarkFileResponse> QueryWatermarkFileExAsync(QueryWatermarkFileRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryWatermarkFileResponse>(await DoRequestAsync("1.0", "antdigital.eraprod.watermark.file.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
