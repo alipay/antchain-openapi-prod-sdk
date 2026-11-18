@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.creative.models;
 import com.aliyun.tea.*;
 
 public class VideoUrl extends TeaModel {
-    // 视频 URL（成功时返回）
+    // 视频URL(成功时返回)
     /**
      * <strong>example:</strong>
      * <p><a href="https://example.com/output.mp4">https://example.com/output.mp4</a></p>

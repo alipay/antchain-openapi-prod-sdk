@@ -20,7 +20,7 @@ public class AudioUsage extends TeaModel {
     @NameInMap("unit")
     public String unit;
 
-    // 音频时长（秒）
+    // 音频时长(s)
     /**
      * <strong>example:</strong>
      * <p>10.6</p>
@@ -36,7 +36,7 @@ public class AudioUsage extends TeaModel {
     @NameInMap("count")
     public Long count;
 
-    // 本次音频生成的实际消耗金额（必返）
+    // 本次音频生成的实际消耗金额(必返)
     /**
      * <strong>example:</strong>
      * <p>10.11</p>

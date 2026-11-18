@@ -51,7 +51,7 @@ public class PushMaasVideoRequest extends TeaModel {
     @NameInMap("watermark")
     public Boolean watermark;
 
-    // 扩展参数 JSON 字符串
+    // 扩展参数JSON字符串
     @NameInMap("ext_params")
     public String extParams;
 

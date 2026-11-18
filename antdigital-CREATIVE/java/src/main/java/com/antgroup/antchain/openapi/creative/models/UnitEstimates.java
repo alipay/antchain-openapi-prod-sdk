@@ -4,7 +4,7 @@ package com.antgroup.antchain.openapi.creative.models;
 import com.aliyun.tea.*;
 
 public class UnitEstimates extends TeaModel {
-    // 从 0 开始，与请求的 units[] 顺序一致
+    // 从0开始，与请求的 units[] 顺序一致
     /**
      * <strong>example:</strong>
      * <p>1</p>

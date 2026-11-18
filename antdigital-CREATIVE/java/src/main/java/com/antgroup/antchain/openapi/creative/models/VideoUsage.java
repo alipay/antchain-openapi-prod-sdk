@@ -20,7 +20,7 @@ public class VideoUsage extends TeaModel {
     @NameInMap("unit")
     public String unit;
 
-    // 视频时长（秒）
+    // 视频时长(s)
     /**
      * <strong>example:</strong>
      * <p>10</p>

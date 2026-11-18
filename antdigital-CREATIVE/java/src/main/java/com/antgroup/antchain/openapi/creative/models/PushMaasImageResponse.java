@@ -40,7 +40,7 @@ public class PushMaasImageResponse extends TeaModel {
     @NameInMap("error")
     public Error error;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     @NameInMap("extra_info")
     public String extraInfo;
 

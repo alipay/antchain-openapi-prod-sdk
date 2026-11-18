@@ -13,7 +13,7 @@ public class ContentInfo extends TeaModel {
     @Validation(required = true)
     public String type;
 
-    // type=text 时提供，文本
+    // type=text时提供，文本
     /**
      * <strong>example:</strong>
      * <p>生成一只猫</p>
@@ -21,7 +21,7 @@ public class ContentInfo extends TeaModel {
     @NameInMap("text")
     public String text;
 
-    // type=image_url 时提供
+    // type=image_url时提供
     /**
      * <strong>example:</strong>
      * <p><a href="http://www.test.com/123">www.test.com/123</a></p>
@@ -29,7 +29,7 @@ public class ContentInfo extends TeaModel {
     @NameInMap("image_url")
     public ContentUrl imageUrl;
 
-    // type=audio_url 时提供
+    // type=audio_url时提供
     /**
      * <strong>example:</strong>
      * <p><a href="http://www.test.com/123">www.test.com/123</a></p>
@@ -37,7 +37,7 @@ public class ContentInfo extends TeaModel {
     @NameInMap("audio_url")
     public ContentUrl audioUrl;
 
-    // type=video_url 时提供
+    // type=video_url时提供
     /**
      * <strong>example:</strong>
      * <p><a href="http://www.test.com/123">www.test.com/123</a></p>

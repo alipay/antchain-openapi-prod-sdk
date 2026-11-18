@@ -32,7 +32,7 @@ public class QueryMaasImageResponse extends TeaModel {
     @NameInMap("created_at")
     public String createdAt;
 
-    // 图片URL列表（成功时返回）
+    // 图片URL列表(成功时返回)
     @NameInMap("content")
     public ImageUrlsList content;
 
@@ -40,7 +40,7 @@ public class QueryMaasImageResponse extends TeaModel {
     @NameInMap("usage")
     public java.util.List<ImageUsage> usage;
 
-    // 非标准化补充信息，JSON 字符串
+    // 非标准化补充信息，JSON字符串
     @NameInMap("extra_info")
     public String extraInfo;
 

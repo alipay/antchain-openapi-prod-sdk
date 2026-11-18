@@ -44,10 +44,10 @@ public class RequestItems extends TeaModel {
     @NameInMap("free_quota")
     public String freeQuota;
 
-    // 计费数量（扣除免费额度后的值）
+    // 计费数量(扣除免费额度后的值)
     /**
      * <strong>example:</strong>
-     * <p>计费数量（扣除免费额度后的值）</p>
+     * <p>计费数量(扣除免费额度后的值)</p>
      */
     @NameInMap("billable_quantity")
     public String billableQuantity;

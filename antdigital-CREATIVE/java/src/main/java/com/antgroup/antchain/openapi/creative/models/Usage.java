@@ -7,12 +7,12 @@ public class Usage extends TeaModel {
     // 分辨率
     /**
      * <strong>example:</strong>
-     * <p>720p，1080p</p>
+     * <p>720p、1080p</p>
      */
     @NameInMap("resolution")
     public String resolution;
 
-    // 视频时长（单位：秒）
+    // 视频时长(s)
     /**
      * <strong>example:</strong>
      * <p>15</p>
@@ -28,7 +28,7 @@ public class Usage extends TeaModel {
     @NameInMap("ratio")
     public String ratio;
 
-    // 消耗 token 数
+    // 消耗token数
     /**
      * <strong>example:</strong>
      * <p>10800</p>

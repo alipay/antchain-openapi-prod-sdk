@@ -16,7 +16,7 @@ public class QueryMaasVideoResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 视频任务 ID
+    // 视频任务ID
     @NameInMap("task_id")
     public String taskId;
 
@@ -36,7 +36,7 @@ public class QueryMaasVideoResponse extends TeaModel {
     @NameInMap("updated_at")
     public String updatedAt;
 
-    // 视频 URL(成功时返回)
+    // 视频URL(成功时返回)
     @NameInMap("content")
     public VideoUrl content;
 

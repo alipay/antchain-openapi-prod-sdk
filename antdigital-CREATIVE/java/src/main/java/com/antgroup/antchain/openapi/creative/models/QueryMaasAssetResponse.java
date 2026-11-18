@@ -28,7 +28,7 @@ public class QueryMaasAssetResponse extends TeaModel {
     @NameInMap("asset_type")
     public String assetType;
 
-    // 资产访问 URL，仅在已取得可访问地址时返回
+    // 资产访问URL，仅在已取得可访问地址时返回
     @NameInMap("url")
     public String url;
 
@@ -36,11 +36,11 @@ public class QueryMaasAssetResponse extends TeaModel {
     @NameInMap("name")
     public String name;
 
-    // 创建时间，Unix 秒级时间戳，可选
+    // 创建时间，Unix秒级时间戳，可选
     @NameInMap("created_at")
     public String createdAt;
 
-    // 更新时间，Unix 秒级时间戳，可选
+    // 更新时间，Unix秒级时间戳，可选
     @NameInMap("updated_at")
     public String updatedAt;
 

@@ -47,7 +47,7 @@ public class PushMaasImageRequest extends TeaModel {
     @NameInMap("n")
     public Long n;
 
-    // 扩展参数 JSON 字符串
+    // 扩展参数JSON字符串
     @NameInMap("ext_params")
     public String extParams;
 
