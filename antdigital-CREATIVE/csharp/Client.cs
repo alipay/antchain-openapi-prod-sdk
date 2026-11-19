@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.1.5"},
+                        {"sdk_version", "1.2.1"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -1001,6 +1001,52 @@ namespace AntChain.SDK.CREATIVE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecMaasPriceResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本流式调用
+        /// Summary: 文本流式调用</para>
+        /// </description>
+        public ExecMaasChatstreamResponse ExecMaasChatstream(ExecMaasChatstreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecMaasChatstreamEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本流式调用
+        /// Summary: 文本流式调用</para>
+        /// </description>
+        public async Task<ExecMaasChatstreamResponse> ExecMaasChatstreamAsync(ExecMaasChatstreamRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecMaasChatstreamExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本流式调用
+        /// Summary: 文本流式调用</para>
+        /// </description>
+        public ExecMaasChatstreamResponse ExecMaasChatstreamEx(ExecMaasChatstreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasChatstreamResponse>(DoRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 文本流式调用
+        /// Summary: 文本流式调用</para>
+        /// </description>
+        public async Task<ExecMaasChatstreamResponse> ExecMaasChatstreamExAsync(ExecMaasChatstreamRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecMaasChatstreamResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
