@@ -41,6 +41,8 @@ use AntChain\CREATIVE\Models\ExecMaasChatsyncRequest;
 use AntChain\CREATIVE\Models\ExecMaasChatsyncResponse;
 use AntChain\CREATIVE\Models\ExecMaasPriceRequest;
 use AntChain\CREATIVE\Models\ExecMaasPriceResponse;
+use AntChain\CREATIVE\Models\ExecMaasChatstreamRequest;
+use AntChain\CREATIVE\Models\ExecMaasChatstreamResponse;
 
 class Client {
     protected $_endpoint;
@@ -177,7 +179,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.1.5",
+                    "sdk_version" => "1.2.1",
                     "_prod_code" => "CREATIVE",
                     "_prod_channel" => "default"
                 ];
@@ -570,5 +572,30 @@ class Client {
     public function execMaasPriceEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ExecMaasPriceResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文本流式调用
+     * Summary: 文本流式调用
+     * @param ExecMaasChatstreamRequest $request
+     * @return ExecMaasChatstreamResponse
+     */
+    public function execMaasChatstream($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execMaasChatstreamEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文本流式调用
+     * Summary: 文本流式调用
+     * @param ExecMaasChatstreamRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecMaasChatstreamResponse
+     */
+    public function execMaasChatstreamEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecMaasChatstreamResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
