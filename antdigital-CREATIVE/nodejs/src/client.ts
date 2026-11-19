@@ -2311,6 +2311,73 @@ export class ExecMaasPriceResponse extends $tea.Model {
   }
 }
 
+export class ExecMaasChatstreamRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 幂等标识，由客户端生成
+  requestId: string;
+  // 文本模型编码
+  model: string;
+  // 非空消息列表
+  messages: ChatMessages[];
+  // 模型参数 JSON 字符串
+  extParams?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestId: 'request_id',
+      model: 'model',
+      messages: 'messages',
+      extParams: 'ext_params',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestId: 'string',
+      model: 'string',
+      messages: { 'type': 'array', 'itemType': ChatMessages },
+      extParams: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecMaasChatstreamResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2428,7 +2495,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.1.5",
+          sdk_version: "1.2.1",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
@@ -2768,6 +2835,27 @@ export default class Client {
   async execMaasPriceEx(request: ExecMaasPriceRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMaasPriceResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecMaasPriceResponse>(await this.doRequest("1.0", "antdigital.creative.maas.price.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMaasPriceResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 文本流式调用
+   * Summary: 文本流式调用
+   */
+  async execMaasChatstream(request: ExecMaasChatstreamRequest): Promise<ExecMaasChatstreamResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execMaasChatstreamEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 文本流式调用
+   * Summary: 文本流式调用
+   */
+  async execMaasChatstreamEx(request: ExecMaasChatstreamRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMaasChatstreamResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecMaasChatstreamResponse>(await this.doRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMaasChatstreamResponse({}));
   }
 
 }
