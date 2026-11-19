@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.1.5',
+                    'sdk_version': '1.2.1',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -1057,4 +1057,60 @@ class Client:
         return TeaCore.from_map(
             creative_models.ExecMaasPriceResponse(),
             await self.do_request_async('1.0', 'antdigital.creative.maas.price.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_maas_chatstream(
+        self,
+        request: creative_models.ExecMaasChatstreamRequest,
+    ) -> creative_models.ExecMaasChatstreamResponse:
+        """
+        Description: 文本流式调用
+        Summary: 文本流式调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_maas_chatstream_ex(request, headers, runtime)
+
+    async def exec_maas_chatstream_async(
+        self,
+        request: creative_models.ExecMaasChatstreamRequest,
+    ) -> creative_models.ExecMaasChatstreamResponse:
+        """
+        Description: 文本流式调用
+        Summary: 文本流式调用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_maas_chatstream_ex_async(request, headers, runtime)
+
+    def exec_maas_chatstream_ex(
+        self,
+        request: creative_models.ExecMaasChatstreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasChatstreamResponse:
+        """
+        Description: 文本流式调用
+        Summary: 文本流式调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasChatstreamResponse(),
+            self.do_request('1.0', 'antdigital.creative.maas.chatstream.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_maas_chatstream_ex_async(
+        self,
+        request: creative_models.ExecMaasChatstreamRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ExecMaasChatstreamResponse:
+        """
+        Description: 文本流式调用
+        Summary: 文本流式调用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ExecMaasChatstreamResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.maas.chatstream.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
