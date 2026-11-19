@@ -30,39 +30,9 @@ public class StartSignFlowRequest extends TeaModel {
     @NameInMap("return_url")
     public String returnUrl;
 
-    // 用户姓名
-    @NameInMap("user_name")
-    public String userName;
-
-    // 用户手机号
-    @NameInMap("user_phone_number")
-    public String userPhoneNumber;
-
-    // 证件类型，发起预授权时须为 CRED_PSN_CH_IDCARD
-    @NameInMap("user_cert_no_type")
-    public String userCertNoType;
-
-    // 证件号，加密落库；发起预授权时与 user_name 一同校验
-    @NameInMap("user_cert_no")
-    public String userCertNo;
-
-    // 签署的电子合同模板信息，JSONArray格式
-    // 
-    // 说明：
-    // 
-    // templateId：配置的模板id
-    // 
-    // templateArgs：模板配置，其中key=模板文本域中配置的名称
-    // 
-    // value=需要填充的值
-    // 
-    // 例如：
-    // 
-    // 模板f28038577d664015bfc1034c4a125121中的一个文本域字段叫textA，需要替换成“测试值”，则传入
-    // 
-    // [{"templateId":"f28038577d664015bfc1034c4a125121","templateArgs":{"textA":"测试值"}}]
-    @NameInMap("template_list")
-    public String templateList;
+    // 合同签署上下文
+    @NameInMap("contract_sign_context")
+    public ContractSignContext contractSignContext;
 
     public static StartSignFlowRequest build(java.util.Map<String, ?> map) throws Exception {
         StartSignFlowRequest self = new StartSignFlowRequest();
@@ -117,44 +87,12 @@ public class StartSignFlowRequest extends TeaModel {
         return this.returnUrl;
     }
 
-    public StartSignFlowRequest setUserName(String userName) {
-        this.userName = userName;
+    public StartSignFlowRequest setContractSignContext(ContractSignContext contractSignContext) {
+        this.contractSignContext = contractSignContext;
         return this;
     }
-    public String getUserName() {
-        return this.userName;
-    }
-
-    public StartSignFlowRequest setUserPhoneNumber(String userPhoneNumber) {
-        this.userPhoneNumber = userPhoneNumber;
-        return this;
-    }
-    public String getUserPhoneNumber() {
-        return this.userPhoneNumber;
-    }
-
-    public StartSignFlowRequest setUserCertNoType(String userCertNoType) {
-        this.userCertNoType = userCertNoType;
-        return this;
-    }
-    public String getUserCertNoType() {
-        return this.userCertNoType;
-    }
-
-    public StartSignFlowRequest setUserCertNo(String userCertNo) {
-        this.userCertNo = userCertNo;
-        return this;
-    }
-    public String getUserCertNo() {
-        return this.userCertNo;
-    }
-
-    public StartSignFlowRequest setTemplateList(String templateList) {
-        this.templateList = templateList;
-        return this;
-    }
-    public String getTemplateList() {
-        return this.templateList;
+    public ContractSignContext getContractSignContext() {
+        return this.contractSignContext;
     }
 
 }
