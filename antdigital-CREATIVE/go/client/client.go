@@ -2882,6 +2882,90 @@ func (s *ExecMaasPriceResponse) SetMessage(v string) *ExecMaasPriceResponse {
 	return s
 }
 
+type ExecMaasChatstreamRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 幂等标识，由客户端生成
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 文本模型编码
+	Model *string `json:"model,omitempty" xml:"model,omitempty" require:"true"`
+	// 非空消息列表
+	Messages []*ChatMessages `json:"messages,omitempty" xml:"messages,omitempty" require:"true" type:"Repeated"`
+	// 模型参数 JSON 字符串
+	ExtParams *string `json:"ext_params,omitempty" xml:"ext_params,omitempty"`
+}
+
+func (s ExecMaasChatstreamRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMaasChatstreamRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMaasChatstreamRequest) SetAuthToken(v string) *ExecMaasChatstreamRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamRequest) SetProductInstanceId(v string) *ExecMaasChatstreamRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamRequest) SetRequestId(v string) *ExecMaasChatstreamRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamRequest) SetModel(v string) *ExecMaasChatstreamRequest {
+	s.Model = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamRequest) SetMessages(v []*ChatMessages) *ExecMaasChatstreamRequest {
+	s.Messages = v
+	return s
+}
+
+func (s *ExecMaasChatstreamRequest) SetExtParams(v string) *ExecMaasChatstreamRequest {
+	s.ExtParams = &v
+	return s
+}
+
+type ExecMaasChatstreamResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+}
+
+func (s ExecMaasChatstreamResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecMaasChatstreamResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecMaasChatstreamResponse) SetReqMsgId(v string) *ExecMaasChatstreamResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamResponse) SetResultCode(v string) *ExecMaasChatstreamResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecMaasChatstreamResponse) SetResultMsg(v string) *ExecMaasChatstreamResponse {
+	s.ResultMsg = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3012,7 +3096,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.1.5"),
+				"sdk_version":      tea.String("1.2.1"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3567,6 +3651,42 @@ func (client *Client) ExecMaasPriceEx(request *ExecMaasPriceRequest, headers map
 	}
 	_result = &ExecMaasPriceResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.maas.price.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文本流式调用
+//
+// Summary: 文本流式调用
+func (client *Client) ExecMaasChatstream(request *ExecMaasChatstreamRequest) (_result *ExecMaasChatstreamResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecMaasChatstreamResponse{}
+	_body, _err := client.ExecMaasChatstreamEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 文本流式调用
+//
+// Summary: 文本流式调用
+func (client *Client) ExecMaasChatstreamEx(request *ExecMaasChatstreamRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecMaasChatstreamResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecMaasChatstreamResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.maas.chatstream.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
