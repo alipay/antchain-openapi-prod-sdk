@@ -34,7 +34,7 @@ public class QueryTrustiotSkugrantwhitelistResponse extends TeaModel {
 
     // 当前页名单。零结果时返回空数组 []
     @NameInMap("sn_list")
-    public SnWhiteListItem snList;
+    public java.util.List<SnWhiteListItem> snList;
 
     public static QueryTrustiotSkugrantwhitelistResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryTrustiotSkugrantwhitelistResponse self = new QueryTrustiotSkugrantwhitelistResponse();
@@ -97,11 +97,11 @@ public class QueryTrustiotSkugrantwhitelistResponse extends TeaModel {
         return this.totalPages;
     }
 
-    public QueryTrustiotSkugrantwhitelistResponse setSnList(SnWhiteListItem snList) {
+    public QueryTrustiotSkugrantwhitelistResponse setSnList(java.util.List<SnWhiteListItem> snList) {
         this.snList = snList;
         return this;
     }
-    public SnWhiteListItem getSnList() {
+    public java.util.List<SnWhiteListItem> getSnList() {
         return this.snList;
     }
 
