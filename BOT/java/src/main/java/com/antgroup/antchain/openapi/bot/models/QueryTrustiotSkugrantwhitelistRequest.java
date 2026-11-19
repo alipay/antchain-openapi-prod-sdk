@@ -1,0 +1,73 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.bot.models;
+
+import com.aliyun.tea.*;
+
+public class QueryTrustiotSkugrantwhitelistRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    @NameInMap("product_instance_id")
+    public String productInstanceId;
+
+    // 场景码（APPID）
+    @NameInMap("scene")
+    public String scene;
+
+    // 页码
+    @NameInMap("page_index")
+    @Validation(required = true)
+    public Long pageIndex;
+
+    // 每页条数
+    @NameInMap("page_size")
+    @Validation(required = true)
+    public Long pageSize;
+
+    public static QueryTrustiotSkugrantwhitelistRequest build(java.util.Map<String, ?> map) throws Exception {
+        QueryTrustiotSkugrantwhitelistRequest self = new QueryTrustiotSkugrantwhitelistRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public QueryTrustiotSkugrantwhitelistRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public QueryTrustiotSkugrantwhitelistRequest setProductInstanceId(String productInstanceId) {
+        this.productInstanceId = productInstanceId;
+        return this;
+    }
+    public String getProductInstanceId() {
+        return this.productInstanceId;
+    }
+
+    public QueryTrustiotSkugrantwhitelistRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public QueryTrustiotSkugrantwhitelistRequest setPageIndex(Long pageIndex) {
+        this.pageIndex = pageIndex;
+        return this;
+    }
+    public Long getPageIndex() {
+        return this.pageIndex;
+    }
+
+    public QueryTrustiotSkugrantwhitelistRequest setPageSize(Long pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+    public Long getPageSize() {
+        return this.pageSize;
+    }
+
+}
