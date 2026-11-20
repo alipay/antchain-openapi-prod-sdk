@@ -158,7 +158,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.GESAAS
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.0"},
+                        {"sdk_version", "1.7.0"},
                         {"_prod_code", "GESAAS"},
                         {"_prod_channel", "default"},
                     };
@@ -1047,6 +1047,52 @@ namespace AntChain.SDK.GESAAS
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryRightsprodVoucherResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益发放V2版本接口
+        /// Summary: 权益发放V2版本接口</para>
+        /// </description>
+        public PushRightsprodGrantResponse PushRightsprodGrant(PushRightsprodGrantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushRightsprodGrantEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益发放V2版本接口
+        /// Summary: 权益发放V2版本接口</para>
+        /// </description>
+        public async Task<PushRightsprodGrantResponse> PushRightsprodGrantAsync(PushRightsprodGrantRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushRightsprodGrantExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益发放V2版本接口
+        /// Summary: 权益发放V2版本接口</para>
+        /// </description>
+        public PushRightsprodGrantResponse PushRightsprodGrantEx(PushRightsprodGrantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRightsprodGrantResponse>(DoRequest("1.0", "antdigital.gesaas.rightsprod.grant.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 权益发放V2版本接口
+        /// Summary: 权益发放V2版本接口</para>
+        /// </description>
+        public async Task<PushRightsprodGrantResponse> PushRightsprodGrantExAsync(PushRightsprodGrantRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushRightsprodGrantResponse>(await DoRequestAsync("1.0", "antdigital.gesaas.rightsprod.grant.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
