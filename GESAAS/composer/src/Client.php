@@ -43,6 +43,8 @@ use AntChain\GESAAS\Models\CallbackRightsprodOperationdataRequest;
 use AntChain\GESAAS\Models\CallbackRightsprodOperationdataResponse;
 use AntChain\GESAAS\Models\QueryRightsprodVoucherRequest;
 use AntChain\GESAAS\Models\QueryRightsprodVoucherResponse;
+use AntChain\GESAAS\Models\PushRightsprodGrantRequest;
+use AntChain\GESAAS\Models\PushRightsprodGrantResponse;
 
 class Client {
     protected $_endpoint;
@@ -179,7 +181,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.6.0",
+                    "sdk_version" => "1.7.0",
                     "_prod_code" => "GESAAS",
                     "_prod_channel" => "default"
                 ];
@@ -597,5 +599,30 @@ class Client {
     public function queryRightsprodVoucherEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryRightsprodVoucherResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 权益发放V2版本接口
+     * Summary: 权益发放V2版本接口
+     * @param PushRightsprodGrantRequest $request
+     * @return PushRightsprodGrantResponse
+     */
+    public function pushRightsprodGrant($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushRightsprodGrantEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 权益发放V2版本接口
+     * Summary: 权益发放V2版本接口
+     * @param PushRightsprodGrantRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushRightsprodGrantResponse
+     */
+    public function pushRightsprodGrantEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushRightsprodGrantResponse::fromMap($this->doRequest("1.0", "antdigital.gesaas.rightsprod.grant.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
