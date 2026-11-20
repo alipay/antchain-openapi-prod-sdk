@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.0',
+                    'sdk_version': '1.7.0',
                     '_prod_code': 'GESAAS',
                     '_prod_channel': 'default'
                 }
@@ -1113,4 +1113,60 @@ class Client:
         return TeaCore.from_map(
             gesaas_models.QueryRightsprodVoucherResponse(),
             await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.voucher.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_rightsprod_grant(
+        self,
+        request: gesaas_models.PushRightsprodGrantRequest,
+    ) -> gesaas_models.PushRightsprodGrantResponse:
+        """
+        Description: 权益发放V2版本接口
+        Summary: 权益发放V2版本接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_rightsprod_grant_ex(request, headers, runtime)
+
+    async def push_rightsprod_grant_async(
+        self,
+        request: gesaas_models.PushRightsprodGrantRequest,
+    ) -> gesaas_models.PushRightsprodGrantResponse:
+        """
+        Description: 权益发放V2版本接口
+        Summary: 权益发放V2版本接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_rightsprod_grant_ex_async(request, headers, runtime)
+
+    def push_rightsprod_grant_ex(
+        self,
+        request: gesaas_models.PushRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushRightsprodGrantResponse:
+        """
+        Description: 权益发放V2版本接口
+        Summary: 权益发放V2版本接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushRightsprodGrantResponse(),
+            self.do_request('1.0', 'antdigital.gesaas.rightsprod.grant.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_rightsprod_grant_ex_async(
+        self,
+        request: gesaas_models.PushRightsprodGrantRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> gesaas_models.PushRightsprodGrantResponse:
+        """
+        Description: 权益发放V2版本接口
+        Summary: 权益发放V2版本接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            gesaas_models.PushRightsprodGrantResponse(),
+            await self.do_request_async('1.0', 'antdigital.gesaas.rightsprod.grant.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
