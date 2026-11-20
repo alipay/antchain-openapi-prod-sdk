@@ -20,6 +20,10 @@ public class PushOrderSettlementResponse extends TeaModel {
     @NameInMap("trade_no")
     public String tradeNo;
 
+    // 预支付凭证，仅商家扫码场景为空
+    @NameInMap("pre_pay_tn")
+    public String prePayTn;
+
     public static PushOrderSettlementResponse build(java.util.Map<String, ?> map) throws Exception {
         PushOrderSettlementResponse self = new PushOrderSettlementResponse();
         return TeaModel.build(map, self);
@@ -55,6 +59,14 @@ public class PushOrderSettlementResponse extends TeaModel {
     }
     public String getTradeNo() {
         return this.tradeNo;
+    }
+
+    public PushOrderSettlementResponse setPrePayTn(String prePayTn) {
+        this.prePayTn = prePayTn;
+        return this;
+    }
+    public String getPrePayTn() {
+        return this.prePayTn;
     }
 
 }

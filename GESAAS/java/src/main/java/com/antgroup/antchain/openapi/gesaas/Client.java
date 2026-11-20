@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.1"),
+                    new TeaPair("sdk_version", "1.7.0"),
                     new TeaPair("_prod_code", "GESAAS"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -501,5 +501,26 @@ public class Client {
     public QueryRightsprodVoucherResponse queryRightsprodVoucherEx(QueryRightsprodVoucherRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRightsprodVoucherResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益发放V2版本接口
+     * Summary: 权益发放V2版本接口</p>
+     */
+    public PushRightsprodGrantResponse pushRightsprodGrant(PushRightsprodGrantRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushRightsprodGrantEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 权益发放V2版本接口
+     * Summary: 权益发放V2版本接口</p>
+     */
+    public PushRightsprodGrantResponse pushRightsprodGrantEx(PushRightsprodGrantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.gesaas.rightsprod.grant.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushRightsprodGrantResponse());
     }
 }

@@ -53,6 +53,29 @@ public class PushOrderSettlementRequest extends TeaModel {
     @Validation(required = true)
     public String payChannelUserId;
 
+    // 支付场景，ONLINE(在线)/OFFLINE (离线)，默认：ONLINE
+    @NameInMap("scene")
+    public String scene;
+
+    // 付款码，商家扫码场景必填，补充：
+    // 微信付款码：以 10–15 开头的 18 位纯数字。
+    // 支付宝付款码：以 25–30 开头，且长度为 16～24 位的纯数字。
+    @NameInMap("auth_code")
+    public String authCode;
+
+    // 终端号，商家扫码场景必填
+    @NameInMap("terminal_id")
+    public String terminalId;
+
+    // 用户真实IP地址
+    @NameInMap("user_ip")
+    @Validation(required = true)
+    public String userIp;
+
+    // 商家公众号ID,微信小程序，微信公众号产品必填
+    @NameInMap("app_id")
+    public String appId;
+
     public static PushOrderSettlementRequest build(java.util.Map<String, ?> map) throws Exception {
         PushOrderSettlementRequest self = new PushOrderSettlementRequest();
         return TeaModel.build(map, self);
@@ -144,6 +167,46 @@ public class PushOrderSettlementRequest extends TeaModel {
     }
     public String getPayChannelUserId() {
         return this.payChannelUserId;
+    }
+
+    public PushOrderSettlementRequest setScene(String scene) {
+        this.scene = scene;
+        return this;
+    }
+    public String getScene() {
+        return this.scene;
+    }
+
+    public PushOrderSettlementRequest setAuthCode(String authCode) {
+        this.authCode = authCode;
+        return this;
+    }
+    public String getAuthCode() {
+        return this.authCode;
+    }
+
+    public PushOrderSettlementRequest setTerminalId(String terminalId) {
+        this.terminalId = terminalId;
+        return this;
+    }
+    public String getTerminalId() {
+        return this.terminalId;
+    }
+
+    public PushOrderSettlementRequest setUserIp(String userIp) {
+        this.userIp = userIp;
+        return this;
+    }
+    public String getUserIp() {
+        return this.userIp;
+    }
+
+    public PushOrderSettlementRequest setAppId(String appId) {
+        this.appId = appId;
+        return this;
+    }
+    public String getAppId() {
+        return this.appId;
     }
 
 }

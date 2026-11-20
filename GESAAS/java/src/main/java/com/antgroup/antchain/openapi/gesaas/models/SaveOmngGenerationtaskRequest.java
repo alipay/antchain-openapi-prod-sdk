@@ -88,6 +88,11 @@ public class SaveOmngGenerationtaskRequest extends TeaModel {
     @NameInMap("priority")
     public Long priority;
 
+    // seedance视频大模型2.0版本
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
+
     public static SaveOmngGenerationtaskRequest build(java.util.Map<String, ?> map) throws Exception {
         SaveOmngGenerationtaskRequest self = new SaveOmngGenerationtaskRequest();
         return TeaModel.build(map, self);
@@ -235,6 +240,14 @@ public class SaveOmngGenerationtaskRequest extends TeaModel {
     }
     public Long getPriority() {
         return this.priority;
+    }
+
+    public SaveOmngGenerationtaskRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
