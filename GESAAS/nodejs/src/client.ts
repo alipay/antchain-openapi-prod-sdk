@@ -2778,6 +2778,97 @@ export class QueryRightsprodVoucherResponse extends $tea.Model {
   }
 }
 
+export class PushRightsprodGrantRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 用户类型
+  // 支付宝UID： alipay_uid
+  // 手机号：phone_number
+  // 微信OpenID： wechat_openId
+  // 平台UID： platform_uid
+  userType: string;
+  // 用户身份标识
+  userIdentifier: string;
+  // 应用ID
+  appId?: string;
+  // 权益编码
+  rightsCode: string;
+  // 发放数量
+  grantNum: number;
+  // 外部发放订单号
+  outGrantOrderNo: string;
+  // 发放信息,如活动ID等信息
+  grantInfo?: string;
+  // 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+  techTenantId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      userType: 'user_type',
+      userIdentifier: 'user_identifier',
+      appId: 'app_id',
+      rightsCode: 'rights_code',
+      grantNum: 'grant_num',
+      outGrantOrderNo: 'out_grant_order_no',
+      grantInfo: 'grant_info',
+      techTenantId: 'tech_tenant_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      userType: 'string',
+      userIdentifier: 'string',
+      appId: 'string',
+      rightsCode: 'string',
+      grantNum: 'number',
+      outGrantOrderNo: 'string',
+      grantInfo: 'string',
+      techTenantId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushRightsprodGrantResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 权益发放结果
+  rightsGrantResult?: RightsGrantResultVO;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      rightsGrantResult: 'rights_grant_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      rightsGrantResult: RightsGrantResultVO,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2895,7 +2986,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.0",
+          sdk_version: "1.7.0",
           _prod_code: "GESAAS",
           _prod_channel: "default",
         };
@@ -3256,6 +3347,27 @@ export default class Client {
   async queryRightsprodVoucherEx(request: QueryRightsprodVoucherRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryRightsprodVoucherResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryRightsprodVoucherResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.voucher.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryRightsprodVoucherResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 权益发放V2版本接口
+   * Summary: 权益发放V2版本接口
+   */
+  async pushRightsprodGrant(request: PushRightsprodGrantRequest): Promise<PushRightsprodGrantResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushRightsprodGrantEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 权益发放V2版本接口
+   * Summary: 权益发放V2版本接口
+   */
+  async pushRightsprodGrantEx(request: PushRightsprodGrantRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushRightsprodGrantResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushRightsprodGrantResponse>(await this.doRequest("1.0", "antdigital.gesaas.rightsprod.grant.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushRightsprodGrantResponse({}));
   }
 
 }
