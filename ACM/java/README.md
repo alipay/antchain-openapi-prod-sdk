@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>acm</artifactId>
-   <version>1.6.16</version>
+   <version>1.6.18</version>
 </dependency>
 ```
 

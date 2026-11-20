@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.6.16"),
+                    new TeaPair("sdk_version", "1.6.18"),
                     new TeaPair("_prod_code", "acm"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -396,6 +396,48 @@ public class Client {
     public QueryProjectUserResponse queryProjectUserEx(QueryProjectUserRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.project.user.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryProjectUserResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建操作员（无需激活）
+     * Summary: 创建操作员（无需激活）</p>
+     */
+    public CreateOperatorNormalResponse createOperatorNormal(CreateOperatorNormalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createOperatorNormalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建操作员（无需激活）
+     * Summary: 创建操作员（无需激活）</p>
+     */
+    public CreateOperatorNormalResponse createOperatorNormalEx(CreateOperatorNormalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.operator.normal.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateOperatorNormalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除项目
+     * Summary: 删除项目</p>
+     */
+    public DeleteTenantProjectResponse deleteTenantProject(DeleteTenantProjectRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteTenantProjectEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除项目
+     * Summary: 删除项目</p>
+     */
+    public DeleteTenantProjectResponse deleteTenantProjectEx(DeleteTenantProjectRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.acm.tenant.project.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteTenantProjectResponse());
     }
 
     /**
