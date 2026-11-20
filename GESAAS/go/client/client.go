@@ -3321,6 +3321,129 @@ func (s *QueryRightsprodVoucherResponse) SetStatus(v string) *QueryRightsprodVou
 	return s
 }
 
+type PushRightsprodGrantRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 用户类型
+	// 支付宝UID： alipay_uid
+	// 手机号：phone_number
+	// 微信OpenID： wechat_openId
+	// 平台UID： platform_uid
+	UserType *string `json:"user_type,omitempty" xml:"user_type,omitempty" require:"true"`
+	// 用户身份标识
+	UserIdentifier *string `json:"user_identifier,omitempty" xml:"user_identifier,omitempty" require:"true"`
+	// 应用ID
+	AppId *string `json:"app_id,omitempty" xml:"app_id,omitempty"`
+	// 权益编码
+	RightsCode *string `json:"rights_code,omitempty" xml:"rights_code,omitempty" require:"true"`
+	// 发放数量
+	GrantNum *int64 `json:"grant_num,omitempty" xml:"grant_num,omitempty" require:"true"`
+	// 外部发放订单号
+	OutGrantOrderNo *string `json:"out_grant_order_no,omitempty" xml:"out_grant_order_no,omitempty" require:"true"`
+	// 发放信息,如活动ID等信息
+	GrantInfo *string `json:"grant_info,omitempty" xml:"grant_info,omitempty"`
+	// 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+	TechTenantId *string `json:"tech_tenant_id,omitempty" xml:"tech_tenant_id,omitempty"`
+}
+
+func (s PushRightsprodGrantRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRightsprodGrantRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushRightsprodGrantRequest) SetAuthToken(v string) *PushRightsprodGrantRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetProductInstanceId(v string) *PushRightsprodGrantRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetUserType(v string) *PushRightsprodGrantRequest {
+	s.UserType = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetUserIdentifier(v string) *PushRightsprodGrantRequest {
+	s.UserIdentifier = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetAppId(v string) *PushRightsprodGrantRequest {
+	s.AppId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetRightsCode(v string) *PushRightsprodGrantRequest {
+	s.RightsCode = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetGrantNum(v int64) *PushRightsprodGrantRequest {
+	s.GrantNum = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetOutGrantOrderNo(v string) *PushRightsprodGrantRequest {
+	s.OutGrantOrderNo = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetGrantInfo(v string) *PushRightsprodGrantRequest {
+	s.GrantInfo = &v
+	return s
+}
+
+func (s *PushRightsprodGrantRequest) SetTechTenantId(v string) *PushRightsprodGrantRequest {
+	s.TechTenantId = &v
+	return s
+}
+
+type PushRightsprodGrantResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 权益发放结果
+	RightsGrantResult *RightsGrantResultVO `json:"rights_grant_result,omitempty" xml:"rights_grant_result,omitempty"`
+}
+
+func (s PushRightsprodGrantResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushRightsprodGrantResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushRightsprodGrantResponse) SetReqMsgId(v string) *PushRightsprodGrantResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushRightsprodGrantResponse) SetResultCode(v string) *PushRightsprodGrantResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushRightsprodGrantResponse) SetResultMsg(v string) *PushRightsprodGrantResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushRightsprodGrantResponse) SetRightsGrantResult(v *RightsGrantResultVO) *PushRightsprodGrantResponse {
+	s.RightsGrantResult = v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3451,7 +3574,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.6.0"),
+				"sdk_version":      tea.String("1.7.0"),
 				"_prod_code":       tea.String("GESAAS"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4042,6 +4165,42 @@ func (client *Client) QueryRightsprodVoucherEx(request *QueryRightsprodVoucherRe
 	}
 	_result = &QueryRightsprodVoucherResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.rightsprod.voucher.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 权益发放V2版本接口
+//
+// Summary: 权益发放V2版本接口
+func (client *Client) PushRightsprodGrant(request *PushRightsprodGrantRequest) (_result *PushRightsprodGrantResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushRightsprodGrantResponse{}
+	_body, _err := client.PushRightsprodGrantEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 权益发放V2版本接口
+//
+// Summary: 权益发放V2版本接口
+func (client *Client) PushRightsprodGrantEx(request *PushRightsprodGrantRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushRightsprodGrantResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushRightsprodGrantResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.gesaas.rightsprod.grant.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
