@@ -3720,3 +3720,152 @@ class QueryRightsprodVoucherResponse(TeaModel):
         return self
 
 
+class PushRightsprodGrantRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        product_instance_id: str = None,
+        user_type: str = None,
+        user_identifier: str = None,
+        app_id: str = None,
+        rights_code: str = None,
+        grant_num: int = None,
+        out_grant_order_no: str = None,
+        grant_info: str = None,
+        tech_tenant_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        self.product_instance_id = product_instance_id
+        # 用户类型
+        # 支付宝UID： alipay_uid
+        # 手机号：phone_number
+        # 微信OpenID： wechat_openId
+        # 平台UID： platform_uid
+        self.user_type = user_type
+        # 用户身份标识
+        self.user_identifier = user_identifier
+        # 应用ID
+        self.app_id = app_id
+        # 权益编码
+        self.rights_code = rights_code
+        # 发放数量
+        self.grant_num = grant_num
+        # 外部发放订单号
+        self.out_grant_order_no = out_grant_order_no
+        # 发放信息,如活动ID等信息
+        self.grant_info = grant_info
+        # 技术租户ID、当开通权益中心产品在非数科的应用租户下时需要填写对应的技术租户ID（涉及到时技术对接时 技术会分配，如未分配则不需要传参数）
+        self.tech_tenant_id = tech_tenant_id
+
+    def validate(self):
+        self.validate_required(self.user_type, 'user_type')
+        self.validate_required(self.user_identifier, 'user_identifier')
+        self.validate_required(self.rights_code, 'rights_code')
+        self.validate_required(self.grant_num, 'grant_num')
+        self.validate_required(self.out_grant_order_no, 'out_grant_order_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.product_instance_id is not None:
+            result['product_instance_id'] = self.product_instance_id
+        if self.user_type is not None:
+            result['user_type'] = self.user_type
+        if self.user_identifier is not None:
+            result['user_identifier'] = self.user_identifier
+        if self.app_id is not None:
+            result['app_id'] = self.app_id
+        if self.rights_code is not None:
+            result['rights_code'] = self.rights_code
+        if self.grant_num is not None:
+            result['grant_num'] = self.grant_num
+        if self.out_grant_order_no is not None:
+            result['out_grant_order_no'] = self.out_grant_order_no
+        if self.grant_info is not None:
+            result['grant_info'] = self.grant_info
+        if self.tech_tenant_id is not None:
+            result['tech_tenant_id'] = self.tech_tenant_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('product_instance_id') is not None:
+            self.product_instance_id = m.get('product_instance_id')
+        if m.get('user_type') is not None:
+            self.user_type = m.get('user_type')
+        if m.get('user_identifier') is not None:
+            self.user_identifier = m.get('user_identifier')
+        if m.get('app_id') is not None:
+            self.app_id = m.get('app_id')
+        if m.get('rights_code') is not None:
+            self.rights_code = m.get('rights_code')
+        if m.get('grant_num') is not None:
+            self.grant_num = m.get('grant_num')
+        if m.get('out_grant_order_no') is not None:
+            self.out_grant_order_no = m.get('out_grant_order_no')
+        if m.get('grant_info') is not None:
+            self.grant_info = m.get('grant_info')
+        if m.get('tech_tenant_id') is not None:
+            self.tech_tenant_id = m.get('tech_tenant_id')
+        return self
+
+
+class PushRightsprodGrantResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        rights_grant_result: RightsGrantResultVO = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 权益发放结果
+        self.rights_grant_result = rights_grant_result
+
+    def validate(self):
+        if self.rights_grant_result:
+            self.rights_grant_result.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.rights_grant_result is not None:
+            result['rights_grant_result'] = self.rights_grant_result.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('rights_grant_result') is not None:
+            temp_model = RightsGrantResultVO()
+            self.rights_grant_result = temp_model.from_map(m['rights_grant_result'])
+        return self
+
+
