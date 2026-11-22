@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.2"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.1"},
+                        {"sdk_version", "1.2.2"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -1047,6 +1047,466 @@ namespace AntChain.SDK.CREATIVE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<ExecMaasChatstreamResponse>(await DoRequestAsync("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产
+        /// Summary: 创建素材资产</para>
+        /// </description>
+        public PushArkassetResponse PushArkasset(PushArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushArkassetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产
+        /// Summary: 创建素材资产</para>
+        /// </description>
+        public async Task<PushArkassetResponse> PushArkassetAsync(PushArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushArkassetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产
+        /// Summary: 创建素材资产</para>
+        /// </description>
+        public PushArkassetResponse PushArkassetEx(PushArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetResponse>(DoRequest("1.0", "antdigital.creative.arkasset.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产
+        /// Summary: 创建素材资产</para>
+        /// </description>
+        public async Task<PushArkassetResponse> PushArkassetExAsync(PushArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkasset.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产信息
+        /// Summary: 查询素材资产信息</para>
+        /// </description>
+        public QueryArkassetResponse QueryArkasset(QueryArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryArkassetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产信息
+        /// Summary: 查询素材资产信息</para>
+        /// </description>
+        public async Task<QueryArkassetResponse> QueryArkassetAsync(QueryArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryArkassetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产信息
+        /// Summary: 查询素材资产信息</para>
+        /// </description>
+        public QueryArkassetResponse QueryArkassetEx(QueryArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetResponse>(DoRequest("1.0", "antdigital.creative.arkasset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产信息
+        /// Summary: 查询素材资产信息</para>
+        /// </description>
+        public async Task<QueryArkassetResponse> QueryArkassetExAsync(QueryArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkasset.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产列表
+        /// Summary: 查询素材资产列表</para>
+        /// </description>
+        public QueryArkassetListResponse QueryArkassetList(QueryArkassetListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryArkassetListEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产列表
+        /// Summary: 查询素材资产列表</para>
+        /// </description>
+        public async Task<QueryArkassetListResponse> QueryArkassetListAsync(QueryArkassetListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryArkassetListExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产列表
+        /// Summary: 查询素材资产列表</para>
+        /// </description>
+        public QueryArkassetListResponse QueryArkassetListEx(QueryArkassetListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetListResponse>(DoRequest("1.0", "antdigital.creative.arkasset.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产列表
+        /// Summary: 查询素材资产列表</para>
+        /// </description>
+        public async Task<QueryArkassetListResponse> QueryArkassetListExAsync(QueryArkassetListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetListResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkasset.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产信息
+        /// Summary: 更新素材资产信息</para>
+        /// </description>
+        public ResetArkassetResponse ResetArkasset(ResetArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetArkassetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产信息
+        /// Summary: 更新素材资产信息</para>
+        /// </description>
+        public async Task<ResetArkassetResponse> ResetArkassetAsync(ResetArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetArkassetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产信息
+        /// Summary: 更新素材资产信息</para>
+        /// </description>
+        public ResetArkassetResponse ResetArkassetEx(ResetArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetArkassetResponse>(DoRequest("1.0", "antdigital.creative.arkasset.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产信息
+        /// Summary: 更新素材资产信息</para>
+        /// </description>
+        public async Task<ResetArkassetResponse> ResetArkassetExAsync(ResetArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetArkassetResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkasset.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产
+        /// Summary: 删除素材资产</para>
+        /// </description>
+        public DeleteArkassetResponse DeleteArkasset(DeleteArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteArkassetEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产
+        /// Summary: 删除素材资产</para>
+        /// </description>
+        public async Task<DeleteArkassetResponse> DeleteArkassetAsync(DeleteArkassetRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteArkassetExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产
+        /// Summary: 删除素材资产</para>
+        /// </description>
+        public DeleteArkassetResponse DeleteArkassetEx(DeleteArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteArkassetResponse>(DoRequest("1.0", "antdigital.creative.arkasset.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产
+        /// Summary: 删除素材资产</para>
+        /// </description>
+        public async Task<DeleteArkassetResponse> DeleteArkassetExAsync(DeleteArkassetRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteArkassetResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkasset.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产组合
+        /// Summary: 创建素材资产组合</para>
+        /// </description>
+        public PushArkassetgroupResponse PushArkassetgroup(PushArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushArkassetgroupEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产组合
+        /// Summary: 创建素材资产组合</para>
+        /// </description>
+        public async Task<PushArkassetgroupResponse> PushArkassetgroupAsync(PushArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushArkassetgroupExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产组合
+        /// Summary: 创建素材资产组合</para>
+        /// </description>
+        public PushArkassetgroupResponse PushArkassetgroupEx(PushArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetgroupResponse>(DoRequest("1.0", "antdigital.creative.arkassetgroup.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建素材资产组合
+        /// Summary: 创建素材资产组合</para>
+        /// </description>
+        public async Task<PushArkassetgroupResponse> PushArkassetgroupExAsync(PushArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetgroupResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合信息
+        /// Summary: 查询素材资产组合信息</para>
+        /// </description>
+        public QueryArkassetgroupResponse QueryArkassetgroup(QueryArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryArkassetgroupEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合信息
+        /// Summary: 查询素材资产组合信息</para>
+        /// </description>
+        public async Task<QueryArkassetgroupResponse> QueryArkassetgroupAsync(QueryArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryArkassetgroupExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合信息
+        /// Summary: 查询素材资产组合信息</para>
+        /// </description>
+        public QueryArkassetgroupResponse QueryArkassetgroupEx(QueryArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetgroupResponse>(DoRequest("1.0", "antdigital.creative.arkassetgroup.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合信息
+        /// Summary: 查询素材资产组合信息</para>
+        /// </description>
+        public async Task<QueryArkassetgroupResponse> QueryArkassetgroupExAsync(QueryArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetgroupResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合列表
+        /// Summary: 查询素材资产组合列表</para>
+        /// </description>
+        public QueryArkassetgroupListResponse QueryArkassetgroupList(QueryArkassetgroupListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryArkassetgroupListEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合列表
+        /// Summary: 查询素材资产组合列表</para>
+        /// </description>
+        public async Task<QueryArkassetgroupListResponse> QueryArkassetgroupListAsync(QueryArkassetgroupListRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryArkassetgroupListExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合列表
+        /// Summary: 查询素材资产组合列表</para>
+        /// </description>
+        public QueryArkassetgroupListResponse QueryArkassetgroupListEx(QueryArkassetgroupListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetgroupListResponse>(DoRequest("1.0", "antdigital.creative.arkassetgroup.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询素材资产组合列表
+        /// Summary: 查询素材资产组合列表</para>
+        /// </description>
+        public async Task<QueryArkassetgroupListResponse> QueryArkassetgroupListExAsync(QueryArkassetgroupListRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetgroupListResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.list.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产组合信息
+        /// Summary: 更新素材资产组合信息</para>
+        /// </description>
+        public ResetArkassetgroupResponse ResetArkassetgroup(ResetArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ResetArkassetgroupEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产组合信息
+        /// Summary: 更新素材资产组合信息</para>
+        /// </description>
+        public async Task<ResetArkassetgroupResponse> ResetArkassetgroupAsync(ResetArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ResetArkassetgroupExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产组合信息
+        /// Summary: 更新素材资产组合信息</para>
+        /// </description>
+        public ResetArkassetgroupResponse ResetArkassetgroupEx(ResetArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetArkassetgroupResponse>(DoRequest("1.0", "antdigital.creative.arkassetgroup.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 更新素材资产组合信息
+        /// Summary: 更新素材资产组合信息</para>
+        /// </description>
+        public async Task<ResetArkassetgroupResponse> ResetArkassetgroupExAsync(ResetArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ResetArkassetgroupResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.reset", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产组
+        /// Summary: 删除素材资产组</para>
+        /// </description>
+        public DeleteArkassetgroupResponse DeleteArkassetgroup(DeleteArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteArkassetgroupEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产组
+        /// Summary: 删除素材资产组</para>
+        /// </description>
+        public async Task<DeleteArkassetgroupResponse> DeleteArkassetgroupAsync(DeleteArkassetgroupRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteArkassetgroupExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产组
+        /// Summary: 删除素材资产组</para>
+        /// </description>
+        public DeleteArkassetgroupResponse DeleteArkassetgroupEx(DeleteArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteArkassetgroupResponse>(DoRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除素材资产组
+        /// Summary: 删除素材资产组</para>
+        /// </description>
+        public async Task<DeleteArkassetgroupResponse> DeleteArkassetgroupExAsync(DeleteArkassetgroupRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteArkassetgroupResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
