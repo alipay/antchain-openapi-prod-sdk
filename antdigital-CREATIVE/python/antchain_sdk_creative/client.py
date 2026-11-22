@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.2.2',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.1',
+                    'sdk_version': '1.2.2',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -1113,4 +1113,564 @@ class Client:
         return TeaCore.from_map(
             creative_models.ExecMaasChatstreamResponse(),
             await self.do_request_async('1.0', 'antdigital.creative.maas.chatstream.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_arkasset(
+        self,
+        request: creative_models.PushArkassetRequest,
+    ) -> creative_models.PushArkassetResponse:
+        """
+        Description: 创建素材资产
+        Summary: 创建素材资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_arkasset_ex(request, headers, runtime)
+
+    async def push_arkasset_async(
+        self,
+        request: creative_models.PushArkassetRequest,
+    ) -> creative_models.PushArkassetResponse:
+        """
+        Description: 创建素材资产
+        Summary: 创建素材资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_arkasset_ex_async(request, headers, runtime)
+
+    def push_arkasset_ex(
+        self,
+        request: creative_models.PushArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetResponse:
+        """
+        Description: 创建素材资产
+        Summary: 创建素材资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkasset.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_arkasset_ex_async(
+        self,
+        request: creative_models.PushArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetResponse:
+        """
+        Description: 创建素材资产
+        Summary: 创建素材资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkasset.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_arkasset(
+        self,
+        request: creative_models.QueryArkassetRequest,
+    ) -> creative_models.QueryArkassetResponse:
+        """
+        Description: 查询素材资产信息
+        Summary: 查询素材资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_arkasset_ex(request, headers, runtime)
+
+    async def query_arkasset_async(
+        self,
+        request: creative_models.QueryArkassetRequest,
+    ) -> creative_models.QueryArkassetResponse:
+        """
+        Description: 查询素材资产信息
+        Summary: 查询素材资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_arkasset_ex_async(request, headers, runtime)
+
+    def query_arkasset_ex(
+        self,
+        request: creative_models.QueryArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetResponse:
+        """
+        Description: 查询素材资产信息
+        Summary: 查询素材资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkasset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_arkasset_ex_async(
+        self,
+        request: creative_models.QueryArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetResponse:
+        """
+        Description: 查询素材资产信息
+        Summary: 查询素材资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkasset.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_arkasset_list(
+        self,
+        request: creative_models.QueryArkassetListRequest,
+    ) -> creative_models.QueryArkassetListResponse:
+        """
+        Description: 查询素材资产列表
+        Summary: 查询素材资产列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_arkasset_list_ex(request, headers, runtime)
+
+    async def query_arkasset_list_async(
+        self,
+        request: creative_models.QueryArkassetListRequest,
+    ) -> creative_models.QueryArkassetListResponse:
+        """
+        Description: 查询素材资产列表
+        Summary: 查询素材资产列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_arkasset_list_ex_async(request, headers, runtime)
+
+    def query_arkasset_list_ex(
+        self,
+        request: creative_models.QueryArkassetListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetListResponse:
+        """
+        Description: 查询素材资产列表
+        Summary: 查询素材资产列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetListResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkasset.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_arkasset_list_ex_async(
+        self,
+        request: creative_models.QueryArkassetListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetListResponse:
+        """
+        Description: 查询素材资产列表
+        Summary: 查询素材资产列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetListResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkasset.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_arkasset(
+        self,
+        request: creative_models.ResetArkassetRequest,
+    ) -> creative_models.ResetArkassetResponse:
+        """
+        Description: 更新素材资产信息
+        Summary: 更新素材资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_arkasset_ex(request, headers, runtime)
+
+    async def reset_arkasset_async(
+        self,
+        request: creative_models.ResetArkassetRequest,
+    ) -> creative_models.ResetArkassetResponse:
+        """
+        Description: 更新素材资产信息
+        Summary: 更新素材资产信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_arkasset_ex_async(request, headers, runtime)
+
+    def reset_arkasset_ex(
+        self,
+        request: creative_models.ResetArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ResetArkassetResponse:
+        """
+        Description: 更新素材资产信息
+        Summary: 更新素材资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ResetArkassetResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkasset.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_arkasset_ex_async(
+        self,
+        request: creative_models.ResetArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ResetArkassetResponse:
+        """
+        Description: 更新素材资产信息
+        Summary: 更新素材资产信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ResetArkassetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkasset.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_arkasset(
+        self,
+        request: creative_models.DeleteArkassetRequest,
+    ) -> creative_models.DeleteArkassetResponse:
+        """
+        Description: 删除素材资产
+        Summary: 删除素材资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_arkasset_ex(request, headers, runtime)
+
+    async def delete_arkasset_async(
+        self,
+        request: creative_models.DeleteArkassetRequest,
+    ) -> creative_models.DeleteArkassetResponse:
+        """
+        Description: 删除素材资产
+        Summary: 删除素材资产
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_arkasset_ex_async(request, headers, runtime)
+
+    def delete_arkasset_ex(
+        self,
+        request: creative_models.DeleteArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.DeleteArkassetResponse:
+        """
+        Description: 删除素材资产
+        Summary: 删除素材资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.DeleteArkassetResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkasset.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_arkasset_ex_async(
+        self,
+        request: creative_models.DeleteArkassetRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.DeleteArkassetResponse:
+        """
+        Description: 删除素材资产
+        Summary: 删除素材资产
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.DeleteArkassetResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkasset.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_arkassetgroup(
+        self,
+        request: creative_models.PushArkassetgroupRequest,
+    ) -> creative_models.PushArkassetgroupResponse:
+        """
+        Description: 创建素材资产组合
+        Summary: 创建素材资产组合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_arkassetgroup_ex(request, headers, runtime)
+
+    async def push_arkassetgroup_async(
+        self,
+        request: creative_models.PushArkassetgroupRequest,
+    ) -> creative_models.PushArkassetgroupResponse:
+        """
+        Description: 创建素材资产组合
+        Summary: 创建素材资产组合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_arkassetgroup_ex_async(request, headers, runtime)
+
+    def push_arkassetgroup_ex(
+        self,
+        request: creative_models.PushArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetgroupResponse:
+        """
+        Description: 创建素材资产组合
+        Summary: 创建素材资产组合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetgroupResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetgroup.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_arkassetgroup_ex_async(
+        self,
+        request: creative_models.PushArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetgroupResponse:
+        """
+        Description: 创建素材资产组合
+        Summary: 创建素材资产组合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetgroupResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_arkassetgroup(
+        self,
+        request: creative_models.QueryArkassetgroupRequest,
+    ) -> creative_models.QueryArkassetgroupResponse:
+        """
+        Description: 查询素材资产组合信息
+        Summary: 查询素材资产组合信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_arkassetgroup_ex(request, headers, runtime)
+
+    async def query_arkassetgroup_async(
+        self,
+        request: creative_models.QueryArkassetgroupRequest,
+    ) -> creative_models.QueryArkassetgroupResponse:
+        """
+        Description: 查询素材资产组合信息
+        Summary: 查询素材资产组合信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_arkassetgroup_ex_async(request, headers, runtime)
+
+    def query_arkassetgroup_ex(
+        self,
+        request: creative_models.QueryArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetgroupResponse:
+        """
+        Description: 查询素材资产组合信息
+        Summary: 查询素材资产组合信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetgroupResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_arkassetgroup_ex_async(
+        self,
+        request: creative_models.QueryArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetgroupResponse:
+        """
+        Description: 查询素材资产组合信息
+        Summary: 查询素材资产组合信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetgroupResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_arkassetgroup_list(
+        self,
+        request: creative_models.QueryArkassetgroupListRequest,
+    ) -> creative_models.QueryArkassetgroupListResponse:
+        """
+        Description: 查询素材资产组合列表
+        Summary: 查询素材资产组合列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_arkassetgroup_list_ex(request, headers, runtime)
+
+    async def query_arkassetgroup_list_async(
+        self,
+        request: creative_models.QueryArkassetgroupListRequest,
+    ) -> creative_models.QueryArkassetgroupListResponse:
+        """
+        Description: 查询素材资产组合列表
+        Summary: 查询素材资产组合列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_arkassetgroup_list_ex_async(request, headers, runtime)
+
+    def query_arkassetgroup_list_ex(
+        self,
+        request: creative_models.QueryArkassetgroupListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetgroupListResponse:
+        """
+        Description: 查询素材资产组合列表
+        Summary: 查询素材资产组合列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetgroupListResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetgroup.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_arkassetgroup_list_ex_async(
+        self,
+        request: creative_models.QueryArkassetgroupListRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetgroupListResponse:
+        """
+        Description: 查询素材资产组合列表
+        Summary: 查询素材资产组合列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetgroupListResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.list.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def reset_arkassetgroup(
+        self,
+        request: creative_models.ResetArkassetgroupRequest,
+    ) -> creative_models.ResetArkassetgroupResponse:
+        """
+        Description: 更新素材资产组合信息
+        Summary: 更新素材资产组合信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reset_arkassetgroup_ex(request, headers, runtime)
+
+    async def reset_arkassetgroup_async(
+        self,
+        request: creative_models.ResetArkassetgroupRequest,
+    ) -> creative_models.ResetArkassetgroupResponse:
+        """
+        Description: 更新素材资产组合信息
+        Summary: 更新素材资产组合信息
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.reset_arkassetgroup_ex_async(request, headers, runtime)
+
+    def reset_arkassetgroup_ex(
+        self,
+        request: creative_models.ResetArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ResetArkassetgroupResponse:
+        """
+        Description: 更新素材资产组合信息
+        Summary: 更新素材资产组合信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ResetArkassetgroupResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetgroup.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def reset_arkassetgroup_ex_async(
+        self,
+        request: creative_models.ResetArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.ResetArkassetgroupResponse:
+        """
+        Description: 更新素材资产组合信息
+        Summary: 更新素材资产组合信息
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.ResetArkassetgroupResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.reset', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_arkassetgroup(
+        self,
+        request: creative_models.DeleteArkassetgroupRequest,
+    ) -> creative_models.DeleteArkassetgroupResponse:
+        """
+        Description: 删除素材资产组
+        Summary: 删除素材资产组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_arkassetgroup_ex(request, headers, runtime)
+
+    async def delete_arkassetgroup_async(
+        self,
+        request: creative_models.DeleteArkassetgroupRequest,
+    ) -> creative_models.DeleteArkassetgroupResponse:
+        """
+        Description: 删除素材资产组
+        Summary: 删除素材资产组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_arkassetgroup_ex_async(request, headers, runtime)
+
+    def delete_arkassetgroup_ex(
+        self,
+        request: creative_models.DeleteArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.DeleteArkassetgroupResponse:
+        """
+        Description: 删除素材资产组
+        Summary: 删除素材资产组
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.DeleteArkassetgroupResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetgroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_arkassetgroup_ex_async(
+        self,
+        request: creative_models.DeleteArkassetgroupRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.DeleteArkassetgroupResponse:
+        """
+        Description: 删除素材资产组
+        Summary: 删除素材资产组
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.DeleteArkassetgroupResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
