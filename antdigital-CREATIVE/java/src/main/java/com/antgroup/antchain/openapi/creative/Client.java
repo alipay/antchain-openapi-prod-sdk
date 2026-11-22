@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.1"),
+                    new TeaPair("sdk_version", "1.2.2"),
                     new TeaPair("_prod_code", "CREATIVE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -501,5 +501,215 @@ public class Client {
     public ExecMaasChatstreamResponse execMaasChatstreamEx(ExecMaasChatstreamRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecMaasChatstreamResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建素材资产
+     * Summary: 创建素材资产</p>
+     */
+    public PushArkassetResponse pushArkasset(PushArkassetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushArkassetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建素材资产
+     * Summary: 创建素材资产</p>
+     */
+    public PushArkassetResponse pushArkassetEx(PushArkassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkasset.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushArkassetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产信息
+     * Summary: 查询素材资产信息</p>
+     */
+    public QueryArkassetResponse queryArkasset(QueryArkassetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryArkassetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产信息
+     * Summary: 查询素材资产信息</p>
+     */
+    public QueryArkassetResponse queryArkassetEx(QueryArkassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkasset.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryArkassetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产列表
+     * Summary: 查询素材资产列表</p>
+     */
+    public QueryArkassetListResponse queryArkassetList(QueryArkassetListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryArkassetListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产列表
+     * Summary: 查询素材资产列表</p>
+     */
+    public QueryArkassetListResponse queryArkassetListEx(QueryArkassetListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkasset.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryArkassetListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新素材资产信息
+     * Summary: 更新素材资产信息</p>
+     */
+    public ResetArkassetResponse resetArkasset(ResetArkassetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetArkassetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新素材资产信息
+     * Summary: 更新素材资产信息</p>
+     */
+    public ResetArkassetResponse resetArkassetEx(ResetArkassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkasset.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetArkassetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除素材资产
+     * Summary: 删除素材资产</p>
+     */
+    public DeleteArkassetResponse deleteArkasset(DeleteArkassetRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteArkassetEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除素材资产
+     * Summary: 删除素材资产</p>
+     */
+    public DeleteArkassetResponse deleteArkassetEx(DeleteArkassetRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkasset.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteArkassetResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建素材资产组合
+     * Summary: 创建素材资产组合</p>
+     */
+    public PushArkassetgroupResponse pushArkassetgroup(PushArkassetgroupRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushArkassetgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 创建素材资产组合
+     * Summary: 创建素材资产组合</p>
+     */
+    public PushArkassetgroupResponse pushArkassetgroupEx(PushArkassetgroupRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetgroup.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushArkassetgroupResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产组合信息
+     * Summary: 查询素材资产组合信息</p>
+     */
+    public QueryArkassetgroupResponse queryArkassetgroup(QueryArkassetgroupRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryArkassetgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产组合信息
+     * Summary: 查询素材资产组合信息</p>
+     */
+    public QueryArkassetgroupResponse queryArkassetgroupEx(QueryArkassetgroupRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetgroup.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryArkassetgroupResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产组合列表
+     * Summary: 查询素材资产组合列表</p>
+     */
+    public QueryArkassetgroupListResponse queryArkassetgroupList(QueryArkassetgroupListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryArkassetgroupListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询素材资产组合列表
+     * Summary: 查询素材资产组合列表</p>
+     */
+    public QueryArkassetgroupListResponse queryArkassetgroupListEx(QueryArkassetgroupListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetgroup.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryArkassetgroupListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新素材资产组合信息
+     * Summary: 更新素材资产组合信息</p>
+     */
+    public ResetArkassetgroupResponse resetArkassetgroup(ResetArkassetgroupRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resetArkassetgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 更新素材资产组合信息
+     * Summary: 更新素材资产组合信息</p>
+     */
+    public ResetArkassetgroupResponse resetArkassetgroupEx(ResetArkassetgroupRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetgroup.reset", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResetArkassetgroupResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除素材资产组
+     * Summary: 删除素材资产组</p>
+     */
+    public DeleteArkassetgroupResponse deleteArkassetgroup(DeleteArkassetgroupRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteArkassetgroupEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 删除素材资产组
+     * Summary: 删除素材资产组</p>
+     */
+    public DeleteArkassetgroupResponse deleteArkassetgroupEx(DeleteArkassetgroupRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteArkassetgroupResponse());
     }
 }
