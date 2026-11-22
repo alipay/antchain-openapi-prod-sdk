@@ -2378,6 +2378,596 @@ export class ExecMaasChatstreamResponse extends $tea.Model {
   }
 }
 
+export class PushArkassetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"GroupId":"group-20240514212750-b5e9m","URL":"https://example-tos.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg","Name":"demo-portrait-image","AssetType":"Image","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushArkassetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514212750A1B2C3D4E5F6789ABC","Action":"CreateAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"asset-20240514212750-a3f8k","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514213000E5F6789ABCDEF01234","Action":"GetAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image","URL":"https://ark-asset.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg?X-Amz-Expires=43200","AssetType":"Image","GroupId":"group-20240514212750-b5e9m","Status":"Active","Moderation":{"Strategy":"Default"},"Error":{"Code":"","Message":""},"CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z","LastInferenceTime":"2024-05-14T22:15:30Z","ProjectName":"default"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Filter":{"GroupIds":["group-20240514212750-b5e9m"],"GroupType":"AIGC","Statuses":["Active"]},"MaxResults":1,"SortBy":"CreateTime","SortOrder":"Desc","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"202405142130001A2B3C4D5E6F708192","Action":"ListAssets","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Items":[{"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image","URL":"https://ark-asset.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg?X-Amz-Expires=43200","GroupId":"group-20240514212750-b5e9m","AssetType":"Image","Status":"Active","Moderation":{"Strategy":"Default"},"Error":{"Code":"","Message":""},"ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z","LastInferenceTime":"2024-05-14T22:15:30Z"}],"NextToken":"****bmNyeXB0ZWRfY3Vyc29yIjoiLi4****"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetArkassetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image-renamed","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetArkassetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"202405142130003C4D5E6F708192031A","Action":"UpdateAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteArkassetRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"asset-20240514212750-a3f8k","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteArkassetResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514213000C3D4E5F6789ABCDEF0","Action":"DeleteAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushArkassetgroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushArkassetgroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514212750B2C3D4E5F6789ABCDE","Action":"CreateAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetgroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"group-20240514212750-b5e9m","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetgroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514213000F6789ABCDEF0123456","Action":"GetAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetgroupListRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Filter":{"GroupIds":["group-20240514212750-b5e9m","group-20240514212810-c7n2p"],"GroupType":"AIGC"},"MaxResults":1,"SortBy":"CreateTime","SortOrder":"Desc","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetgroupListResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"202405142130002B3C4D5E6F70819203","Action":"ListAssetGroups","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Items":[{"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z"}],"NextToken":"****bmNyeXB0ZWRfY3Vyc29yIjoiLi4****"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetArkassetgroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group-renamed","Description":"更新后的虚拟人像素材组描述","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ResetArkassetgroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"202405142130004D5E6F708192031A2B","Action":"UpdateAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m"}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteArkassetgroupRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // {"Id":"group-20240514212750-b5e9m","ProjectName":"default"}
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteArkassetgroupResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // {"ResponseMetadata":{"RequestId":"20240514213000D4E5F6789ABCDEF012","Action":"DeleteAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{}}
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -2495,7 +3085,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.1",
+          sdk_version: "1.2.2",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
@@ -2856,6 +3446,216 @@ export default class Client {
   async execMaasChatstreamEx(request: ExecMaasChatstreamRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecMaasChatstreamResponse> {
     Util.validateModel(request);
     return $tea.cast<ExecMaasChatstreamResponse>(await this.doRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecMaasChatstreamResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建素材资产
+   * Summary: 创建素材资产
+   */
+  async pushArkasset(request: PushArkassetRequest): Promise<PushArkassetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushArkassetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建素材资产
+   * Summary: 创建素材资产
+   */
+  async pushArkassetEx(request: PushArkassetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushArkassetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushArkassetResponse>(await this.doRequest("1.0", "antdigital.creative.arkasset.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushArkassetResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产信息
+   * Summary: 查询素材资产信息
+   */
+  async queryArkasset(request: QueryArkassetRequest): Promise<QueryArkassetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryArkassetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产信息
+   * Summary: 查询素材资产信息
+   */
+  async queryArkassetEx(request: QueryArkassetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryArkassetResponse>(await this.doRequest("1.0", "antdigital.creative.arkasset.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产列表
+   * Summary: 查询素材资产列表
+   */
+  async queryArkassetList(request: QueryArkassetListRequest): Promise<QueryArkassetListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryArkassetListEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产列表
+   * Summary: 查询素材资产列表
+   */
+  async queryArkassetListEx(request: QueryArkassetListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryArkassetListResponse>(await this.doRequest("1.0", "antdigital.creative.arkasset.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetListResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 更新素材资产信息
+   * Summary: 更新素材资产信息
+   */
+  async resetArkasset(request: ResetArkassetRequest): Promise<ResetArkassetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetArkassetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 更新素材资产信息
+   * Summary: 更新素材资产信息
+   */
+  async resetArkassetEx(request: ResetArkassetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetArkassetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetArkassetResponse>(await this.doRequest("1.0", "antdigital.creative.arkasset.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetArkassetResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 删除素材资产
+   * Summary: 删除素材资产
+   */
+  async deleteArkasset(request: DeleteArkassetRequest): Promise<DeleteArkassetResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteArkassetEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 删除素材资产
+   * Summary: 删除素材资产
+   */
+  async deleteArkassetEx(request: DeleteArkassetRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteArkassetResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteArkassetResponse>(await this.doRequest("1.0", "antdigital.creative.arkasset.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteArkassetResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建素材资产组合
+   * Summary: 创建素材资产组合
+   */
+  async pushArkassetgroup(request: PushArkassetgroupRequest): Promise<PushArkassetgroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushArkassetgroupEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建素材资产组合
+   * Summary: 创建素材资产组合
+   */
+  async pushArkassetgroupEx(request: PushArkassetgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushArkassetgroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushArkassetgroupResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushArkassetgroupResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产组合信息
+   * Summary: 查询素材资产组合信息
+   */
+  async queryArkassetgroup(request: QueryArkassetgroupRequest): Promise<QueryArkassetgroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryArkassetgroupEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产组合信息
+   * Summary: 查询素材资产组合信息
+   */
+  async queryArkassetgroupEx(request: QueryArkassetgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetgroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryArkassetgroupResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetgroupResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产组合列表
+   * Summary: 查询素材资产组合列表
+   */
+  async queryArkassetgroupList(request: QueryArkassetgroupListRequest): Promise<QueryArkassetgroupListResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryArkassetgroupListEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询素材资产组合列表
+   * Summary: 查询素材资产组合列表
+   */
+  async queryArkassetgroupListEx(request: QueryArkassetgroupListRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetgroupListResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryArkassetgroupListResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.list.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetgroupListResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 更新素材资产组合信息
+   * Summary: 更新素材资产组合信息
+   */
+  async resetArkassetgroup(request: ResetArkassetgroupRequest): Promise<ResetArkassetgroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.resetArkassetgroupEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 更新素材资产组合信息
+   * Summary: 更新素材资产组合信息
+   */
+  async resetArkassetgroupEx(request: ResetArkassetgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ResetArkassetgroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ResetArkassetgroupResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.reset", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ResetArkassetgroupResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 删除素材资产组
+   * Summary: 删除素材资产组
+   */
+  async deleteArkassetgroup(request: DeleteArkassetgroupRequest): Promise<DeleteArkassetgroupResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteArkassetgroupEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 删除素材资产组
+   * Summary: 删除素材资产组
+   */
+  async deleteArkassetgroupEx(request: DeleteArkassetgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteArkassetgroupResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteArkassetgroupResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteArkassetgroupResponse({}));
   }
 
 }
