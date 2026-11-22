@@ -2966,6 +2966,706 @@ func (s *ExecMaasChatstreamResponse) SetResultMsg(v string) *ExecMaasChatstreamR
 	return s
 }
 
+type PushArkassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"GroupId":"group-20240514212750-b5e9m","URL":"https://example-tos.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg","Name":"demo-portrait-image","AssetType":"Image","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s PushArkassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetRequest) SetAuthToken(v string) *PushArkassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushArkassetRequest) SetProductInstanceId(v string) *PushArkassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushArkassetRequest) SetRequestBody(v string) *PushArkassetRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type PushArkassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514212750A1B2C3D4E5F6789ABC","Action":"CreateAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s PushArkassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetResponse) SetReqMsgId(v string) *PushArkassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushArkassetResponse) SetResultCode(v string) *PushArkassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushArkassetResponse) SetResultMsg(v string) *PushArkassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushArkassetResponse) SetResponseBody(v string) *PushArkassetResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type QueryArkassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"asset-20240514212750-a3f8k","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s QueryArkassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetRequest) SetAuthToken(v string) *QueryArkassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryArkassetRequest) SetProductInstanceId(v string) *QueryArkassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryArkassetRequest) SetRequestBody(v string) *QueryArkassetRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type QueryArkassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514213000E5F6789ABCDEF01234","Action":"GetAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image","URL":"https://ark-asset.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg?X-Amz-Expires=43200","AssetType":"Image","GroupId":"group-20240514212750-b5e9m","Status":"Active","Moderation":{"Strategy":"Default"},"Error":{"Code":"","Message":""},"CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z","LastInferenceTime":"2024-05-14T22:15:30Z","ProjectName":"default"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s QueryArkassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetResponse) SetReqMsgId(v string) *QueryArkassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryArkassetResponse) SetResultCode(v string) *QueryArkassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryArkassetResponse) SetResultMsg(v string) *QueryArkassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryArkassetResponse) SetResponseBody(v string) *QueryArkassetResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type QueryArkassetListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Filter":{"GroupIds":["group-20240514212750-b5e9m"],"GroupType":"AIGC","Statuses":["Active"]},"MaxResults":1,"SortBy":"CreateTime","SortOrder":"Desc","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s QueryArkassetListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetListRequest) SetAuthToken(v string) *QueryArkassetListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryArkassetListRequest) SetProductInstanceId(v string) *QueryArkassetListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryArkassetListRequest) SetRequestBody(v string) *QueryArkassetListRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type QueryArkassetListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"202405142130001A2B3C4D5E6F708192","Action":"ListAssets","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Items":[{"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image","URL":"https://ark-asset.cn-beijing.volcengine.com/asset-20240514212750-a3f8k.jpg?X-Amz-Expires=43200","GroupId":"group-20240514212750-b5e9m","AssetType":"Image","Status":"Active","Moderation":{"Strategy":"Default"},"Error":{"Code":"","Message":""},"ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z","LastInferenceTime":"2024-05-14T22:15:30Z"}],"NextToken":"****bmNyeXB0ZWRfY3Vyc29yIjoiLi4****"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s QueryArkassetListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetListResponse) SetReqMsgId(v string) *QueryArkassetListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryArkassetListResponse) SetResultCode(v string) *QueryArkassetListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryArkassetListResponse) SetResultMsg(v string) *QueryArkassetListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryArkassetListResponse) SetResponseBody(v string) *QueryArkassetListResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type ResetArkassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"asset-20240514212750-a3f8k","Name":"demo-portrait-image-renamed","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s ResetArkassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetArkassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetArkassetRequest) SetAuthToken(v string) *ResetArkassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetArkassetRequest) SetProductInstanceId(v string) *ResetArkassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetArkassetRequest) SetRequestBody(v string) *ResetArkassetRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type ResetArkassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"202405142130003C4D5E6F708192031A","Action":"UpdateAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"asset-20240514212750-a3f8k"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s ResetArkassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetArkassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetArkassetResponse) SetReqMsgId(v string) *ResetArkassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetArkassetResponse) SetResultCode(v string) *ResetArkassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetArkassetResponse) SetResultMsg(v string) *ResetArkassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetArkassetResponse) SetResponseBody(v string) *ResetArkassetResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type DeleteArkassetRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"asset-20240514212750-a3f8k","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s DeleteArkassetRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteArkassetRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteArkassetRequest) SetAuthToken(v string) *DeleteArkassetRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteArkassetRequest) SetProductInstanceId(v string) *DeleteArkassetRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteArkassetRequest) SetRequestBody(v string) *DeleteArkassetRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type DeleteArkassetResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514213000C3D4E5F6789ABCDEF0","Action":"DeleteAsset","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s DeleteArkassetResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteArkassetResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteArkassetResponse) SetReqMsgId(v string) *DeleteArkassetResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteArkassetResponse) SetResultCode(v string) *DeleteArkassetResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteArkassetResponse) SetResultMsg(v string) *DeleteArkassetResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteArkassetResponse) SetResponseBody(v string) *DeleteArkassetResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type PushArkassetgroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s PushArkassetgroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetgroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetgroupRequest) SetAuthToken(v string) *PushArkassetgroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushArkassetgroupRequest) SetProductInstanceId(v string) *PushArkassetgroupRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushArkassetgroupRequest) SetRequestBody(v string) *PushArkassetgroupRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type PushArkassetgroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514212750B2C3D4E5F6789ABCDE","Action":"CreateAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s PushArkassetgroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetgroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetgroupResponse) SetReqMsgId(v string) *PushArkassetgroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushArkassetgroupResponse) SetResultCode(v string) *PushArkassetgroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushArkassetgroupResponse) SetResultMsg(v string) *PushArkassetgroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushArkassetgroupResponse) SetResponseBody(v string) *PushArkassetgroupResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type QueryArkassetgroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"group-20240514212750-b5e9m","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s QueryArkassetgroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetgroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetgroupRequest) SetAuthToken(v string) *QueryArkassetgroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryArkassetgroupRequest) SetProductInstanceId(v string) *QueryArkassetgroupRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryArkassetgroupRequest) SetRequestBody(v string) *QueryArkassetgroupRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type QueryArkassetgroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514213000F6789ABCDEF0123456","Action":"GetAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s QueryArkassetgroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetgroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetgroupResponse) SetReqMsgId(v string) *QueryArkassetgroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryArkassetgroupResponse) SetResultCode(v string) *QueryArkassetgroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryArkassetgroupResponse) SetResultMsg(v string) *QueryArkassetgroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryArkassetgroupResponse) SetResponseBody(v string) *QueryArkassetgroupResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type QueryArkassetgroupListRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Filter":{"GroupIds":["group-20240514212750-b5e9m","group-20240514212810-c7n2p"],"GroupType":"AIGC"},"MaxResults":1,"SortBy":"CreateTime","SortOrder":"Desc","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s QueryArkassetgroupListRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetgroupListRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetgroupListRequest) SetAuthToken(v string) *QueryArkassetgroupListRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryArkassetgroupListRequest) SetProductInstanceId(v string) *QueryArkassetgroupListRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryArkassetgroupListRequest) SetRequestBody(v string) *QueryArkassetgroupListRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type QueryArkassetgroupListResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"202405142130002B3C4D5E6F70819203","Action":"ListAssetGroups","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Items":[{"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group","Description":"虚拟人像素材组示例","GroupType":"AIGC","ProjectName":"default","CreateTime":"2024-05-14T21:27:50Z","UpdateTime":"2024-05-14T21:30:00Z"}],"NextToken":"****bmNyeXB0ZWRfY3Vyc29yIjoiLi4****"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s QueryArkassetgroupListResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetgroupListResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetgroupListResponse) SetReqMsgId(v string) *QueryArkassetgroupListResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryArkassetgroupListResponse) SetResultCode(v string) *QueryArkassetgroupListResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryArkassetgroupListResponse) SetResultMsg(v string) *QueryArkassetgroupListResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryArkassetgroupListResponse) SetResponseBody(v string) *QueryArkassetgroupListResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type ResetArkassetgroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"group-20240514212750-b5e9m","Name":"demo-portrait-group-renamed","Description":"更新后的虚拟人像素材组描述","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s ResetArkassetgroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetArkassetgroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ResetArkassetgroupRequest) SetAuthToken(v string) *ResetArkassetgroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ResetArkassetgroupRequest) SetProductInstanceId(v string) *ResetArkassetgroupRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *ResetArkassetgroupRequest) SetRequestBody(v string) *ResetArkassetgroupRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type ResetArkassetgroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"202405142130004D5E6F708192031A2B","Action":"UpdateAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{"Id":"group-20240514212750-b5e9m"}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s ResetArkassetgroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ResetArkassetgroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ResetArkassetgroupResponse) SetReqMsgId(v string) *ResetArkassetgroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ResetArkassetgroupResponse) SetResultCode(v string) *ResetArkassetgroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ResetArkassetgroupResponse) SetResultMsg(v string) *ResetArkassetgroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ResetArkassetgroupResponse) SetResponseBody(v string) *ResetArkassetgroupResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type DeleteArkassetgroupRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// {"Id":"group-20240514212750-b5e9m","ProjectName":"default"}
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s DeleteArkassetgroupRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteArkassetgroupRequest) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteArkassetgroupRequest) SetAuthToken(v string) *DeleteArkassetgroupRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *DeleteArkassetgroupRequest) SetProductInstanceId(v string) *DeleteArkassetgroupRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *DeleteArkassetgroupRequest) SetRequestBody(v string) *DeleteArkassetgroupRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type DeleteArkassetgroupResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// {"ResponseMetadata":{"RequestId":"20240514213000D4E5F6789ABCDEF012","Action":"DeleteAssetGroup","Version":"2024-01-01","Service":"ark","Region":"cn-beijing"},"Result":{}}
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s DeleteArkassetgroupResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s DeleteArkassetgroupResponse) GoString() string {
+	return s.String()
+}
+
+func (s *DeleteArkassetgroupResponse) SetReqMsgId(v string) *DeleteArkassetgroupResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *DeleteArkassetgroupResponse) SetResultCode(v string) *DeleteArkassetgroupResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *DeleteArkassetgroupResponse) SetResultMsg(v string) *DeleteArkassetgroupResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *DeleteArkassetgroupResponse) SetResponseBody(v string) *DeleteArkassetgroupResponse {
+	s.ResponseBody = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3096,7 +3796,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.1"),
+				"sdk_version":      tea.String("1.2.2"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -3687,6 +4387,366 @@ func (client *Client) ExecMaasChatstreamEx(request *ExecMaasChatstreamRequest, h
 	}
 	_result = &ExecMaasChatstreamResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.maas.chatstream.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建素材资产
+//
+// Summary: 创建素材资产
+func (client *Client) PushArkasset(request *PushArkassetRequest) (_result *PushArkassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushArkassetResponse{}
+	_body, _err := client.PushArkassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建素材资产
+//
+// Summary: 创建素材资产
+func (client *Client) PushArkassetEx(request *PushArkassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushArkassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushArkassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkasset.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产信息
+//
+// Summary: 查询素材资产信息
+func (client *Client) QueryArkasset(request *QueryArkassetRequest) (_result *QueryArkassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryArkassetResponse{}
+	_body, _err := client.QueryArkassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产信息
+//
+// Summary: 查询素材资产信息
+func (client *Client) QueryArkassetEx(request *QueryArkassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryArkassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryArkassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkasset.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产列表
+//
+// Summary: 查询素材资产列表
+func (client *Client) QueryArkassetList(request *QueryArkassetListRequest) (_result *QueryArkassetListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryArkassetListResponse{}
+	_body, _err := client.QueryArkassetListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产列表
+//
+// Summary: 查询素材资产列表
+func (client *Client) QueryArkassetListEx(request *QueryArkassetListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryArkassetListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryArkassetListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkasset.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新素材资产信息
+//
+// Summary: 更新素材资产信息
+func (client *Client) ResetArkasset(request *ResetArkassetRequest) (_result *ResetArkassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetArkassetResponse{}
+	_body, _err := client.ResetArkassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新素材资产信息
+//
+// Summary: 更新素材资产信息
+func (client *Client) ResetArkassetEx(request *ResetArkassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetArkassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetArkassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkasset.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除素材资产
+//
+// Summary: 删除素材资产
+func (client *Client) DeleteArkasset(request *DeleteArkassetRequest) (_result *DeleteArkassetResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteArkassetResponse{}
+	_body, _err := client.DeleteArkassetEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除素材资产
+//
+// Summary: 删除素材资产
+func (client *Client) DeleteArkassetEx(request *DeleteArkassetRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteArkassetResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteArkassetResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkasset.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建素材资产组合
+//
+// Summary: 创建素材资产组合
+func (client *Client) PushArkassetgroup(request *PushArkassetgroupRequest) (_result *PushArkassetgroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushArkassetgroupResponse{}
+	_body, _err := client.PushArkassetgroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建素材资产组合
+//
+// Summary: 创建素材资产组合
+func (client *Client) PushArkassetgroupEx(request *PushArkassetgroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushArkassetgroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushArkassetgroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产组合信息
+//
+// Summary: 查询素材资产组合信息
+func (client *Client) QueryArkassetgroup(request *QueryArkassetgroupRequest) (_result *QueryArkassetgroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryArkassetgroupResponse{}
+	_body, _err := client.QueryArkassetgroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产组合信息
+//
+// Summary: 查询素材资产组合信息
+func (client *Client) QueryArkassetgroupEx(request *QueryArkassetgroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryArkassetgroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryArkassetgroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产组合列表
+//
+// Summary: 查询素材资产组合列表
+func (client *Client) QueryArkassetgroupList(request *QueryArkassetgroupListRequest) (_result *QueryArkassetgroupListResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryArkassetgroupListResponse{}
+	_body, _err := client.QueryArkassetgroupListEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询素材资产组合列表
+//
+// Summary: 查询素材资产组合列表
+func (client *Client) QueryArkassetgroupListEx(request *QueryArkassetgroupListRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryArkassetgroupListResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryArkassetgroupListResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.list.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新素材资产组合信息
+//
+// Summary: 更新素材资产组合信息
+func (client *Client) ResetArkassetgroup(request *ResetArkassetgroupRequest) (_result *ResetArkassetgroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ResetArkassetgroupResponse{}
+	_body, _err := client.ResetArkassetgroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 更新素材资产组合信息
+//
+// Summary: 更新素材资产组合信息
+func (client *Client) ResetArkassetgroupEx(request *ResetArkassetgroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ResetArkassetgroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ResetArkassetgroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.reset"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除素材资产组
+//
+// Summary: 删除素材资产组
+func (client *Client) DeleteArkassetgroup(request *DeleteArkassetgroupRequest) (_result *DeleteArkassetgroupResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &DeleteArkassetgroupResponse{}
+	_body, _err := client.DeleteArkassetgroupEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 删除素材资产组
+//
+// Summary: 删除素材资产组
+func (client *Client) DeleteArkassetgroupEx(request *DeleteArkassetgroupRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *DeleteArkassetgroupResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &DeleteArkassetgroupResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
