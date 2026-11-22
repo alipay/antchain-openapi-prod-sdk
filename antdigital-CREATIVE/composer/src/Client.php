@@ -43,6 +43,26 @@ use AntChain\CREATIVE\Models\ExecMaasPriceRequest;
 use AntChain\CREATIVE\Models\ExecMaasPriceResponse;
 use AntChain\CREATIVE\Models\ExecMaasChatstreamRequest;
 use AntChain\CREATIVE\Models\ExecMaasChatstreamResponse;
+use AntChain\CREATIVE\Models\PushArkassetRequest;
+use AntChain\CREATIVE\Models\PushArkassetResponse;
+use AntChain\CREATIVE\Models\QueryArkassetRequest;
+use AntChain\CREATIVE\Models\QueryArkassetResponse;
+use AntChain\CREATIVE\Models\QueryArkassetListRequest;
+use AntChain\CREATIVE\Models\QueryArkassetListResponse;
+use AntChain\CREATIVE\Models\ResetArkassetRequest;
+use AntChain\CREATIVE\Models\ResetArkassetResponse;
+use AntChain\CREATIVE\Models\DeleteArkassetRequest;
+use AntChain\CREATIVE\Models\DeleteArkassetResponse;
+use AntChain\CREATIVE\Models\PushArkassetgroupRequest;
+use AntChain\CREATIVE\Models\PushArkassetgroupResponse;
+use AntChain\CREATIVE\Models\QueryArkassetgroupRequest;
+use AntChain\CREATIVE\Models\QueryArkassetgroupResponse;
+use AntChain\CREATIVE\Models\QueryArkassetgroupListRequest;
+use AntChain\CREATIVE\Models\QueryArkassetgroupListResponse;
+use AntChain\CREATIVE\Models\ResetArkassetgroupRequest;
+use AntChain\CREATIVE\Models\ResetArkassetgroupResponse;
+use AntChain\CREATIVE\Models\DeleteArkassetgroupRequest;
+use AntChain\CREATIVE\Models\DeleteArkassetgroupResponse;
 
 class Client {
     protected $_endpoint;
@@ -179,7 +199,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.1",
+                    "sdk_version" => "1.2.2",
                     "_prod_code" => "CREATIVE",
                     "_prod_channel" => "default"
                 ];
@@ -597,5 +617,255 @@ class Client {
     public function execMaasChatstreamEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return ExecMaasChatstreamResponse::fromMap($this->doRequest("1.0", "antdigital.creative.maas.chatstream.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建素材资产
+     * Summary: 创建素材资产
+     * @param PushArkassetRequest $request
+     * @return PushArkassetResponse
+     */
+    public function pushArkasset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushArkassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建素材资产
+     * Summary: 创建素材资产
+     * @param PushArkassetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushArkassetResponse
+     */
+    public function pushArkassetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushArkassetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkasset.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询素材资产信息
+     * Summary: 查询素材资产信息
+     * @param QueryArkassetRequest $request
+     * @return QueryArkassetResponse
+     */
+    public function queryArkasset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryArkassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询素材资产信息
+     * Summary: 查询素材资产信息
+     * @param QueryArkassetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryArkassetResponse
+     */
+    public function queryArkassetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryArkassetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkasset.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询素材资产列表
+     * Summary: 查询素材资产列表
+     * @param QueryArkassetListRequest $request
+     * @return QueryArkassetListResponse
+     */
+    public function queryArkassetList($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryArkassetListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询素材资产列表
+     * Summary: 查询素材资产列表
+     * @param QueryArkassetListRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryArkassetListResponse
+     */
+    public function queryArkassetListEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryArkassetListResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkasset.list.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新素材资产信息
+     * Summary: 更新素材资产信息
+     * @param ResetArkassetRequest $request
+     * @return ResetArkassetResponse
+     */
+    public function resetArkasset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetArkassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新素材资产信息
+     * Summary: 更新素材资产信息
+     * @param ResetArkassetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetArkassetResponse
+     */
+    public function resetArkassetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetArkassetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkasset.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除素材资产
+     * Summary: 删除素材资产
+     * @param DeleteArkassetRequest $request
+     * @return DeleteArkassetResponse
+     */
+    public function deleteArkasset($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteArkassetEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除素材资产
+     * Summary: 删除素材资产
+     * @param DeleteArkassetRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteArkassetResponse
+     */
+    public function deleteArkassetEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteArkassetResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkasset.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建素材资产组合
+     * Summary: 创建素材资产组合
+     * @param PushArkassetgroupRequest $request
+     * @return PushArkassetgroupResponse
+     */
+    public function pushArkassetgroup($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushArkassetgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建素材资产组合
+     * Summary: 创建素材资产组合
+     * @param PushArkassetgroupRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushArkassetgroupResponse
+     */
+    public function pushArkassetgroupEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushArkassetgroupResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询素材资产组合信息
+     * Summary: 查询素材资产组合信息
+     * @param QueryArkassetgroupRequest $request
+     * @return QueryArkassetgroupResponse
+     */
+    public function queryArkassetgroup($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryArkassetgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询素材资产组合信息
+     * Summary: 查询素材资产组合信息
+     * @param QueryArkassetgroupRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryArkassetgroupResponse
+     */
+    public function queryArkassetgroupEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryArkassetgroupResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询素材资产组合列表
+     * Summary: 查询素材资产组合列表
+     * @param QueryArkassetgroupListRequest $request
+     * @return QueryArkassetgroupListResponse
+     */
+    public function queryArkassetgroupList($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryArkassetgroupListEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询素材资产组合列表
+     * Summary: 查询素材资产组合列表
+     * @param QueryArkassetgroupListRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryArkassetgroupListResponse
+     */
+    public function queryArkassetgroupListEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryArkassetgroupListResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.list.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 更新素材资产组合信息
+     * Summary: 更新素材资产组合信息
+     * @param ResetArkassetgroupRequest $request
+     * @return ResetArkassetgroupResponse
+     */
+    public function resetArkassetgroup($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resetArkassetgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 更新素材资产组合信息
+     * Summary: 更新素材资产组合信息
+     * @param ResetArkassetgroupRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResetArkassetgroupResponse
+     */
+    public function resetArkassetgroupEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResetArkassetgroupResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.reset", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 删除素材资产组
+     * Summary: 删除素材资产组
+     * @param DeleteArkassetgroupRequest $request
+     * @return DeleteArkassetgroupResponse
+     */
+    public function deleteArkassetgroup($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteArkassetgroupEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 删除素材资产组
+     * Summary: 删除素材资产组
+     * @param DeleteArkassetgroupRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteArkassetgroupResponse
+     */
+    public function deleteArkassetgroupEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteArkassetgroupResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
