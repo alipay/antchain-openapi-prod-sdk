@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.1.3"),
+                    new TeaPair("sdk_version", "1.1.4"),
                     new TeaPair("_prod_code", "AICONUMDECISION"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -291,5 +291,131 @@ public class Client {
     public CallbackRobotcallResponse callbackRobotcallEx(CallbackRobotcallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.robotcall.callback", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CallbackRobotcallResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportBatchmarketingResponse importBatchmarketing(ImportBatchmarketingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importBatchmarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportBatchmarketingResponse importBatchmarketingEx(ImportBatchmarketingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.batchmarketing.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportBatchmarketingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryTaskListResponse queryTaskList(QueryTaskListRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTaskListEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryTaskListResponse queryTaskListEx(QueryTaskListRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.task.list.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTaskListResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportBizspaceBatchmarketingResponse importBizspaceBatchmarketing(ImportBizspaceBatchmarketingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importBizspaceBatchmarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportBizspaceBatchmarketingResponse importBizspaceBatchmarketingEx(ImportBizspaceBatchmarketingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.bizspace.batchmarketing.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportBizspaceBatchmarketingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryBizspaceTaskResponse queryBizspaceTask(QueryBizspaceTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryBizspaceTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryBizspaceTaskResponse queryBizspaceTaskEx(QueryBizspaceTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.bizspace.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryBizspaceTaskResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportOutBatchmarketingResponse importOutBatchmarketing(ImportOutBatchmarketingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importOutBatchmarketingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 批量营销收单
+     * Summary: 批量营销收单</p>
+     */
+    public ImportOutBatchmarketingResponse importOutBatchmarketingEx(ImportOutBatchmarketingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.out.batchmarketing.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportOutBatchmarketingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryOutTaskResponse queryOutTask(QueryOutTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryOutTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询任务列表
+     * Summary: 查询任务列表</p>
+     */
+    public QueryOutTaskResponse queryOutTaskEx(QueryOutTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.aiconumdecision.out.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryOutTaskResponse());
     }
 }

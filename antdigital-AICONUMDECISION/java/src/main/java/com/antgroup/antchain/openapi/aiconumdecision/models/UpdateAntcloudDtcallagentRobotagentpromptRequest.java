@@ -28,6 +28,18 @@ public class UpdateAntcloudDtcallagentRobotagentpromptRequest extends TeaModel {
     @Validation(required = true)
     public String sysContentAgent;
 
+    // 敏感词定义
+    @NameInMap("sensitive_word_regex")
+    public String sensitiveWordRegex;
+
+    // 敏感词回复
+    @NameInMap("sensitive_word_reply")
+    public String sensitiveWordReply;
+
+    // 开常白
+    @NameInMap("opening_content")
+    public String openingContent;
+
     public static UpdateAntcloudDtcallagentRobotagentpromptRequest build(java.util.Map<String, ?> map) throws Exception {
         UpdateAntcloudDtcallagentRobotagentpromptRequest self = new UpdateAntcloudDtcallagentRobotagentpromptRequest();
         return TeaModel.build(map, self);
@@ -71,6 +83,30 @@ public class UpdateAntcloudDtcallagentRobotagentpromptRequest extends TeaModel {
     }
     public String getSysContentAgent() {
         return this.sysContentAgent;
+    }
+
+    public UpdateAntcloudDtcallagentRobotagentpromptRequest setSensitiveWordRegex(String sensitiveWordRegex) {
+        this.sensitiveWordRegex = sensitiveWordRegex;
+        return this;
+    }
+    public String getSensitiveWordRegex() {
+        return this.sensitiveWordRegex;
+    }
+
+    public UpdateAntcloudDtcallagentRobotagentpromptRequest setSensitiveWordReply(String sensitiveWordReply) {
+        this.sensitiveWordReply = sensitiveWordReply;
+        return this;
+    }
+    public String getSensitiveWordReply() {
+        return this.sensitiveWordReply;
+    }
+
+    public UpdateAntcloudDtcallagentRobotagentpromptRequest setOpeningContent(String openingContent) {
+        this.openingContent = openingContent;
+        return this;
+    }
+    public String getOpeningContent() {
+        return this.openingContent;
     }
 
 }
