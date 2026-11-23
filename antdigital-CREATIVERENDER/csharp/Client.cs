@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.4"},
+                        {"sdk_version", "2.1.7"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.1.4"},
+                        {"sdk_version", "2.1.7"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -1095,6 +1095,664 @@ namespace AntChain.SDK.CREATIVERENDER
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeTemplateResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeStoryboardResponse ExecAntcloudMarketingagentCreativeStoryboard(ExecAntcloudMarketingagentCreativeStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentCreativeStoryboardEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeStoryboardResponse> ExecAntcloudMarketingagentCreativeStoryboardAsync(ExecAntcloudMarketingagentCreativeStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentCreativeStoryboardExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeStoryboardResponse ExecAntcloudMarketingagentCreativeStoryboardEx(ExecAntcloudMarketingagentCreativeStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.storyboard.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentCreativeStoryboardResponse execAntcloudMarketingagentCreativeStoryboardResponse = new ExecAntcloudMarketingagentCreativeStoryboardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentCreativeStoryboardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeStoryboardResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.storyboard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeStoryboardResponse> ExecAntcloudMarketingagentCreativeStoryboardExAsync(ExecAntcloudMarketingagentCreativeStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.storyboard.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentCreativeStoryboardResponse execAntcloudMarketingagentCreativeStoryboardResponse = new ExecAntcloudMarketingagentCreativeStoryboardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentCreativeStoryboardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeStoryboardResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.storyboard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeStoryboardResponse QueryAntcloudMarketingagentCreativeStoryboard(QueryAntcloudMarketingagentCreativeStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentCreativeStoryboardEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeStoryboardResponse> QueryAntcloudMarketingagentCreativeStoryboardAsync(QueryAntcloudMarketingagentCreativeStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentCreativeStoryboardExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeStoryboardResponse QueryAntcloudMarketingagentCreativeStoryboardEx(QueryAntcloudMarketingagentCreativeStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.storyboard.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentCreativeStoryboardResponse queryAntcloudMarketingagentCreativeStoryboardResponse = new QueryAntcloudMarketingagentCreativeStoryboardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentCreativeStoryboardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeStoryboardResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.storyboard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeStoryboardResponse> QueryAntcloudMarketingagentCreativeStoryboardExAsync(QueryAntcloudMarketingagentCreativeStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.storyboard.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentCreativeStoryboardResponse queryAntcloudMarketingagentCreativeStoryboardResponse = new QueryAntcloudMarketingagentCreativeStoryboardResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentCreativeStoryboardResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeStoryboardResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.storyboard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeRemakeResponse ExecAntcloudMarketingagentCreativeRemake(ExecAntcloudMarketingagentCreativeRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentCreativeRemakeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeRemakeResponse> ExecAntcloudMarketingagentCreativeRemakeAsync(ExecAntcloudMarketingagentCreativeRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentCreativeRemakeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public ExecAntcloudMarketingagentCreativeRemakeResponse ExecAntcloudMarketingagentCreativeRemakeEx(ExecAntcloudMarketingagentCreativeRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.remake.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentCreativeRemakeResponse execAntcloudMarketingagentCreativeRemakeResponse = new ExecAntcloudMarketingagentCreativeRemakeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentCreativeRemakeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeRemakeResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.remake.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentCreativeRemakeResponse> ExecAntcloudMarketingagentCreativeRemakeExAsync(ExecAntcloudMarketingagentCreativeRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.remake.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentCreativeRemakeResponse execAntcloudMarketingagentCreativeRemakeResponse = new ExecAntcloudMarketingagentCreativeRemakeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentCreativeRemakeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentCreativeRemakeResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.remake.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeRemakeResponse QueryAntcloudMarketingagentCreativeRemake(QueryAntcloudMarketingagentCreativeRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentCreativeRemakeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeRemakeResponse> QueryAntcloudMarketingagentCreativeRemakeAsync(QueryAntcloudMarketingagentCreativeRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentCreativeRemakeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentCreativeRemakeResponse QueryAntcloudMarketingagentCreativeRemakeEx(QueryAntcloudMarketingagentCreativeRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.remake.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentCreativeRemakeResponse queryAntcloudMarketingagentCreativeRemakeResponse = new QueryAntcloudMarketingagentCreativeRemakeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentCreativeRemakeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeRemakeResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.remake.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentCreativeRemakeResponse> QueryAntcloudMarketingagentCreativeRemakeExAsync(QueryAntcloudMarketingagentCreativeRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.remake.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentCreativeRemakeResponse queryAntcloudMarketingagentCreativeRemakeResponse = new QueryAntcloudMarketingagentCreativeRemakeResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentCreativeRemakeResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentCreativeRemakeResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.remake.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 素材上传接口
+        /// Summary: 素材上传接口</para>
+        /// </description>
+        public PushAntcloudMarketingagentCreativeMaterialResponse PushAntcloudMarketingagentCreativeMaterial(PushAntcloudMarketingagentCreativeMaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushAntcloudMarketingagentCreativeMaterialEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 素材上传接口
+        /// Summary: 素材上传接口</para>
+        /// </description>
+        public async Task<PushAntcloudMarketingagentCreativeMaterialResponse> PushAntcloudMarketingagentCreativeMaterialAsync(PushAntcloudMarketingagentCreativeMaterialRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushAntcloudMarketingagentCreativeMaterialExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 素材上传接口
+        /// Summary: 素材上传接口</para>
+        /// </description>
+        public PushAntcloudMarketingagentCreativeMaterialResponse PushAntcloudMarketingagentCreativeMaterialEx(PushAntcloudMarketingagentCreativeMaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.material.push",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    PushAntcloudMarketingagentCreativeMaterialResponse pushAntcloudMarketingagentCreativeMaterialResponse = new PushAntcloudMarketingagentCreativeMaterialResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return pushAntcloudMarketingagentCreativeMaterialResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAntcloudMarketingagentCreativeMaterialResponse>(DoRequest("1.0", "antcloud.marketingagent.creative.material.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 素材上传接口
+        /// Summary: 素材上传接口</para>
+        /// </description>
+        public async Task<PushAntcloudMarketingagentCreativeMaterialResponse> PushAntcloudMarketingagentCreativeMaterialExAsync(PushAntcloudMarketingagentCreativeMaterialRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.creative.material.push",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    PushAntcloudMarketingagentCreativeMaterialResponse pushAntcloudMarketingagentCreativeMaterialResponse = new PushAntcloudMarketingagentCreativeMaterialResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return pushAntcloudMarketingagentCreativeMaterialResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushAntcloudMarketingagentCreativeMaterialResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.creative.material.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频解析
+        /// Summary: 视频解析</para>
+        /// </description>
+        public ExecAntcloudMarketingagentTemplateAnalysisResponse ExecAntcloudMarketingagentTemplateAnalysis(ExecAntcloudMarketingagentTemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentTemplateAnalysisEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频解析
+        /// Summary: 视频解析</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentTemplateAnalysisResponse> ExecAntcloudMarketingagentTemplateAnalysisAsync(ExecAntcloudMarketingagentTemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentTemplateAnalysisExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频解析
+        /// Summary: 视频解析</para>
+        /// </description>
+        public ExecAntcloudMarketingagentTemplateAnalysisResponse ExecAntcloudMarketingagentTemplateAnalysisEx(ExecAntcloudMarketingagentTemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.template.analysis.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentTemplateAnalysisResponse execAntcloudMarketingagentTemplateAnalysisResponse = new ExecAntcloudMarketingagentTemplateAnalysisResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentTemplateAnalysisResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentTemplateAnalysisResponse>(DoRequest("1.0", "antcloud.marketingagent.template.analysis.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频解析
+        /// Summary: 视频解析</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentTemplateAnalysisResponse> ExecAntcloudMarketingagentTemplateAnalysisExAsync(ExecAntcloudMarketingagentTemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.template.analysis.exec",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    ExecAntcloudMarketingagentTemplateAnalysisResponse execAntcloudMarketingagentTemplateAnalysisResponse = new ExecAntcloudMarketingagentTemplateAnalysisResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return execAntcloudMarketingagentTemplateAnalysisResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentTemplateAnalysisResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.template.analysis.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询
+        /// Summary: 视频拆解查询</para>
+        /// </description>
+        public QueryAntcloudMarketingagentTemplateAnalysisResponse QueryAntcloudMarketingagentTemplateAnalysis(QueryAntcloudMarketingagentTemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentTemplateAnalysisEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询
+        /// Summary: 视频拆解查询</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentTemplateAnalysisResponse> QueryAntcloudMarketingagentTemplateAnalysisAsync(QueryAntcloudMarketingagentTemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentTemplateAnalysisExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询
+        /// Summary: 视频拆解查询</para>
+        /// </description>
+        public QueryAntcloudMarketingagentTemplateAnalysisResponse QueryAntcloudMarketingagentTemplateAnalysisEx(QueryAntcloudMarketingagentTemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.template.analysis.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentTemplateAnalysisResponse queryAntcloudMarketingagentTemplateAnalysisResponse = new QueryAntcloudMarketingagentTemplateAnalysisResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentTemplateAnalysisResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentTemplateAnalysisResponse>(DoRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询
+        /// Summary: 视频拆解查询</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentTemplateAnalysisResponse> QueryAntcloudMarketingagentTemplateAnalysisExAsync(QueryAntcloudMarketingagentTemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            if (!AlibabaCloud.TeaUtil.Common.IsUnset(request.FileObject))
+            {
+                CreateAntcloudGatewayxFileUploadRequest uploadReq = new CreateAntcloudGatewayxFileUploadRequest
+                {
+                    AuthToken = request.AuthToken,
+                    ApiCode = "antcloud.marketingagent.template.analysis.query",
+                    FileName = request.FileObjectName,
+                };
+                CreateAntcloudGatewayxFileUploadResponse uploadResp = await CreateAntcloudGatewayxFileUploadExAsync(uploadReq, headers, runtime);
+                if (!AntChain.AlipayUtil.AntchainUtils.IsSuccess(uploadResp.ResultCode, "ok"))
+                {
+                    QueryAntcloudMarketingagentTemplateAnalysisResponse queryAntcloudMarketingagentTemplateAnalysisResponse = new QueryAntcloudMarketingagentTemplateAnalysisResponse
+                    {
+                        ReqMsgId = uploadResp.ReqMsgId,
+                        ResultCode = uploadResp.ResultCode,
+                        ResultMsg = uploadResp.ResultMsg,
+                    };
+                    return queryAntcloudMarketingagentTemplateAnalysisResponse;
+                }
+                Dictionary<string, string> uploadHeaders = AntChain.AlipayUtil.AntchainUtils.ParseUploadHeaders(uploadResp.UploadHeaders);
+                AntChain.AlipayUtil.AntchainUtils.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl);
+                request.FileId = uploadResp.FileId;
+                request.FileObject = null;
+            }
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentTemplateAnalysisResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
