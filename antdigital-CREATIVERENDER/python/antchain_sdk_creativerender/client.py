@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.5',
+                    'sdk_version': '2.1.7',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.1.5',
+                    'sdk_version': '2.1.7',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -1149,6 +1149,650 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.QueryAntcloudMarketingagentCreativeTemplateResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.creative.template.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_storyboard(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_storyboard_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_storyboard_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_storyboard_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_storyboard_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.storyboard.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_creative_storyboard_response = creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_creative_storyboard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.storyboard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_storyboard_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.storyboard.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_creative_storyboard_response = creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_creative_storyboard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeStoryboardResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.storyboard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_storyboard(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_storyboard_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_storyboard_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_storyboard_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_storyboard_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.storyboard.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_creative_storyboard_response = creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_creative_storyboard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.storyboard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_storyboard_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.storyboard.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_creative_storyboard_response = creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_creative_storyboard_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeStoryboardResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.storyboard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_creative_remake(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeRemakeRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_creative_remake_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_creative_remake_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeRemakeRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_creative_remake_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_creative_remake_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.remake.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_creative_remake_response = creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_creative_remake_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.remake.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_creative_remake_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentCreativeRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.remake.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_creative_remake_response = creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_creative_remake_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentCreativeRemakeResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.remake.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_creative_remake(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeRemakeRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_creative_remake_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_creative_remake_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeRemakeRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_creative_remake_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_creative_remake_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.remake.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_creative_remake_response = creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_creative_remake_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.remake.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_creative_remake_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentCreativeRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.remake.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_creative_remake_response = creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_creative_remake_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentCreativeRemakeResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.remake.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_antcloud_marketingagent_creative_material(
+        self,
+        request: creativerender_models.PushAntcloudMarketingagentCreativeMaterialRequest,
+    ) -> creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材上传接口
+        Summary: 素材上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_antcloud_marketingagent_creative_material_ex(request, headers, runtime)
+
+    async def push_antcloud_marketingagent_creative_material_async(
+        self,
+        request: creativerender_models.PushAntcloudMarketingagentCreativeMaterialRequest,
+    ) -> creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材上传接口
+        Summary: 素材上传接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_antcloud_marketingagent_creative_material_ex_async(request, headers, runtime)
+
+    def push_antcloud_marketingagent_creative_material_ex(
+        self,
+        request: creativerender_models.PushAntcloudMarketingagentCreativeMaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材上传接口
+        Summary: 素材上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.material.push',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                push_antcloud_marketingagent_creative_material_response = creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return push_antcloud_marketingagent_creative_material_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.creative.material.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_antcloud_marketingagent_creative_material_ex_async(
+        self,
+        request: creativerender_models.PushAntcloudMarketingagentCreativeMaterialRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse:
+        """
+        Description: 素材上传接口
+        Summary: 素材上传接口
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.creative.material.push',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                push_antcloud_marketingagent_creative_material_response = creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return push_antcloud_marketingagent_creative_material_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.PushAntcloudMarketingagentCreativeMaterialResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.creative.material.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_template_analysis(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频解析
+        Summary: 视频解析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_template_analysis_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_template_analysis_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频解析
+        Summary: 视频解析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_template_analysis_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_template_analysis_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频解析
+        Summary: 视频解析
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.template.analysis.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_template_analysis_response = creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_template_analysis_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.template.analysis.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_template_analysis_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频解析
+        Summary: 视频解析
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.template.analysis.exec',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                exec_antcloud_marketingagent_template_analysis_response = creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return exec_antcloud_marketingagent_template_analysis_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentTemplateAnalysisResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.template.analysis.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_template_analysis(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询
+        Summary: 视频拆解查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_template_analysis_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_template_analysis_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询
+        Summary: 视频拆解查询
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_template_analysis_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_template_analysis_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询
+        Summary: 视频拆解查询
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.template.analysis.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_template_analysis_response = creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_template_analysis_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.template.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_template_analysis_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询
+        Summary: 视频拆解查询
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = creativerender_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.marketingagent.template.analysis.query',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                query_antcloud_marketingagent_template_analysis_response = creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return query_antcloud_marketingagent_template_analysis_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.template.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(
