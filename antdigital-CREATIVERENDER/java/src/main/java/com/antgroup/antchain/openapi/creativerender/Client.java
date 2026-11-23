@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.1.5"),
+                    new TeaPair("sdk_version", "2.1.6"),
                     new TeaPair("_prod_code", "CREATIVERENDER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -523,6 +523,307 @@ public class Client {
     public QueryAntcloudMarketingagentCreativeTemplateResponse queryAntcloudMarketingagentCreativeTemplateEx(QueryAntcloudMarketingagentCreativeTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id</p>
+     */
+    public ExecAntcloudMarketingagentCreativeStoryboardResponse execAntcloudMarketingagentCreativeStoryboard(ExecAntcloudMarketingagentCreativeStoryboardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentCreativeStoryboardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id</p>
+     */
+    public ExecAntcloudMarketingagentCreativeStoryboardResponse execAntcloudMarketingagentCreativeStoryboardEx(ExecAntcloudMarketingagentCreativeStoryboardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.creative.storyboard.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecAntcloudMarketingagentCreativeStoryboardResponse execAntcloudMarketingagentCreativeStoryboardResponse = ExecAntcloudMarketingagentCreativeStoryboardResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execAntcloudMarketingagentCreativeStoryboardResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.storyboard.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeStoryboardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果</p>
+     */
+    public QueryAntcloudMarketingagentCreativeStoryboardResponse queryAntcloudMarketingagentCreativeStoryboard(QueryAntcloudMarketingagentCreativeStoryboardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeStoryboardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果</p>
+     */
+    public QueryAntcloudMarketingagentCreativeStoryboardResponse queryAntcloudMarketingagentCreativeStoryboardEx(QueryAntcloudMarketingagentCreativeStoryboardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.creative.storyboard.query"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                QueryAntcloudMarketingagentCreativeStoryboardResponse queryAntcloudMarketingagentCreativeStoryboardResponse = QueryAntcloudMarketingagentCreativeStoryboardResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return queryAntcloudMarketingagentCreativeStoryboardResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.storyboard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeStoryboardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频</p>
+     */
+    public ExecAntcloudMarketingagentCreativeRemakeResponse execAntcloudMarketingagentCreativeRemake(ExecAntcloudMarketingagentCreativeRemakeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentCreativeRemakeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频</p>
+     */
+    public ExecAntcloudMarketingagentCreativeRemakeResponse execAntcloudMarketingagentCreativeRemakeEx(ExecAntcloudMarketingagentCreativeRemakeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.creative.remake.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecAntcloudMarketingagentCreativeRemakeResponse execAntcloudMarketingagentCreativeRemakeResponse = ExecAntcloudMarketingagentCreativeRemakeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execAntcloudMarketingagentCreativeRemakeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.remake.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentCreativeRemakeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果</p>
+     */
+    public QueryAntcloudMarketingagentCreativeRemakeResponse queryAntcloudMarketingagentCreativeRemake(QueryAntcloudMarketingagentCreativeRemakeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentCreativeRemakeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果</p>
+     */
+    public QueryAntcloudMarketingagentCreativeRemakeResponse queryAntcloudMarketingagentCreativeRemakeEx(QueryAntcloudMarketingagentCreativeRemakeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.creative.remake.query"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                QueryAntcloudMarketingagentCreativeRemakeResponse queryAntcloudMarketingagentCreativeRemakeResponse = QueryAntcloudMarketingagentCreativeRemakeResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return queryAntcloudMarketingagentCreativeRemakeResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.remake.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentCreativeRemakeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 素材上传接口
+     * Summary: 素材上传接口</p>
+     */
+    public PushAntcloudMarketingagentCreativeMaterialResponse pushAntcloudMarketingagentCreativeMaterial(PushAntcloudMarketingagentCreativeMaterialRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntcloudMarketingagentCreativeMaterialEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 素材上传接口
+     * Summary: 素材上传接口</p>
+     */
+    public PushAntcloudMarketingagentCreativeMaterialResponse pushAntcloudMarketingagentCreativeMaterialEx(PushAntcloudMarketingagentCreativeMaterialRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.creative.material.push"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                PushAntcloudMarketingagentCreativeMaterialResponse pushAntcloudMarketingagentCreativeMaterialResponse = PushAntcloudMarketingagentCreativeMaterialResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return pushAntcloudMarketingagentCreativeMaterialResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.creative.material.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntcloudMarketingagentCreativeMaterialResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频解析
+     * Summary: 视频解析</p>
+     */
+    public ExecAntcloudMarketingagentTemplateAnalysisResponse execAntcloudMarketingagentTemplateAnalysis(ExecAntcloudMarketingagentTemplateAnalysisRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentTemplateAnalysisEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频解析
+     * Summary: 视频解析</p>
+     */
+    public ExecAntcloudMarketingagentTemplateAnalysisResponse execAntcloudMarketingagentTemplateAnalysisEx(ExecAntcloudMarketingagentTemplateAnalysisRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.template.analysis.exec"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                ExecAntcloudMarketingagentTemplateAnalysisResponse execAntcloudMarketingagentTemplateAnalysisResponse = ExecAntcloudMarketingagentTemplateAnalysisResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return execAntcloudMarketingagentTemplateAnalysisResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.template.analysis.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentTemplateAnalysisResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频拆解查询
+     * Summary: 视频拆解查询</p>
+     */
+    public QueryAntcloudMarketingagentTemplateAnalysisResponse queryAntcloudMarketingagentTemplateAnalysis(QueryAntcloudMarketingagentTemplateAnalysisRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentTemplateAnalysisEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频拆解查询
+     * Summary: 视频拆解查询</p>
+     */
+    public QueryAntcloudMarketingagentTemplateAnalysisResponse queryAntcloudMarketingagentTemplateAnalysisEx(QueryAntcloudMarketingagentTemplateAnalysisRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        if (!com.aliyun.teautil.Common.isUnset(request.fileObject)) {
+            CreateAntcloudGatewayxFileUploadRequest uploadReq = CreateAntcloudGatewayxFileUploadRequest.build(TeaConverter.buildMap(
+                new TeaPair("authToken", request.authToken),
+                new TeaPair("apiCode", "antcloud.marketingagent.template.analysis.query"),
+                new TeaPair("fileName", request.fileObjectName)
+            ));
+            CreateAntcloudGatewayxFileUploadResponse uploadResp = this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+            if (!com.antgroup.antchain.openapi.antchain.util.AntchainUtils.isSuccess(uploadResp.resultCode, "ok")) {
+                QueryAntcloudMarketingagentTemplateAnalysisResponse queryAntcloudMarketingagentTemplateAnalysisResponse = QueryAntcloudMarketingagentTemplateAnalysisResponse.build(TeaConverter.buildMap(
+                    new TeaPair("reqMsgId", uploadResp.reqMsgId),
+                    new TeaPair("resultCode", uploadResp.resultCode),
+                    new TeaPair("resultMsg", uploadResp.resultMsg)
+                ));
+                return queryAntcloudMarketingagentTemplateAnalysisResponse;
+            }
+
+            java.util.Map<String, String> uploadHeaders = com.antgroup.antchain.openapi.antchain.util.AntchainUtils.parseUploadHeaders(uploadResp.uploadHeaders);
+            com.antgroup.antchain.openapi.antchain.util.AntchainUtils.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+            request.fileId = uploadResp.fileId;
+            request.fileObject = null;
+        }
+
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentTemplateAnalysisResponse());
     }
 
     /**
