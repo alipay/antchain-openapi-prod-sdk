@@ -43,11 +43,6 @@ public class CreateSignSchemeRequest extends TeaModel {
     @Validation(required = true)
     public Long signedOverdueMinutes;
 
-    // 租户 ID
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     // 签约场景：RENTAL（短租）
     @NameInMap("scene")
     @Validation(required = true)
@@ -133,14 +128,6 @@ public class CreateSignSchemeRequest extends TeaModel {
     }
     public Long getSignedOverdueMinutes() {
         return this.signedOverdueMinutes;
-    }
-
-    public CreateSignSchemeRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
     public CreateSignSchemeRequest setScene(String scene) {

@@ -43,11 +43,6 @@ public class ModifySignSchemeRequest extends TeaModel {
     @Validation(required = true)
     public Long signedOverdueMinutes;
 
-    // 租户id
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     public static ModifySignSchemeRequest build(java.util.Map<String, ?> map) throws Exception {
         ModifySignSchemeRequest self = new ModifySignSchemeRequest();
         return TeaModel.build(map, self);
@@ -123,14 +118,6 @@ public class ModifySignSchemeRequest extends TeaModel {
     }
     public Long getSignedOverdueMinutes() {
         return this.signedOverdueMinutes;
-    }
-
-    public ModifySignSchemeRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
 }

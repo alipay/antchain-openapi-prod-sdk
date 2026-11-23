@@ -21,11 +21,6 @@ public class StartSignFlowRequest extends TeaModel {
     @Validation(required = true)
     public String merchantId;
 
-    // 租户id
-    @NameInMap("tenant_id")
-    @Validation(required = true)
-    public String tenantId;
-
     // 签约回调地址
     @NameInMap("return_url")
     public String returnUrl;
@@ -69,14 +64,6 @@ public class StartSignFlowRequest extends TeaModel {
     }
     public String getMerchantId() {
         return this.merchantId;
-    }
-
-    public StartSignFlowRequest setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-        return this;
-    }
-    public String getTenantId() {
-        return this.tenantId;
     }
 
     public StartSignFlowRequest setReturnUrl(String returnUrl) {
