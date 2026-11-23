@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.3.0"),
+                    new TeaPair("sdk_version", "1.4.0"),
                     new TeaPair("_prod_code", "ERAPROD"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -313,6 +313,27 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.rag.tempfile.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportRagTempfileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 知识库临时文件上传解析（OSS 地址导入）
+     * Summary: 知识库临时文件上传解析（OSS 地址导入）</p>
+     */
+    public ImportKnowledgeTempfileResponse importKnowledgeTempfile(ImportKnowledgeTempfileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importKnowledgeTempfileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 知识库临时文件上传解析（OSS 地址导入）
+     * Summary: 知识库临时文件上传解析（OSS 地址导入）</p>
+     */
+    public ImportKnowledgeTempfileResponse importKnowledgeTempfileEx(ImportKnowledgeTempfileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.eraprod.knowledge.tempfile.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportKnowledgeTempfileResponse());
     }
 
     /**
