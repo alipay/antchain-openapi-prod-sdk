@@ -44,6 +44,20 @@ use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptexpa
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeScriptexpandResponse;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeTemplateRequest;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeTemplateResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeStoryboardRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeStoryboardResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeStoryboardRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeStoryboardResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeRemakeRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentCreativeRemakeResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeRemakeRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentCreativeRemakeResponse;
+use AntChain\CREATIVERENDER\Models\PushAntcloudMarketingagentCreativeMaterialRequest;
+use AntChain\CREATIVERENDER\Models\PushAntcloudMarketingagentCreativeMaterialResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentTemplateAnalysisRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentTemplateAnalysisResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTemplateAnalysisRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTemplateAnalysisResponse;
 use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
@@ -181,7 +195,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.1.5",
+                    "sdk_version" => "2.1.7",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -619,6 +633,321 @@ class Client {
     public function queryAntcloudMarketingagentCreativeTemplateEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAntcloudMarketingagentCreativeTemplateResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.template.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id
+     * @param ExecAntcloudMarketingagentCreativeStoryboardRequest $request
+     * @return ExecAntcloudMarketingagentCreativeStoryboardResponse
+     */
+    public function execAntcloudMarketingagentCreativeStoryboard($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeStoryboardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id
+     * @param ExecAntcloudMarketingagentCreativeStoryboardRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeStoryboardResponse
+     */
+    public function execAntcloudMarketingagentCreativeStoryboardEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.creative.storyboard.exec",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $execAntcloudMarketingagentCreativeStoryboardResponse = new ExecAntcloudMarketingagentCreativeStoryboardResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $execAntcloudMarketingagentCreativeStoryboardResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeStoryboardResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.storyboard.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果
+     * @param QueryAntcloudMarketingagentCreativeStoryboardRequest $request
+     * @return QueryAntcloudMarketingagentCreativeStoryboardResponse
+     */
+    public function queryAntcloudMarketingagentCreativeStoryboard($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeStoryboardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果
+     * @param QueryAntcloudMarketingagentCreativeStoryboardRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeStoryboardResponse
+     */
+    public function queryAntcloudMarketingagentCreativeStoryboardEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.creative.storyboard.query",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $queryAntcloudMarketingagentCreativeStoryboardResponse = new QueryAntcloudMarketingagentCreativeStoryboardResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $queryAntcloudMarketingagentCreativeStoryboardResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeStoryboardResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.storyboard.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频
+     * @param ExecAntcloudMarketingagentCreativeRemakeRequest $request
+     * @return ExecAntcloudMarketingagentCreativeRemakeResponse
+     */
+    public function execAntcloudMarketingagentCreativeRemake($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentCreativeRemakeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频
+     * @param ExecAntcloudMarketingagentCreativeRemakeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentCreativeRemakeResponse
+     */
+    public function execAntcloudMarketingagentCreativeRemakeEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.creative.remake.exec",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $execAntcloudMarketingagentCreativeRemakeResponse = new ExecAntcloudMarketingagentCreativeRemakeResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $execAntcloudMarketingagentCreativeRemakeResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentCreativeRemakeResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.remake.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果
+     * @param QueryAntcloudMarketingagentCreativeRemakeRequest $request
+     * @return QueryAntcloudMarketingagentCreativeRemakeResponse
+     */
+    public function queryAntcloudMarketingagentCreativeRemake($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentCreativeRemakeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果
+     * @param QueryAntcloudMarketingagentCreativeRemakeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentCreativeRemakeResponse
+     */
+    public function queryAntcloudMarketingagentCreativeRemakeEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.creative.remake.query",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $queryAntcloudMarketingagentCreativeRemakeResponse = new QueryAntcloudMarketingagentCreativeRemakeResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $queryAntcloudMarketingagentCreativeRemakeResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentCreativeRemakeResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.remake.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 素材上传接口
+     * Summary: 素材上传接口
+     * @param PushAntcloudMarketingagentCreativeMaterialRequest $request
+     * @return PushAntcloudMarketingagentCreativeMaterialResponse
+     */
+    public function pushAntcloudMarketingagentCreativeMaterial($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushAntcloudMarketingagentCreativeMaterialEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 素材上传接口
+     * Summary: 素材上传接口
+     * @param PushAntcloudMarketingagentCreativeMaterialRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushAntcloudMarketingagentCreativeMaterialResponse
+     */
+    public function pushAntcloudMarketingagentCreativeMaterialEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.creative.material.push",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $pushAntcloudMarketingagentCreativeMaterialResponse = new PushAntcloudMarketingagentCreativeMaterialResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $pushAntcloudMarketingagentCreativeMaterialResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return PushAntcloudMarketingagentCreativeMaterialResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.creative.material.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频解析
+     * Summary: 视频解析
+     * @param ExecAntcloudMarketingagentTemplateAnalysisRequest $request
+     * @return ExecAntcloudMarketingagentTemplateAnalysisResponse
+     */
+    public function execAntcloudMarketingagentTemplateAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentTemplateAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频解析
+     * Summary: 视频解析
+     * @param ExecAntcloudMarketingagentTemplateAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentTemplateAnalysisResponse
+     */
+    public function execAntcloudMarketingagentTemplateAnalysisEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.template.analysis.exec",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $execAntcloudMarketingagentTemplateAnalysisResponse = new ExecAntcloudMarketingagentTemplateAnalysisResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $execAntcloudMarketingagentTemplateAnalysisResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentTemplateAnalysisResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.template.analysis.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频拆解查询
+     * Summary: 视频拆解查询
+     * @param QueryAntcloudMarketingagentTemplateAnalysisRequest $request
+     * @return QueryAntcloudMarketingagentTemplateAnalysisResponse
+     */
+    public function queryAntcloudMarketingagentTemplateAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentTemplateAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频拆解查询
+     * Summary: 视频拆解查询
+     * @param QueryAntcloudMarketingagentTemplateAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentTemplateAnalysisResponse
+     */
+    public function queryAntcloudMarketingagentTemplateAnalysisEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.marketingagent.template.analysis.query",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $queryAntcloudMarketingagentTemplateAnalysisResponse = new QueryAntcloudMarketingagentTemplateAnalysisResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $queryAntcloudMarketingagentTemplateAnalysisResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentTemplateAnalysisResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
