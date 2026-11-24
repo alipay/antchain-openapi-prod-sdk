@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.2.0"},
+                        {"sdk_version", "2.2.2"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVERENDER
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "2.2.0"},
+                        {"sdk_version", "2.2.2"},
                         {"_prod_code", "CREATIVERENDER"},
                         {"_prod_channel", "default"},
                     };
@@ -1753,6 +1753,282 @@ namespace AntChain.SDK.CREATIVERENDER
             }
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryAntcloudMarketingagentTemplateAnalysisResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideoStoryboardResponse ExecAntcloudMarketingagentVideoStoryboard(ExecAntcloudMarketingagentVideoStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideoStoryboardResponse> ExecAntcloudMarketingagentVideoStoryboardAsync(ExecAntcloudMarketingagentVideoStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentVideoStoryboardExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideoStoryboardResponse ExecAntcloudMarketingagentVideoStoryboardEx(ExecAntcloudMarketingagentVideoStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideoStoryboardResponse>(DoRequest("1.0", "antcloud.marketingagent.video.storyboard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 传入视频和修改图片以及要求返回拆解任务id
+        /// Summary: 传入视频和修改图片以及要求返回拆解任务id</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideoStoryboardResponse> ExecAntcloudMarketingagentVideoStoryboardExAsync(ExecAntcloudMarketingagentVideoStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideoStoryboardResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.video.storyboard.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideoStoryboardResponse QueryAntcloudMarketingagentVideoStoryboard(QueryAntcloudMarketingagentVideoStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideoStoryboardResponse> QueryAntcloudMarketingagentVideoStoryboardAsync(QueryAntcloudMarketingagentVideoStoryboardRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentVideoStoryboardExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideoStoryboardResponse QueryAntcloudMarketingagentVideoStoryboardEx(QueryAntcloudMarketingagentVideoStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideoStoryboardResponse>(DoRequest("1.0", "antcloud.marketingagent.video.storyboard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询拆解任务结果
+        /// Summary: 查询拆解任务结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideoStoryboardResponse> QueryAntcloudMarketingagentVideoStoryboardExAsync(QueryAntcloudMarketingagentVideoStoryboardRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideoStoryboardResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.video.storyboard.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideoRemakeResponse QueryAntcloudMarketingagentVideoRemake(QueryAntcloudMarketingagentVideoRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideoRemakeResponse> QueryAntcloudMarketingagentVideoRemakeAsync(QueryAntcloudMarketingagentVideoRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentVideoRemakeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideoRemakeResponse QueryAntcloudMarketingagentVideoRemakeEx(QueryAntcloudMarketingagentVideoRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideoRemakeResponse>(DoRequest("1.0", "antcloud.marketingagent.video.remake.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 查询复刻视频生成结果
+        /// Summary: 查询复刻视频生成结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideoRemakeResponse> QueryAntcloudMarketingagentVideoRemakeExAsync(QueryAntcloudMarketingagentVideoRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideoRemakeResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.video.remake.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideoRemakeResponse ExecAntcloudMarketingagentVideoRemake(ExecAntcloudMarketingagentVideoRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideoRemakeResponse> ExecAntcloudMarketingagentVideoRemakeAsync(ExecAntcloudMarketingagentVideoRemakeRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentVideoRemakeExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideoRemakeResponse ExecAntcloudMarketingagentVideoRemakeEx(ExecAntcloudMarketingagentVideoRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideoRemakeResponse>(DoRequest("1.0", "antcloud.marketingagent.video.remake.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 根据拆解结果和新分镜生成视频
+        /// Summary: 根据拆解结果和新分镜生成视频</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideoRemakeResponse> ExecAntcloudMarketingagentVideoRemakeExAsync(ExecAntcloudMarketingagentVideoRemakeRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideoRemakeResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.video.remake.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AI视频解析
+        /// Summary: AI视频解析</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideotemplateAnalysisResponse ExecAntcloudMarketingagentVideotemplateAnalysis(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return ExecAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AI视频解析
+        /// Summary: AI视频解析</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideotemplateAnalysisResponse> ExecAntcloudMarketingagentVideotemplateAnalysisAsync(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await ExecAntcloudMarketingagentVideotemplateAnalysisExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AI视频解析
+        /// Summary: AI视频解析</para>
+        /// </description>
+        public ExecAntcloudMarketingagentVideotemplateAnalysisResponse ExecAntcloudMarketingagentVideotemplateAnalysisEx(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideotemplateAnalysisResponse>(DoRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: AI视频解析
+        /// Summary: AI视频解析</para>
+        /// </description>
+        public async Task<ExecAntcloudMarketingagentVideotemplateAnalysisResponse> ExecAntcloudMarketingagentVideotemplateAnalysisExAsync(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<ExecAntcloudMarketingagentVideotemplateAnalysisResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.videotemplate.analysis.exec", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询结果
+        /// Summary: 视频拆解查询结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideotemplateAnalysisResponse QueryAntcloudMarketingagentVideotemplateAnalysis(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询结果
+        /// Summary: 视频拆解查询结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideotemplateAnalysisResponse> QueryAntcloudMarketingagentVideotemplateAnalysisAsync(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryAntcloudMarketingagentVideotemplateAnalysisExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询结果
+        /// Summary: 视频拆解查询结果</para>
+        /// </description>
+        public QueryAntcloudMarketingagentVideotemplateAnalysisResponse QueryAntcloudMarketingagentVideotemplateAnalysisEx(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideotemplateAnalysisResponse>(DoRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 视频拆解查询结果
+        /// Summary: 视频拆解查询结果</para>
+        /// </description>
+        public async Task<QueryAntcloudMarketingagentVideotemplateAnalysisResponse> QueryAntcloudMarketingagentVideotemplateAnalysisExAsync(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryAntcloudMarketingagentVideotemplateAnalysisResponse>(await DoRequestAsync("1.0", "antcloud.marketingagent.videotemplate.analysis.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
