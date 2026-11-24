@@ -3077,6 +3077,462 @@ export class QueryAntcloudMarketingagentTemplateAnalysisResponse extends $tea.Mo
   }
 }
 
+export class ExecAntcloudMarketingagentVideoStoryboardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 拆解要求
+  prompt: string;
+  // 模型
+  videoModel?: string;
+  // 画幅
+  ratio?: string;
+  // 分辨率
+  resolution?: number;
+  // 原视频+替换图片
+  mediaRefs: CreativeVideoAssetRef[];
+  // 会话ID
+  sessionId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      prompt: 'prompt',
+      videoModel: 'video_model',
+      ratio: 'ratio',
+      resolution: 'resolution',
+      mediaRefs: 'media_refs',
+      sessionId: 'session_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      prompt: 'string',
+      videoModel: 'string',
+      ratio: 'string',
+      resolution: 'number',
+      mediaRefs: { 'type': 'array', 'itemType': CreativeVideoAssetRef },
+      sessionId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentVideoStoryboardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id
+  taskId?: string;
+  // 会话ID
+  sessionId?: string;
+  // PROCESSING受理成功/FAILED参数被拒
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      sessionId: 'session_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      sessionId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideoStoryboardRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 拆解任务id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideoStoryboardResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id回显
+  taskId?: string;
+  // PROCESSING/COMPLETED/FAILED
+  status?: string;
+  // 剧集id
+  episodeId?: string;
+  // 拆解详情
+  analysisDetail?: string;
+  // 原片分镜
+  originalStoryboards?: string;
+  // 新分镜脚本
+  newStoryboardScript?: string;
+  // 本阶段费用
+  currentCredit?: number;
+  // FAILED 时返回的失败原因（脱敏文案）
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+      episodeId: 'episode_id',
+      analysisDetail: 'analysis_detail',
+      originalStoryboards: 'original_storyboards',
+      newStoryboardScript: 'new_storyboard_script',
+      currentCredit: 'current_credit',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+      episodeId: 'string',
+      analysisDetail: 'string',
+      originalStoryboards: 'string',
+      newStoryboardScript: 'string',
+      currentCredit: 'number',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideoRemakeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 生视频返回的task_id回传
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideoRemakeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id回显
+  taskId?: string;
+  // 视频产物列表，COMPLETED 时返回非空列表。
+  outputs?: VideoOutput;
+  // PROCESSING / COMPLETED / FAILED
+  status?: string;
+  // 本阶段视频费用
+  currentCredit?: number;
+  // FAILED 时返回的失败原因（脱敏文案）；
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      outputs: 'outputs',
+      status: 'status',
+      currentCredit: 'current_credit',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      outputs: VideoOutput,
+      status: 'string',
+      currentCredit: 'number',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentVideoRemakeRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 阶段一 task_id（= 阶段一 messageId）
+  storyboardMessageId: string;
+  // 用户编辑后的新分镜脚本（纯字符串）；
+  newStoryboardScript: string;
+  // 拆解返回的会话id
+  sessionId: string;
+  // 本轮 USER 消息展示文案
+  prompt?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      storyboardMessageId: 'storyboard_message_id',
+      newStoryboardScript: 'new_storyboard_script',
+      sessionId: 'session_id',
+      prompt: 'prompt',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      storyboardMessageId: 'string',
+      newStoryboardScript: 'string',
+      sessionId: 'string',
+      prompt: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentVideoRemakeResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 生视频任务id（内部 messageId
+  taskId?: string;
+  // PROCESSING / FAILED
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentVideotemplateAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 本次操作幂等键，最多64字符
+  requestId: string;
+  // 原视频
+  originVideo: CreativeVideoAssetRef;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      requestId: 'request_id',
+      originVideo: 'origin_video',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      requestId: 'string',
+      originVideo: CreativeVideoAssetRef,
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ExecAntcloudMarketingagentVideotemplateAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id
+  taskId?: string;
+  // PROCESSING（受理成功）/ FAILED（参数被拒）
+  status?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideotemplateAnalysisRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 任务id
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryAntcloudMarketingagentVideotemplateAnalysisResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id回显
+  taskId?: string;
+  // PENDING / PROCESSING / COMPLETED / FAILED
+  status?: string;
+  // 开场钩子/整体风格/整体节奏/BGM卡点/情绪曲线/字幕节奏/CTA/卡点时间轴(秒)/口播旁白，换行拼接；空项显示 -
+  analysisDetail?: string;
+  // 原片逐镜拆解
+  originalStoryboards?: string;
+  // 新分镜脚本
+  newStoryboardScript?: string;
+  // 本次费用
+  currentCredit?: number;
+  // FAILED 时返回的脱敏失败文案
+  errorMessage?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+      analysisDetail: 'analysis_detail',
+      originalStoryboards: 'original_storyboards',
+      newStoryboardScript: 'new_storyboard_script',
+      currentCredit: 'current_credit',
+      errorMessage: 'error_message',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+      analysisDetail: 'string',
+      originalStoryboards: 'string',
+      newStoryboardScript: 'string',
+      currentCredit: 'number',
+      errorMessage: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -3282,7 +3738,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "2.2.0",
+          sdk_version: "2.2.2",
           _prod_code: "CREATIVERENDER",
           _prod_channel: "default",
         };
@@ -3966,6 +4422,132 @@ export default class Client {
 
     Util.validateModel(request);
     return $tea.cast<QueryAntcloudMarketingagentTemplateAnalysisResponse>(await this.doRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentTemplateAnalysisResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 传入视频和修改图片以及要求返回拆解任务id
+   * Summary: 传入视频和修改图片以及要求返回拆解任务id
+   */
+  async execAntcloudMarketingagentVideoStoryboard(request: ExecAntcloudMarketingagentVideoStoryboardRequest): Promise<ExecAntcloudMarketingagentVideoStoryboardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 传入视频和修改图片以及要求返回拆解任务id
+   * Summary: 传入视频和修改图片以及要求返回拆解任务id
+   */
+  async execAntcloudMarketingagentVideoStoryboardEx(request: ExecAntcloudMarketingagentVideoStoryboardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentVideoStoryboardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentVideoStoryboardResponse>(await this.doRequest("1.0", "antcloud.marketingagent.video.storyboard.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentVideoStoryboardResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询拆解任务结果
+   * Summary: 查询拆解任务结果
+   */
+  async queryAntcloudMarketingagentVideoStoryboard(request: QueryAntcloudMarketingagentVideoStoryboardRequest): Promise<QueryAntcloudMarketingagentVideoStoryboardResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询拆解任务结果
+   * Summary: 查询拆解任务结果
+   */
+  async queryAntcloudMarketingagentVideoStoryboardEx(request: QueryAntcloudMarketingagentVideoStoryboardRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentVideoStoryboardResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentVideoStoryboardResponse>(await this.doRequest("1.0", "antcloud.marketingagent.video.storyboard.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentVideoStoryboardResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 查询复刻视频生成结果
+   * Summary: 查询复刻视频生成结果
+   */
+  async queryAntcloudMarketingagentVideoRemake(request: QueryAntcloudMarketingagentVideoRemakeRequest): Promise<QueryAntcloudMarketingagentVideoRemakeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 查询复刻视频生成结果
+   * Summary: 查询复刻视频生成结果
+   */
+  async queryAntcloudMarketingagentVideoRemakeEx(request: QueryAntcloudMarketingagentVideoRemakeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentVideoRemakeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentVideoRemakeResponse>(await this.doRequest("1.0", "antcloud.marketingagent.video.remake.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentVideoRemakeResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 根据拆解结果和新分镜生成视频
+   * Summary: 根据拆解结果和新分镜生成视频
+   */
+  async execAntcloudMarketingagentVideoRemake(request: ExecAntcloudMarketingagentVideoRemakeRequest): Promise<ExecAntcloudMarketingagentVideoRemakeResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 根据拆解结果和新分镜生成视频
+   * Summary: 根据拆解结果和新分镜生成视频
+   */
+  async execAntcloudMarketingagentVideoRemakeEx(request: ExecAntcloudMarketingagentVideoRemakeRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentVideoRemakeResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentVideoRemakeResponse>(await this.doRequest("1.0", "antcloud.marketingagent.video.remake.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentVideoRemakeResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: AI视频解析
+   * Summary: AI视频解析
+   */
+  async execAntcloudMarketingagentVideotemplateAnalysis(request: ExecAntcloudMarketingagentVideotemplateAnalysisRequest): Promise<ExecAntcloudMarketingagentVideotemplateAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.execAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: AI视频解析
+   * Summary: AI视频解析
+   */
+  async execAntcloudMarketingagentVideotemplateAnalysisEx(request: ExecAntcloudMarketingagentVideotemplateAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ExecAntcloudMarketingagentVideotemplateAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<ExecAntcloudMarketingagentVideotemplateAnalysisResponse>(await this.doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.exec", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ExecAntcloudMarketingagentVideotemplateAnalysisResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 视频拆解查询结果
+   * Summary: 视频拆解查询结果
+   */
+  async queryAntcloudMarketingagentVideotemplateAnalysis(request: QueryAntcloudMarketingagentVideotemplateAnalysisRequest): Promise<QueryAntcloudMarketingagentVideotemplateAnalysisResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 视频拆解查询结果
+   * Summary: 视频拆解查询结果
+   */
+  async queryAntcloudMarketingagentVideotemplateAnalysisEx(request: QueryAntcloudMarketingagentVideotemplateAnalysisRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryAntcloudMarketingagentVideotemplateAnalysisResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryAntcloudMarketingagentVideotemplateAnalysisResponse>(await this.doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryAntcloudMarketingagentVideotemplateAnalysisResponse({}));
   }
 
   /**
