@@ -34,10 +34,6 @@ public class ModifySignSchemeRequest extends TeaModel {
     @NameInMap("preauth_amount")
     public Long preauthAmount;
 
-    // 代扣协议额度（分），所有含信用减免的方案必须等于 credit_reduce_amount；仅预授权=0
-    @NameInMap("withhold_quota")
-    public Long withholdQuota;
-
     // 签约后允许的超期时长（分钟）；建单/修改落库后用于签约完成时 signed 透传
     @NameInMap("signed_overdue_minutes")
     @Validation(required = true)
@@ -102,14 +98,6 @@ public class ModifySignSchemeRequest extends TeaModel {
     }
     public Long getPreauthAmount() {
         return this.preauthAmount;
-    }
-
-    public ModifySignSchemeRequest setWithholdQuota(Long withholdQuota) {
-        this.withholdQuota = withholdQuota;
-        return this;
-    }
-    public Long getWithholdQuota() {
-        return this.withholdQuota;
     }
 
     public ModifySignSchemeRequest setSignedOverdueMinutes(Long signedOverdueMinutes) {

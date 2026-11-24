@@ -34,10 +34,6 @@ public class CreateSignSchemeRequest extends TeaModel {
     @NameInMap("preauth_amount")
     public Long preauthAmount;
 
-    // 代扣协议额度（分），所有含信用减免的方案必须等于 creditReduceAmount；仅预授权=0
-    @NameInMap("withhold_quota")
-    public Long withholdQuota;
-
     // 签约后允许的超期时长（分钟）；签约完成时随订单域 signed 透传，用于订单侧计算关单时间
     @NameInMap("signed_overdue_minutes")
     @Validation(required = true)
@@ -112,14 +108,6 @@ public class CreateSignSchemeRequest extends TeaModel {
     }
     public Long getPreauthAmount() {
         return this.preauthAmount;
-    }
-
-    public CreateSignSchemeRequest setWithholdQuota(Long withholdQuota) {
-        this.withholdQuota = withholdQuota;
-        return this;
-    }
-    public Long getWithholdQuota() {
-        return this.withholdQuota;
     }
 
     public CreateSignSchemeRequest setSignedOverdueMinutes(Long signedOverdueMinutes) {
