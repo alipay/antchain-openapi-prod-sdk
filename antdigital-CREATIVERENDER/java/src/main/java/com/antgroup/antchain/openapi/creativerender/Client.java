@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "2.2.0"),
+                    new TeaPair("sdk_version", "2.2.1"),
                     new TeaPair("_prod_code", "CREATIVERENDER"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -824,6 +824,132 @@ public class Client {
 
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentTemplateAnalysisResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id</p>
+     */
+    public ExecAntcloudMarketingagentVideoStoryboardResponse execAntcloudMarketingagentVideoStoryboard(ExecAntcloudMarketingagentVideoStoryboardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id</p>
+     */
+    public ExecAntcloudMarketingagentVideoStoryboardResponse execAntcloudMarketingagentVideoStoryboardEx(ExecAntcloudMarketingagentVideoStoryboardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.video.storyboard.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentVideoStoryboardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果</p>
+     */
+    public QueryAntcloudMarketingagentVideoStoryboardResponse queryAntcloudMarketingagentVideoStoryboard(QueryAntcloudMarketingagentVideoStoryboardRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果</p>
+     */
+    public QueryAntcloudMarketingagentVideoStoryboardResponse queryAntcloudMarketingagentVideoStoryboardEx(QueryAntcloudMarketingagentVideoStoryboardRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.video.storyboard.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentVideoStoryboardResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果</p>
+     */
+    public QueryAntcloudMarketingagentVideoRemakeResponse queryAntcloudMarketingagentVideoRemake(QueryAntcloudMarketingagentVideoRemakeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果</p>
+     */
+    public QueryAntcloudMarketingagentVideoRemakeResponse queryAntcloudMarketingagentVideoRemakeEx(QueryAntcloudMarketingagentVideoRemakeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.video.remake.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentVideoRemakeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频</p>
+     */
+    public ExecAntcloudMarketingagentVideoRemakeResponse execAntcloudMarketingagentVideoRemake(ExecAntcloudMarketingagentVideoRemakeRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentVideoRemakeEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频</p>
+     */
+    public ExecAntcloudMarketingagentVideoRemakeResponse execAntcloudMarketingagentVideoRemakeEx(ExecAntcloudMarketingagentVideoRemakeRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.video.remake.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentVideoRemakeResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: AI视频解析
+     * Summary: AI视频解析</p>
+     */
+    public ExecAntcloudMarketingagentVideotemplateAnalysisResponse execAntcloudMarketingagentVideotemplateAnalysis(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: AI视频解析
+     * Summary: AI视频解析</p>
+     */
+    public ExecAntcloudMarketingagentVideotemplateAnalysisResponse execAntcloudMarketingagentVideotemplateAnalysisEx(ExecAntcloudMarketingagentVideotemplateAnalysisRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntcloudMarketingagentVideotemplateAnalysisResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频拆解查询结果
+     * Summary: 视频拆解查询结果</p>
+     */
+    public QueryAntcloudMarketingagentVideotemplateAnalysisResponse queryAntcloudMarketingagentVideotemplateAnalysis(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 视频拆解查询结果
+     * Summary: 视频拆解查询结果</p>
+     */
+    public QueryAntcloudMarketingagentVideotemplateAnalysisResponse queryAntcloudMarketingagentVideotemplateAnalysisEx(QueryAntcloudMarketingagentVideotemplateAnalysisRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntcloudMarketingagentVideotemplateAnalysisResponse());
     }
 
     /**
