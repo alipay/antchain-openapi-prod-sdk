@@ -63,6 +63,10 @@ use AntChain\CREATIVE\Models\ResetArkassetgroupRequest;
 use AntChain\CREATIVE\Models\ResetArkassetgroupResponse;
 use AntChain\CREATIVE\Models\DeleteArkassetgroupRequest;
 use AntChain\CREATIVE\Models\DeleteArkassetgroupResponse;
+use AntChain\CREATIVE\Models\PushArkassetvisualRequest;
+use AntChain\CREATIVE\Models\PushArkassetvisualResponse;
+use AntChain\CREATIVE\Models\QueryArkassetvisualRequest;
+use AntChain\CREATIVE\Models\QueryArkassetvisualResponse;
 
 class Client {
     protected $_endpoint;
@@ -199,7 +203,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.2",
+                    "sdk_version" => "1.2.3",
                     "_prod_code" => "CREATIVE",
                     "_prod_channel" => "default"
                 ];
@@ -867,5 +871,55 @@ class Client {
     public function deleteArkassetgroupEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return DeleteArkassetgroupResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建真人人像素材组
+     * Summary: 创建真人人像素材组
+     * @param PushArkassetvisualRequest $request
+     * @return PushArkassetvisualResponse
+     */
+    public function pushArkassetvisual($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushArkassetvisualEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建真人人像素材组
+     * Summary: 创建真人人像素材组
+     * @param PushArkassetvisualRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushArkassetvisualResponse
+     */
+    public function pushArkassetvisualEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushArkassetvisualResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetvisual.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 获取真人 Asset Group ID
+     * Summary: 获取真人 Asset Group ID
+     * @param QueryArkassetvisualRequest $request
+     * @return QueryArkassetvisualResponse
+     */
+    public function queryArkassetvisual($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryArkassetvisualEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 获取真人 Asset Group ID
+     * Summary: 获取真人 Asset Group ID
+     * @param QueryArkassetvisualRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryArkassetvisualResponse
+     */
+    public function queryArkassetvisualEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryArkassetvisualResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
