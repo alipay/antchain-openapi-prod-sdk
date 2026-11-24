@@ -28,7 +28,7 @@ public class ExecAntcloudMarketingagentVideoStoryboardRequest extends TeaModel {
     // 原视频+替换图片
     @NameInMap("media_refs")
     @Validation(required = true)
-    public CreativeVideoAssetRef mediaRefs;
+    public java.util.List<CreativeVideoAssetRef> mediaRefs;
 
     // 会话ID
     @NameInMap("session_id")
@@ -79,11 +79,11 @@ public class ExecAntcloudMarketingagentVideoStoryboardRequest extends TeaModel {
         return this.resolution;
     }
 
-    public ExecAntcloudMarketingagentVideoStoryboardRequest setMediaRefs(CreativeVideoAssetRef mediaRefs) {
+    public ExecAntcloudMarketingagentVideoStoryboardRequest setMediaRefs(java.util.List<CreativeVideoAssetRef> mediaRefs) {
         this.mediaRefs = mediaRefs;
         return this;
     }
-    public CreativeVideoAssetRef getMediaRefs() {
+    public java.util.List<CreativeVideoAssetRef> getMediaRefs() {
         return this.mediaRefs;
     }
 
