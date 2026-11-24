@@ -2968,6 +2968,124 @@ export class DeleteArkassetgroupResponse extends $tea.Model {
   }
 }
 
+export class PushArkassetvisualRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求参数
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PushArkassetvisualResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应参数
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetvisualRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 请求参数
+  requestBody: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      requestBody: 'request_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      requestBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryArkassetvisualResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 响应参数
+  responseBody?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      responseBody: 'response_body',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      responseBody: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3085,7 +3203,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.2",
+          sdk_version: "1.2.3",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
@@ -3656,6 +3774,48 @@ export default class Client {
   async deleteArkassetgroupEx(request: DeleteArkassetgroupRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteArkassetgroupResponse> {
     Util.validateModel(request);
     return $tea.cast<DeleteArkassetgroupResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteArkassetgroupResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建真人人像素材组
+   * Summary: 创建真人人像素材组
+   */
+  async pushArkassetvisual(request: PushArkassetvisualRequest): Promise<PushArkassetvisualResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.pushArkassetvisualEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建真人人像素材组
+   * Summary: 创建真人人像素材组
+   */
+  async pushArkassetvisualEx(request: PushArkassetvisualRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PushArkassetvisualResponse> {
+    Util.validateModel(request);
+    return $tea.cast<PushArkassetvisualResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetvisual.push", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PushArkassetvisualResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 获取真人 Asset Group ID
+   * Summary: 获取真人 Asset Group ID
+   */
+  async queryArkassetvisual(request: QueryArkassetvisualRequest): Promise<QueryArkassetvisualResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryArkassetvisualEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 获取真人 Asset Group ID
+   * Summary: 获取真人 Asset Group ID
+   */
+  async queryArkassetvisualEx(request: QueryArkassetvisualRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetvisualResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryArkassetvisualResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetvisualResponse({}));
   }
 
 }
