@@ -20,10 +20,18 @@ public class CreateBlockchainBotIotagentSessionRequest extends TeaModel {
     @NameInMap("user_id")
     public String userId;
 
+    // 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+    @NameInMap("client_id")
+    public String clientId;
+
     // 实例ID
     @NameInMap("instance_id")
     @Validation(required = true)
     public String instanceId;
+
+    // 客户端类型，可选；支持 DEFAULT_IOA_API（默认）、MOBILE_IOA_API（移动端 H5/App）、WEB_IOA_API（PC 网页端），不传默认走 DEFAULT_IOA_API
+    @NameInMap("client_type")
+    public String clientType;
 
     public static CreateBlockchainBotIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBlockchainBotIotagentSessionRequest self = new CreateBlockchainBotIotagentSessionRequest();
@@ -62,12 +70,28 @@ public class CreateBlockchainBotIotagentSessionRequest extends TeaModel {
         return this.userId;
     }
 
+    public CreateBlockchainBotIotagentSessionRequest setClientId(String clientId) {
+        this.clientId = clientId;
+        return this;
+    }
+    public String getClientId() {
+        return this.clientId;
+    }
+
     public CreateBlockchainBotIotagentSessionRequest setInstanceId(String instanceId) {
         this.instanceId = instanceId;
         return this;
     }
     public String getInstanceId() {
         return this.instanceId;
+    }
+
+    public CreateBlockchainBotIotagentSessionRequest setClientType(String clientType) {
+        this.clientType = clientType;
+        return this;
+    }
+    public String getClientType() {
+        return this.clientType;
     }
 
 }

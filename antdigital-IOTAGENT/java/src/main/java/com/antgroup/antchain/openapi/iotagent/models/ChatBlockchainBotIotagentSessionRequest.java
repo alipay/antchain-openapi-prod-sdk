@@ -30,9 +30,8 @@ public class ChatBlockchainBotIotagentSessionRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
-    // 问题
+    // 问题（新建模式必填；携 resume 续接时互斥不传）
     @NameInMap("query")
-    @Validation(required = true)
     public String query;
 
     // 附件
@@ -42,6 +41,14 @@ public class ChatBlockchainBotIotagentSessionRequest extends TeaModel {
     // josn字符串
     @NameInMap("extra_params")
     public String extraParams;
+
+    // 续接结构体 JSON（系分 §8.1.1）：{turnId 必填, afterSequence 可选, command 可选={type:DECIDE/ANSWER/CANCEL, expectedVersion, payload}}；payload 键 camelCase：DECIDE={interactionId,decision,scope} ANSWER={interactionId,answer} CANCEL={reason}
+    @NameInMap("resume")
+    public String resume;
+
+    // 用户侧模型选择（§8.1.2）：本地模型目录稳定键（如 dtmaas/deepseek-flash），独立顶层参数唯一入口；仅新建 Turn 可传，省略沿默认配置，空/非法值拒绝；不得经 extra_params 携带
+    @NameInMap("model_key")
+    public String modelKey;
 
     public static ChatBlockchainBotIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatBlockchainBotIotagentSessionRequest self = new ChatBlockchainBotIotagentSessionRequest();
@@ -118,6 +125,22 @@ public class ChatBlockchainBotIotagentSessionRequest extends TeaModel {
     }
     public String getExtraParams() {
         return this.extraParams;
+    }
+
+    public ChatBlockchainBotIotagentSessionRequest setResume(String resume) {
+        this.resume = resume;
+        return this;
+    }
+    public String getResume() {
+        return this.resume;
+    }
+
+    public ChatBlockchainBotIotagentSessionRequest setModelKey(String modelKey) {
+        this.modelKey = modelKey;
+        return this;
+    }
+    public String getModelKey() {
+        return this.modelKey;
     }
 
 }

@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.4.0"),
+                    new TeaPair("sdk_version", "1.4.1"),
                     new TeaPair("_prod_code", "IOTAGENT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -758,8 +758,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: sse聊天
-     * Summary: sse聊天</p>
+     * <p>Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令</p>
      */
     public ChatBlockchainBotIotagentSessionResponse chatBlockchainBotIotagentSession(ChatBlockchainBotIotagentSessionRequest request) throws Exception {
         com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
@@ -769,8 +769,8 @@ public class Client {
 
     /**
      * <b>description</b> :
-     * <p>Description: sse聊天
-     * Summary: sse聊天</p>
+     * <p>Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令</p>
      */
     public ChatBlockchainBotIotagentSessionResponse chatBlockchainBotIotagentSessionEx(ChatBlockchainBotIotagentSessionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
@@ -1326,6 +1326,69 @@ public class Client {
 
     /**
      * <b>description</b> :
+     * <p>Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）</p>
+     */
+    public UploadurlBlockchainBotIotagentFilesResponse uploadurlBlockchainBotIotagentFiles(UploadurlBlockchainBotIotagentFilesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadurlBlockchainBotIotagentFilesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）</p>
+     */
+    public UploadurlBlockchainBotIotagentFilesResponse uploadurlBlockchainBotIotagentFilesEx(UploadurlBlockchainBotIotagentFilesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.files.uploadurl", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadurlBlockchainBotIotagentFilesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等</p>
+     */
+    public ConfirmBlockchainBotIotagentFilesResponse confirmBlockchainBotIotagentFiles(ConfirmBlockchainBotIotagentFilesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.confirmBlockchainBotIotagentFilesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等</p>
+     */
+    public ConfirmBlockchainBotIotagentFilesResponse confirmBlockchainBotIotagentFilesEx(ConfirmBlockchainBotIotagentFilesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.files.confirm", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ConfirmBlockchainBotIotagentFilesResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用</p>
+     */
+    public FileurlBlockchainBotIotagentFilesResponse fileurlBlockchainBotIotagentFiles(FileurlBlockchainBotIotagentFilesRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.fileurlBlockchainBotIotagentFilesEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用</p>
+     */
+    public FileurlBlockchainBotIotagentFilesResponse fileurlBlockchainBotIotagentFilesEx(FileurlBlockchainBotIotagentFilesRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotagent.files.fileurl", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FileurlBlockchainBotIotagentFilesResponse());
+    }
+
+    /**
+     * <b>description</b> :
      * <p>Description: 蚂小财签约状态查询，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp</a>
      * Summary: 蚂小财签约状态查询，参考RPC接口文档：<a href="https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp">https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp</a></p>
      */
@@ -1406,6 +1469,846 @@ public class Client {
     public StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse streamchatBlockchainBotAiotdatalinkAntfinanceassistantEx(StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.streamchat", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥</p>
+     */
+    public CreateBlockchainBotIotsuccessProductResponse createBlockchainBotIotsuccessProduct(CreateBlockchainBotIotsuccessProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBlockchainBotIotsuccessProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥</p>
+     */
+    public CreateBlockchainBotIotsuccessProductResponse createBlockchainBotIotsuccessProductEx(CreateBlockchainBotIotsuccessProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlockchainBotIotsuccessProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥</p>
+     */
+    public DetailBlockchainBotIotsuccessProductResponse detailBlockchainBotIotsuccessProduct(DetailBlockchainBotIotsuccessProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailBlockchainBotIotsuccessProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥</p>
+     */
+    public DetailBlockchainBotIotsuccessProductResponse detailBlockchainBotIotsuccessProductEx(DetailBlockchainBotIotsuccessProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailBlockchainBotIotsuccessProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductResponse updateBlockchainBotIotsuccessProduct(UpdateBlockchainBotIotsuccessProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBlockchainBotIotsuccessProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductResponse updateBlockchainBotIotsuccessProductEx(UpdateBlockchainBotIotsuccessProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBlockchainBotIotsuccessProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表</p>
+     */
+    public ListBlockchainBotIotsuccessProductResponse listBlockchainBotIotsuccessProduct(ListBlockchainBotIotsuccessProductRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表</p>
+     */
+    public ListBlockchainBotIotsuccessProductResponse listBlockchainBotIotsuccessProductEx(ListBlockchainBotIotsuccessProductRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合</p>
+     */
+    public ListBlockchainBotIotsuccessProductCategoryResponse listBlockchainBotIotsuccessProductCategory(ListBlockchainBotIotsuccessProductCategoryRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductCategoryEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合</p>
+     */
+    public ListBlockchainBotIotsuccessProductCategoryResponse listBlockchainBotIotsuccessProductCategoryEx(ListBlockchainBotIotsuccessProductCategoryRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.category.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductCategoryResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线</p>
+     */
+    public ListBlockchainBotIotsuccessProductTemplateGlobalResponse listBlockchainBotIotsuccessProductTemplateGlobal(ListBlockchainBotIotsuccessProductTemplateGlobalRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductTemplateGlobalEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线</p>
+     */
+    public ListBlockchainBotIotsuccessProductTemplateGlobalResponse listBlockchainBotIotsuccessProductTemplateGlobalEx(ListBlockchainBotIotsuccessProductTemplateGlobalRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.global.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductTemplateGlobalResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板</p>
+     */
+    public CreateBlockchainBotIotsuccessProductTemplateResponse createBlockchainBotIotsuccessProductTemplate(CreateBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板</p>
+     */
+    public CreateBlockchainBotIotsuccessProductTemplateResponse createBlockchainBotIotsuccessProductTemplateEx(CreateBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记</p>
+     */
+    public ListBlockchainBotIotsuccessProductTemplateResponse listBlockchainBotIotsuccessProductTemplate(ListBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记</p>
+     */
+    public ListBlockchainBotIotsuccessProductTemplateResponse listBlockchainBotIotsuccessProductTemplateEx(ListBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T04 模板全部配置
+     * Summary: T04 模板全部配置</p>
+     */
+    public DetailBlockchainBotIotsuccessProductTemplateResponse detailBlockchainBotIotsuccessProductTemplate(DetailBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T04 模板全部配置
+     * Summary: T04 模板全部配置</p>
+     */
+    public DetailBlockchainBotIotsuccessProductTemplateResponse detailBlockchainBotIotsuccessProductTemplateEx(DetailBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductTemplateResponse updateBlockchainBotIotsuccessProductTemplate(UpdateBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductTemplateResponse updateBlockchainBotIotsuccessProductTemplateEx(UpdateBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductTemplateResponse deleteBlockchainBotIotsuccessProductTemplate(DeleteBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductTemplateResponse deleteBlockchainBotIotsuccessProductTemplateEx(DeleteBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备</p>
+     */
+    public DefaultBlockchainBotIotsuccessProductTemplateResponse defaultBlockchainBotIotsuccessProductTemplate(DefaultBlockchainBotIotsuccessProductTemplateRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.defaultBlockchainBotIotsuccessProductTemplateEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备</p>
+     */
+    public DefaultBlockchainBotIotsuccessProductTemplateResponse defaultBlockchainBotIotsuccessProductTemplateEx(DefaultBlockchainBotIotsuccessProductTemplateRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.template.default", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DefaultBlockchainBotIotsuccessProductTemplateResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色</p>
+     */
+    public ListBlockchainBotIotsuccessProductVoiceResponse listBlockchainBotIotsuccessProductVoice(ListBlockchainBotIotsuccessProductVoiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductVoiceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色</p>
+     */
+    public ListBlockchainBotIotsuccessProductVoiceResponse listBlockchainBotIotsuccessProductVoiceEx(ListBlockchainBotIotsuccessProductVoiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.voice.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductVoiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型</p>
+     */
+    public ListBlockchainBotIotsuccessProductModelResponse listBlockchainBotIotsuccessProductModel(ListBlockchainBotIotsuccessProductModelRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductModelEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型</p>
+     */
+    public ListBlockchainBotIotsuccessProductModelResponse listBlockchainBotIotsuccessProductModelEx(ListBlockchainBotIotsuccessProductModelRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.model.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductModelResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录</p>
+     */
+    public ListBlockchainBotIotsuccessProductPluginStoreResponse listBlockchainBotIotsuccessProductPluginStore(ListBlockchainBotIotsuccessProductPluginStoreRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductPluginStoreEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录</p>
+     */
+    public ListBlockchainBotIotsuccessProductPluginStoreResponse listBlockchainBotIotsuccessProductPluginStoreEx(ListBlockchainBotIotsuccessProductPluginStoreRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.store.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductPluginStoreResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态</p>
+     */
+    public ListBlockchainBotIotsuccessProductPluginBindingResponse listBlockchainBotIotsuccessProductPluginBinding(ListBlockchainBotIotsuccessProductPluginBindingRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductPluginBindingEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态</p>
+     */
+    public ListBlockchainBotIotsuccessProductPluginBindingResponse listBlockchainBotIotsuccessProductPluginBindingEx(ListBlockchainBotIotsuccessProductPluginBindingRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.binding.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductPluginBindingResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds</p>
+     */
+    public BindBlockchainBotIotsuccessProductPluginResponse bindBlockchainBotIotsuccessProductPlugin(BindBlockchainBotIotsuccessProductPluginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.bindBlockchainBotIotsuccessProductPluginEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds</p>
+     */
+    public BindBlockchainBotIotsuccessProductPluginResponse bindBlockchainBotIotsuccessProductPluginEx(BindBlockchainBotIotsuccessProductPluginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.bind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new BindBlockchainBotIotsuccessProductPluginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true</p>
+     */
+    public UnbindBlockchainBotIotsuccessProductPluginResponse unbindBlockchainBotIotsuccessProductPlugin(UnbindBlockchainBotIotsuccessProductPluginRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.unbindBlockchainBotIotsuccessProductPluginEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true</p>
+     */
+    public UnbindBlockchainBotIotsuccessProductPluginResponse unbindBlockchainBotIotsuccessProductPluginEx(UnbindBlockchainBotIotsuccessProductPluginRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.unbind", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UnbindBlockchainBotIotsuccessProductPluginResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果</p>
+     */
+    public UploadBlockchainBotIotsuccessProductSkillResponse uploadBlockchainBotIotsuccessProductSkill(UploadBlockchainBotIotsuccessProductSkillRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadBlockchainBotIotsuccessProductSkillEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果</p>
+     */
+    public UploadBlockchainBotIotsuccessProductSkillResponse uploadBlockchainBotIotsuccessProductSkillEx(UploadBlockchainBotIotsuccessProductSkillRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadBlockchainBotIotsuccessProductSkillResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductSkillResponse statusBlockchainBotIotsuccessProductSkill(StatusBlockchainBotIotsuccessProductSkillRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusBlockchainBotIotsuccessProductSkillEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductSkillResponse statusBlockchainBotIotsuccessProductSkillEx(StatusBlockchainBotIotsuccessProductSkillRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusBlockchainBotIotsuccessProductSkillResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验</p>
+     */
+    public CreateBlockchainBotIotsuccessProductMcpResponse createBlockchainBotIotsuccessProductMcp(CreateBlockchainBotIotsuccessProductMcpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBlockchainBotIotsuccessProductMcpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验</p>
+     */
+    public CreateBlockchainBotIotsuccessProductMcpResponse createBlockchainBotIotsuccessProductMcpEx(CreateBlockchainBotIotsuccessProductMcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlockchainBotIotsuccessProductMcpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductMcpResponse updateBlockchainBotIotsuccessProductMcp(UpdateBlockchainBotIotsuccessProductMcpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBlockchainBotIotsuccessProductMcpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductMcpResponse updateBlockchainBotIotsuccessProductMcpEx(UpdateBlockchainBotIotsuccessProductMcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBlockchainBotIotsuccessProductMcpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductMcpResponse deleteBlockchainBotIotsuccessProductMcp(DeleteBlockchainBotIotsuccessProductMcpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBlockchainBotIotsuccessProductMcpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductMcpResponse deleteBlockchainBotIotsuccessProductMcpEx(DeleteBlockchainBotIotsuccessProductMcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBlockchainBotIotsuccessProductMcpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入</p>
+     */
+    public ValidateBlockchainBotIotsuccessProductMcpResponse validateBlockchainBotIotsuccessProductMcp(ValidateBlockchainBotIotsuccessProductMcpRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.validateBlockchainBotIotsuccessProductMcpEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入</p>
+     */
+    public ValidateBlockchainBotIotsuccessProductMcpResponse validateBlockchainBotIotsuccessProductMcpEx(ValidateBlockchainBotIotsuccessProductMcpRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.validate", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ValidateBlockchainBotIotsuccessProductMcpResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单</p>
+     */
+    public ImportBlockchainBotIotsuccessProductDeviceResponse importBlockchainBotIotsuccessProductDevice(ImportBlockchainBotIotsuccessProductDeviceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.importBlockchainBotIotsuccessProductDeviceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单</p>
+     */
+    public ImportBlockchainBotIotsuccessProductDeviceResponse importBlockchainBotIotsuccessProductDeviceEx(ImportBlockchainBotIotsuccessProductDeviceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ImportBlockchainBotIotsuccessProductDeviceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductDeviceImportResponse statusBlockchainBotIotsuccessProductDeviceImport(StatusBlockchainBotIotsuccessProductDeviceImportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusBlockchainBotIotsuccessProductDeviceImportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductDeviceImportResponse statusBlockchainBotIotsuccessProductDeviceImportEx(StatusBlockchainBotIotsuccessProductDeviceImportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusBlockchainBotIotsuccessProductDeviceImportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K01 创建知识库
+     * Summary: K01 创建知识库</p>
+     */
+    public CreateBlockchainBotIotsuccessProductKnowledgebaseResponse createBlockchainBotIotsuccessProductKnowledgebase(CreateBlockchainBotIotsuccessProductKnowledgebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createBlockchainBotIotsuccessProductKnowledgebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K01 创建知识库
+     * Summary: K01 创建知识库</p>
+     */
+    public CreateBlockchainBotIotsuccessProductKnowledgebaseResponse createBlockchainBotIotsuccessProductKnowledgebaseEx(CreateBlockchainBotIotsuccessProductKnowledgebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateBlockchainBotIotsuccessProductKnowledgebaseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页</p>
+     */
+    public ListBlockchainBotIotsuccessProductKnowledgebaseResponse listBlockchainBotIotsuccessProductKnowledgebase(ListBlockchainBotIotsuccessProductKnowledgebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductKnowledgebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页</p>
+     */
+    public ListBlockchainBotIotsuccessProductKnowledgebaseResponse listBlockchainBotIotsuccessProductKnowledgebaseEx(ListBlockchainBotIotsuccessProductKnowledgebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductKnowledgebaseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品</p>
+     */
+    public DetailBlockchainBotIotsuccessProductKnowledgebaseResponse detailBlockchainBotIotsuccessProductKnowledgebase(DetailBlockchainBotIotsuccessProductKnowledgebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.detailBlockchainBotIotsuccessProductKnowledgebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品</p>
+     */
+    public DetailBlockchainBotIotsuccessProductKnowledgebaseResponse detailBlockchainBotIotsuccessProductKnowledgebaseEx(DetailBlockchainBotIotsuccessProductKnowledgebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.detail", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DetailBlockchainBotIotsuccessProductKnowledgebaseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K04 更新名称描述
+     * Summary: K04 更新名称描述</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse updateBlockchainBotIotsuccessProductKnowledgebase(UpdateBlockchainBotIotsuccessProductKnowledgebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.updateBlockchainBotIotsuccessProductKnowledgebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K04 更新名称描述
+     * Summary: K04 更新名称描述</p>
+     */
+    public UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse updateBlockchainBotIotsuccessProductKnowledgebaseEx(UpdateBlockchainBotIotsuccessProductKnowledgebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.update", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse deleteBlockchainBotIotsuccessProductKnowledgebase(DeleteBlockchainBotIotsuccessProductKnowledgebaseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBlockchainBotIotsuccessProductKnowledgebaseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse deleteBlockchainBotIotsuccessProductKnowledgebaseEx(DeleteBlockchainBotIotsuccessProductKnowledgebaseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链</p>
+     */
+    public UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse uploadBlockchainBotIotsuccessProductKnowledgebaseContent(UploadBlockchainBotIotsuccessProductKnowledgebaseContentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadBlockchainBotIotsuccessProductKnowledgebaseContentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链</p>
+     */
+    public UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse uploadBlockchainBotIotsuccessProductKnowledgebaseContentEx(UploadBlockchainBotIotsuccessProductKnowledgebaseContentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse statusBlockchainBotIotsuccessProductKnowledgebaseContent(StatusBlockchainBotIotsuccessProductKnowledgebaseContentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusBlockchainBotIotsuccessProductKnowledgebaseContentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态</p>
+     */
+    public StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse statusBlockchainBotIotsuccessProductKnowledgebaseContentEx(StatusBlockchainBotIotsuccessProductKnowledgebaseContentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse deleteBlockchainBotIotsuccessProductKnowledgebaseContent(DeleteBlockchainBotIotsuccessProductKnowledgebaseContentRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.deleteBlockchainBotIotsuccessProductKnowledgebaseContentEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理</p>
+     */
+    public DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse deleteBlockchainBotIotsuccessProductKnowledgebaseContentEx(DeleteBlockchainBotIotsuccessProductKnowledgebaseContentRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.delete", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发</p>
+     */
+    public SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse setBlockchainBotIotsuccessProductKnowledgebaseTrigger(SetBlockchainBotIotsuccessProductKnowledgebaseTriggerRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.setBlockchainBotIotsuccessProductKnowledgebaseTriggerEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发</p>
+     */
+    public SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse setBlockchainBotIotsuccessProductKnowledgebaseTriggerEx(SetBlockchainBotIotsuccessProductKnowledgebaseTriggerRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.trigger.set", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试</p>
+     */
+    public TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse testBlockchainBotIotsuccessProductKnowledgebaseRecall(TestBlockchainBotIotsuccessProductKnowledgebaseRecallRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.testBlockchainBotIotsuccessProductKnowledgebaseRecallEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试</p>
+     */
+    public TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse testBlockchainBotIotsuccessProductKnowledgebaseRecallEx(TestBlockchainBotIotsuccessProductKnowledgebaseRecallRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.recall.test", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余</p>
+     */
+    public ListBlockchainBotIotsuccessProductLicenseResponse listBlockchainBotIotsuccessProductLicense(ListBlockchainBotIotsuccessProductLicenseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductLicenseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余</p>
+     */
+    public ListBlockchainBotIotsuccessProductLicenseResponse listBlockchainBotIotsuccessProductLicenseEx(ListBlockchainBotIotsuccessProductLicenseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.license.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductLicenseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间</p>
+     */
+    public OverviewBlockchainBotIotsuccessProductQuotaResponse overviewBlockchainBotIotsuccessProductQuota(OverviewBlockchainBotIotsuccessProductQuotaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.overviewBlockchainBotIotsuccessProductQuotaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间</p>
+     */
+    public OverviewBlockchainBotIotsuccessProductQuotaResponse overviewBlockchainBotIotsuccessProductQuotaEx(OverviewBlockchainBotIotsuccessProductQuotaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.overview", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new OverviewBlockchainBotIotsuccessProductQuotaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天</p>
+     */
+    public ListBlockchainBotIotsuccessProductQuotaConsumptionResponse listBlockchainBotIotsuccessProductQuotaConsumption(ListBlockchainBotIotsuccessProductQuotaConsumptionRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.listBlockchainBotIotsuccessProductQuotaConsumptionEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天</p>
+     */
+    public ListBlockchainBotIotsuccessProductQuotaConsumptionResponse listBlockchainBotIotsuccessProductQuotaConsumptionEx(ListBlockchainBotIotsuccessProductQuotaConsumptionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.consumption.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListBlockchainBotIotsuccessProductQuotaConsumptionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusBlockchainBotIoaProductDeviceImportResponse statusBlockchainBotIoaProductDeviceImport(StatusBlockchainBotIoaProductDeviceImportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusBlockchainBotIoaProductDeviceImportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusBlockchainBotIoaProductDeviceImportResponse statusBlockchainBotIoaProductDeviceImportEx(StatusBlockchainBotIoaProductDeviceImportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.ioa.product.device.import.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusBlockchainBotIoaProductDeviceImportResponse());
     }
 
     /**
