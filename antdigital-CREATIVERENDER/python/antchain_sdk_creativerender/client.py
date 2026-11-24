@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.2.0',
+                    'sdk_version': '2.2.2',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '2.2.0',
+                    'sdk_version': '2.2.2',
                     '_prod_code': 'CREATIVERENDER',
                     '_prod_channel': 'default'
                 }
@@ -1793,6 +1793,342 @@ class Client:
         return TeaCore.from_map(
             creativerender_models.QueryAntcloudMarketingagentTemplateAnalysisResponse(),
             await self.do_request_async('1.0', 'antcloud.marketingagent.template.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_video_storyboard(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoStoryboardRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_video_storyboard_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_video_storyboard_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoStoryboardRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_video_storyboard_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_video_storyboard_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.video.storyboard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_video_storyboard_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 传入视频和修改图片以及要求返回拆解任务id
+        Summary: 传入视频和修改图片以及要求返回拆解任务id
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideoStoryboardResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.video.storyboard.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_video_storyboard(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoStoryboardRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_video_storyboard_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_video_storyboard_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoStoryboardRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_video_storyboard_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_video_storyboard_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.video.storyboard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_video_storyboard_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoStoryboardRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse:
+        """
+        Description: 查询拆解任务结果
+        Summary: 查询拆解任务结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideoStoryboardResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.video.storyboard.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_video_remake(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoRemakeRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_video_remake_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_video_remake_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoRemakeRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_video_remake_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_video_remake_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.video.remake.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_video_remake_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideoRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 查询复刻视频生成结果
+        Summary: 查询复刻视频生成结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideoRemakeResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.video.remake.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_video_remake(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoRemakeRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_video_remake_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_video_remake_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoRemakeRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_video_remake_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_video_remake_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.video.remake.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_video_remake_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideoRemakeRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse:
+        """
+        Description: 根据拆解结果和新分镜生成视频
+        Summary: 根据拆解结果和新分镜生成视频
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideoRemakeResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.video.remake.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def exec_antcloud_marketingagent_videotemplate_analysis(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: AI视频解析
+        Summary: AI视频解析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.exec_antcloud_marketingagent_videotemplate_analysis_ex(request, headers, runtime)
+
+    async def exec_antcloud_marketingagent_videotemplate_analysis_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisRequest,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: AI视频解析
+        Summary: AI视频解析
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.exec_antcloud_marketingagent_videotemplate_analysis_ex_async(request, headers, runtime)
+
+    def exec_antcloud_marketingagent_videotemplate_analysis_ex(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: AI视频解析
+        Summary: AI视频解析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.videotemplate.analysis.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def exec_antcloud_marketingagent_videotemplate_analysis_ex_async(
+        self,
+        request: creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: AI视频解析
+        Summary: AI视频解析
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.ExecAntcloudMarketingagentVideotemplateAnalysisResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.videotemplate.analysis.exec', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_antcloud_marketingagent_videotemplate_analysis(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询结果
+        Summary: 视频拆解查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_antcloud_marketingagent_videotemplate_analysis_ex(request, headers, runtime)
+
+    async def query_antcloud_marketingagent_videotemplate_analysis_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisRequest,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询结果
+        Summary: 视频拆解查询结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_antcloud_marketingagent_videotemplate_analysis_ex_async(request, headers, runtime)
+
+    def query_antcloud_marketingagent_videotemplate_analysis_ex(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询结果
+        Summary: 视频拆解查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse(),
+            self.do_request('1.0', 'antcloud.marketingagent.videotemplate.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_antcloud_marketingagent_videotemplate_analysis_ex_async(
+        self,
+        request: creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse:
+        """
+        Description: 视频拆解查询结果
+        Summary: 视频拆解查询结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creativerender_models.QueryAntcloudMarketingagentVideotemplateAnalysisResponse(),
+            await self.do_request_async('1.0', 'antcloud.marketingagent.videotemplate.analysis.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_antcloud_gatewayx_file_upload(

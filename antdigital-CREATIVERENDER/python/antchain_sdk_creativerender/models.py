@@ -4339,6 +4339,738 @@ class QueryAntcloudMarketingagentTemplateAnalysisResponse(TeaModel):
         return self
 
 
+class ExecAntcloudMarketingagentVideoStoryboardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        prompt: str = None,
+        video_model: str = None,
+        ratio: str = None,
+        resolution: int = None,
+        media_refs: List[CreativeVideoAssetRef] = None,
+        session_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 拆解要求
+        self.prompt = prompt
+        # 模型
+        self.video_model = video_model
+        # 画幅
+        self.ratio = ratio
+        # 分辨率
+        self.resolution = resolution
+        # 原视频+替换图片
+        self.media_refs = media_refs
+        # 会话ID
+        self.session_id = session_id
+
+    def validate(self):
+        self.validate_required(self.prompt, 'prompt')
+        self.validate_required(self.media_refs, 'media_refs')
+        if self.media_refs:
+            for k in self.media_refs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        if self.video_model is not None:
+            result['video_model'] = self.video_model
+        if self.ratio is not None:
+            result['ratio'] = self.ratio
+        if self.resolution is not None:
+            result['resolution'] = self.resolution
+        result['media_refs'] = []
+        if self.media_refs is not None:
+            for k in self.media_refs:
+                result['media_refs'].append(k.to_map() if k else None)
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        if m.get('video_model') is not None:
+            self.video_model = m.get('video_model')
+        if m.get('ratio') is not None:
+            self.ratio = m.get('ratio')
+        if m.get('resolution') is not None:
+            self.resolution = m.get('resolution')
+        self.media_refs = []
+        if m.get('media_refs') is not None:
+            for k in m.get('media_refs'):
+                temp_model = CreativeVideoAssetRef()
+                self.media_refs.append(temp_model.from_map(k))
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        return self
+
+
+class ExecAntcloudMarketingagentVideoStoryboardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        session_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id
+        self.task_id = task_id
+        # 会话ID
+        self.session_id = session_id
+        # PROCESSING受理成功/FAILED参数被拒
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryAntcloudMarketingagentVideoStoryboardRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 拆解任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentVideoStoryboardResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+        episode_id: str = None,
+        analysis_detail: str = None,
+        original_storyboards: str = None,
+        new_storyboard_script: str = None,
+        current_credit: int = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id回显
+        self.task_id = task_id
+        # PROCESSING/COMPLETED/FAILED
+        self.status = status
+        # 剧集id
+        self.episode_id = episode_id
+        # 拆解详情
+        self.analysis_detail = analysis_detail
+        # 原片分镜
+        self.original_storyboards = original_storyboards
+        # 新分镜脚本
+        self.new_storyboard_script = new_storyboard_script
+        # 本阶段费用
+        self.current_credit = current_credit
+        # FAILED 时返回的失败原因（脱敏文案）
+        self.error_message = error_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.episode_id is not None:
+            result['episode_id'] = self.episode_id
+        if self.analysis_detail is not None:
+            result['analysis_detail'] = self.analysis_detail
+        if self.original_storyboards is not None:
+            result['original_storyboards'] = self.original_storyboards
+        if self.new_storyboard_script is not None:
+            result['new_storyboard_script'] = self.new_storyboard_script
+        if self.current_credit is not None:
+            result['current_credit'] = self.current_credit
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('episode_id') is not None:
+            self.episode_id = m.get('episode_id')
+        if m.get('analysis_detail') is not None:
+            self.analysis_detail = m.get('analysis_detail')
+        if m.get('original_storyboards') is not None:
+            self.original_storyboards = m.get('original_storyboards')
+        if m.get('new_storyboard_script') is not None:
+            self.new_storyboard_script = m.get('new_storyboard_script')
+        if m.get('current_credit') is not None:
+            self.current_credit = m.get('current_credit')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
+class QueryAntcloudMarketingagentVideoRemakeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 生视频返回的task_id回传
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentVideoRemakeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        outputs: VideoOutput = None,
+        status: str = None,
+        current_credit: int = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id回显
+        self.task_id = task_id
+        # 视频产物列表，COMPLETED 时返回非空列表。
+        self.outputs = outputs
+        # PROCESSING / COMPLETED / FAILED
+        self.status = status
+        # 本阶段视频费用
+        self.current_credit = current_credit
+        # FAILED 时返回的失败原因（脱敏文案）；
+        self.error_message = error_message
+
+    def validate(self):
+        if self.outputs:
+            self.outputs.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.outputs is not None:
+            result['outputs'] = self.outputs.to_map()
+        if self.status is not None:
+            result['status'] = self.status
+        if self.current_credit is not None:
+            result['current_credit'] = self.current_credit
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('outputs') is not None:
+            temp_model = VideoOutput()
+            self.outputs = temp_model.from_map(m['outputs'])
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('current_credit') is not None:
+            self.current_credit = m.get('current_credit')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
+class ExecAntcloudMarketingagentVideoRemakeRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        storyboard_message_id: str = None,
+        new_storyboard_script: str = None,
+        session_id: str = None,
+        prompt: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 阶段一 task_id（= 阶段一 messageId）
+        self.storyboard_message_id = storyboard_message_id
+        # 用户编辑后的新分镜脚本（纯字符串）；
+        self.new_storyboard_script = new_storyboard_script
+        # 拆解返回的会话id
+        self.session_id = session_id
+        # 本轮 USER 消息展示文案
+        self.prompt = prompt
+
+    def validate(self):
+        self.validate_required(self.storyboard_message_id, 'storyboard_message_id')
+        self.validate_required(self.new_storyboard_script, 'new_storyboard_script')
+        self.validate_required(self.session_id, 'session_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.storyboard_message_id is not None:
+            result['storyboard_message_id'] = self.storyboard_message_id
+        if self.new_storyboard_script is not None:
+            result['new_storyboard_script'] = self.new_storyboard_script
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.prompt is not None:
+            result['prompt'] = self.prompt
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('storyboard_message_id') is not None:
+            self.storyboard_message_id = m.get('storyboard_message_id')
+        if m.get('new_storyboard_script') is not None:
+            self.new_storyboard_script = m.get('new_storyboard_script')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('prompt') is not None:
+            self.prompt = m.get('prompt')
+        return self
+
+
+class ExecAntcloudMarketingagentVideoRemakeResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 生视频任务id（内部 messageId
+        self.task_id = task_id
+        # PROCESSING / FAILED
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class ExecAntcloudMarketingagentVideotemplateAnalysisRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        request_id: str = None,
+        origin_video: CreativeVideoAssetRef = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 本次操作幂等键，最多64字符
+        self.request_id = request_id
+        # 原视频
+        self.origin_video = origin_video
+
+    def validate(self):
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.origin_video, 'origin_video')
+        if self.origin_video:
+            self.origin_video.validate()
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.origin_video is not None:
+            result['origin_video'] = self.origin_video.to_map()
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('origin_video') is not None:
+            temp_model = CreativeVideoAssetRef()
+            self.origin_video = temp_model.from_map(m['origin_video'])
+        return self
+
+
+class ExecAntcloudMarketingagentVideotemplateAnalysisResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id
+        self.task_id = task_id
+        # PROCESSING（受理成功）/ FAILED（参数被拒）
+        self.status = status
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class QueryAntcloudMarketingagentVideotemplateAnalysisRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        task_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 任务id
+        self.task_id = task_id
+
+    def validate(self):
+        self.validate_required(self.task_id, 'task_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class QueryAntcloudMarketingagentVideotemplateAnalysisResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        task_id: str = None,
+        status: str = None,
+        analysis_detail: str = None,
+        original_storyboards: str = None,
+        new_storyboard_script: str = None,
+        current_credit: int = None,
+        error_message: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 任务id回显
+        self.task_id = task_id
+        # PENDING / PROCESSING / COMPLETED / FAILED
+        self.status = status
+        # 开场钩子/整体风格/整体节奏/BGM卡点/情绪曲线/字幕节奏/CTA/卡点时间轴(秒)/口播旁白，换行拼接；空项显示 -\
+        self.analysis_detail = analysis_detail
+        # 原片逐镜拆解
+        self.original_storyboards = original_storyboards
+        # 新分镜脚本
+        self.new_storyboard_script = new_storyboard_script
+        # 本次费用
+        self.current_credit = current_credit
+        # FAILED 时返回的脱敏失败文案
+        self.error_message = error_message
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        if self.status is not None:
+            result['status'] = self.status
+        if self.analysis_detail is not None:
+            result['analysis_detail'] = self.analysis_detail
+        if self.original_storyboards is not None:
+            result['original_storyboards'] = self.original_storyboards
+        if self.new_storyboard_script is not None:
+            result['new_storyboard_script'] = self.new_storyboard_script
+        if self.current_credit is not None:
+            result['current_credit'] = self.current_credit
+        if self.error_message is not None:
+            result['error_message'] = self.error_message
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('analysis_detail') is not None:
+            self.analysis_detail = m.get('analysis_detail')
+        if m.get('original_storyboards') is not None:
+            self.original_storyboards = m.get('original_storyboards')
+        if m.get('new_storyboard_script') is not None:
+            self.new_storyboard_script = m.get('new_storyboard_script')
+        if m.get('current_credit') is not None:
+            self.current_credit = m.get('current_credit')
+        if m.get('error_message') is not None:
+            self.error_message = m.get('error_message')
+        return self
+
+
 class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
