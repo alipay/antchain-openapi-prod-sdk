@@ -111,6 +111,10 @@ public class FetchResult extends TeaModel {
     @NameInMap("content_formats")
     public String contentFormats;
 
+    // 图片url 和 index
+    @NameInMap("image_urls")
+    public CommercialImage imageUrls;
+
     public static FetchResult build(java.util.Map<String, ?> map) throws Exception {
         FetchResult self = new FetchResult();
         return TeaModel.build(map, self);
@@ -202,6 +206,14 @@ public class FetchResult extends TeaModel {
     }
     public String getContentFormats() {
         return this.contentFormats;
+    }
+
+    public FetchResult setImageUrls(CommercialImage imageUrls) {
+        this.imageUrls = imageUrls;
+        return this;
+    }
+    public CommercialImage getImageUrls() {
+        return this.imageUrls;
     }
 
 }
