@@ -113,7 +113,7 @@ public class FetchResult extends TeaModel {
 
     // 图片url 和 index
     @NameInMap("image_urls")
-    public CommercialImage imageUrls;
+    public java.util.List<CommercialImage> imageUrls;
 
     public static FetchResult build(java.util.Map<String, ?> map) throws Exception {
         FetchResult self = new FetchResult();
@@ -208,11 +208,11 @@ public class FetchResult extends TeaModel {
         return this.contentFormats;
     }
 
-    public FetchResult setImageUrls(CommercialImage imageUrls) {
+    public FetchResult setImageUrls(java.util.List<CommercialImage> imageUrls) {
         this.imageUrls = imageUrls;
         return this;
     }
-    public CommercialImage getImageUrls() {
+    public java.util.List<CommercialImage> getImageUrls() {
         return this.imageUrls;
     }
 
