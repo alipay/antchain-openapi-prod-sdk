@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.2',
+                    'sdk_version': '1.2.3',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -1673,4 +1673,116 @@ class Client:
         return TeaCore.from_map(
             creative_models.DeleteArkassetgroupResponse(),
             await self.do_request_async('1.0', 'antdigital.creative.arkassetgroup.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def push_arkassetvisual(
+        self,
+        request: creative_models.PushArkassetvisualRequest,
+    ) -> creative_models.PushArkassetvisualResponse:
+        """
+        Description: 创建真人人像素材组
+        Summary: 创建真人人像素材组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_arkassetvisual_ex(request, headers, runtime)
+
+    async def push_arkassetvisual_async(
+        self,
+        request: creative_models.PushArkassetvisualRequest,
+    ) -> creative_models.PushArkassetvisualResponse:
+        """
+        Description: 创建真人人像素材组
+        Summary: 创建真人人像素材组
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.push_arkassetvisual_ex_async(request, headers, runtime)
+
+    def push_arkassetvisual_ex(
+        self,
+        request: creative_models.PushArkassetvisualRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetvisualResponse:
+        """
+        Description: 创建真人人像素材组
+        Summary: 创建真人人像素材组
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetvisualResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetvisual.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def push_arkassetvisual_ex_async(
+        self,
+        request: creative_models.PushArkassetvisualRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.PushArkassetvisualResponse:
+        """
+        Description: 创建真人人像素材组
+        Summary: 创建真人人像素材组
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.PushArkassetvisualResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetvisual.push', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_arkassetvisual(
+        self,
+        request: creative_models.QueryArkassetvisualRequest,
+    ) -> creative_models.QueryArkassetvisualResponse:
+        """
+        Description: 获取真人 Asset Group ID
+        Summary: 获取真人 Asset Group ID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_arkassetvisual_ex(request, headers, runtime)
+
+    async def query_arkassetvisual_async(
+        self,
+        request: creative_models.QueryArkassetvisualRequest,
+    ) -> creative_models.QueryArkassetvisualResponse:
+        """
+        Description: 获取真人 Asset Group ID
+        Summary: 获取真人 Asset Group ID
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_arkassetvisual_ex_async(request, headers, runtime)
+
+    def query_arkassetvisual_ex(
+        self,
+        request: creative_models.QueryArkassetvisualRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetvisualResponse:
+        """
+        Description: 获取真人 Asset Group ID
+        Summary: 获取真人 Asset Group ID
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetvisualResponse(),
+            self.do_request('1.0', 'antdigital.creative.arkassetvisual.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_arkassetvisual_ex_async(
+        self,
+        request: creative_models.QueryArkassetvisualRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryArkassetvisualResponse:
+        """
+        Description: 获取真人 Asset Group ID
+        Summary: 获取真人 Asset Group ID
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryArkassetvisualResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.arkassetvisual.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
