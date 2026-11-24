@@ -3800,6 +3800,600 @@ func (s *QueryAntcloudMarketingagentTemplateAnalysisResponse) SetErrorMessage(v 
 	return s
 }
 
+type ExecAntcloudMarketingagentVideoStoryboardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 拆解要求
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty" require:"true"`
+	// 模型
+	VideoModel *string `json:"video_model,omitempty" xml:"video_model,omitempty"`
+	// 画幅
+	Ratio *string `json:"ratio,omitempty" xml:"ratio,omitempty"`
+	// 分辨率
+	Resolution *int64 `json:"resolution,omitempty" xml:"resolution,omitempty"`
+	// 原视频+替换图片
+	MediaRefs []*CreativeVideoAssetRef `json:"media_refs,omitempty" xml:"media_refs,omitempty" require:"true" type:"Repeated"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentVideoStoryboardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideoStoryboardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetPrompt(v string) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.Prompt = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetVideoModel(v string) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.VideoModel = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetRatio(v string) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.Ratio = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetResolution(v int64) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.Resolution = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetMediaRefs(v []*CreativeVideoAssetRef) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.MediaRefs = v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardRequest) SetSessionId(v string) *ExecAntcloudMarketingagentVideoStoryboardRequest {
+	s.SessionId = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentVideoStoryboardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 会话ID
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty"`
+	// PROCESSING受理成功/FAILED参数被拒
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentVideoStoryboardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideoStoryboardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetResultCode(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetTaskId(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetSessionId(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoStoryboardResponse) SetStatus(v string) *ExecAntcloudMarketingagentVideoStoryboardResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideoStoryboardRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 拆解任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentVideoStoryboardRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideoStoryboardRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentVideoStoryboardRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardRequest) SetTaskId(v string) *QueryAntcloudMarketingagentVideoStoryboardRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideoStoryboardResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id回显
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// PROCESSING/COMPLETED/FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 剧集id
+	EpisodeId *string `json:"episode_id,omitempty" xml:"episode_id,omitempty"`
+	// 拆解详情
+	AnalysisDetail *string `json:"analysis_detail,omitempty" xml:"analysis_detail,omitempty"`
+	// 原片分镜
+	OriginalStoryboards *string `json:"original_storyboards,omitempty" xml:"original_storyboards,omitempty"`
+	// 新分镜脚本
+	NewStoryboardScript *string `json:"new_storyboard_script,omitempty" xml:"new_storyboard_script,omitempty"`
+	// 本阶段费用
+	CurrentCredit *int64 `json:"current_credit,omitempty" xml:"current_credit,omitempty"`
+	// FAILED 时返回的失败原因（脱敏文案）
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentVideoStoryboardResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideoStoryboardResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetResultCode(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetTaskId(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetStatus(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetEpisodeId(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.EpisodeId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetAnalysisDetail(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.AnalysisDetail = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetOriginalStoryboards(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.OriginalStoryboards = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetNewStoryboardScript(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.NewStoryboardScript = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetCurrentCredit(v int64) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.CurrentCredit = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoStoryboardResponse) SetErrorMessage(v string) *QueryAntcloudMarketingagentVideoStoryboardResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideoRemakeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 生视频返回的task_id回传
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentVideoRemakeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideoRemakeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentVideoRemakeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeRequest) SetTaskId(v string) *QueryAntcloudMarketingagentVideoRemakeRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideoRemakeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id回显
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 视频产物列表，COMPLETED 时返回非空列表。
+	Outputs *VideoOutput `json:"outputs,omitempty" xml:"outputs,omitempty"`
+	// PROCESSING / COMPLETED / FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 本阶段视频费用
+	CurrentCredit *int64 `json:"current_credit,omitempty" xml:"current_credit,omitempty"`
+	// FAILED 时返回的失败原因（脱敏文案）；
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentVideoRemakeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideoRemakeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetResultCode(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetTaskId(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetOutputs(v *VideoOutput) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.Outputs = v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetStatus(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetCurrentCredit(v int64) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.CurrentCredit = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideoRemakeResponse) SetErrorMessage(v string) *QueryAntcloudMarketingagentVideoRemakeResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentVideoRemakeRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 阶段一 task_id（= 阶段一 messageId）
+	StoryboardMessageId *string `json:"storyboard_message_id,omitempty" xml:"storyboard_message_id,omitempty" require:"true"`
+	// 用户编辑后的新分镜脚本（纯字符串）；
+	NewStoryboardScript *string `json:"new_storyboard_script,omitempty" xml:"new_storyboard_script,omitempty" require:"true"`
+	// 拆解返回的会话id
+	SessionId *string `json:"session_id,omitempty" xml:"session_id,omitempty" require:"true"`
+	// 本轮 USER 消息展示文案
+	Prompt *string `json:"prompt,omitempty" xml:"prompt,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentVideoRemakeRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideoRemakeRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentVideoRemakeRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeRequest) SetStoryboardMessageId(v string) *ExecAntcloudMarketingagentVideoRemakeRequest {
+	s.StoryboardMessageId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeRequest) SetNewStoryboardScript(v string) *ExecAntcloudMarketingagentVideoRemakeRequest {
+	s.NewStoryboardScript = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeRequest) SetSessionId(v string) *ExecAntcloudMarketingagentVideoRemakeRequest {
+	s.SessionId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeRequest) SetPrompt(v string) *ExecAntcloudMarketingagentVideoRemakeRequest {
+	s.Prompt = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentVideoRemakeResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 生视频任务id（内部 messageId
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// PROCESSING / FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentVideoRemakeResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideoRemakeResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentVideoRemakeResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeResponse) SetResultCode(v string) *ExecAntcloudMarketingagentVideoRemakeResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentVideoRemakeResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeResponse) SetTaskId(v string) *ExecAntcloudMarketingagentVideoRemakeResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideoRemakeResponse) SetStatus(v string) *ExecAntcloudMarketingagentVideoRemakeResponse {
+	s.Status = &v
+	return s
+}
+
+type ExecAntcloudMarketingagentVideotemplateAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 本次操作幂等键，最多64字符
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 原视频
+	OriginVideo *CreativeVideoAssetRef `json:"origin_video,omitempty" xml:"origin_video,omitempty" require:"true"`
+}
+
+func (s ExecAntcloudMarketingagentVideotemplateAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideotemplateAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisRequest) SetAuthToken(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisRequest) SetRequestId(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisRequest) SetOriginVideo(v *CreativeVideoAssetRef) *ExecAntcloudMarketingagentVideotemplateAnalysisRequest {
+	s.OriginVideo = v
+	return s
+}
+
+type ExecAntcloudMarketingagentVideotemplateAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// PROCESSING（受理成功）/ FAILED（参数被拒）
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+}
+
+func (s ExecAntcloudMarketingagentVideotemplateAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ExecAntcloudMarketingagentVideotemplateAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisResponse) SetReqMsgId(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisResponse) SetResultCode(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisResponse) SetResultMsg(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisResponse) SetTaskId(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *ExecAntcloudMarketingagentVideotemplateAnalysisResponse) SetStatus(v string) *ExecAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.Status = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideotemplateAnalysisRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryAntcloudMarketingagentVideotemplateAnalysisRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideotemplateAnalysisRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisRequest) SetAuthToken(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisRequest) SetTaskId(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryAntcloudMarketingagentVideotemplateAnalysisResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id回显
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// PENDING / PROCESSING / COMPLETED / FAILED
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 开场钩子/整体风格/整体节奏/BGM卡点/情绪曲线/字幕节奏/CTA/卡点时间轴(秒)/口播旁白，换行拼接；空项显示 -
+	AnalysisDetail *string `json:"analysis_detail,omitempty" xml:"analysis_detail,omitempty"`
+	// 原片逐镜拆解
+	OriginalStoryboards *string `json:"original_storyboards,omitempty" xml:"original_storyboards,omitempty"`
+	// 新分镜脚本
+	NewStoryboardScript *string `json:"new_storyboard_script,omitempty" xml:"new_storyboard_script,omitempty"`
+	// 本次费用
+	CurrentCredit *int64 `json:"current_credit,omitempty" xml:"current_credit,omitempty"`
+	// FAILED 时返回的脱敏失败文案
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+}
+
+func (s QueryAntcloudMarketingagentVideotemplateAnalysisResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryAntcloudMarketingagentVideotemplateAnalysisResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetReqMsgId(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetResultCode(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetResultMsg(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetTaskId(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetStatus(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetAnalysisDetail(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.AnalysisDetail = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetOriginalStoryboards(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.OriginalStoryboards = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetNewStoryboardScript(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.NewStoryboardScript = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetCurrentCredit(v int64) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.CurrentCredit = &v
+	return s
+}
+
+func (s *QueryAntcloudMarketingagentVideotemplateAnalysisResponse) SetErrorMessage(v string) *QueryAntcloudMarketingagentVideotemplateAnalysisResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
@@ -4050,7 +4644,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("2.2.0"),
+				"sdk_version":      tea.String("2.2.2"),
 				"_prod_code":       tea.String("CREATIVERENDER"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -5133,6 +5727,222 @@ func (client *Client) QueryAntcloudMarketingagentTemplateAnalysisEx(request *Que
 	}
 	_result = &QueryAntcloudMarketingagentTemplateAnalysisResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.template.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 传入视频和修改图片以及要求返回拆解任务id
+//
+// Summary: 传入视频和修改图片以及要求返回拆解任务id
+func (client *Client) ExecAntcloudMarketingagentVideoStoryboard(request *ExecAntcloudMarketingagentVideoStoryboardRequest) (_result *ExecAntcloudMarketingagentVideoStoryboardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentVideoStoryboardResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 传入视频和修改图片以及要求返回拆解任务id
+//
+// Summary: 传入视频和修改图片以及要求返回拆解任务id
+func (client *Client) ExecAntcloudMarketingagentVideoStoryboardEx(request *ExecAntcloudMarketingagentVideoStoryboardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentVideoStoryboardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentVideoStoryboardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.video.storyboard.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询拆解任务结果
+//
+// Summary: 查询拆解任务结果
+func (client *Client) QueryAntcloudMarketingagentVideoStoryboard(request *QueryAntcloudMarketingagentVideoStoryboardRequest) (_result *QueryAntcloudMarketingagentVideoStoryboardResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentVideoStoryboardResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentVideoStoryboardEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询拆解任务结果
+//
+// Summary: 查询拆解任务结果
+func (client *Client) QueryAntcloudMarketingagentVideoStoryboardEx(request *QueryAntcloudMarketingagentVideoStoryboardRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentVideoStoryboardResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentVideoStoryboardResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.video.storyboard.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询复刻视频生成结果
+//
+// Summary: 查询复刻视频生成结果
+func (client *Client) QueryAntcloudMarketingagentVideoRemake(request *QueryAntcloudMarketingagentVideoRemakeRequest) (_result *QueryAntcloudMarketingagentVideoRemakeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentVideoRemakeResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentVideoRemakeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 查询复刻视频生成结果
+//
+// Summary: 查询复刻视频生成结果
+func (client *Client) QueryAntcloudMarketingagentVideoRemakeEx(request *QueryAntcloudMarketingagentVideoRemakeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentVideoRemakeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentVideoRemakeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.video.remake.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据拆解结果和新分镜生成视频
+//
+// Summary: 根据拆解结果和新分镜生成视频
+func (client *Client) ExecAntcloudMarketingagentVideoRemake(request *ExecAntcloudMarketingagentVideoRemakeRequest) (_result *ExecAntcloudMarketingagentVideoRemakeResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentVideoRemakeResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentVideoRemakeEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 根据拆解结果和新分镜生成视频
+//
+// Summary: 根据拆解结果和新分镜生成视频
+func (client *Client) ExecAntcloudMarketingagentVideoRemakeEx(request *ExecAntcloudMarketingagentVideoRemakeRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentVideoRemakeResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentVideoRemakeResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.video.remake.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AI视频解析
+//
+// Summary: AI视频解析
+func (client *Client) ExecAntcloudMarketingagentVideotemplateAnalysis(request *ExecAntcloudMarketingagentVideotemplateAnalysisRequest) (_result *ExecAntcloudMarketingagentVideotemplateAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ExecAntcloudMarketingagentVideotemplateAnalysisResponse{}
+	_body, _err := client.ExecAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: AI视频解析
+//
+// Summary: AI视频解析
+func (client *Client) ExecAntcloudMarketingagentVideotemplateAnalysisEx(request *ExecAntcloudMarketingagentVideotemplateAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ExecAntcloudMarketingagentVideotemplateAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ExecAntcloudMarketingagentVideotemplateAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.videotemplate.analysis.exec"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频拆解查询结果
+//
+// Summary: 视频拆解查询结果
+func (client *Client) QueryAntcloudMarketingagentVideotemplateAnalysis(request *QueryAntcloudMarketingagentVideotemplateAnalysisRequest) (_result *QueryAntcloudMarketingagentVideotemplateAnalysisResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryAntcloudMarketingagentVideotemplateAnalysisResponse{}
+	_body, _err := client.QueryAntcloudMarketingagentVideotemplateAnalysisEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 视频拆解查询结果
+//
+// Summary: 视频拆解查询结果
+func (client *Client) QueryAntcloudMarketingagentVideotemplateAnalysisEx(request *QueryAntcloudMarketingagentVideotemplateAnalysisRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryAntcloudMarketingagentVideotemplateAnalysisResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryAntcloudMarketingagentVideotemplateAnalysisResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.marketingagent.videotemplate.analysis.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
