@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.16"),
+                    new TeaPair("sdk_version", "1.22.17"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -9094,6 +9094,27 @@ public class Client {
     public QueryTrustiotSkugrantwhitelistResponse queryTrustiotSkugrantwhitelistEx(QueryTrustiotSkugrantwhitelistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.trustiot.skugrantwhitelist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTrustiotSkugrantwhitelistResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询支付芯已加白SN
+     * Summary: 查询支付芯已加白SN</p>
+     */
+    public QueryTechintegrationSkugrantwhitelistResponse queryTechintegrationSkugrantwhitelist(QueryTechintegrationSkugrantwhitelistRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryTechintegrationSkugrantwhitelistEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询支付芯已加白SN
+     * Summary: 查询支付芯已加白SN</p>
+     */
+    public QueryTechintegrationSkugrantwhitelistResponse queryTechintegrationSkugrantwhitelistEx(QueryTechintegrationSkugrantwhitelistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.techintegration.skugrantwhitelist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTechintegrationSkugrantwhitelistResponse());
     }
 
     /**
