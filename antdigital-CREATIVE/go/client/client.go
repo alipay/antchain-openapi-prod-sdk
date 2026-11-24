@@ -3666,6 +3666,146 @@ func (s *DeleteArkassetgroupResponse) SetResponseBody(v string) *DeleteArkassetg
 	return s
 }
 
+type PushArkassetvisualRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求参数
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s PushArkassetvisualRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetvisualRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetvisualRequest) SetAuthToken(v string) *PushArkassetvisualRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PushArkassetvisualRequest) SetProductInstanceId(v string) *PushArkassetvisualRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *PushArkassetvisualRequest) SetRequestBody(v string) *PushArkassetvisualRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type PushArkassetvisualResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应参数
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s PushArkassetvisualResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PushArkassetvisualResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PushArkassetvisualResponse) SetReqMsgId(v string) *PushArkassetvisualResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PushArkassetvisualResponse) SetResultCode(v string) *PushArkassetvisualResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PushArkassetvisualResponse) SetResultMsg(v string) *PushArkassetvisualResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PushArkassetvisualResponse) SetResponseBody(v string) *PushArkassetvisualResponse {
+	s.ResponseBody = &v
+	return s
+}
+
+type QueryArkassetvisualRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 请求参数
+	RequestBody *string `json:"request_body,omitempty" xml:"request_body,omitempty" require:"true"`
+}
+
+func (s QueryArkassetvisualRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetvisualRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetvisualRequest) SetAuthToken(v string) *QueryArkassetvisualRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryArkassetvisualRequest) SetProductInstanceId(v string) *QueryArkassetvisualRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryArkassetvisualRequest) SetRequestBody(v string) *QueryArkassetvisualRequest {
+	s.RequestBody = &v
+	return s
+}
+
+type QueryArkassetvisualResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 响应参数
+	ResponseBody *string `json:"response_body,omitempty" xml:"response_body,omitempty"`
+}
+
+func (s QueryArkassetvisualResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryArkassetvisualResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryArkassetvisualResponse) SetReqMsgId(v string) *QueryArkassetvisualResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryArkassetvisualResponse) SetResultCode(v string) *QueryArkassetvisualResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryArkassetvisualResponse) SetResultMsg(v string) *QueryArkassetvisualResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryArkassetvisualResponse) SetResponseBody(v string) *QueryArkassetvisualResponse {
+	s.ResponseBody = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3796,7 +3936,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.2"),
+				"sdk_version":      tea.String("1.2.3"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4747,6 +4887,78 @@ func (client *Client) DeleteArkassetgroupEx(request *DeleteArkassetgroupRequest,
 	}
 	_result = &DeleteArkassetgroupResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetgroup.delete"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建真人人像素材组
+//
+// Summary: 创建真人人像素材组
+func (client *Client) PushArkassetvisual(request *PushArkassetvisualRequest) (_result *PushArkassetvisualResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PushArkassetvisualResponse{}
+	_body, _err := client.PushArkassetvisualEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 创建真人人像素材组
+//
+// Summary: 创建真人人像素材组
+func (client *Client) PushArkassetvisualEx(request *PushArkassetvisualRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PushArkassetvisualResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PushArkassetvisualResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetvisual.push"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 获取真人 Asset Group ID
+//
+// Summary: 获取真人 Asset Group ID
+func (client *Client) QueryArkassetvisual(request *QueryArkassetvisualRequest) (_result *QueryArkassetvisualResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryArkassetvisualResponse{}
+	_body, _err := client.QueryArkassetvisualEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 获取真人 Asset Group ID
+//
+// Summary: 获取真人 Asset Group ID
+func (client *Client) QueryArkassetvisualEx(request *QueryArkassetvisualRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryArkassetvisualResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryArkassetvisualResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetvisual.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
