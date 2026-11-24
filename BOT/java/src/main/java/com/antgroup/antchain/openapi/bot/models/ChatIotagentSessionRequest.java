@@ -34,6 +34,18 @@ public class ChatIotagentSessionRequest extends TeaModel {
     @NameInMap("query")
     public String query;
 
+    // 附件
+    @NameInMap("attach_files")
+    public java.util.List<FileInfo> attachFiles;
+
+    // josn字符串
+    @NameInMap("extra_params")
+    public String extraParams;
+
+    // 续接结构体 JSON（系分 §8.1.1）：{turnId 必填, afterSequence 可选, command 可选={type:DECIDE/ANSWER/CANCEL, expectedVersion, payload}}；payload 键 camelCase：DECIDE={interactionId,decision,scope} ANSWER={interactionId,answer} CANCEL={reason}
+    @NameInMap("resume")
+    public String resume;
+
     public static ChatIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatIotagentSessionRequest self = new ChatIotagentSessionRequest();
         return TeaModel.build(map, self);
@@ -93,6 +105,30 @@ public class ChatIotagentSessionRequest extends TeaModel {
     }
     public String getQuery() {
         return this.query;
+    }
+
+    public ChatIotagentSessionRequest setAttachFiles(java.util.List<FileInfo> attachFiles) {
+        this.attachFiles = attachFiles;
+        return this;
+    }
+    public java.util.List<FileInfo> getAttachFiles() {
+        return this.attachFiles;
+    }
+
+    public ChatIotagentSessionRequest setExtraParams(String extraParams) {
+        this.extraParams = extraParams;
+        return this;
+    }
+    public String getExtraParams() {
+        return this.extraParams;
+    }
+
+    public ChatIotagentSessionRequest setResume(String resume) {
+        this.resume = resume;
+        return this;
+    }
+    public String getResume() {
+        return this.resume;
     }
 
 }

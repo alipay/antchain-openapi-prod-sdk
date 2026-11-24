@@ -29,6 +29,10 @@ public class CreateIotagentSessionRequest extends TeaModel {
     @Validation(required = true)
     public String instanceId;
 
+    // 客户端类型，可选；支持 DEFAULT_IOA_API（默认）、MOBILE_IOA_API（移动端 H5/App）、WEB_IOA_API（PC 网页端），不传默认走 DEFAULT_IOA_API
+    @NameInMap("client_type")
+    public String clientType;
+
     public static CreateIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIotagentSessionRequest self = new CreateIotagentSessionRequest();
         return TeaModel.build(map, self);
@@ -80,6 +84,14 @@ public class CreateIotagentSessionRequest extends TeaModel {
     }
     public String getInstanceId() {
         return this.instanceId;
+    }
+
+    public CreateIotagentSessionRequest setClientType(String clientType) {
+        this.clientType = clientType;
+        return this;
+    }
+    public String getClientType() {
+        return this.clientType;
     }
 
 }

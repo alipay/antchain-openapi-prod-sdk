@@ -20,7 +20,7 @@ public class QueryTrustiotSkugrantwhitelistRequest extends TeaModel {
     @Validation(required = true)
     public Long pageIndex;
 
-    // 每页条数
+    // 每页条数，只支持1到2000
     @NameInMap("page_size")
     @Validation(required = true)
     public Long pageSize;

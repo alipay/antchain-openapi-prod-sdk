@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.15"),
+                    new TeaPair("sdk_version", "1.22.16"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -6279,6 +6279,27 @@ public class Client {
     public ListIotsuccessProductQuotaConsumptionResponse listIotsuccessProductQuotaConsumptionEx(ListIotsuccessProductQuotaConsumptionRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.consumption.list", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ListIotsuccessProductQuotaConsumptionResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusIoaProductDeviceImportResponse statusIoaProductDeviceImport(StatusIoaProductDeviceImportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.statusIoaProductDeviceImportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态</p>
+     */
+    public StatusIoaProductDeviceImportResponse statusIoaProductDeviceImportEx(StatusIoaProductDeviceImportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.ioa.product.device.import.status", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new StatusIoaProductDeviceImportResponse());
     }
 
     /**
