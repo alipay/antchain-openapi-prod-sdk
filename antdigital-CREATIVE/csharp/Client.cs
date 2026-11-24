@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.2"},
+                        {"sdk_version", "1.2.3"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -1507,6 +1507,98 @@ namespace AntChain.SDK.CREATIVE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<DeleteArkassetgroupResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetgroup.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建真人人像素材组
+        /// Summary: 创建真人人像素材组</para>
+        /// </description>
+        public PushArkassetvisualResponse PushArkassetvisual(PushArkassetvisualRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return PushArkassetvisualEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建真人人像素材组
+        /// Summary: 创建真人人像素材组</para>
+        /// </description>
+        public async Task<PushArkassetvisualResponse> PushArkassetvisualAsync(PushArkassetvisualRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await PushArkassetvisualExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建真人人像素材组
+        /// Summary: 创建真人人像素材组</para>
+        /// </description>
+        public PushArkassetvisualResponse PushArkassetvisualEx(PushArkassetvisualRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetvisualResponse>(DoRequest("1.0", "antdigital.creative.arkassetvisual.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建真人人像素材组
+        /// Summary: 创建真人人像素材组</para>
+        /// </description>
+        public async Task<PushArkassetvisualResponse> PushArkassetvisualExAsync(PushArkassetvisualRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<PushArkassetvisualResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetvisual.push", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取真人 Asset Group ID
+        /// Summary: 获取真人 Asset Group ID</para>
+        /// </description>
+        public QueryArkassetvisualResponse QueryArkassetvisual(QueryArkassetvisualRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryArkassetvisualEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取真人 Asset Group ID
+        /// Summary: 获取真人 Asset Group ID</para>
+        /// </description>
+        public async Task<QueryArkassetvisualResponse> QueryArkassetvisualAsync(QueryArkassetvisualRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryArkassetvisualExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取真人 Asset Group ID
+        /// Summary: 获取真人 Asset Group ID</para>
+        /// </description>
+        public QueryArkassetvisualResponse QueryArkassetvisualEx(QueryArkassetvisualRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetvisualResponse>(DoRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 获取真人 Asset Group ID
+        /// Summary: 获取真人 Asset Group ID</para>
+        /// </description>
+        public async Task<QueryArkassetvisualResponse> QueryArkassetvisualExAsync(QueryArkassetvisualRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryArkassetvisualResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
