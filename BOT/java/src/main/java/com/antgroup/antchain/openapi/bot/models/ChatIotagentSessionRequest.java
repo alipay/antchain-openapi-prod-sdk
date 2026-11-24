@@ -30,18 +30,9 @@ public class ChatIotagentSessionRequest extends TeaModel {
     @Validation(required = true)
     public String type;
 
-    // 问题
+    // 问题（新建模式必填；携 resume 续接时互斥不传）
     @NameInMap("query")
-    @Validation(required = true)
     public String query;
-
-    // 附件
-    @NameInMap("attach_files")
-    public java.util.List<FileInfo> attachFiles;
-
-    // josn字符串
-    @NameInMap("extra_params")
-    public String extraParams;
 
     public static ChatIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatIotagentSessionRequest self = new ChatIotagentSessionRequest();
@@ -102,22 +93,6 @@ public class ChatIotagentSessionRequest extends TeaModel {
     }
     public String getQuery() {
         return this.query;
-    }
-
-    public ChatIotagentSessionRequest setAttachFiles(java.util.List<FileInfo> attachFiles) {
-        this.attachFiles = attachFiles;
-        return this;
-    }
-    public java.util.List<FileInfo> getAttachFiles() {
-        return this.attachFiles;
-    }
-
-    public ChatIotagentSessionRequest setExtraParams(String extraParams) {
-        this.extraParams = extraParams;
-        return this;
-    }
-    public String getExtraParams() {
-        return this.extraParams;
     }
 
 }
