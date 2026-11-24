@@ -58,6 +58,18 @@ use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentTemplateAnalysisReq
 use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentTemplateAnalysisResponse;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTemplateAnalysisRequest;
 use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentTemplateAnalysisResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideoStoryboardRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideoStoryboardResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideoStoryboardRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideoStoryboardResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideoRemakeRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideoRemakeResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideoRemakeRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideoRemakeResponse;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideotemplateAnalysisRequest;
+use AntChain\CREATIVERENDER\Models\ExecAntcloudMarketingagentVideotemplateAnalysisResponse;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideotemplateAnalysisRequest;
+use AntChain\CREATIVERENDER\Models\QueryAntcloudMarketingagentVideotemplateAnalysisResponse;
 use AntChain\CREATIVERENDER\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
@@ -195,7 +207,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "2.2.0",
+                    "sdk_version" => "2.2.2",
                     "_prod_code" => "CREATIVERENDER",
                     "_prod_channel" => "default"
                 ];
@@ -948,6 +960,156 @@ class Client {
         }
         Utils::validateModel($request);
         return QueryAntcloudMarketingagentTemplateAnalysisResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.template.analysis.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id
+     * @param ExecAntcloudMarketingagentVideoStoryboardRequest $request
+     * @return ExecAntcloudMarketingagentVideoStoryboardResponse
+     */
+    public function execAntcloudMarketingagentVideoStoryboard($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentVideoStoryboardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 传入视频和修改图片以及要求返回拆解任务id
+     * Summary: 传入视频和修改图片以及要求返回拆解任务id
+     * @param ExecAntcloudMarketingagentVideoStoryboardRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentVideoStoryboardResponse
+     */
+    public function execAntcloudMarketingagentVideoStoryboardEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentVideoStoryboardResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.video.storyboard.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果
+     * @param QueryAntcloudMarketingagentVideoStoryboardRequest $request
+     * @return QueryAntcloudMarketingagentVideoStoryboardResponse
+     */
+    public function queryAntcloudMarketingagentVideoStoryboard($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentVideoStoryboardEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询拆解任务结果
+     * Summary: 查询拆解任务结果
+     * @param QueryAntcloudMarketingagentVideoStoryboardRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentVideoStoryboardResponse
+     */
+    public function queryAntcloudMarketingagentVideoStoryboardEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentVideoStoryboardResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.video.storyboard.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果
+     * @param QueryAntcloudMarketingagentVideoRemakeRequest $request
+     * @return QueryAntcloudMarketingagentVideoRemakeResponse
+     */
+    public function queryAntcloudMarketingagentVideoRemake($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentVideoRemakeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询复刻视频生成结果
+     * Summary: 查询复刻视频生成结果
+     * @param QueryAntcloudMarketingagentVideoRemakeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentVideoRemakeResponse
+     */
+    public function queryAntcloudMarketingagentVideoRemakeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentVideoRemakeResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.video.remake.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频
+     * @param ExecAntcloudMarketingagentVideoRemakeRequest $request
+     * @return ExecAntcloudMarketingagentVideoRemakeResponse
+     */
+    public function execAntcloudMarketingagentVideoRemake($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentVideoRemakeEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 根据拆解结果和新分镜生成视频
+     * Summary: 根据拆解结果和新分镜生成视频
+     * @param ExecAntcloudMarketingagentVideoRemakeRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentVideoRemakeResponse
+     */
+    public function execAntcloudMarketingagentVideoRemakeEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentVideoRemakeResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.video.remake.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: AI视频解析
+     * Summary: AI视频解析
+     * @param ExecAntcloudMarketingagentVideotemplateAnalysisRequest $request
+     * @return ExecAntcloudMarketingagentVideotemplateAnalysisResponse
+     */
+    public function execAntcloudMarketingagentVideotemplateAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->execAntcloudMarketingagentVideotemplateAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: AI视频解析
+     * Summary: AI视频解析
+     * @param ExecAntcloudMarketingagentVideotemplateAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ExecAntcloudMarketingagentVideotemplateAnalysisResponse
+     */
+    public function execAntcloudMarketingagentVideotemplateAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ExecAntcloudMarketingagentVideotemplateAnalysisResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.exec", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 视频拆解查询结果
+     * Summary: 视频拆解查询结果
+     * @param QueryAntcloudMarketingagentVideotemplateAnalysisRequest $request
+     * @return QueryAntcloudMarketingagentVideotemplateAnalysisResponse
+     */
+    public function queryAntcloudMarketingagentVideotemplateAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAntcloudMarketingagentVideotemplateAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 视频拆解查询结果
+     * Summary: 视频拆解查询结果
+     * @param QueryAntcloudMarketingagentVideotemplateAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAntcloudMarketingagentVideotemplateAnalysisResponse
+     */
+    public function queryAntcloudMarketingagentVideotemplateAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAntcloudMarketingagentVideotemplateAnalysisResponse::fromMap($this->doRequest("1.0", "antcloud.marketingagent.videotemplate.analysis.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
