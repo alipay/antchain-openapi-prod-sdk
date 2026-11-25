@@ -524,32 +524,22 @@ class ContentInfo(TeaModel):
         self,
         type: str = None,
         text: str = None,
-        image_url: ContentUrl = None,
-        audio_url: ContentUrl = None,
-        video_url: ContentUrl = None,
+        url: ContentUrl = None,
         role: str = None,
     ):
         # 类型
         self.type = type
         # type=text时提供，文本
         self.text = text
-        # type=image_url时提供
-        self.image_url = image_url
-        # type=audio_url时提供
-        self.audio_url = audio_url
-        # type=video_url时提供
-        self.video_url = video_url
+        # type=xxx_url时提供
+        self.url = url
         # 角色
         self.role = role
 
     def validate(self):
         self.validate_required(self.type, 'type')
-        if self.image_url:
-            self.image_url.validate()
-        if self.audio_url:
-            self.audio_url.validate()
-        if self.video_url:
-            self.video_url.validate()
+        if self.url:
+            self.url.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -561,12 +551,8 @@ class ContentInfo(TeaModel):
             result['type'] = self.type
         if self.text is not None:
             result['text'] = self.text
-        if self.image_url is not None:
-            result['image_url'] = self.image_url.to_map()
-        if self.audio_url is not None:
-            result['audio_url'] = self.audio_url.to_map()
-        if self.video_url is not None:
-            result['video_url'] = self.video_url.to_map()
+        if self.url is not None:
+            result['url'] = self.url.to_map()
         if self.role is not None:
             result['role'] = self.role
         return result
@@ -577,15 +563,9 @@ class ContentInfo(TeaModel):
             self.type = m.get('type')
         if m.get('text') is not None:
             self.text = m.get('text')
-        if m.get('image_url') is not None:
+        if m.get('url') is not None:
             temp_model = ContentUrl()
-            self.image_url = temp_model.from_map(m['image_url'])
-        if m.get('audio_url') is not None:
-            temp_model = ContentUrl()
-            self.audio_url = temp_model.from_map(m['audio_url'])
-        if m.get('video_url') is not None:
-            temp_model = ContentUrl()
-            self.video_url = temp_model.from_map(m['video_url'])
+            self.url = temp_model.from_map(m['url'])
         if m.get('role') is not None:
             self.role = m.get('role')
         return self
