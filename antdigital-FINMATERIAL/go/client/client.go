@@ -372,6 +372,38 @@ func (s *WebItem) SetUrl(v string) *WebItem {
 	return s
 }
 
+// 图片url和index
+type CommercialImage struct {
+	// 图片url
+	// example:
+	//
+	// -
+	PicUrl *string `json:"pic_url,omitempty" xml:"pic_url,omitempty"`
+	// 图片index
+	// example:
+	//
+	// -
+	PicIndex *string `json:"pic_index,omitempty" xml:"pic_index,omitempty"`
+}
+
+func (s CommercialImage) String() string {
+	return tea.Prettify(s)
+}
+
+func (s CommercialImage) GoString() string {
+	return s.String()
+}
+
+func (s *CommercialImage) SetPicUrl(v string) *CommercialImage {
+	s.PicUrl = &v
+	return s
+}
+
+func (s *CommercialImage) SetPicIndex(v string) *CommercialImage {
+	s.PicIndex = &v
+	return s
+}
+
 // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
 type IndustryDataItem struct {
 	// 行业数据标题
@@ -637,6 +669,8 @@ type FetchResult struct {
 	//
 	// text
 	ContentFormats *string `json:"content_formats,omitempty" xml:"content_formats,omitempty"`
+	// 图片url 和 index
+	ImageUrls []*CommercialImage `json:"image_urls,omitempty" xml:"image_urls,omitempty" type:"Repeated"`
 }
 
 func (s FetchResult) String() string {
@@ -699,6 +733,11 @@ func (s *FetchResult) SetLogoUrl(v string) *FetchResult {
 
 func (s *FetchResult) SetContentFormats(v string) *FetchResult {
 	s.ContentFormats = &v
+	return s
+}
+
+func (s *FetchResult) SetImageUrls(v []*CommercialImage) *FetchResult {
+	s.ImageUrls = v
 	return s
 }
 
@@ -911,7 +950,7 @@ type QueryAntsearchSearchRequest struct {
 	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
 	// 搜索内容，不能为空；建议不超过 200 个字符
 	Query *string `json:"query,omitempty" xml:"query,omitempty" require:"true"`
-	// AI 上下文档位，协议预设 fast、auto、pro，用于控制检索深度、内容密度和 Token 规模；当前仅支持 auto，传入其他值将返回参数错误
+	// AI 上下文档位，当前仅支持 standard，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
 	Mode *string `json:"mode,omitempty" xml:"mode,omitempty"`
 	// 搜索类型，当前仅支持 web；后续可扩展 image
 	SearchType *string `json:"search_type,omitempty" xml:"search_type,omitempty"`
@@ -1301,7 +1340,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.0.13"),
+				"sdk_version":      tea.String("1.0.15"),
 				"_prod_code":       tea.String("FINMATERIAL"),
 				"_prod_channel":    tea.String("default"),
 			}
