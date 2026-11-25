@@ -28,32 +28,14 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string Text { get; set; }
 
-        // type=image_url时提供
+        // type=xxx_url时提供
         /// <summary>
         /// <b>Example:</b>
         /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>
         /// </summary>
-        [NameInMap("image_url")]
+        [NameInMap("url")]
         [Validation(Required=false)]
-        public ContentUrl ImageUrl { get; set; }
-
-        // type=audio_url时提供
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>
-        /// </summary>
-        [NameInMap("audio_url")]
-        [Validation(Required=false)]
-        public ContentUrl AudioUrl { get; set; }
-
-        // type=video_url时提供
-        /// <summary>
-        /// <b>Example:</b>
-        /// <para><a href="http://www.test.com/123">www.test.com/123</a></para>
-        /// </summary>
-        [NameInMap("video_url")]
-        [Validation(Required=false)]
-        public ContentUrl VideoUrl { get; set; }
+        public ContentUrl Url { get; set; }
 
         // 角色
         /// <summary>
