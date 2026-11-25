@@ -46,6 +46,10 @@ public class ChatIotagentSessionRequest extends TeaModel {
     @NameInMap("resume")
     public String resume;
 
+    // 用户侧模型选择（§8.1.2）：本地模型目录稳定键（如 dtmaas/deepseek-flash），独立顶层参数唯一入口；仅新建 Turn 可传，省略沿默认配置，空/非法值拒绝；不得经 extra_params 携带
+    @NameInMap("model_key")
+    public String modelKey;
+
     public static ChatIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatIotagentSessionRequest self = new ChatIotagentSessionRequest();
         return TeaModel.build(map, self);
@@ -129,6 +133,14 @@ public class ChatIotagentSessionRequest extends TeaModel {
     }
     public String getResume() {
         return this.resume;
+    }
+
+    public ChatIotagentSessionRequest setModelKey(String modelKey) {
+        this.modelKey = modelKey;
+        return this;
+    }
+    public String getModelKey() {
+        return this.modelKey;
     }
 
 }

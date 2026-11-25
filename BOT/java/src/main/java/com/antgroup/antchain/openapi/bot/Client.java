@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.22.17"),
+                    new TeaPair("sdk_version", "1.22.18"),
                     new TeaPair("_prod_code", "BOT"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -9115,6 +9115,48 @@ public class Client {
     public QueryTechintegrationSkugrantwhitelistResponse queryTechintegrationSkugrantwhitelistEx(QueryTechintegrationSkugrantwhitelistRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.techintegration.skugrantwhitelist.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryTechintegrationSkugrantwhitelistResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数数据导出提交接口
+     * Summary: 智能问数数据导出提交接口</p>
+     */
+    public SubmitDatalinkExportResponse submitDatalinkExport(SubmitDatalinkExportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.submitDatalinkExportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数数据导出提交接口
+     * Summary: 智能问数数据导出提交接口</p>
+     */
+    public SubmitDatalinkExportResponse submitDatalinkExportEx(SubmitDatalinkExportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.datalink.export.submit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SubmitDatalinkExportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数数据导出结果接口
+     * Summary: 智能问数数据导出结果接口</p>
+     */
+    public ResultDatalinkExportResponse resultDatalinkExport(ResultDatalinkExportRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.resultDatalinkExportEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 智能问数数据导出结果接口
+     * Summary: 智能问数数据导出结果接口</p>
+     */
+    public ResultDatalinkExportResponse resultDatalinkExportEx(ResultDatalinkExportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "blockchain.bot.datalink.export.result", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ResultDatalinkExportResponse());
     }
 
     /**
