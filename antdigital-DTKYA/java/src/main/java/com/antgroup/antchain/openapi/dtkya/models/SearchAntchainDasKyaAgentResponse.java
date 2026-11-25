@@ -16,22 +16,22 @@ public class SearchAntchainDasKyaAgentResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 当前身份详情有序列表，可为空
+    // 检索结果有序列表，可为空。
     @NameInMap("items")
     @Validation(required = true)
-    public java.util.List<AgentSearchItem> items;
+    public java.util.List<KyaAgentSearchResultItem> items;
 
     // 实际返回数量
     @NameInMap("returned_count")
     @Validation(required = true)
     public Long returnedCount;
 
-    // 实际检索模式；当前策略仅接受 HYBRID
+    // 实际检索模式 MOCK、EXACT、HYBRID 或降级后的 KEYWORD。
     @NameInMap("effective_mode")
     @Validation(required = true)
     public String effectiveMode;
 
-    // 是否降级；当前策略拒绝未校准的降级结果
+    // 是否发生检索降级。
     @NameInMap("degraded")
     @Validation(required = true)
     public Boolean degraded;
@@ -40,7 +40,7 @@ public class SearchAntchainDasKyaAgentResponse extends TeaModel {
     @NameInMap("degrade_reason")
     public String degradeReason;
 
-    // 空列表时返回 NO_SUITABLE_AGENT
+    // 空列表时为 NO_SUITABLE_AGENT。
     @NameInMap("empty_reason")
     public String emptyReason;
 
@@ -73,11 +73,11 @@ public class SearchAntchainDasKyaAgentResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public SearchAntchainDasKyaAgentResponse setItems(java.util.List<AgentSearchItem> items) {
+    public SearchAntchainDasKyaAgentResponse setItems(java.util.List<KyaAgentSearchResultItem> items) {
         this.items = items;
         return this;
     }
-    public java.util.List<AgentSearchItem> getItems() {
+    public java.util.List<KyaAgentSearchResultItem> getItems() {
         return this.items;
     }
 

@@ -11,7 +11,7 @@ public class SearchAntchainDasKyaAgentRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 语义检索文本，去首尾空白后 1～512 个 Unicode 字符
+    // 检索 Agent 名称。DID 精确查询也需传值。去首尾空白后 1～512 个 Unicode 字符。
     @NameInMap("query")
     @Validation(required = true)
     public String query;
@@ -20,9 +20,13 @@ public class SearchAntchainDasKyaAgentRequest extends TeaModel {
     @NameInMap("top_k")
     public Long topK;
 
-    // JSON 对象字符串，UTF-8 不超过 4096 字节；支持 require_l3_binding、require_authenticated 布尔值及 bound_entity_type（PERSON、ENTERPRISE）；条件按 AND 组合；未知键、重复键、null 或错误类型均拒绝
+    // 可选 JSON 对象字符串，最多 4096 UTF-8 字节。agent_did 最长 128 字符，走 KYA 精确查。tenant 按所属租户筛选。created_at 用带时区的 RFC 3339 gte/lt。条件按 AND 组合。
     @NameInMap("search_conditions")
     public String searchConditions;
+
+    // 默认 false，走真实检索。true 返回固定样例，模式为 MOCK。
+    @NameInMap("use_mock_data")
+    public Boolean useMockData;
 
     public static SearchAntchainDasKyaAgentRequest build(java.util.Map<String, ?> map) throws Exception {
         SearchAntchainDasKyaAgentRequest self = new SearchAntchainDasKyaAgentRequest();
@@ -67,6 +71,14 @@ public class SearchAntchainDasKyaAgentRequest extends TeaModel {
     }
     public String getSearchConditions() {
         return this.searchConditions;
+    }
+
+    public SearchAntchainDasKyaAgentRequest setUseMockData(Boolean useMockData) {
+        this.useMockData = useMockData;
+        return this;
+    }
+    public Boolean getUseMockData() {
+        return this.useMockData;
     }
 
 }
