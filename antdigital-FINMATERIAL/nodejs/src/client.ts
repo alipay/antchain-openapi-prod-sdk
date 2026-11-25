@@ -342,6 +342,39 @@ export class WebItem extends $tea.Model {
   }
 }
 
+// 图片url和index
+export class CommercialImage extends $tea.Model {
+  // 图片url
+  /**
+   * @example
+   * -
+   */
+  picUrl?: string;
+  // 图片index
+  /**
+   * @example
+   * -
+   */
+  picIndex?: string;
+  static names(): { [key: string]: string } {
+    return {
+      picUrl: 'pic_url',
+      picIndex: 'pic_index',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      picUrl: 'string',
+      picIndex: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 // 行业数据检索结果列表；命中时返回，支持多个结果，一般仅返回 1 个
 export class IndustryDataItem extends $tea.Model {
   // 行业数据标题
@@ -606,6 +639,8 @@ export class FetchResult extends $tea.Model {
    * text
    */
   contentFormats?: string;
+  // 图片url 和 index
+  imageUrls?: CommercialImage[];
   static names(): { [key: string]: string } {
     return {
       id: 'id',
@@ -619,6 +654,7 @@ export class FetchResult extends $tea.Model {
       author: 'author',
       logoUrl: 'logo_url',
       contentFormats: 'content_formats',
+      imageUrls: 'image_urls',
     };
   }
 
@@ -635,6 +671,7 @@ export class FetchResult extends $tea.Model {
       author: 'string',
       logoUrl: 'string',
       contentFormats: 'string',
+      imageUrls: { 'type': 'array', 'itemType': CommercialImage },
     };
   }
 
@@ -803,7 +840,7 @@ export class QueryAntsearchSearchRequest extends $tea.Model {
   productInstanceId?: string;
   // 搜索内容，不能为空；建议不超过 200 个字符
   query: string;
-  // AI 上下文档位，协议预设 fast、auto、pro，用于控制检索深度、内容密度和 Token 规模；当前仅支持 auto，传入其他值将返回参数错误
+  // AI 上下文档位，当前仅支持 standard，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
   mode?: string;
   // 搜索类型，当前仅支持 web；后续可扩展 image
   searchType?: string;
@@ -1104,7 +1141,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.0.13",
+          sdk_version: "1.0.15",
           _prod_code: "FINMATERIAL",
           _prod_channel: "default",
         };
