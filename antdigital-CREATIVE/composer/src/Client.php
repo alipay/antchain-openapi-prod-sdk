@@ -67,6 +67,8 @@ use AntChain\CREATIVE\Models\PushArkassetvisualRequest;
 use AntChain\CREATIVE\Models\PushArkassetvisualResponse;
 use AntChain\CREATIVE\Models\QueryArkassetvisualRequest;
 use AntChain\CREATIVE\Models\QueryArkassetvisualResponse;
+use AntChain\CREATIVE\Models\QueryVideogenerationTaskRequest;
+use AntChain\CREATIVE\Models\QueryVideogenerationTaskResponse;
 
 class Client {
     protected $_endpoint;
@@ -203,7 +205,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.2.4",
+                    "sdk_version" => "1.2.5",
                     "_prod_code" => "CREATIVE",
                     "_prod_channel" => "default"
                 ];
@@ -921,5 +923,30 @@ class Client {
     public function queryArkassetvisualEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryArkassetvisualResponse::fromMap($this->doRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 新增视频生成任务查询接口
+     * Summary: 新增视频生成任务查询接口
+     * @param QueryVideogenerationTaskRequest $request
+     * @return QueryVideogenerationTaskResponse
+     */
+    public function queryVideogenerationTask($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryVideogenerationTaskEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 新增视频生成任务查询接口
+     * Summary: 新增视频生成任务查询接口
+     * @param QueryVideogenerationTaskRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryVideogenerationTaskResponse
+     */
+    public function queryVideogenerationTaskEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryVideogenerationTaskResponse::fromMap($this->doRequest("1.0", "antdigital.creative.videogeneration.task.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
