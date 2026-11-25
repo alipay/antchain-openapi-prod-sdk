@@ -11,9 +11,7 @@ class ContentInfo extends Model {
     protected $_name = [
         'type' => 'type',
         'text' => 'text',
-        'imageUrl' => 'image_url',
-        'audioUrl' => 'audio_url',
-        'videoUrl' => 'video_url',
+        'url' => 'url',
         'role' => 'role',
     ];
     public function validate() {
@@ -27,14 +25,8 @@ class ContentInfo extends Model {
         if (null !== $this->text) {
             $res['text'] = $this->text;
         }
-        if (null !== $this->imageUrl) {
-            $res['image_url'] = null !== $this->imageUrl ? $this->imageUrl->toMap() : null;
-        }
-        if (null !== $this->audioUrl) {
-            $res['audio_url'] = null !== $this->audioUrl ? $this->audioUrl->toMap() : null;
-        }
-        if (null !== $this->videoUrl) {
-            $res['video_url'] = null !== $this->videoUrl ? $this->videoUrl->toMap() : null;
+        if (null !== $this->url) {
+            $res['url'] = null !== $this->url ? $this->url->toMap() : null;
         }
         if (null !== $this->role) {
             $res['role'] = $this->role;
@@ -53,14 +45,8 @@ class ContentInfo extends Model {
         if(isset($map['text'])){
             $model->text = $map['text'];
         }
-        if(isset($map['image_url'])){
-            $model->imageUrl = ContentUrl::fromMap($map['image_url']);
-        }
-        if(isset($map['audio_url'])){
-            $model->audioUrl = ContentUrl::fromMap($map['audio_url']);
-        }
-        if(isset($map['video_url'])){
-            $model->videoUrl = ContentUrl::fromMap($map['video_url']);
+        if(isset($map['url'])){
+            $model->url = ContentUrl::fromMap($map['url']);
         }
         if(isset($map['role'])){
             $model->role = $map['role'];
@@ -81,26 +67,12 @@ class ContentInfo extends Model {
      */
     public $text;
 
-    // type=image_url时提供
+    // type=xxx_url时提供
     /**
      * @example www.test.com/123
      * @var ContentUrl
      */
-    public $imageUrl;
-
-    // type=audio_url时提供
-    /**
-     * @example www.test.com/123
-     * @var ContentUrl
-     */
-    public $audioUrl;
-
-    // type=video_url时提供
-    /**
-     * @example www.test.com/123
-     * @var ContentUrl
-     */
-    public $videoUrl;
+    public $url;
 
     // 角色
     /**
