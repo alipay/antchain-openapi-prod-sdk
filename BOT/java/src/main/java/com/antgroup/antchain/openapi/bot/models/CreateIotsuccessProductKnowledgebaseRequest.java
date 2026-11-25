@@ -18,6 +18,10 @@ public class CreateIotsuccessProductKnowledgebaseRequest extends TeaModel {
     @NameInMap("description")
     public String description;
 
+    // 实例ID，非必填，可用于产品实例间知识库隔离。
+    @NameInMap("instance_id")
+    public String instanceId;
+
     public static CreateIotsuccessProductKnowledgebaseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateIotsuccessProductKnowledgebaseRequest self = new CreateIotsuccessProductKnowledgebaseRequest();
         return TeaModel.build(map, self);
@@ -53,6 +57,14 @@ public class CreateIotsuccessProductKnowledgebaseRequest extends TeaModel {
     }
     public String getDescription() {
         return this.description;
+    }
+
+    public CreateIotsuccessProductKnowledgebaseRequest setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
     }
 
 }

@@ -36,6 +36,18 @@ public class ChatAiotdatalinkAskdataResponse extends TeaModel {
     @NameInMap("row_num")
     public Long rowNum;
 
+    // 是否被截断
+    @NameInMap("truncated")
+    public Boolean truncated;
+
+    // 问数直接返回最大数据量
+    @NameInMap("row_limit")
+    public Long rowLimit;
+
+    // 数据截断描述
+    @NameInMap("export_hint")
+    public String exportHint;
+
     public static ChatAiotdatalinkAskdataResponse build(java.util.Map<String, ?> map) throws Exception {
         ChatAiotdatalinkAskdataResponse self = new ChatAiotdatalinkAskdataResponse();
         return TeaModel.build(map, self);
@@ -103,6 +115,30 @@ public class ChatAiotdatalinkAskdataResponse extends TeaModel {
     }
     public Long getRowNum() {
         return this.rowNum;
+    }
+
+    public ChatAiotdatalinkAskdataResponse setTruncated(Boolean truncated) {
+        this.truncated = truncated;
+        return this;
+    }
+    public Boolean getTruncated() {
+        return this.truncated;
+    }
+
+    public ChatAiotdatalinkAskdataResponse setRowLimit(Long rowLimit) {
+        this.rowLimit = rowLimit;
+        return this;
+    }
+    public Long getRowLimit() {
+        return this.rowLimit;
+    }
+
+    public ChatAiotdatalinkAskdataResponse setExportHint(String exportHint) {
+        this.exportHint = exportHint;
+        return this;
+    }
+    public String getExportHint() {
+        return this.exportHint;
     }
 
 }

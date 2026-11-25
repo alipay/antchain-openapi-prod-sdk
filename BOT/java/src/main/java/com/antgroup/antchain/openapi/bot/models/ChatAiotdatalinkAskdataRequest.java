@@ -38,6 +38,10 @@ public class ChatAiotdatalinkAskdataRequest extends TeaModel {
     @NameInMap("caller")
     public String caller;
 
+    // 语义模型ID
+    @NameInMap("semantic_model_id")
+    public String semanticModelId;
+
     public static ChatAiotdatalinkAskdataRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatAiotdatalinkAskdataRequest self = new ChatAiotdatalinkAskdataRequest();
         return TeaModel.build(map, self);
@@ -105,6 +109,14 @@ public class ChatAiotdatalinkAskdataRequest extends TeaModel {
     }
     public String getCaller() {
         return this.caller;
+    }
+
+    public ChatAiotdatalinkAskdataRequest setSemanticModelId(String semanticModelId) {
+        this.semanticModelId = semanticModelId;
+        return this;
+    }
+    public String getSemanticModelId() {
+        return this.semanticModelId;
     }
 
 }
