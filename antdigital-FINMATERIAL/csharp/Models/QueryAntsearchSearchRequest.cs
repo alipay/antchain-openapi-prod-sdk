@@ -23,7 +23,7 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=true)]
         public string Query { get; set; }
 
-        // AI 上下文档位，协议预设 fast、auto、pro，用于控制检索深度、内容密度和 Token 规模；当前仅支持 auto，传入其他值将返回参数错误
+        // AI 上下文档位，当前仅支持 standard，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
         [NameInMap("mode")]
         [Validation(Required=false)]
         public string Mode { get; set; }

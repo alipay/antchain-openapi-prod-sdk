@@ -125,6 +125,11 @@ namespace AntChain.SDK.FINMATERIAL.Models
         [Validation(Required=false)]
         public string ContentFormats { get; set; }
 
+        // 图片url 和 index
+        [NameInMap("image_urls")]
+        [Validation(Required=false)]
+        public List<CommercialImage> ImageUrls { get; set; }
+
     }
 
 }
