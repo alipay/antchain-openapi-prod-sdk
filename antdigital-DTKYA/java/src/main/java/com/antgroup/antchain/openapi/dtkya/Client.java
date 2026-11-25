@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.32"),
+                    new TeaPair("sdk_version", "1.0.33"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -963,5 +963,194 @@ public class Client {
     public PushAntchainDasKyaLtworeportResponse pushAntchainDasKyaLtworeportEx(PushAntchainDasKyaLtworeportRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltworeport.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaLtworeportResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交 L2 待审核问题的控制者结论；确认正常时加入训练并更新场景画像，确认异常时保留风险并影响核验
+     * Summary: 提交 L2 待审核问题的控制者结论；确认正常时加入训练并更新场景画像，确认异常时保留风险并影响核验</p>
+     */
+    public PushAntchainDasKyaLtworeviewResponse pushAntchainDasKyaLtworeview(PushAntchainDasKyaLtworeviewRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaLtworeviewEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交 L2 待审核问题的控制者结论；确认正常时加入训练并更新场景画像，确认异常时保留风险并影响核验
+     * Summary: 提交 L2 待审核问题的控制者结论；确认正常时加入训练并更新场景画像，确认异常时保留风险并影响核验</p>
+     */
+    public PushAntchainDasKyaLtworeviewResponse pushAntchainDasKyaLtworeviewEx(PushAntchainDasKyaLtworeviewRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltworeview.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaLtworeviewResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景返回 Agent 的 L2 总览，包括正常、观察、待确认、异常及评分摘要
+     * Summary: 按场景返回 Agent 的 L2 总览，包括正常、观察、待确认、异常及评分摘要</p>
+     */
+    public QueryAntchainDasKyaLtwooverviewResponse queryAntchainDasKyaLtwooverview(QueryAntchainDasKyaLtwooverviewRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaLtwooverviewEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景返回 Agent 的 L2 总览，包括正常、观察、待确认、异常及评分摘要
+     * Summary: 按场景返回 Agent 的 L2 总览，包括正常、观察、待确认、异常及评分摘要</p>
+     */
+    public QueryAntchainDasKyaLtwooverviewResponse queryAntchainDasKyaLtwooverviewEx(QueryAntchainDasKyaLtwooverviewRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltwooverview.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaLtwooverviewResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景查询 Agent 最近的 L2 Session 状态、Turn 统计和行为评分
+     * Summary: 按场景查询 Agent 最近的 L2 Session 状态、Turn 统计和行为评分</p>
+     */
+    public QueryAntchainDasKyaLtwosessionsResponse queryAntchainDasKyaLtwosessions(QueryAntchainDasKyaLtwosessionsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaLtwosessionsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景查询 Agent 最近的 L2 Session 状态、Turn 统计和行为评分
+     * Summary: 按场景查询 Agent 最近的 L2 Session 状态、Turn 统计和行为评分</p>
+     */
+    public QueryAntchainDasKyaLtwosessionsResponse queryAntchainDasKyaLtwosessionsEx(QueryAntchainDasKyaLtwosessionsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltwosessions.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaLtwosessionsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景和状态查询 Agent 的 L2 待审核问题及历史审核结论
+     * Summary: 按场景和状态查询 Agent 的 L2 待审核问题及历史审核结论</p>
+     */
+    public QueryAntchainDasKyaLtworeviewsResponse queryAntchainDasKyaLtworeviews(QueryAntchainDasKyaLtworeviewsRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaLtworeviewsEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按场景和状态查询 Agent 的 L2 待审核问题及历史审核结论
+     * Summary: 按场景和状态查询 Agent 的 L2 待审核问题及历史审核结论</p>
+     */
+    public QueryAntchainDasKyaLtworeviewsResponse queryAntchainDasKyaLtworeviewsEx(QueryAntchainDasKyaLtworeviewsRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltworeviews.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaLtworeviewsResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单个 L2 审核问题的场景、Session、Turn 证据及控制者结论
+     * Summary: 查询单个 L2 审核问题的场景、Session、Turn 证据及控制者结论</p>
+     */
+    public QueryAntchainDasKyaLtworeviewdetailResponse queryAntchainDasKyaLtworeviewdetail(QueryAntchainDasKyaLtworeviewdetailRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaLtworeviewdetailEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 查询单个 L2 审核问题的场景、Session、Turn 证据及控制者结论
+     * Summary: 查询单个 L2 审核问题的场景、Session、Turn 证据及控制者结论</p>
+     */
+    public QueryAntchainDasKyaLtworeviewdetailResponse queryAntchainDasKyaLtworeviewdetailEx(QueryAntchainDasKyaLtworeviewdetailRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.ltworeviewdetail.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaLtworeviewdetailResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 service_id 查询已发布服务的类型、描述、提供者、连接方式、MCP 工具 schema 与授权协议 resourceId 列表
+     * Summary: 按 service_id 查询已发布服务的类型、描述、提供者、连接方式、MCP 工具 schema 与授权协议 resourceId 列表</p>
+     */
+    public QueryAntchainDasKyaServiceResponse queryAntchainDasKyaService(QueryAntchainDasKyaServiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 service_id 查询已发布服务的类型、描述、提供者、连接方式、MCP 工具 schema 与授权协议 resourceId 列表
+     * Summary: 按 service_id 查询已发布服务的类型、描述、提供者、连接方式、MCP 工具 schema 与授权协议 resourceId 列表</p>
+     */
+    public QueryAntchainDasKyaServiceResponse queryAntchainDasKyaServiceEx(QueryAntchainDasKyaServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.service.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaServiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 resource_id 查询 AAP 模板的授权字段、用户确认及实人核验要求
+     * Summary: 按 resource_id 查询 AAP 模板的授权字段、用户确认及实人核验要求</p>
+     */
+    public QueryAntchainDasKyaAapresourceResponse queryAntchainDasKyaAapresource(QueryAntchainDasKyaAapresourceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaAapresourceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 按 resource_id 查询 AAP 模板的授权字段、用户确认及实人核验要求
+     * Summary: 按 resource_id 查询 AAP 模板的授权字段、用户确认及实人核验要求</p>
+     */
+    public QueryAntchainDasKyaAapresourceResponse queryAntchainDasKyaAapresourceEx(QueryAntchainDasKyaAapresourceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.aapresource.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaAapresourceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交用户对 AAP 授权模板的字段、原始意图与确认凭据；返回授权实例受理状态
+     * Summary: 提交用户对 AAP 授权模板的字段、原始意图与确认凭据；返回授权实例受理状态</p>
+     */
+    public PushAntchainDasKyaAapResponse pushAntchainDasKyaAap(PushAntchainDasKyaAapRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.pushAntchainDasKyaAapEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 提交用户对 AAP 授权模板的字段、原始意图与确认凭据；返回授权实例受理状态
+     * Summary: 提交用户对 AAP 授权模板的字段、原始意图与确认凭据；返回授权实例受理状态</p>
+     */
+    public PushAntchainDasKyaAapResponse pushAntchainDasKyaAapEx(PushAntchainDasKyaAapRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.aap.push", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new PushAntchainDasKyaAapResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 服务提供方在执行业务请求前，将 Agent 签名请求提交 KYA，核验 Agent 身份、AAP 授权及用户意图与业务范围，返回放行或拒绝结论。
+     * Summary: 服务提供方在执行业务请求前，将 Agent 签名请求提交 KYA，核验 Agent 身份、AAP 授权及用户意图与业务范围，返回放行或拒绝结论。</p>
+     */
+    public VerifyAntchainDasKyaInvocationResponse verifyAntchainDasKyaInvocation(VerifyAntchainDasKyaInvocationRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.verifyAntchainDasKyaInvocationEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 服务提供方在执行业务请求前，将 Agent 签名请求提交 KYA，核验 Agent 身份、AAP 授权及用户意图与业务范围，返回放行或拒绝结论。
+     * Summary: 服务提供方在执行业务请求前，将 Agent 签名请求提交 KYA，核验 Agent 身份、AAP 授权及用户意图与业务范围，返回放行或拒绝结论。</p>
+     */
+    public VerifyAntchainDasKyaInvocationResponse verifyAntchainDasKyaInvocationEx(VerifyAntchainDasKyaInvocationRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.invocation.verify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new VerifyAntchainDasKyaInvocationResponse());
     }
 }

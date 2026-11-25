@@ -56,6 +56,11 @@ public class VerifyAntchainDasKyaIdentityRequest extends TeaModel {
     @Validation(required = true)
     public String signature;
 
+    // 发起方的本地sessionId
+    @NameInMap("subject_session_id")
+    @Validation(required = true)
+    public String subjectSessionId;
+
     public static VerifyAntchainDasKyaIdentityRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyAntchainDasKyaIdentityRequest self = new VerifyAntchainDasKyaIdentityRequest();
         return TeaModel.build(map, self);
@@ -147,6 +152,14 @@ public class VerifyAntchainDasKyaIdentityRequest extends TeaModel {
     }
     public String getSignature() {
         return this.signature;
+    }
+
+    public VerifyAntchainDasKyaIdentityRequest setSubjectSessionId(String subjectSessionId) {
+        this.subjectSessionId = subjectSessionId;
+        return this;
+    }
+    public String getSubjectSessionId() {
+        return this.subjectSessionId;
     }
 
 }
