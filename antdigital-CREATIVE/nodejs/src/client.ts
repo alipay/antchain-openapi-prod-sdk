@@ -3070,6 +3070,89 @@ export class QueryArkassetvisualResponse extends $tea.Model {
   }
 }
 
+export class QueryVideogenerationTaskRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 任务ID
+  taskId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      taskId: 'task_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      taskId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryVideogenerationTaskResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 任务id
+  taskId?: string;
+  // 状态
+  status?: string;
+  // 模型
+  model?: string;
+  // 错误原因编码
+  errorCode?: string;
+  // 错误原因详情
+  errorMessage?: string;
+  // 供应商任务id
+  id?: string;
+  // 供应商原始快照
+  originalSnapshot?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      taskId: 'task_id',
+      status: 'status',
+      model: 'model',
+      errorCode: 'error_code',
+      errorMessage: 'error_message',
+      id: 'id',
+      originalSnapshot: 'original_snapshot',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      taskId: 'string',
+      status: 'string',
+      model: 'string',
+      errorCode: 'string',
+      errorMessage: 'string',
+      id: 'string',
+      originalSnapshot: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 
 export default class Client {
   _endpoint: string;
@@ -3187,7 +3270,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.4",
+          sdk_version: "1.2.5",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
@@ -3800,6 +3883,27 @@ export default class Client {
   async queryArkassetvisualEx(request: QueryArkassetvisualRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryArkassetvisualResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryArkassetvisualResponse>(await this.doRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryArkassetvisualResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 新增视频生成任务查询接口
+   * Summary: 新增视频生成任务查询接口
+   */
+  async queryVideogenerationTask(request: QueryVideogenerationTaskRequest): Promise<QueryVideogenerationTaskResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryVideogenerationTaskEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 新增视频生成任务查询接口
+   * Summary: 新增视频生成任务查询接口
+   */
+  async queryVideogenerationTaskEx(request: QueryVideogenerationTaskRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryVideogenerationTaskResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryVideogenerationTaskResponse>(await this.doRequest("1.0", "antdigital.creative.videogeneration.task.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryVideogenerationTaskResponse({}));
   }
 
 }
