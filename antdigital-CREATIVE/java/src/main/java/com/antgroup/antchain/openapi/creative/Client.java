@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.2.4"),
+                    new TeaPair("sdk_version", "1.2.5"),
                     new TeaPair("_prod_code", "CREATIVE"),
                     new TeaPair("_prod_channel", "default")
                 );
@@ -753,5 +753,26 @@ public class Client {
     public QueryArkassetvisualResponse queryArkassetvisualEx(QueryArkassetvisualRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryArkassetvisualResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增视频生成任务查询接口
+     * Summary: 新增视频生成任务查询接口</p>
+     */
+    public QueryVideogenerationTaskResponse queryVideogenerationTask(QueryVideogenerationTaskRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryVideogenerationTaskEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 新增视频生成任务查询接口
+     * Summary: 新增视频生成任务查询接口</p>
+     */
+    public QueryVideogenerationTaskResponse queryVideogenerationTaskEx(QueryVideogenerationTaskRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antdigital.creative.videogeneration.task.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryVideogenerationTaskResponse());
     }
 }
