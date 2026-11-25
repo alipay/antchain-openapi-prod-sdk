@@ -315,6 +315,41 @@ class WebItem(TeaModel):
         return self
 
 
+class CommercialImage(TeaModel):
+    def __init__(
+        self,
+        pic_url: str = None,
+        pic_index: str = None,
+    ):
+        # 图片url
+        self.pic_url = pic_url
+        # 图片index
+        self.pic_index = pic_index
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pic_url is not None:
+            result['pic_url'] = self.pic_url
+        if self.pic_index is not None:
+            result['pic_index'] = self.pic_index
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('pic_url') is not None:
+            self.pic_url = m.get('pic_url')
+        if m.get('pic_index') is not None:
+            self.pic_index = m.get('pic_index')
+        return self
+
+
 class IndustryDataItem(TeaModel):
     def __init__(
         self,
@@ -553,6 +588,7 @@ class FetchResult(TeaModel):
         author: str = None,
         logo_url: str = None,
         content_formats: str = None,
+        image_urls: List[CommercialImage] = None,
     ):
         # 本次 Fetch 结果唯一标识
         self.id = id
@@ -576,11 +612,17 @@ class FetchResult(TeaModel):
         self.logo_url = logo_url
         # 正文实际输出格式：text 或 markdown
         self.content_formats = content_formats
+        # 图片url 和 index
+        self.image_urls = image_urls
 
     def validate(self):
         self.validate_required(self.id, 'id')
         self.validate_required(self.content_id, 'content_id')
         self.validate_required(self.url, 'url')
+        if self.image_urls:
+            for k in self.image_urls:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super().to_map()
@@ -610,6 +652,10 @@ class FetchResult(TeaModel):
             result['logo_url'] = self.logo_url
         if self.content_formats is not None:
             result['content_formats'] = self.content_formats
+        result['image_urls'] = []
+        if self.image_urls is not None:
+            for k in self.image_urls:
+                result['image_urls'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m: dict = None):
@@ -636,6 +682,11 @@ class FetchResult(TeaModel):
             self.logo_url = m.get('logo_url')
         if m.get('content_formats') is not None:
             self.content_formats = m.get('content_formats')
+        self.image_urls = []
+        if m.get('image_urls') is not None:
+            for k in m.get('image_urls'):
+                temp_model = CommercialImage()
+                self.image_urls.append(temp_model.from_map(k))
         return self
 
 
@@ -905,7 +956,7 @@ class QueryAntsearchSearchRequest(TeaModel):
         self.product_instance_id = product_instance_id
         # 搜索内容，不能为空；建议不超过 200 个字符
         self.query = query
-        # AI 上下文档位，协议预设 fast、auto、pro，用于控制检索深度、内容密度和 Token 规模；当前仅支持 auto，传入其他值将返回参数错误
+        # AI 上下文档位，当前仅支持 standard，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
         self.mode = mode
         # 搜索类型，当前仅支持 web；后续可扩展 image
         self.search_type = search_type
