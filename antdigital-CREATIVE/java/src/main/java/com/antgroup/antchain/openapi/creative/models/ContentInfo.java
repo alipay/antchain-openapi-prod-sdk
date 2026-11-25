@@ -21,29 +21,13 @@ public class ContentInfo extends TeaModel {
     @NameInMap("text")
     public String text;
 
-    // type=image_url时提供
+    // type=xxx_url时提供
     /**
      * <strong>example:</strong>
      * <p><a href="http://www.test.com/123">www.test.com/123</a></p>
      */
-    @NameInMap("image_url")
-    public ContentUrl imageUrl;
-
-    // type=audio_url时提供
-    /**
-     * <strong>example:</strong>
-     * <p><a href="http://www.test.com/123">www.test.com/123</a></p>
-     */
-    @NameInMap("audio_url")
-    public ContentUrl audioUrl;
-
-    // type=video_url时提供
-    /**
-     * <strong>example:</strong>
-     * <p><a href="http://www.test.com/123">www.test.com/123</a></p>
-     */
-    @NameInMap("video_url")
-    public ContentUrl videoUrl;
+    @NameInMap("url")
+    public ContentUrl url;
 
     // 角色
     /**
@@ -74,28 +58,12 @@ public class ContentInfo extends TeaModel {
         return this.text;
     }
 
-    public ContentInfo setImageUrl(ContentUrl imageUrl) {
-        this.imageUrl = imageUrl;
+    public ContentInfo setUrl(ContentUrl url) {
+        this.url = url;
         return this;
     }
-    public ContentUrl getImageUrl() {
-        return this.imageUrl;
-    }
-
-    public ContentInfo setAudioUrl(ContentUrl audioUrl) {
-        this.audioUrl = audioUrl;
-        return this;
-    }
-    public ContentUrl getAudioUrl() {
-        return this.audioUrl;
-    }
-
-    public ContentInfo setVideoUrl(ContentUrl videoUrl) {
-        this.videoUrl = videoUrl;
-        return this;
-    }
-    public ContentUrl getVideoUrl() {
-        return this.videoUrl;
+    public ContentUrl getUrl() {
+        return this.url;
     }
 
     public ContentInfo setRole(String role) {
