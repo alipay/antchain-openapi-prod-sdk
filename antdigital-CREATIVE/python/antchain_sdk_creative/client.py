@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.4',
+                    'sdk_version': '1.2.5',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.2.4',
+                    'sdk_version': '1.2.5',
                     '_prod_code': 'CREATIVE',
                     '_prod_channel': 'default'
                 }
@@ -1785,4 +1785,60 @@ class Client:
         return TeaCore.from_map(
             creative_models.QueryArkassetvisualResponse(),
             await self.do_request_async('1.0', 'antdigital.creative.arkassetvisual.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_videogeneration_task(
+        self,
+        request: creative_models.QueryVideogenerationTaskRequest,
+    ) -> creative_models.QueryVideogenerationTaskResponse:
+        """
+        Description: 新增视频生成任务查询接口
+        Summary: 新增视频生成任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_videogeneration_task_ex(request, headers, runtime)
+
+    async def query_videogeneration_task_async(
+        self,
+        request: creative_models.QueryVideogenerationTaskRequest,
+    ) -> creative_models.QueryVideogenerationTaskResponse:
+        """
+        Description: 新增视频生成任务查询接口
+        Summary: 新增视频生成任务查询接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_videogeneration_task_ex_async(request, headers, runtime)
+
+    def query_videogeneration_task_ex(
+        self,
+        request: creative_models.QueryVideogenerationTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryVideogenerationTaskResponse:
+        """
+        Description: 新增视频生成任务查询接口
+        Summary: 新增视频生成任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryVideogenerationTaskResponse(),
+            self.do_request('1.0', 'antdigital.creative.videogeneration.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_videogeneration_task_ex_async(
+        self,
+        request: creative_models.QueryVideogenerationTaskRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> creative_models.QueryVideogenerationTaskResponse:
+        """
+        Description: 新增视频生成任务查询接口
+        Summary: 新增视频生成任务查询接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            creative_models.QueryVideogenerationTaskResponse(),
+            await self.do_request_async('1.0', 'antdigital.creative.videogeneration.task.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
