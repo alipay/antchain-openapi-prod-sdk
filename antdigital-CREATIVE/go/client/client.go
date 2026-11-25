@@ -599,21 +599,11 @@ type ContentInfo struct {
 	//
 	// 生成一只猫
 	Text *string `json:"text,omitempty" xml:"text,omitempty"`
-	// type=image_url时提供
+	// type=xxx_url时提供
 	// example:
 	//
 	// www.test.com/123
-	ImageUrl *ContentUrl `json:"image_url,omitempty" xml:"image_url,omitempty"`
-	// type=audio_url时提供
-	// example:
-	//
-	// www.test.com/123
-	AudioUrl *ContentUrl `json:"audio_url,omitempty" xml:"audio_url,omitempty"`
-	// type=video_url时提供
-	// example:
-	//
-	// www.test.com/123
-	VideoUrl *ContentUrl `json:"video_url,omitempty" xml:"video_url,omitempty"`
+	Url *ContentUrl `json:"url,omitempty" xml:"url,omitempty"`
 	// 角色
 	// example:
 	//
@@ -639,18 +629,8 @@ func (s *ContentInfo) SetText(v string) *ContentInfo {
 	return s
 }
 
-func (s *ContentInfo) SetImageUrl(v *ContentUrl) *ContentInfo {
-	s.ImageUrl = v
-	return s
-}
-
-func (s *ContentInfo) SetAudioUrl(v *ContentUrl) *ContentInfo {
-	s.AudioUrl = v
-	return s
-}
-
-func (s *ContentInfo) SetVideoUrl(v *ContentUrl) *ContentInfo {
-	s.VideoUrl = v
+func (s *ContentInfo) SetUrl(v *ContentUrl) *ContentInfo {
+	s.Url = v
 	return s
 }
 
@@ -3936,7 +3916,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.3"),
+				"sdk_version":      tea.String("1.2.4"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
