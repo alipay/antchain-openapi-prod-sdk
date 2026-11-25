@@ -3786,6 +3786,118 @@ func (s *QueryArkassetvisualResponse) SetResponseBody(v string) *QueryArkassetvi
 	return s
 }
 
+type QueryVideogenerationTaskRequest struct {
+	// OAuth模式下的授权token
+	AuthToken         *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	ProductInstanceId *string `json:"product_instance_id,omitempty" xml:"product_instance_id,omitempty"`
+	// 任务ID
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty" require:"true"`
+}
+
+func (s QueryVideogenerationTaskRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryVideogenerationTaskRequest) GoString() string {
+	return s.String()
+}
+
+func (s *QueryVideogenerationTaskRequest) SetAuthToken(v string) *QueryVideogenerationTaskRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskRequest) SetProductInstanceId(v string) *QueryVideogenerationTaskRequest {
+	s.ProductInstanceId = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskRequest) SetTaskId(v string) *QueryVideogenerationTaskRequest {
+	s.TaskId = &v
+	return s
+}
+
+type QueryVideogenerationTaskResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 任务id
+	TaskId *string `json:"task_id,omitempty" xml:"task_id,omitempty"`
+	// 状态
+	Status *string `json:"status,omitempty" xml:"status,omitempty"`
+	// 模型
+	Model *string `json:"model,omitempty" xml:"model,omitempty"`
+	// 错误原因编码
+	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 错误原因详情
+	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
+	// 供应商任务id
+	Id *string `json:"id,omitempty" xml:"id,omitempty"`
+	// 供应商原始快照
+	OriginalSnapshot *string `json:"original_snapshot,omitempty" xml:"original_snapshot,omitempty"`
+}
+
+func (s QueryVideogenerationTaskResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s QueryVideogenerationTaskResponse) GoString() string {
+	return s.String()
+}
+
+func (s *QueryVideogenerationTaskResponse) SetReqMsgId(v string) *QueryVideogenerationTaskResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetResultCode(v string) *QueryVideogenerationTaskResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetResultMsg(v string) *QueryVideogenerationTaskResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetTaskId(v string) *QueryVideogenerationTaskResponse {
+	s.TaskId = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetStatus(v string) *QueryVideogenerationTaskResponse {
+	s.Status = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetModel(v string) *QueryVideogenerationTaskResponse {
+	s.Model = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetErrorCode(v string) *QueryVideogenerationTaskResponse {
+	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetErrorMessage(v string) *QueryVideogenerationTaskResponse {
+	s.ErrorMessage = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetId(v string) *QueryVideogenerationTaskResponse {
+	s.Id = &v
+	return s
+}
+
+func (s *QueryVideogenerationTaskResponse) SetOriginalSnapshot(v string) *QueryVideogenerationTaskResponse {
+	s.OriginalSnapshot = &v
+	return s
+}
+
 type Client struct {
 	Endpoint                *string
 	RegionId                *string
@@ -3916,7 +4028,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.4"),
+				"sdk_version":      tea.String("1.2.5"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
@@ -4939,6 +5051,42 @@ func (client *Client) QueryArkassetvisualEx(request *QueryArkassetvisualRequest,
 	}
 	_result = &QueryArkassetvisualResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.arkassetvisual.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 新增视频生成任务查询接口
+//
+// Summary: 新增视频生成任务查询接口
+func (client *Client) QueryVideogenerationTask(request *QueryVideogenerationTaskRequest) (_result *QueryVideogenerationTaskResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &QueryVideogenerationTaskResponse{}
+	_body, _err := client.QueryVideogenerationTaskEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 新增视频生成任务查询接口
+//
+// Summary: 新增视频生成任务查询接口
+func (client *Client) QueryVideogenerationTaskEx(request *QueryVideogenerationTaskRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *QueryVideogenerationTaskResponse, _err error) {
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &QueryVideogenerationTaskResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antdigital.creative.videogeneration.task.query"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
