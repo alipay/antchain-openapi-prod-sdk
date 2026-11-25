@@ -556,24 +556,12 @@ export class ContentInfo extends $tea.Model {
    * 生成一只猫
    */
   text?: string;
-  // type=image_url时提供
+  // type=xxx_url时提供
   /**
    * @example
    * www.test.com/123
    */
-  imageUrl?: ContentUrl;
-  // type=audio_url时提供
-  /**
-   * @example
-   * www.test.com/123
-   */
-  audioUrl?: ContentUrl;
-  // type=video_url时提供
-  /**
-   * @example
-   * www.test.com/123
-   */
-  videoUrl?: ContentUrl;
+  url?: ContentUrl;
   // 角色
   /**
    * @example
@@ -584,9 +572,7 @@ export class ContentInfo extends $tea.Model {
     return {
       type: 'type',
       text: 'text',
-      imageUrl: 'image_url',
-      audioUrl: 'audio_url',
-      videoUrl: 'video_url',
+      url: 'url',
       role: 'role',
     };
   }
@@ -595,9 +581,7 @@ export class ContentInfo extends $tea.Model {
     return {
       type: 'string',
       text: 'string',
-      imageUrl: ContentUrl,
-      audioUrl: ContentUrl,
-      videoUrl: ContentUrl,
+      url: ContentUrl,
       role: 'string',
     };
   }
@@ -3203,7 +3187,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.3",
+          sdk_version: "1.2.4",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
