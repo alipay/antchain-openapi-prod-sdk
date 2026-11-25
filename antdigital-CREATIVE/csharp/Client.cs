@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.4"},
+                        {"sdk_version", "1.2.5"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.4"},
+                        {"sdk_version", "1.2.5"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -1599,6 +1599,52 @@ namespace AntChain.SDK.CREATIVE
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryArkassetvisualResponse>(await DoRequestAsync("1.0", "antdigital.creative.arkassetvisual.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 新增视频生成任务查询接口
+        /// Summary: 新增视频生成任务查询接口</para>
+        /// </description>
+        public QueryVideogenerationTaskResponse QueryVideogenerationTask(QueryVideogenerationTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return QueryVideogenerationTaskEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 新增视频生成任务查询接口
+        /// Summary: 新增视频生成任务查询接口</para>
+        /// </description>
+        public async Task<QueryVideogenerationTaskResponse> QueryVideogenerationTaskAsync(QueryVideogenerationTaskRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await QueryVideogenerationTaskExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 新增视频生成任务查询接口
+        /// Summary: 新增视频生成任务查询接口</para>
+        /// </description>
+        public QueryVideogenerationTaskResponse QueryVideogenerationTaskEx(QueryVideogenerationTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryVideogenerationTaskResponse>(DoRequest("1.0", "antdigital.creative.videogeneration.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 新增视频生成任务查询接口
+        /// Summary: 新增视频生成任务查询接口</para>
+        /// </description>
+        public async Task<QueryVideogenerationTaskResponse> QueryVideogenerationTaskExAsync(QueryVideogenerationTaskRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<QueryVideogenerationTaskResponse>(await DoRequestAsync("1.0", "antdigital.creative.videogeneration.task.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
     }
