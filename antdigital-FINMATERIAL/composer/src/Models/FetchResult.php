@@ -5,6 +5,8 @@ namespace AntChain\FINMATERIAL\Models;
 
 use AlibabaCloud\Tea\Model;
 
+use AntChain\FINMATERIAL\Models\CommercialImage;
+
 class FetchResult extends Model {
     protected $_name = [
         'id' => 'id',
@@ -18,6 +20,7 @@ class FetchResult extends Model {
         'author' => 'author',
         'logoUrl' => 'logo_url',
         'contentFormats' => 'content_formats',
+        'imageUrls' => 'image_urls',
     ];
     public function validate() {
         Model::validateRequired('id', $this->id, true);
@@ -59,6 +62,15 @@ class FetchResult extends Model {
         if (null !== $this->contentFormats) {
             $res['content_formats'] = $this->contentFormats;
         }
+        if (null !== $this->imageUrls) {
+            $res['image_urls'] = [];
+            if(null !== $this->imageUrls && is_array($this->imageUrls)){
+                $n = 0;
+                foreach($this->imageUrls as $item){
+                    $res['image_urls'][$n++] = null !== $item ? $item->toMap() : $item;
+                }
+            }
+        }
         return $res;
     }
     /**
@@ -99,6 +111,15 @@ class FetchResult extends Model {
         }
         if(isset($map['content_formats'])){
             $model->contentFormats = $map['content_formats'];
+        }
+        if(isset($map['image_urls'])){
+            if(!empty($map['image_urls'])){
+                $model->imageUrls = [];
+                $n = 0;
+                foreach($map['image_urls'] as $item) {
+                    $model->imageUrls[$n++] = null !== $item ? CommercialImage::fromMap($item) : $item;
+                }
+            }
         }
         return $model;
     }
@@ -178,5 +199,12 @@ class FetchResult extends Model {
      * @var string
      */
     public $contentFormats;
+
+    // 图片url 和 index
+    /**
+     * @example 
+     * @var CommercialImage[]
+     */
+    public $imageUrls;
 
 }
