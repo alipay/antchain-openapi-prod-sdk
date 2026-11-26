@@ -3256,8 +3256,9 @@ class PostbackLeadReceiveRequest(TeaModel):
         request_id: str = None,
         notify_type: str = None,
         action_type: str = None,
-        notify_info: str = None,
+        biz_content: str = None,
         accept_no: str = None,
+        product_code: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3273,10 +3274,12 @@ class PostbackLeadReceiveRequest(TeaModel):
         self.notify_type = notify_type
         # 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
         self.action_type = action_type
-        # json格式数据updateCycle等字段
-        self.notify_info = notify_info
+        # 业务参数json，updateCycle等字段
+        self.biz_content = biz_content
         # 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
         self.accept_no = accept_no
+        # 本次固定传LMKT_LEADS_TRANSFER
+        self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
@@ -3284,6 +3287,7 @@ class PostbackLeadReceiveRequest(TeaModel):
         self.validate_required(self.notify_type, 'notify_type')
         self.validate_required(self.action_type, 'action_type')
         self.validate_required(self.accept_no, 'accept_no')
+        self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
         _map = super().to_map()
@@ -3305,10 +3309,12 @@ class PostbackLeadReceiveRequest(TeaModel):
             result['notify_type'] = self.notify_type
         if self.action_type is not None:
             result['action_type'] = self.action_type
-        if self.notify_info is not None:
-            result['notify_info'] = self.notify_info
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
         if self.accept_no is not None:
             result['accept_no'] = self.accept_no
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
         return result
 
     def from_map(self, m: dict = None):
@@ -3327,10 +3333,12 @@ class PostbackLeadReceiveRequest(TeaModel):
             self.notify_type = m.get('notify_type')
         if m.get('action_type') is not None:
             self.action_type = m.get('action_type')
-        if m.get('notify_info') is not None:
-            self.notify_info = m.get('notify_info')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
         if m.get('accept_no') is not None:
             self.accept_no = m.get('accept_no')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
         return self
 
 
