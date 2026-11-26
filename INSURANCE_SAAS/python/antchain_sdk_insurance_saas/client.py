@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.63',
+                    'sdk_version': '1.13.1',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.12.63',
+                    'sdk_version': '1.13.1',
                     '_prod_code': 'INSURANCE_SAAS',
                     '_prod_channel': 'undefined'
                 }
@@ -1169,6 +1169,190 @@ class Client:
         return TeaCore.from_map(
             insurance__saas_models.GetMktExtresulturlResponse(),
             await self.do_request_async('1.0', 'antcloud.insurance.mkt.extresulturl.get', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def receive_lead_opportunities(
+        self,
+        request: insurance__saas_models.ReceiveLeadOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveLeadOpportunitiesResponse:
+        """
+        Description: 商机接收-既往症人群评分-对客
+        Summary: 商机接收-既往症人群评分-对客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.receive_lead_opportunities_ex(request, headers, runtime)
+
+    async def receive_lead_opportunities_async(
+        self,
+        request: insurance__saas_models.ReceiveLeadOpportunitiesRequest,
+    ) -> insurance__saas_models.ReceiveLeadOpportunitiesResponse:
+        """
+        Description: 商机接收-既往症人群评分-对客
+        Summary: 商机接收-既往症人群评分-对客
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.receive_lead_opportunities_ex_async(request, headers, runtime)
+
+    def receive_lead_opportunities_ex(
+        self,
+        request: insurance__saas_models.ReceiveLeadOpportunitiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveLeadOpportunitiesResponse:
+        """
+        Description: 商机接收-既往症人群评分-对客
+        Summary: 商机接收-既往症人群评分-对客
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.lead.opportunities.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_lead_opportunities_response = insurance__saas_models.ReceiveLeadOpportunitiesResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_lead_opportunities_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveLeadOpportunitiesResponse(),
+            self.do_request('1.0', 'antcloud.insurance.lead.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def receive_lead_opportunities_ex_async(
+        self,
+        request: insurance__saas_models.ReceiveLeadOpportunitiesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.ReceiveLeadOpportunitiesResponse:
+        """
+        Description: 商机接收-既往症人群评分-对客
+        Summary: 商机接收-既往症人群评分-对客
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.lead.opportunities.receive',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                receive_lead_opportunities_response = insurance__saas_models.ReceiveLeadOpportunitiesResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return receive_lead_opportunities_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.ReceiveLeadOpportunitiesResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.lead.opportunities.receive', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def postback_lead_receive(
+        self,
+        request: insurance__saas_models.PostbackLeadReceiveRequest,
+    ) -> insurance__saas_models.PostbackLeadReceiveResponse:
+        """
+        Description: 既往症线索供给方评分结果文件回传
+        Summary: 既往症线索供给方评分结果文件回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.postback_lead_receive_ex(request, headers, runtime)
+
+    async def postback_lead_receive_async(
+        self,
+        request: insurance__saas_models.PostbackLeadReceiveRequest,
+    ) -> insurance__saas_models.PostbackLeadReceiveResponse:
+        """
+        Description: 既往症线索供给方评分结果文件回传
+        Summary: 既往症线索供给方评分结果文件回传
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.postback_lead_receive_ex_async(request, headers, runtime)
+
+    def postback_lead_receive_ex(
+        self,
+        request: insurance__saas_models.PostbackLeadReceiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.PostbackLeadReceiveResponse:
+        """
+        Description: 既往症线索供给方评分结果文件回传
+        Summary: 既往症线索供给方评分结果文件回传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.lead.receive.postback',
+                file_name=request.file_object_name
+            )
+            upload_resp = self.create_antcloud_gatewayx_file_upload_ex(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                postback_lead_receive_response = insurance__saas_models.PostbackLeadReceiveResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return postback_lead_receive_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            AntchainUtils.put_object(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.PostbackLeadReceiveResponse(),
+            self.do_request('1.0', 'antcloud.insurance.lead.receive.postback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def postback_lead_receive_ex_async(
+        self,
+        request: insurance__saas_models.PostbackLeadReceiveRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> insurance__saas_models.PostbackLeadReceiveResponse:
+        """
+        Description: 既往症线索供给方评分结果文件回传
+        Summary: 既往症线索供给方评分结果文件回传
+        """
+        if not UtilClient.is_unset(request.file_object):
+            upload_req = insurance__saas_models.CreateAntcloudGatewayxFileUploadRequest(
+                auth_token=request.auth_token,
+                api_code='antcloud.insurance.lead.receive.postback',
+                file_name=request.file_object_name
+            )
+            upload_resp = await self.create_antcloud_gatewayx_file_upload_ex_async(upload_req, headers, runtime)
+            if not AntchainUtils.is_success(upload_resp.result_code, 'ok'):
+                postback_lead_receive_response = insurance__saas_models.PostbackLeadReceiveResponse(
+                    req_msg_id=upload_resp.req_msg_id,
+                    result_code=upload_resp.result_code,
+                    result_msg=upload_resp.result_msg
+                )
+                return postback_lead_receive_response
+            upload_headers = AntchainUtils.parse_upload_headers(upload_resp.upload_headers)
+            await AntchainUtils.put_object_async(request.file_object, upload_headers, upload_resp.upload_url)
+            request.file_id = upload_resp.file_id
+            request.file_object = None
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            insurance__saas_models.PostbackLeadReceiveResponse(),
+            await self.do_request_async('1.0', 'antcloud.insurance.lead.receive.postback', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def query_inquiry(
