@@ -504,19 +504,28 @@ class McpInfo(TeaModel):
         headers: str = None,
         mcp_id: str = None,
         tools: List[str] = None,
+        approval_required: bool = None,
+        approval_exempt_tools: List[str] = None,
+        approval_enabled: bool = None,
     ):
         # mcp名字
         self.name = name
-        # 协议类型
+        # 协议类型：STREAM_HTTP / SSE / STDIO（大小写不敏感）
         self.transport = transport
         # 协议地址
         self.endpoint = endpoint
-        # json
+        # 请求头键值对 JSON 字符串，可含鉴权密钥
         self.headers = headers
-        # mcp_id
+        # mcp 幂等标识（agent.detail 回传值，编辑复用）
         self.mcp_id = mcp_id
-        # 工具名字
+        # 工具名白名单：只列出的工具暴露给 LLM，至少 1 个
         self.tools = tools
+        # 该 MCP 的工具默认是否需要用户审批确认（R2 授权流）；缺省按服务端安全缺省 true
+        self.approval_required = approval_required
+        # 免审批工具名名单：无需用户确认直接执行；缺省空（全部按 approval_required 判定）
+        self.approval_exempt_tools = approval_exempt_tools
+        # 审批交互开关：true 时需审批工具经 INTERACTION_REQUIRED→DECIDE 用户确认；false 时需审批工具不派发（fail-closed）
+        self.approval_enabled = approval_enabled
 
     def validate(self):
         self.validate_required(self.name, 'name')
@@ -541,6 +550,12 @@ class McpInfo(TeaModel):
             result['mcp_id'] = self.mcp_id
         if self.tools is not None:
             result['tools'] = self.tools
+        if self.approval_required is not None:
+            result['approval_required'] = self.approval_required
+        if self.approval_exempt_tools is not None:
+            result['approval_exempt_tools'] = self.approval_exempt_tools
+        if self.approval_enabled is not None:
+            result['approval_enabled'] = self.approval_enabled
         return result
 
     def from_map(self, m: dict = None):
@@ -557,6 +572,12 @@ class McpInfo(TeaModel):
             self.mcp_id = m.get('mcp_id')
         if m.get('tools') is not None:
             self.tools = m.get('tools')
+        if m.get('approval_required') is not None:
+            self.approval_required = m.get('approval_required')
+        if m.get('approval_exempt_tools') is not None:
+            self.approval_exempt_tools = m.get('approval_exempt_tools')
+        if m.get('approval_enabled') is not None:
+            self.approval_enabled = m.get('approval_enabled')
         return self
 
 
