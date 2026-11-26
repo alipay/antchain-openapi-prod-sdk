@@ -6,9 +6,9 @@
 
     <!-- 基础信息 -->
     <groupId>com.antgroup.antchain.openapi</groupId>
-    <!-- 注意：变量 openapi-insurance_saas 和 1.12.63 需要在命令行或 properties 中定义 -->
+    <!-- 注意：变量 openapi-insurance_saas 和 1.13.0 需要在命令行或 properties 中定义 -->
     <artifactId>openapi-insurance_saas</artifactId>
-    <version>1.12.63</version>
+    <version>1.13.0</version>
     <packaging>jar</packaging>
 
     <name>openapi-insurance_saas</name>
@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.antgroup.antchain.openapi</groupId>
             <artifactId>antchain-util</artifactId>
-            <version>0.1.9</version>
+            <version>0.1.12</version>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
