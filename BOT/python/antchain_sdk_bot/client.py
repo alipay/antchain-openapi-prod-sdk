@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.12',
+                    'sdk_version': '1.22.22',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.22.12',
+                    'sdk_version': '1.22.22',
                     '_prod_code': 'BOT',
                     '_prod_channel': 'undefined'
                 }
@@ -4124,8 +4124,8 @@ class Client:
         request: bot_models.ChatIotagentSessionRequest,
     ) -> bot_models.ChatIotagentSessionResponse:
         """
-        Description: sse聊天
-        Summary: sse聊天
+        Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+        Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4136,8 +4136,8 @@ class Client:
         request: bot_models.ChatIotagentSessionRequest,
     ) -> bot_models.ChatIotagentSessionResponse:
         """
-        Description: sse聊天
-        Summary: sse聊天
+        Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+        Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -4150,8 +4150,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.ChatIotagentSessionResponse:
         """
-        Description: sse聊天
-        Summary: sse聊天
+        Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+        Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -4166,8 +4166,8 @@ class Client:
         runtime: util_models.RuntimeOptions,
     ) -> bot_models.ChatIotagentSessionResponse:
         """
-        Description: sse聊天
-        Summary: sse聊天
+        Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+        Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
         """
         UtilClient.validate_model(request)
         return TeaCore.from_map(
@@ -5721,6 +5721,398 @@ class Client:
         return TeaCore.from_map(
             bot_models.StepsIotagentSessionTrajectoryResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.iotagent.session.trajectory.steps', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def uploadurl_iotagent_files(
+        self,
+        request: bot_models.UploadurlIotagentFilesRequest,
+    ) -> bot_models.UploadurlIotagentFilesResponse:
+        """
+        Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.uploadurl_iotagent_files_ex(request, headers, runtime)
+
+    async def uploadurl_iotagent_files_async(
+        self,
+        request: bot_models.UploadurlIotagentFilesRequest,
+    ) -> bot_models.UploadurlIotagentFilesResponse:
+        """
+        Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.uploadurl_iotagent_files_ex_async(request, headers, runtime)
+
+    def uploadurl_iotagent_files_ex(
+        self,
+        request: bot_models.UploadurlIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadurlIotagentFilesResponse:
+        """
+        Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadurlIotagentFilesResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.files.uploadurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def uploadurl_iotagent_files_ex_async(
+        self,
+        request: bot_models.UploadurlIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadurlIotagentFilesResponse:
+        """
+        Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadurlIotagentFilesResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.files.uploadurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def confirm_iotagent_files(
+        self,
+        request: bot_models.ConfirmIotagentFilesRequest,
+    ) -> bot_models.ConfirmIotagentFilesResponse:
+        """
+        Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.confirm_iotagent_files_ex(request, headers, runtime)
+
+    async def confirm_iotagent_files_async(
+        self,
+        request: bot_models.ConfirmIotagentFilesRequest,
+    ) -> bot_models.ConfirmIotagentFilesResponse:
+        """
+        Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.confirm_iotagent_files_ex_async(request, headers, runtime)
+
+    def confirm_iotagent_files_ex(
+        self,
+        request: bot_models.ConfirmIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmIotagentFilesResponse:
+        """
+        Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmIotagentFilesResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.files.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def confirm_iotagent_files_ex_async(
+        self,
+        request: bot_models.ConfirmIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ConfirmIotagentFilesResponse:
+        """
+        Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ConfirmIotagentFilesResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.files.confirm', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def fileurl_iotagent_files(
+        self,
+        request: bot_models.FileurlIotagentFilesRequest,
+    ) -> bot_models.FileurlIotagentFilesResponse:
+        """
+        Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.fileurl_iotagent_files_ex(request, headers, runtime)
+
+    async def fileurl_iotagent_files_async(
+        self,
+        request: bot_models.FileurlIotagentFilesRequest,
+    ) -> bot_models.FileurlIotagentFilesResponse:
+        """
+        Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.fileurl_iotagent_files_ex_async(request, headers, runtime)
+
+    def fileurl_iotagent_files_ex(
+        self,
+        request: bot_models.FileurlIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FileurlIotagentFilesResponse:
+        """
+        Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FileurlIotagentFilesResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.files.fileurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def fileurl_iotagent_files_ex_async(
+        self,
+        request: bot_models.FileurlIotagentFilesRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.FileurlIotagentFilesResponse:
+        """
+        Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.FileurlIotagentFilesResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.files.fileurl', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def mount_iotagent_kb(
+        self,
+        request: bot_models.MountIotagentKbRequest,
+    ) -> bot_models.MountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.mount_iotagent_kb_ex(request, headers, runtime)
+
+    async def mount_iotagent_kb_async(
+        self,
+        request: bot_models.MountIotagentKbRequest,
+    ) -> bot_models.MountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.mount_iotagent_kb_ex_async(request, headers, runtime)
+
+    def mount_iotagent_kb_ex(
+        self,
+        request: bot_models.MountIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.MountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.MountIotagentKbResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.kb.mount', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def mount_iotagent_kb_ex_async(
+        self,
+        request: bot_models.MountIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.MountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.MountIotagentKbResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.kb.mount', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unmount_iotagent_kb(
+        self,
+        request: bot_models.UnmountIotagentKbRequest,
+    ) -> bot_models.UnmountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unmount_iotagent_kb_ex(request, headers, runtime)
+
+    async def unmount_iotagent_kb_async(
+        self,
+        request: bot_models.UnmountIotagentKbRequest,
+    ) -> bot_models.UnmountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unmount_iotagent_kb_ex_async(request, headers, runtime)
+
+    def unmount_iotagent_kb_ex(
+        self,
+        request: bot_models.UnmountIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnmountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnmountIotagentKbResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.kb.unmount', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unmount_iotagent_kb_ex_async(
+        self,
+        request: bot_models.UnmountIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnmountIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnmountIotagentKbResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.kb.unmount', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotagent_kb(
+        self,
+        request: bot_models.ListIotagentKbRequest,
+    ) -> bot_models.ListIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotagent_kb_ex(request, headers, runtime)
+
+    async def list_iotagent_kb_async(
+        self,
+        request: bot_models.ListIotagentKbRequest,
+    ) -> bot_models.ListIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotagent_kb_ex_async(request, headers, runtime)
+
+    def list_iotagent_kb_ex(
+        self,
+        request: bot_models.ListIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotagentKbResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.kb.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotagent_kb_ex_async(
+        self,
+        request: bot_models.ListIotagentKbRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotagentKbResponse:
+        """
+        Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotagentKbResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.kb.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotagent_model(
+        self,
+        request: bot_models.ListIotagentModelRequest,
+    ) -> bot_models.ListIotagentModelResponse:
+        """
+        Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotagent_model_ex(request, headers, runtime)
+
+    async def list_iotagent_model_async(
+        self,
+        request: bot_models.ListIotagentModelRequest,
+    ) -> bot_models.ListIotagentModelResponse:
+        """
+        Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotagent_model_ex_async(request, headers, runtime)
+
+    def list_iotagent_model_ex(
+        self,
+        request: bot_models.ListIotagentModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotagentModelResponse:
+        """
+        Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotagentModelResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotagent.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotagent_model_ex_async(
+        self,
+        request: bot_models.ListIotagentModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotagentModelResponse:
+        """
+        Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotagentModelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotagent.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def create_acs_device(
@@ -14103,6 +14495,2246 @@ class Client:
             await self.do_request_async('1.0', 'blockchain.bot.iotplantform.product.resume', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
+    def create_iotsuccess_product(
+        self,
+        request: bot_models.CreateIotsuccessProductRequest,
+    ) -> bot_models.CreateIotsuccessProductResponse:
+        """
+        Description: P01 创建产品，一次性返回明文产品密钥
+        Summary: P01 创建产品，一次性返回明文产品密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotsuccess_product_ex(request, headers, runtime)
+
+    async def create_iotsuccess_product_async(
+        self,
+        request: bot_models.CreateIotsuccessProductRequest,
+    ) -> bot_models.CreateIotsuccessProductResponse:
+        """
+        Description: P01 创建产品，一次性返回明文产品密钥
+        Summary: P01 创建产品，一次性返回明文产品密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotsuccess_product_ex_async(request, headers, runtime)
+
+    def create_iotsuccess_product_ex(
+        self,
+        request: bot_models.CreateIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductResponse:
+        """
+        Description: P01 创建产品，一次性返回明文产品密钥
+        Summary: P01 创建产品，一次性返回明文产品密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotsuccess_product_ex_async(
+        self,
+        request: bot_models.CreateIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductResponse:
+        """
+        Description: P01 创建产品，一次性返回明文产品密钥
+        Summary: P01 创建产品，一次性返回明文产品密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_iotsuccess_product(
+        self,
+        request: bot_models.DetailIotsuccessProductRequest,
+    ) -> bot_models.DetailIotsuccessProductResponse:
+        """
+        Description: P02 产品详情，不含产品密钥
+        Summary: P02 产品详情，不含产品密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_iotsuccess_product_ex(request, headers, runtime)
+
+    async def detail_iotsuccess_product_async(
+        self,
+        request: bot_models.DetailIotsuccessProductRequest,
+    ) -> bot_models.DetailIotsuccessProductResponse:
+        """
+        Description: P02 产品详情，不含产品密钥
+        Summary: P02 产品详情，不含产品密钥
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_iotsuccess_product_ex_async(request, headers, runtime)
+
+    def detail_iotsuccess_product_ex(
+        self,
+        request: bot_models.DetailIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductResponse:
+        """
+        Description: P02 产品详情，不含产品密钥
+        Summary: P02 产品详情，不含产品密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_iotsuccess_product_ex_async(
+        self,
+        request: bot_models.DetailIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductResponse:
+        """
+        Description: P02 产品详情，不含产品密钥
+        Summary: P02 产品详情，不含产品密钥
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotsuccess_product(
+        self,
+        request: bot_models.UpdateIotsuccessProductRequest,
+    ) -> bot_models.UpdateIotsuccessProductResponse:
+        """
+        Description: P03 更新产品，至少一个可更新字段
+        Summary: P03 更新产品，至少一个可更新字段
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotsuccess_product_ex(request, headers, runtime)
+
+    async def update_iotsuccess_product_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductRequest,
+    ) -> bot_models.UpdateIotsuccessProductResponse:
+        """
+        Description: P03 更新产品，至少一个可更新字段
+        Summary: P03 更新产品，至少一个可更新字段
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotsuccess_product_ex_async(request, headers, runtime)
+
+    def update_iotsuccess_product_ex(
+        self,
+        request: bot_models.UpdateIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductResponse:
+        """
+        Description: P03 更新产品，至少一个可更新字段
+        Summary: P03 更新产品，至少一个可更新字段
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotsuccess_product_ex_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductResponse:
+        """
+        Description: P03 更新产品，至少一个可更新字段
+        Summary: P03 更新产品，至少一个可更新字段
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product(
+        self,
+        request: bot_models.ListIotsuccessProductRequest,
+    ) -> bot_models.ListIotsuccessProductResponse:
+        """
+        Description: P04 当前租户产品列表
+        Summary: P04 当前租户产品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_async(
+        self,
+        request: bot_models.ListIotsuccessProductRequest,
+    ) -> bot_models.ListIotsuccessProductResponse:
+        """
+        Description: P04 当前租户产品列表
+        Summary: P04 当前租户产品列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_ex(
+        self,
+        request: bot_models.ListIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductResponse:
+        """
+        Description: P04 当前租户产品列表
+        Summary: P04 当前租户产品列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductResponse:
+        """
+        Description: P04 当前租户产品列表
+        Summary: P04 当前租户产品列表
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_category(
+        self,
+        request: bot_models.ListIotsuccessProductCategoryRequest,
+    ) -> bot_models.ListIotsuccessProductCategoryResponse:
+        """
+        Description: P05 可选品类与服务形态、入网及激活组合
+        Summary: P05 可选品类与服务形态、入网及激活组合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_category_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_category_async(
+        self,
+        request: bot_models.ListIotsuccessProductCategoryRequest,
+    ) -> bot_models.ListIotsuccessProductCategoryResponse:
+        """
+        Description: P05 可选品类与服务形态、入网及激活组合
+        Summary: P05 可选品类与服务形态、入网及激活组合
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_category_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_category_ex(
+        self,
+        request: bot_models.ListIotsuccessProductCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductCategoryResponse:
+        """
+        Description: P05 可选品类与服务形态、入网及激活组合
+        Summary: P05 可选品类与服务形态、入网及激活组合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductCategoryResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.category.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_category_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductCategoryRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductCategoryResponse:
+        """
+        Description: P05 可选品类与服务形态、入网及激活组合
+        Summary: P05 可选品类与服务形态、入网及激活组合
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductCategoryResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.category.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_template_global(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateGlobalRequest,
+    ) -> bot_models.ListIotsuccessProductTemplateGlobalResponse:
+        """
+        Description: T01 只读全局模板基线
+        Summary: T01 只读全局模板基线
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_template_global_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_template_global_async(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateGlobalRequest,
+    ) -> bot_models.ListIotsuccessProductTemplateGlobalResponse:
+        """
+        Description: T01 只读全局模板基线
+        Summary: T01 只读全局模板基线
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_template_global_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_template_global_ex(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateGlobalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductTemplateGlobalResponse:
+        """
+        Description: T01 只读全局模板基线
+        Summary: T01 只读全局模板基线
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductTemplateGlobalResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.global.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_template_global_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateGlobalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductTemplateGlobalResponse:
+        """
+        Description: T01 只读全局模板基线
+        Summary: T01 只读全局模板基线
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductTemplateGlobalResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.global.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_iotsuccess_product_template(
+        self,
+        request: bot_models.CreateIotsuccessProductTemplateRequest,
+    ) -> bot_models.CreateIotsuccessProductTemplateResponse:
+        """
+        Description: T02 从零或全局模板创建产品模板
+        Summary: T02 从零或全局模板创建产品模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def create_iotsuccess_product_template_async(
+        self,
+        request: bot_models.CreateIotsuccessProductTemplateRequest,
+    ) -> bot_models.CreateIotsuccessProductTemplateResponse:
+        """
+        Description: T02 从零或全局模板创建产品模板
+        Summary: T02 从零或全局模板创建产品模板
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def create_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.CreateIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductTemplateResponse:
+        """
+        Description: T02 从零或全局模板创建产品模板
+        Summary: T02 从零或全局模板创建产品模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.CreateIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductTemplateResponse:
+        """
+        Description: T02 从零或全局模板创建产品模板
+        Summary: T02 从零或全局模板创建产品模板
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_template(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateRequest,
+    ) -> bot_models.ListIotsuccessProductTemplateResponse:
+        """
+        Description: T03 产品模板列表与默认标记
+        Summary: T03 产品模板列表与默认标记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_template_async(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateRequest,
+    ) -> bot_models.ListIotsuccessProductTemplateResponse:
+        """
+        Description: T03 产品模板列表与默认标记
+        Summary: T03 产品模板列表与默认标记
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductTemplateResponse:
+        """
+        Description: T03 产品模板列表与默认标记
+        Summary: T03 产品模板列表与默认标记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductTemplateResponse:
+        """
+        Description: T03 产品模板列表与默认标记
+        Summary: T03 产品模板列表与默认标记
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_iotsuccess_product_template(
+        self,
+        request: bot_models.DetailIotsuccessProductTemplateRequest,
+    ) -> bot_models.DetailIotsuccessProductTemplateResponse:
+        """
+        Description: T04 模板全部配置
+        Summary: T04 模板全部配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def detail_iotsuccess_product_template_async(
+        self,
+        request: bot_models.DetailIotsuccessProductTemplateRequest,
+    ) -> bot_models.DetailIotsuccessProductTemplateResponse:
+        """
+        Description: T04 模板全部配置
+        Summary: T04 模板全部配置
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def detail_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.DetailIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductTemplateResponse:
+        """
+        Description: T04 模板全部配置
+        Summary: T04 模板全部配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.DetailIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductTemplateResponse:
+        """
+        Description: T04 模板全部配置
+        Summary: T04 模板全部配置
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotsuccess_product_template(
+        self,
+        request: bot_models.UpdateIotsuccessProductTemplateRequest,
+    ) -> bot_models.UpdateIotsuccessProductTemplateResponse:
+        """
+        Description: T05 更新模板语言、音色、角色、模型及语音参数
+        Summary: T05 更新模板语言、音色、角色、模型及语音参数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def update_iotsuccess_product_template_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductTemplateRequest,
+    ) -> bot_models.UpdateIotsuccessProductTemplateResponse:
+        """
+        Description: T05 更新模板语言、音色、角色、模型及语音参数
+        Summary: T05 更新模板语言、音色、角色、模型及语音参数
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def update_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.UpdateIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductTemplateResponse:
+        """
+        Description: T05 更新模板语言、音色、角色、模型及语音参数
+        Summary: T05 更新模板语言、音色、角色、模型及语音参数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductTemplateResponse:
+        """
+        Description: T05 更新模板语言、音色、角色、模型及语音参数
+        Summary: T05 更新模板语言、音色、角色、模型及语音参数
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iotsuccess_product_template(
+        self,
+        request: bot_models.DeleteIotsuccessProductTemplateRequest,
+    ) -> bot_models.DeleteIotsuccessProductTemplateResponse:
+        """
+        Description: T06 默认模板需先切换，最后一个模板不可删
+        Summary: T06 默认模板需先切换，最后一个模板不可删
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def delete_iotsuccess_product_template_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductTemplateRequest,
+    ) -> bot_models.DeleteIotsuccessProductTemplateResponse:
+        """
+        Description: T06 默认模板需先切换，最后一个模板不可删
+        Summary: T06 默认模板需先切换，最后一个模板不可删
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def delete_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.DeleteIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductTemplateResponse:
+        """
+        Description: T06 默认模板需先切换，最后一个模板不可删
+        Summary: T06 默认模板需先切换，最后一个模板不可删
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductTemplateResponse:
+        """
+        Description: T06 默认模板需先切换，最后一个模板不可删
+        Summary: T06 默认模板需先切换，最后一个模板不可删
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def default_iotsuccess_product_template(
+        self,
+        request: bot_models.DefaultIotsuccessProductTemplateRequest,
+    ) -> bot_models.DefaultIotsuccessProductTemplateResponse:
+        """
+        Description: T07 设置唯一默认，只影响新激活设备
+        Summary: T07 设置唯一默认，只影响新激活设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.default_iotsuccess_product_template_ex(request, headers, runtime)
+
+    async def default_iotsuccess_product_template_async(
+        self,
+        request: bot_models.DefaultIotsuccessProductTemplateRequest,
+    ) -> bot_models.DefaultIotsuccessProductTemplateResponse:
+        """
+        Description: T07 设置唯一默认，只影响新激活设备
+        Summary: T07 设置唯一默认，只影响新激活设备
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.default_iotsuccess_product_template_ex_async(request, headers, runtime)
+
+    def default_iotsuccess_product_template_ex(
+        self,
+        request: bot_models.DefaultIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DefaultIotsuccessProductTemplateResponse:
+        """
+        Description: T07 设置唯一默认，只影响新激活设备
+        Summary: T07 设置唯一默认，只影响新激活设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DefaultIotsuccessProductTemplateResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.template.default', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def default_iotsuccess_product_template_ex_async(
+        self,
+        request: bot_models.DefaultIotsuccessProductTemplateRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DefaultIotsuccessProductTemplateResponse:
+        """
+        Description: T07 设置唯一默认，只影响新激活设备
+        Summary: T07 设置唯一默认，只影响新激活设备
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DefaultIotsuccessProductTemplateResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.template.default', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_voice(
+        self,
+        request: bot_models.ListIotsuccessProductVoiceRequest,
+    ) -> bot_models.ListIotsuccessProductVoiceResponse:
+        """
+        Description: T08 按语言筛选可选音色
+        Summary: T08 按语言筛选可选音色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_voice_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_voice_async(
+        self,
+        request: bot_models.ListIotsuccessProductVoiceRequest,
+    ) -> bot_models.ListIotsuccessProductVoiceResponse:
+        """
+        Description: T08 按语言筛选可选音色
+        Summary: T08 按语言筛选可选音色
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_voice_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_voice_ex(
+        self,
+        request: bot_models.ListIotsuccessProductVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductVoiceResponse:
+        """
+        Description: T08 按语言筛选可选音色
+        Summary: T08 按语言筛选可选音色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductVoiceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.voice.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_voice_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductVoiceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductVoiceResponse:
+        """
+        Description: T08 按语言筛选可选音色
+        Summary: T08 按语言筛选可选音色
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductVoiceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.voice.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_model(
+        self,
+        request: bot_models.ListIotsuccessProductModelRequest,
+    ) -> bot_models.ListIotsuccessProductModelResponse:
+        """
+        Description: T09 按产品授权和地区筛选模型
+        Summary: T09 按产品授权和地区筛选模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_model_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_model_async(
+        self,
+        request: bot_models.ListIotsuccessProductModelRequest,
+    ) -> bot_models.ListIotsuccessProductModelResponse:
+        """
+        Description: T09 按产品授权和地区筛选模型
+        Summary: T09 按产品授权和地区筛选模型
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_model_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_model_ex(
+        self,
+        request: bot_models.ListIotsuccessProductModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductModelResponse:
+        """
+        Description: T09 按产品授权和地区筛选模型
+        Summary: T09 按产品授权和地区筛选模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductModelResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_model_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductModelRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductModelResponse:
+        """
+        Description: T09 按产品授权和地区筛选模型
+        Summary: T09 按产品授权和地区筛选模型
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductModelResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.model.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_plugin_store(
+        self,
+        request: bot_models.ListIotsuccessProductPluginStoreRequest,
+    ) -> bot_models.ListIotsuccessProductPluginStoreResponse:
+        """
+        Description: G01 官方、本租户及显式授权插件目录
+        Summary: G01 官方、本租户及显式授权插件目录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_plugin_store_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_plugin_store_async(
+        self,
+        request: bot_models.ListIotsuccessProductPluginStoreRequest,
+    ) -> bot_models.ListIotsuccessProductPluginStoreResponse:
+        """
+        Description: G01 官方、本租户及显式授权插件目录
+        Summary: G01 官方、本租户及显式授权插件目录
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_plugin_store_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_plugin_store_ex(
+        self,
+        request: bot_models.ListIotsuccessProductPluginStoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductPluginStoreResponse:
+        """
+        Description: G01 官方、本租户及显式授权插件目录
+        Summary: G01 官方、本租户及显式授权插件目录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductPluginStoreResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.plugin.store.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_plugin_store_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductPluginStoreRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductPluginStoreResponse:
+        """
+        Description: G01 官方、本租户及显式授权插件目录
+        Summary: G01 官方、本租户及显式授权插件目录
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductPluginStoreResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.plugin.store.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_plugin_binding(
+        self,
+        request: bot_models.ListIotsuccessProductPluginBindingRequest,
+    ) -> bot_models.ListIotsuccessProductPluginBindingResponse:
+        """
+        Description: G02 产品已绑定插件与生效状态
+        Summary: G02 产品已绑定插件与生效状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_plugin_binding_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_plugin_binding_async(
+        self,
+        request: bot_models.ListIotsuccessProductPluginBindingRequest,
+    ) -> bot_models.ListIotsuccessProductPluginBindingResponse:
+        """
+        Description: G02 产品已绑定插件与生效状态
+        Summary: G02 产品已绑定插件与生效状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_plugin_binding_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_plugin_binding_ex(
+        self,
+        request: bot_models.ListIotsuccessProductPluginBindingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductPluginBindingResponse:
+        """
+        Description: G02 产品已绑定插件与生效状态
+        Summary: G02 产品已绑定插件与生效状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductPluginBindingResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.plugin.binding.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_plugin_binding_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductPluginBindingRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductPluginBindingResponse:
+        """
+        Description: G02 产品已绑定插件与生效状态
+        Summary: G02 产品已绑定插件与生效状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductPluginBindingResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.plugin.binding.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def bind_iotsuccess_product_plugin(
+        self,
+        request: bot_models.BindIotsuccessProductPluginRequest,
+    ) -> bot_models.BindIotsuccessProductPluginResponse:
+        """
+        Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.bind_iotsuccess_product_plugin_ex(request, headers, runtime)
+
+    async def bind_iotsuccess_product_plugin_async(
+        self,
+        request: bot_models.BindIotsuccessProductPluginRequest,
+    ) -> bot_models.BindIotsuccessProductPluginResponse:
+        """
+        Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.bind_iotsuccess_product_plugin_ex_async(request, headers, runtime)
+
+    def bind_iotsuccess_product_plugin_ex(
+        self,
+        request: bot_models.BindIotsuccessProductPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BindIotsuccessProductPluginResponse:
+        """
+        Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BindIotsuccessProductPluginResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.plugin.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def bind_iotsuccess_product_plugin_ex_async(
+        self,
+        request: bot_models.BindIotsuccessProductPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.BindIotsuccessProductPluginResponse:
+        """
+        Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.BindIotsuccessProductPluginResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.plugin.bind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def unbind_iotsuccess_product_plugin(
+        self,
+        request: bot_models.UnbindIotsuccessProductPluginRequest,
+    ) -> bot_models.UnbindIotsuccessProductPluginResponse:
+        """
+        Description: G04 高风险解绑，必须显式confirm=true
+        Summary: G04 高风险解绑，必须显式confirm=true
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.unbind_iotsuccess_product_plugin_ex(request, headers, runtime)
+
+    async def unbind_iotsuccess_product_plugin_async(
+        self,
+        request: bot_models.UnbindIotsuccessProductPluginRequest,
+    ) -> bot_models.UnbindIotsuccessProductPluginResponse:
+        """
+        Description: G04 高风险解绑，必须显式confirm=true
+        Summary: G04 高风险解绑，必须显式confirm=true
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.unbind_iotsuccess_product_plugin_ex_async(request, headers, runtime)
+
+    def unbind_iotsuccess_product_plugin_ex(
+        self,
+        request: bot_models.UnbindIotsuccessProductPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnbindIotsuccessProductPluginResponse:
+        """
+        Description: G04 高风险解绑，必须显式confirm=true
+        Summary: G04 高风险解绑，必须显式confirm=true
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnbindIotsuccessProductPluginResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.plugin.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def unbind_iotsuccess_product_plugin_ex_async(
+        self,
+        request: bot_models.UnbindIotsuccessProductPluginRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UnbindIotsuccessProductPluginResponse:
+        """
+        Description: G04 高风险解绑，必须显式confirm=true
+        Summary: G04 高风险解绑，必须显式confirm=true
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UnbindIotsuccessProductPluginResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.plugin.unbind', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_iotsuccess_product_skill(
+        self,
+        request: bot_models.UploadIotsuccessProductSkillRequest,
+    ) -> bot_models.UploadIotsuccessProductSkillResponse:
+        """
+        Description: G05 上传并解析Skill包，返回现有插件创建结果
+        Summary: G05 上传并解析Skill包，返回现有插件创建结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_iotsuccess_product_skill_ex(request, headers, runtime)
+
+    async def upload_iotsuccess_product_skill_async(
+        self,
+        request: bot_models.UploadIotsuccessProductSkillRequest,
+    ) -> bot_models.UploadIotsuccessProductSkillResponse:
+        """
+        Description: G05 上传并解析Skill包，返回现有插件创建结果
+        Summary: G05 上传并解析Skill包，返回现有插件创建结果
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_iotsuccess_product_skill_ex_async(request, headers, runtime)
+
+    def upload_iotsuccess_product_skill_ex(
+        self,
+        request: bot_models.UploadIotsuccessProductSkillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotsuccessProductSkillResponse:
+        """
+        Description: G05 上传并解析Skill包，返回现有插件创建结果
+        Summary: G05 上传并解析Skill包，返回现有插件创建结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotsuccessProductSkillResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.skill.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_iotsuccess_product_skill_ex_async(
+        self,
+        request: bot_models.UploadIotsuccessProductSkillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotsuccessProductSkillResponse:
+        """
+        Description: G05 上传并解析Skill包，返回现有插件创建结果
+        Summary: G05 上传并解析Skill包，返回现有插件创建结果
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotsuccessProductSkillResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.skill.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def status_iotsuccess_product_skill(
+        self,
+        request: bot_models.StatusIotsuccessProductSkillRequest,
+    ) -> bot_models.StatusIotsuccessProductSkillResponse:
+        """
+        Description: G06 按pluginId查询已有Skill资产状态
+        Summary: G06 按pluginId查询已有Skill资产状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.status_iotsuccess_product_skill_ex(request, headers, runtime)
+
+    async def status_iotsuccess_product_skill_async(
+        self,
+        request: bot_models.StatusIotsuccessProductSkillRequest,
+    ) -> bot_models.StatusIotsuccessProductSkillResponse:
+        """
+        Description: G06 按pluginId查询已有Skill资产状态
+        Summary: G06 按pluginId查询已有Skill资产状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.status_iotsuccess_product_skill_ex_async(request, headers, runtime)
+
+    def status_iotsuccess_product_skill_ex(
+        self,
+        request: bot_models.StatusIotsuccessProductSkillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductSkillResponse:
+        """
+        Description: G06 按pluginId查询已有Skill资产状态
+        Summary: G06 按pluginId查询已有Skill资产状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductSkillResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.skill.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def status_iotsuccess_product_skill_ex_async(
+        self,
+        request: bot_models.StatusIotsuccessProductSkillRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductSkillResponse:
+        """
+        Description: G06 按pluginId查询已有Skill资产状态
+        Summary: G06 按pluginId查询已有Skill资产状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductSkillResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.skill.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_iotsuccess_product_mcp(
+        self,
+        request: bot_models.CreateIotsuccessProductMcpRequest,
+    ) -> bot_models.CreateIotsuccessProductMcpResponse:
+        """
+        Description: G07 创建MCP站点，保存前校验
+        Summary: G07 创建MCP站点，保存前校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotsuccess_product_mcp_ex(request, headers, runtime)
+
+    async def create_iotsuccess_product_mcp_async(
+        self,
+        request: bot_models.CreateIotsuccessProductMcpRequest,
+    ) -> bot_models.CreateIotsuccessProductMcpResponse:
+        """
+        Description: G07 创建MCP站点，保存前校验
+        Summary: G07 创建MCP站点，保存前校验
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotsuccess_product_mcp_ex_async(request, headers, runtime)
+
+    def create_iotsuccess_product_mcp_ex(
+        self,
+        request: bot_models.CreateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductMcpResponse:
+        """
+        Description: G07 创建MCP站点，保存前校验
+        Summary: G07 创建MCP站点，保存前校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductMcpResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.mcp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotsuccess_product_mcp_ex_async(
+        self,
+        request: bot_models.CreateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductMcpResponse:
+        """
+        Description: G07 创建MCP站点，保存前校验
+        Summary: G07 创建MCP站点，保存前校验
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductMcpResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.mcp.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotsuccess_product_mcp(
+        self,
+        request: bot_models.UpdateIotsuccessProductMcpRequest,
+    ) -> bot_models.UpdateIotsuccessProductMcpResponse:
+        """
+        Description: G08 更新本租户MCP，headers整体替换，省略保持
+        Summary: G08 更新本租户MCP，headers整体替换，省略保持
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotsuccess_product_mcp_ex(request, headers, runtime)
+
+    async def update_iotsuccess_product_mcp_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductMcpRequest,
+    ) -> bot_models.UpdateIotsuccessProductMcpResponse:
+        """
+        Description: G08 更新本租户MCP，headers整体替换，省略保持
+        Summary: G08 更新本租户MCP，headers整体替换，省略保持
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotsuccess_product_mcp_ex_async(request, headers, runtime)
+
+    def update_iotsuccess_product_mcp_ex(
+        self,
+        request: bot_models.UpdateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductMcpResponse:
+        """
+        Description: G08 更新本租户MCP，headers整体替换，省略保持
+        Summary: G08 更新本租户MCP，headers整体替换，省略保持
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductMcpResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.mcp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotsuccess_product_mcp_ex_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductMcpResponse:
+        """
+        Description: G08 更新本租户MCP，headers整体替换，省略保持
+        Summary: G08 更新本租户MCP，headers整体替换，省略保持
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductMcpResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.mcp.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iotsuccess_product_mcp(
+        self,
+        request: bot_models.DeleteIotsuccessProductMcpRequest,
+    ) -> bot_models.DeleteIotsuccessProductMcpResponse:
+        """
+        Description: G09 被产品或智能体引用不可删除
+        Summary: G09 被产品或智能体引用不可删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iotsuccess_product_mcp_ex(request, headers, runtime)
+
+    async def delete_iotsuccess_product_mcp_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductMcpRequest,
+    ) -> bot_models.DeleteIotsuccessProductMcpResponse:
+        """
+        Description: G09 被产品或智能体引用不可删除
+        Summary: G09 被产品或智能体引用不可删除
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iotsuccess_product_mcp_ex_async(request, headers, runtime)
+
+    def delete_iotsuccess_product_mcp_ex(
+        self,
+        request: bot_models.DeleteIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductMcpResponse:
+        """
+        Description: G09 被产品或智能体引用不可删除
+        Summary: G09 被产品或智能体引用不可删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductMcpResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.mcp.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iotsuccess_product_mcp_ex_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductMcpResponse:
+        """
+        Description: G09 被产品或智能体引用不可删除
+        Summary: G09 被产品或智能体引用不可删除
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductMcpResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.mcp.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def validate_iotsuccess_product_mcp(
+        self,
+        request: bot_models.ValidateIotsuccessProductMcpRequest,
+    ) -> bot_models.ValidateIotsuccessProductMcpResponse:
+        """
+        Description: G10 校验wss可达与鉴权，不持久化输入
+        Summary: G10 校验wss可达与鉴权，不持久化输入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.validate_iotsuccess_product_mcp_ex(request, headers, runtime)
+
+    async def validate_iotsuccess_product_mcp_async(
+        self,
+        request: bot_models.ValidateIotsuccessProductMcpRequest,
+    ) -> bot_models.ValidateIotsuccessProductMcpResponse:
+        """
+        Description: G10 校验wss可达与鉴权，不持久化输入
+        Summary: G10 校验wss可达与鉴权，不持久化输入
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.validate_iotsuccess_product_mcp_ex_async(request, headers, runtime)
+
+    def validate_iotsuccess_product_mcp_ex(
+        self,
+        request: bot_models.ValidateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ValidateIotsuccessProductMcpResponse:
+        """
+        Description: G10 校验wss可达与鉴权，不持久化输入
+        Summary: G10 校验wss可达与鉴权，不持久化输入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ValidateIotsuccessProductMcpResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.mcp.validate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def validate_iotsuccess_product_mcp_ex_async(
+        self,
+        request: bot_models.ValidateIotsuccessProductMcpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ValidateIotsuccessProductMcpResponse:
+        """
+        Description: G10 校验wss可达与鉴权，不持久化输入
+        Summary: G10 校验wss可达与鉴权，不持久化输入
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ValidateIotsuccessProductMcpResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.mcp.validate', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def import_iotsuccess_product_device(
+        self,
+        request: bot_models.ImportIotsuccessProductDeviceRequest,
+    ) -> bot_models.ImportIotsuccessProductDeviceResponse:
+        """
+        Description: D01 调用已有设备导入，返回成功/已有/无效名单
+        Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.import_iotsuccess_product_device_ex(request, headers, runtime)
+
+    async def import_iotsuccess_product_device_async(
+        self,
+        request: bot_models.ImportIotsuccessProductDeviceRequest,
+    ) -> bot_models.ImportIotsuccessProductDeviceResponse:
+        """
+        Description: D01 调用已有设备导入，返回成功/已有/无效名单
+        Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.import_iotsuccess_product_device_ex_async(request, headers, runtime)
+
+    def import_iotsuccess_product_device_ex(
+        self,
+        request: bot_models.ImportIotsuccessProductDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotsuccessProductDeviceResponse:
+        """
+        Description: D01 调用已有设备导入，返回成功/已有/无效名单
+        Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotsuccessProductDeviceResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.device.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def import_iotsuccess_product_device_ex_async(
+        self,
+        request: bot_models.ImportIotsuccessProductDeviceRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ImportIotsuccessProductDeviceResponse:
+        """
+        Description: D01 调用已有设备导入，返回成功/已有/无效名单
+        Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ImportIotsuccessProductDeviceResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.device.import', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def status_iotsuccess_product_device_import(
+        self,
+        request: bot_models.StatusIotsuccessProductDeviceImportRequest,
+    ) -> bot_models.StatusIotsuccessProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.status_iotsuccess_product_device_import_ex(request, headers, runtime)
+
+    async def status_iotsuccess_product_device_import_async(
+        self,
+        request: bot_models.StatusIotsuccessProductDeviceImportRequest,
+    ) -> bot_models.StatusIotsuccessProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.status_iotsuccess_product_device_import_ex_async(request, headers, runtime)
+
+    def status_iotsuccess_product_device_import_ex(
+        self,
+        request: bot_models.StatusIotsuccessProductDeviceImportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductDeviceImportResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.device.import.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def status_iotsuccess_product_device_import_ex_async(
+        self,
+        request: bot_models.StatusIotsuccessProductDeviceImportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductDeviceImportResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.device.import.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_iotsuccess_product_knowledgebase(
+        self,
+        request: bot_models.CreateIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.CreateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K01 创建知识库
+        Summary: K01 创建知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_iotsuccess_product_knowledgebase_ex(request, headers, runtime)
+
+    async def create_iotsuccess_product_knowledgebase_async(
+        self,
+        request: bot_models.CreateIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.CreateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K01 创建知识库
+        Summary: K01 创建知识库
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_iotsuccess_product_knowledgebase_ex_async(request, headers, runtime)
+
+    def create_iotsuccess_product_knowledgebase_ex(
+        self,
+        request: bot_models.CreateIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K01 创建知识库
+        Summary: K01 创建知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductKnowledgebaseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_iotsuccess_product_knowledgebase_ex_async(
+        self,
+        request: bot_models.CreateIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.CreateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K01 创建知识库
+        Summary: K01 创建知识库
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.CreateIotsuccessProductKnowledgebaseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_knowledgebase(
+        self,
+        request: bot_models.ListIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.ListIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K02 按名称类型分页
+        Summary: K02 按名称类型分页
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_knowledgebase_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_knowledgebase_async(
+        self,
+        request: bot_models.ListIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.ListIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K02 按名称类型分页
+        Summary: K02 按名称类型分页
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_knowledgebase_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_knowledgebase_ex(
+        self,
+        request: bot_models.ListIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K02 按名称类型分页
+        Summary: K02 按名称类型分页
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductKnowledgebaseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_knowledgebase_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K02 按名称类型分页
+        Summary: K02 按名称类型分页
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductKnowledgebaseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def detail_iotsuccess_product_knowledgebase(
+        self,
+        request: bot_models.DetailIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.DetailIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K03 基本信息、内容统计、关联产品
+        Summary: K03 基本信息、内容统计、关联产品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.detail_iotsuccess_product_knowledgebase_ex(request, headers, runtime)
+
+    async def detail_iotsuccess_product_knowledgebase_async(
+        self,
+        request: bot_models.DetailIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.DetailIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K03 基本信息、内容统计、关联产品
+        Summary: K03 基本信息、内容统计、关联产品
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.detail_iotsuccess_product_knowledgebase_ex_async(request, headers, runtime)
+
+    def detail_iotsuccess_product_knowledgebase_ex(
+        self,
+        request: bot_models.DetailIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K03 基本信息、内容统计、关联产品
+        Summary: K03 基本信息、内容统计、关联产品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductKnowledgebaseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def detail_iotsuccess_product_knowledgebase_ex_async(
+        self,
+        request: bot_models.DetailIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DetailIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K03 基本信息、内容统计、关联产品
+        Summary: K03 基本信息、内容统计、关联产品
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DetailIotsuccessProductKnowledgebaseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.detail', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def update_iotsuccess_product_knowledgebase(
+        self,
+        request: bot_models.UpdateIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.UpdateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K04 更新名称描述
+        Summary: K04 更新名称描述
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_iotsuccess_product_knowledgebase_ex(request, headers, runtime)
+
+    async def update_iotsuccess_product_knowledgebase_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.UpdateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K04 更新名称描述
+        Summary: K04 更新名称描述
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.update_iotsuccess_product_knowledgebase_ex_async(request, headers, runtime)
+
+    def update_iotsuccess_product_knowledgebase_ex(
+        self,
+        request: bot_models.UpdateIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K04 更新名称描述
+        Summary: K04 更新名称描述
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductKnowledgebaseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def update_iotsuccess_product_knowledgebase_ex_async(
+        self,
+        request: bot_models.UpdateIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UpdateIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K04 更新名称描述
+        Summary: K04 更新名称描述
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UpdateIotsuccessProductKnowledgebaseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.update', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iotsuccess_product_knowledgebase(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K05 被产品绑定不可删
+        Summary: K05 被产品绑定不可删
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iotsuccess_product_knowledgebase_ex(request, headers, runtime)
+
+    async def delete_iotsuccess_product_knowledgebase_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseRequest,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K05 被产品绑定不可删
+        Summary: K05 被产品绑定不可删
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iotsuccess_product_knowledgebase_ex_async(request, headers, runtime)
+
+    def delete_iotsuccess_product_knowledgebase_ex(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K05 被产品绑定不可删
+        Summary: K05 被产品绑定不可删
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductKnowledgebaseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iotsuccess_product_knowledgebase_ex_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseResponse:
+        """
+        Description: K05 被产品绑定不可删
+        Summary: K05 被产品绑定不可删
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductKnowledgebaseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def upload_iotsuccess_product_knowledgebase_content(
+        self,
+        request: bot_models.UploadIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.UploadIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K06 创建已有知识文档并交给现有解析链
+        Summary: K06 创建已有知识文档并交给现有解析链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upload_iotsuccess_product_knowledgebase_content_ex(request, headers, runtime)
+
+    async def upload_iotsuccess_product_knowledgebase_content_async(
+        self,
+        request: bot_models.UploadIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.UploadIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K06 创建已有知识文档并交给现有解析链
+        Summary: K06 创建已有知识文档并交给现有解析链
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.upload_iotsuccess_product_knowledgebase_content_ex_async(request, headers, runtime)
+
+    def upload_iotsuccess_product_knowledgebase_content_ex(
+        self,
+        request: bot_models.UploadIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K06 创建已有知识文档并交给现有解析链
+        Summary: K06 创建已有知识文档并交给现有解析链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotsuccessProductKnowledgebaseContentResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def upload_iotsuccess_product_knowledgebase_content_ex_async(
+        self,
+        request: bot_models.UploadIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.UploadIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K06 创建已有知识文档并交给现有解析链
+        Summary: K06 创建已有知识文档并交给现有解析链
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.UploadIotsuccessProductKnowledgebaseContentResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.upload', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def status_iotsuccess_product_knowledgebase_content(
+        self,
+        request: bot_models.StatusIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.StatusIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K07 按kbId/docId查询已有文档解析状态
+        Summary: K07 按kbId/docId查询已有文档解析状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.status_iotsuccess_product_knowledgebase_content_ex(request, headers, runtime)
+
+    async def status_iotsuccess_product_knowledgebase_content_async(
+        self,
+        request: bot_models.StatusIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.StatusIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K07 按kbId/docId查询已有文档解析状态
+        Summary: K07 按kbId/docId查询已有文档解析状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.status_iotsuccess_product_knowledgebase_content_ex_async(request, headers, runtime)
+
+    def status_iotsuccess_product_knowledgebase_content_ex(
+        self,
+        request: bot_models.StatusIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K07 按kbId/docId查询已有文档解析状态
+        Summary: K07 按kbId/docId查询已有文档解析状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductKnowledgebaseContentResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def status_iotsuccess_product_knowledgebase_content_ex_async(
+        self,
+        request: bot_models.StatusIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K07 按kbId/docId查询已有文档解析状态
+        Summary: K07 按kbId/docId查询已有文档解析状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIotsuccessProductKnowledgebaseContentResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_iotsuccess_product_knowledgebase_content(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K08 调用已有文档删除与索引清理
+        Summary: K08 调用已有文档删除与索引清理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_iotsuccess_product_knowledgebase_content_ex(request, headers, runtime)
+
+    async def delete_iotsuccess_product_knowledgebase_content_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseContentRequest,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K08 调用已有文档删除与索引清理
+        Summary: K08 调用已有文档删除与索引清理
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_iotsuccess_product_knowledgebase_content_ex_async(request, headers, runtime)
+
+    def delete_iotsuccess_product_knowledgebase_content_ex(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K08 调用已有文档删除与索引清理
+        Summary: K08 调用已有文档删除与索引清理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_iotsuccess_product_knowledgebase_content_ex_async(
+        self,
+        request: bot_models.DeleteIotsuccessProductKnowledgebaseContentRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse:
+        """
+        Description: K08 调用已有文档删除与索引清理
+        Summary: K08 调用已有文档删除与索引清理
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.DeleteIotsuccessProductKnowledgebaseContentResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.content.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def set_iotsuccess_product_knowledgebase_trigger(
+        self,
+        request: bot_models.SetIotsuccessProductKnowledgebaseTriggerRequest,
+    ) -> bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse:
+        """
+        Description: K09 关键词、意图、实体组合触发
+        Summary: K09 关键词、意图、实体组合触发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.set_iotsuccess_product_knowledgebase_trigger_ex(request, headers, runtime)
+
+    async def set_iotsuccess_product_knowledgebase_trigger_async(
+        self,
+        request: bot_models.SetIotsuccessProductKnowledgebaseTriggerRequest,
+    ) -> bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse:
+        """
+        Description: K09 关键词、意图、实体组合触发
+        Summary: K09 关键词、意图、实体组合触发
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.set_iotsuccess_product_knowledgebase_trigger_ex_async(request, headers, runtime)
+
+    def set_iotsuccess_product_knowledgebase_trigger_ex(
+        self,
+        request: bot_models.SetIotsuccessProductKnowledgebaseTriggerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse:
+        """
+        Description: K09 关键词、意图、实体组合触发
+        Summary: K09 关键词、意图、实体组合触发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.trigger.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def set_iotsuccess_product_knowledgebase_trigger_ex_async(
+        self,
+        request: bot_models.SetIotsuccessProductKnowledgebaseTriggerRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse:
+        """
+        Description: K09 关键词、意图、实体组合触发
+        Summary: K09 关键词、意图、实体组合触发
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SetIotsuccessProductKnowledgebaseTriggerResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.trigger.set', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def test_iotsuccess_product_knowledgebase_recall(
+        self,
+        request: bot_models.TestIotsuccessProductKnowledgebaseRecallRequest,
+    ) -> bot_models.TestIotsuccessProductKnowledgebaseRecallResponse:
+        """
+        Description: K10 已生效版本召回测试
+        Summary: K10 已生效版本召回测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.test_iotsuccess_product_knowledgebase_recall_ex(request, headers, runtime)
+
+    async def test_iotsuccess_product_knowledgebase_recall_async(
+        self,
+        request: bot_models.TestIotsuccessProductKnowledgebaseRecallRequest,
+    ) -> bot_models.TestIotsuccessProductKnowledgebaseRecallResponse:
+        """
+        Description: K10 已生效版本召回测试
+        Summary: K10 已生效版本召回测试
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.test_iotsuccess_product_knowledgebase_recall_ex_async(request, headers, runtime)
+
+    def test_iotsuccess_product_knowledgebase_recall_ex(
+        self,
+        request: bot_models.TestIotsuccessProductKnowledgebaseRecallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TestIotsuccessProductKnowledgebaseRecallResponse:
+        """
+        Description: K10 已生效版本召回测试
+        Summary: K10 已生效版本召回测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TestIotsuccessProductKnowledgebaseRecallResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.recall.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def test_iotsuccess_product_knowledgebase_recall_ex_async(
+        self,
+        request: bot_models.TestIotsuccessProductKnowledgebaseRecallRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.TestIotsuccessProductKnowledgebaseRecallResponse:
+        """
+        Description: K10 已生效版本召回测试
+        Summary: K10 已生效版本召回测试
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.TestIotsuccessProductKnowledgebaseRecallResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.knowledgebase.recall.test', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_license(
+        self,
+        request: bot_models.ListIotsuccessProductLicenseRequest,
+    ) -> bot_models.ListIotsuccessProductLicenseResponse:
+        """
+        Description: Q01 License码、激活状态、设备、消耗与剩余
+        Summary: Q01 License码、激活状态、设备、消耗与剩余
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_license_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_license_async(
+        self,
+        request: bot_models.ListIotsuccessProductLicenseRequest,
+    ) -> bot_models.ListIotsuccessProductLicenseResponse:
+        """
+        Description: Q01 License码、激活状态、设备、消耗与剩余
+        Summary: Q01 License码、激活状态、设备、消耗与剩余
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_license_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_license_ex(
+        self,
+        request: bot_models.ListIotsuccessProductLicenseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductLicenseResponse:
+        """
+        Description: Q01 License码、激活状态、设备、消耗与剩余
+        Summary: Q01 License码、激活状态、设备、消耗与剩余
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductLicenseResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.license.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_license_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductLicenseRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductLicenseResponse:
+        """
+        Description: Q01 License码、激活状态、设备、消耗与剩余
+        Summary: Q01 License码、激活状态、设备、消耗与剩余
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductLicenseResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.license.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def overview_iotsuccess_product_quota(
+        self,
+        request: bot_models.OverviewIotsuccessProductQuotaRequest,
+    ) -> bot_models.OverviewIotsuccessProductQuotaResponse:
+        """
+        Description: Q02 额度总览，带单位和数据时间
+        Summary: Q02 额度总览，带单位和数据时间
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.overview_iotsuccess_product_quota_ex(request, headers, runtime)
+
+    async def overview_iotsuccess_product_quota_async(
+        self,
+        request: bot_models.OverviewIotsuccessProductQuotaRequest,
+    ) -> bot_models.OverviewIotsuccessProductQuotaResponse:
+        """
+        Description: Q02 额度总览，带单位和数据时间
+        Summary: Q02 额度总览，带单位和数据时间
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.overview_iotsuccess_product_quota_ex_async(request, headers, runtime)
+
+    def overview_iotsuccess_product_quota_ex(
+        self,
+        request: bot_models.OverviewIotsuccessProductQuotaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OverviewIotsuccessProductQuotaResponse:
+        """
+        Description: Q02 额度总览，带单位和数据时间
+        Summary: Q02 额度总览，带单位和数据时间
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OverviewIotsuccessProductQuotaResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.quota.overview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def overview_iotsuccess_product_quota_ex_async(
+        self,
+        request: bot_models.OverviewIotsuccessProductQuotaRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.OverviewIotsuccessProductQuotaResponse:
+        """
+        Description: Q02 额度总览，带单位和数据时间
+        Summary: Q02 额度总览，带单位和数据时间
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.OverviewIotsuccessProductQuotaResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.quota.overview', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def list_iotsuccess_product_quota_consumption(
+        self,
+        request: bot_models.ListIotsuccessProductQuotaConsumptionRequest,
+    ) -> bot_models.ListIotsuccessProductQuotaConsumptionResponse:
+        """
+        Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_iotsuccess_product_quota_consumption_ex(request, headers, runtime)
+
+    async def list_iotsuccess_product_quota_consumption_async(
+        self,
+        request: bot_models.ListIotsuccessProductQuotaConsumptionRequest,
+    ) -> bot_models.ListIotsuccessProductQuotaConsumptionResponse:
+        """
+        Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.list_iotsuccess_product_quota_consumption_ex_async(request, headers, runtime)
+
+    def list_iotsuccess_product_quota_consumption_ex(
+        self,
+        request: bot_models.ListIotsuccessProductQuotaConsumptionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductQuotaConsumptionResponse:
+        """
+        Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductQuotaConsumptionResponse(),
+            self.do_request('1.0', 'blockchain.bot.iotsuccess.product.quota.consumption.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def list_iotsuccess_product_quota_consumption_ex_async(
+        self,
+        request: bot_models.ListIotsuccessProductQuotaConsumptionRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ListIotsuccessProductQuotaConsumptionResponse:
+        """
+        Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ListIotsuccessProductQuotaConsumptionResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.iotsuccess.product.quota.consumption.list', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def status_ioa_product_device_import(
+        self,
+        request: bot_models.StatusIoaProductDeviceImportRequest,
+    ) -> bot_models.StatusIoaProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.status_ioa_product_device_import_ex(request, headers, runtime)
+
+    async def status_ioa_product_device_import_async(
+        self,
+        request: bot_models.StatusIoaProductDeviceImportRequest,
+    ) -> bot_models.StatusIoaProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.status_ioa_product_device_import_ex_async(request, headers, runtime)
+
+    def status_ioa_product_device_import_ex(
+        self,
+        request: bot_models.StatusIoaProductDeviceImportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIoaProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIoaProductDeviceImportResponse(),
+            self.do_request('1.0', 'blockchain.bot.ioa.product.device.import.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def status_ioa_product_device_import_ex_async(
+        self,
+        request: bot_models.StatusIoaProductDeviceImportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.StatusIoaProductDeviceImportResponse:
+        """
+        Description: D02 按产品和MAC查询当前注册状态
+        Summary: D02 按产品和MAC查询当前注册状态
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.StatusIoaProductDeviceImportResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.ioa.product.device.import.status', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
     def create_device_datamodel(
         self,
         request: bot_models.CreateDeviceDatamodelRequest,
@@ -21473,6 +24105,230 @@ class Client:
         return TeaCore.from_map(
             bot_models.QueryDatalinkSourceResponse(),
             await self.do_request_async('1.0', 'blockchain.bot.datalink.source.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_trustiot_skugrantwhitelist(
+        self,
+        request: bot_models.QueryTrustiotSkugrantwhitelistRequest,
+    ) -> bot_models.QueryTrustiotSkugrantwhitelistResponse:
+        """
+        Description: 查询已加白SN
+        Summary: 查询已加白SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trustiot_skugrantwhitelist_ex(request, headers, runtime)
+
+    async def query_trustiot_skugrantwhitelist_async(
+        self,
+        request: bot_models.QueryTrustiotSkugrantwhitelistRequest,
+    ) -> bot_models.QueryTrustiotSkugrantwhitelistResponse:
+        """
+        Description: 查询已加白SN
+        Summary: 查询已加白SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_trustiot_skugrantwhitelist_ex_async(request, headers, runtime)
+
+    def query_trustiot_skugrantwhitelist_ex(
+        self,
+        request: bot_models.QueryTrustiotSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTrustiotSkugrantwhitelistResponse:
+        """
+        Description: 查询已加白SN
+        Summary: 查询已加白SN
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTrustiotSkugrantwhitelistResponse(),
+            self.do_request('1.0', 'blockchain.bot.trustiot.skugrantwhitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_trustiot_skugrantwhitelist_ex_async(
+        self,
+        request: bot_models.QueryTrustiotSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTrustiotSkugrantwhitelistResponse:
+        """
+        Description: 查询已加白SN
+        Summary: 查询已加白SN
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTrustiotSkugrantwhitelistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.trustiot.skugrantwhitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_techintegration_skugrantwhitelist(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantwhitelistRequest,
+    ) -> bot_models.QueryTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 查询支付芯已加白SN
+        Summary: 查询支付芯已加白SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_techintegration_skugrantwhitelist_ex(request, headers, runtime)
+
+    async def query_techintegration_skugrantwhitelist_async(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantwhitelistRequest,
+    ) -> bot_models.QueryTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 查询支付芯已加白SN
+        Summary: 查询支付芯已加白SN
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_techintegration_skugrantwhitelist_ex_async(request, headers, runtime)
+
+    def query_techintegration_skugrantwhitelist_ex(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 查询支付芯已加白SN
+        Summary: 查询支付芯已加白SN
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTechintegrationSkugrantwhitelistResponse(),
+            self.do_request('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_techintegration_skugrantwhitelist_ex_async(
+        self,
+        request: bot_models.QueryTechintegrationSkugrantwhitelistRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.QueryTechintegrationSkugrantwhitelistResponse:
+        """
+        Description: 查询支付芯已加白SN
+        Summary: 查询支付芯已加白SN
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.QueryTechintegrationSkugrantwhitelistResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.techintegration.skugrantwhitelist.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def submit_datalink_export(
+        self,
+        request: bot_models.SubmitDatalinkExportRequest,
+    ) -> bot_models.SubmitDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出提交接口
+        Summary: 智能问数数据导出提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_datalink_export_ex(request, headers, runtime)
+
+    async def submit_datalink_export_async(
+        self,
+        request: bot_models.SubmitDatalinkExportRequest,
+    ) -> bot_models.SubmitDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出提交接口
+        Summary: 智能问数数据导出提交接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.submit_datalink_export_ex_async(request, headers, runtime)
+
+    def submit_datalink_export_ex(
+        self,
+        request: bot_models.SubmitDatalinkExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SubmitDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出提交接口
+        Summary: 智能问数数据导出提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SubmitDatalinkExportResponse(),
+            self.do_request('1.0', 'blockchain.bot.datalink.export.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def submit_datalink_export_ex_async(
+        self,
+        request: bot_models.SubmitDatalinkExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.SubmitDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出提交接口
+        Summary: 智能问数数据导出提交接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.SubmitDatalinkExportResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.datalink.export.submit', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def result_datalink_export(
+        self,
+        request: bot_models.ResultDatalinkExportRequest,
+    ) -> bot_models.ResultDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出结果接口
+        Summary: 智能问数数据导出结果接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.result_datalink_export_ex(request, headers, runtime)
+
+    async def result_datalink_export_async(
+        self,
+        request: bot_models.ResultDatalinkExportRequest,
+    ) -> bot_models.ResultDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出结果接口
+        Summary: 智能问数数据导出结果接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.result_datalink_export_ex_async(request, headers, runtime)
+
+    def result_datalink_export_ex(
+        self,
+        request: bot_models.ResultDatalinkExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResultDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出结果接口
+        Summary: 智能问数数据导出结果接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResultDatalinkExportResponse(),
+            self.do_request('1.0', 'blockchain.bot.datalink.export.result', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def result_datalink_export_ex_async(
+        self,
+        request: bot_models.ResultDatalinkExportRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> bot_models.ResultDatalinkExportResponse:
+        """
+        Description: 智能问数数据导出结果接口
+        Summary: 智能问数数据导出结果接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            bot_models.ResultDatalinkExportResponse(),
+            await self.do_request_async('1.0', 'blockchain.bot.datalink.export.result', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def exec_thingsdid_oneapi(
