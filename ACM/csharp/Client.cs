@@ -158,7 +158,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.16"},
+                        {"sdk_version", "1.6.18"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.Acm
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.6.16"},
+                        {"sdk_version", "1.6.18"},
                         {"_prod_code", "acm"},
                         {"_prod_channel", "undefined"},
                     };
@@ -817,6 +817,98 @@ namespace AntChain.SDK.Acm
         {
             AlibabaCloud.TeaUtil.Common.ValidateModel(request);
             return TeaModel.ToObject<QueryProjectUserResponse>(await DoRequestAsync("1.0", "antcloud.acm.project.user.query", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建操作员（无需激活）
+        /// Summary: 创建操作员（无需激活）</para>
+        /// </description>
+        public CreateOperatorNormalResponse CreateOperatorNormal(CreateOperatorNormalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return CreateOperatorNormalEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建操作员（无需激活）
+        /// Summary: 创建操作员（无需激活）</para>
+        /// </description>
+        public async Task<CreateOperatorNormalResponse> CreateOperatorNormalAsync(CreateOperatorNormalRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await CreateOperatorNormalExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建操作员（无需激活）
+        /// Summary: 创建操作员（无需激活）</para>
+        /// </description>
+        public CreateOperatorNormalResponse CreateOperatorNormalEx(CreateOperatorNormalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOperatorNormalResponse>(DoRequest("1.0", "antcloud.acm.operator.normal.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 创建操作员（无需激活）
+        /// Summary: 创建操作员（无需激活）</para>
+        /// </description>
+        public async Task<CreateOperatorNormalResponse> CreateOperatorNormalExAsync(CreateOperatorNormalRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<CreateOperatorNormalResponse>(await DoRequestAsync("1.0", "antcloud.acm.operator.normal.create", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除项目
+        /// Summary: 删除项目</para>
+        /// </description>
+        public DeleteTenantProjectResponse DeleteTenantProject(DeleteTenantProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return DeleteTenantProjectEx(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除项目
+        /// Summary: 删除项目</para>
+        /// </description>
+        public async Task<DeleteTenantProjectResponse> DeleteTenantProjectAsync(DeleteTenantProjectRequest request)
+        {
+            AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime = new AlibabaCloud.TeaUtil.Models.RuntimeOptions();
+            Dictionary<string, string> headers = new Dictionary<string, string>(){};
+            return await DeleteTenantProjectExAsync(request, headers, runtime);
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除项目
+        /// Summary: 删除项目</para>
+        /// </description>
+        public DeleteTenantProjectResponse DeleteTenantProjectEx(DeleteTenantProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteTenantProjectResponse>(DoRequest("1.0", "antcloud.acm.tenant.project.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
+        }
+
+        /// <term><b>Description:</b></term>
+        /// <description>
+        /// <para>Description: 删除项目
+        /// Summary: 删除项目</para>
+        /// </description>
+        public async Task<DeleteTenantProjectResponse> DeleteTenantProjectExAsync(DeleteTenantProjectRequest request, Dictionary<string, string> headers, AlibabaCloud.TeaUtil.Models.RuntimeOptions runtime)
+        {
+            AlibabaCloud.TeaUtil.Common.ValidateModel(request);
+            return TeaModel.ToObject<DeleteTenantProjectResponse>(await DoRequestAsync("1.0", "antcloud.acm.tenant.project.delete", "HTTPS", "POST", "/gateway.do", request.ToMap(), headers, runtime));
         }
 
         /// <term><b>Description:</b></term>
