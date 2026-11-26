@@ -16,9 +16,9 @@ public class PostbackLeadReceiveResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求ID
-    @NameInMap("request_id")
-    public String requestId;
+    // 返回结果
+    @NameInMap("biz_result")
+    public String bizResult;
 
     public static PostbackLeadReceiveResponse build(java.util.Map<String, ?> map) throws Exception {
         PostbackLeadReceiveResponse self = new PostbackLeadReceiveResponse();
@@ -49,12 +49,12 @@ public class PostbackLeadReceiveResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PostbackLeadReceiveResponse setRequestId(String requestId) {
-        this.requestId = requestId;
+    public PostbackLeadReceiveResponse setBizResult(String bizResult) {
+        this.bizResult = bizResult;
         return this;
     }
-    public String getRequestId() {
-        return this.requestId;
+    public String getBizResult() {
+        return this.bizResult;
     }
 
 }
