@@ -574,7 +574,7 @@ func (s *RealtimeMktAudience) SetExtInfo(v string) *RealtimeMktAudience {
 }
 
 // 键值对
-type NameValuePair struct {
+type XNameValuePair struct {
 	// 键名
 	// example:
 	//
@@ -587,20 +587,20 @@ type NameValuePair struct {
 	Value *string `json:"value,omitempty" xml:"value,omitempty" require:"true"`
 }
 
-func (s NameValuePair) String() string {
+func (s XNameValuePair) String() string {
 	return tea.Prettify(s)
 }
 
-func (s NameValuePair) GoString() string {
+func (s XNameValuePair) GoString() string {
 	return s.String()
 }
 
-func (s *NameValuePair) SetName(v string) *NameValuePair {
+func (s *XNameValuePair) SetName(v string) *XNameValuePair {
 	s.Name = &v
 	return s
 }
 
-func (s *NameValuePair) SetValue(v string) *NameValuePair {
+func (s *XNameValuePair) SetValue(v string) *XNameValuePair {
 	s.Value = &v
 	return s
 }
@@ -2695,6 +2695,253 @@ func (s *GetMktExtresulturlResponse) SetRequestId(v string) *GetMktExtresulturlR
 
 func (s *GetMktExtresulturlResponse) SetFileUrl(v string) *GetMktExtresulturlResponse {
 	s.FileUrl = &v
+	return s
+}
+
+type ReceiveLeadOpportunitiesRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 请求id，每一次请求保持唯一，若重复，则报错；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 产品编码，蚂蚁分配
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
+	// 业务入参json格式字符串
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	// 固定值：PAST_MED（既往症人群评分）业务场景
+	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
+	// 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
+	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
+	// TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
+	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty"`
+	// 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
+	UpdateCycle *string `json:"update_cycle,omitempty" xml:"update_cycle,omitempty" require:"true"`
+}
+
+func (s ReceiveLeadOpportunitiesRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveLeadOpportunitiesRequest) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetAuthToken(v string) *ReceiveLeadOpportunitiesRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetFileObject(v io.Reader) *ReceiveLeadOpportunitiesRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetFileObjectName(v string) *ReceiveLeadOpportunitiesRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetFileId(v string) *ReceiveLeadOpportunitiesRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetRequestId(v string) *ReceiveLeadOpportunitiesRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetProductCode(v string) *ReceiveLeadOpportunitiesRequest {
+	s.ProductCode = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetBizContent(v string) *ReceiveLeadOpportunitiesRequest {
+	s.BizContent = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetBizType(v string) *ReceiveLeadOpportunitiesRequest {
+	s.BizType = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetActionType(v string) *ReceiveLeadOpportunitiesRequest {
+	s.ActionType = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetAcceptNo(v string) *ReceiveLeadOpportunitiesRequest {
+	s.AcceptNo = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesRequest) SetUpdateCycle(v string) *ReceiveLeadOpportunitiesRequest {
+	s.UpdateCycle = &v
+	return s
+}
+
+type ReceiveLeadOpportunitiesResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 请求id
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty"`
+	// 受理号：FULL_PUSH 为蚂蚁生成的受理号；TRIGGER_PUSH 为原批次受理号
+	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty"`
+}
+
+func (s ReceiveLeadOpportunitiesResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s ReceiveLeadOpportunitiesResponse) GoString() string {
+	return s.String()
+}
+
+func (s *ReceiveLeadOpportunitiesResponse) SetReqMsgId(v string) *ReceiveLeadOpportunitiesResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesResponse) SetResultCode(v string) *ReceiveLeadOpportunitiesResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesResponse) SetResultMsg(v string) *ReceiveLeadOpportunitiesResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesResponse) SetRequestId(v string) *ReceiveLeadOpportunitiesResponse {
+	s.RequestId = &v
+	return s
+}
+
+func (s *ReceiveLeadOpportunitiesResponse) SetAcceptNo(v string) *ReceiveLeadOpportunitiesResponse {
+	s.AcceptNo = &v
+	return s
+}
+
+type PostbackLeadReceiveRequest struct {
+	// OAuth模式下的授权token
+	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
+	// string
+	// 待上传文件
+	FileObject io.Reader `json:"fileObject,omitempty" xml:"fileObject,omitempty"`
+	// 待上传文件名
+	FileObjectName *string `json:"fileObjectName,omitempty" xml:"fileObjectName,omitempty"`
+	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
+	// 请求id，每一次请求保持唯一，若重复，则报错；
+	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
+	// 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
+	NotifyType *string `json:"notify_type,omitempty" xml:"notify_type,omitempty" require:"true"`
+	// 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
+	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
+	// json格式数据updateCycle等字段
+	NotifyInfo *string `json:"notify_info,omitempty" xml:"notify_info,omitempty"`
+	// 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
+	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty" require:"true"`
+}
+
+func (s PostbackLeadReceiveRequest) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PostbackLeadReceiveRequest) GoString() string {
+	return s.String()
+}
+
+func (s *PostbackLeadReceiveRequest) SetAuthToken(v string) *PostbackLeadReceiveRequest {
+	s.AuthToken = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetFileObject(v io.Reader) *PostbackLeadReceiveRequest {
+	s.FileObject = v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetFileObjectName(v string) *PostbackLeadReceiveRequest {
+	s.FileObjectName = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetFileId(v string) *PostbackLeadReceiveRequest {
+	s.FileId = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetRequestId(v string) *PostbackLeadReceiveRequest {
+	s.RequestId = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetNotifyType(v string) *PostbackLeadReceiveRequest {
+	s.NotifyType = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetActionType(v string) *PostbackLeadReceiveRequest {
+	s.ActionType = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetNotifyInfo(v string) *PostbackLeadReceiveRequest {
+	s.NotifyInfo = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetAcceptNo(v string) *PostbackLeadReceiveRequest {
+	s.AcceptNo = &v
+	return s
+}
+
+type PostbackLeadReceiveResponse struct {
+	// 请求唯一ID，用于链路跟踪和问题排查
+	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
+	// 结果码，一般OK表示调用成功
+	ResultCode *string `json:"result_code,omitempty" xml:"result_code,omitempty"`
+	// 异常信息的文本描述
+	ResultMsg *string `json:"result_msg,omitempty" xml:"result_msg,omitempty"`
+	// 返回结果
+	BizResult *string `json:"biz_result,omitempty" xml:"biz_result,omitempty"`
+}
+
+func (s PostbackLeadReceiveResponse) String() string {
+	return tea.Prettify(s)
+}
+
+func (s PostbackLeadReceiveResponse) GoString() string {
+	return s.String()
+}
+
+func (s *PostbackLeadReceiveResponse) SetReqMsgId(v string) *PostbackLeadReceiveResponse {
+	s.ReqMsgId = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveResponse) SetResultCode(v string) *PostbackLeadReceiveResponse {
+	s.ResultCode = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveResponse) SetResultMsg(v string) *PostbackLeadReceiveResponse {
+	s.ResultMsg = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveResponse) SetBizResult(v string) *PostbackLeadReceiveResponse {
+	s.BizResult = &v
 	return s
 }
 
@@ -7471,8 +7718,6 @@ func (s *ReceiveBusinessOpportunitiesResponse) SetBizResult(v string) *ReceiveBu
 type CreateAntcloudGatewayxFileUploadRequest struct {
 	// OAuth模式下的授权token
 	AuthToken *string `json:"auth_token,omitempty" xml:"auth_token,omitempty"`
-	// 产品方的api归属集群，即productInstanceId
-	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 	// 上传文件作用的openapi method
 	ApiCode *string `json:"api_code,omitempty" xml:"api_code,omitempty" require:"true"`
 	// 文件标签，多个标签;分割
@@ -7483,6 +7728,8 @@ type CreateAntcloudGatewayxFileUploadRequest struct {
 	FileName *string `json:"file_name,omitempty" xml:"file_name,omitempty" maxLength:"100"`
 	// 文件的多媒体类型
 	MimeType *string `json:"mime_type,omitempty" xml:"mime_type,omitempty"`
+	// 产品方的api归属集群，即productInstanceId
+	ApiCluster *string `json:"api_cluster,omitempty" xml:"api_cluster,omitempty"`
 }
 
 func (s CreateAntcloudGatewayxFileUploadRequest) String() string {
@@ -7495,11 +7742,6 @@ func (s CreateAntcloudGatewayxFileUploadRequest) GoString() string {
 
 func (s *CreateAntcloudGatewayxFileUploadRequest) SetAuthToken(v string) *CreateAntcloudGatewayxFileUploadRequest {
 	s.AuthToken = &v
-	return s
-}
-
-func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
-	s.ApiCluster = &v
 	return s
 }
 
@@ -7528,6 +7770,11 @@ func (s *CreateAntcloudGatewayxFileUploadRequest) SetMimeType(v string) *CreateA
 	return s
 }
 
+func (s *CreateAntcloudGatewayxFileUploadRequest) SetApiCluster(v string) *CreateAntcloudGatewayxFileUploadRequest {
+	s.ApiCluster = &v
+	return s
+}
+
 type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 请求唯一ID，用于链路跟踪和问题排查
 	ReqMsgId *string `json:"req_msg_id,omitempty" xml:"req_msg_id,omitempty"`
@@ -7540,7 +7787,7 @@ type CreateAntcloudGatewayxFileUploadResponse struct {
 	// 32位文件唯一id
 	FileId *string `json:"file_id,omitempty" xml:"file_id,omitempty"`
 	// 放入http请求头里
-	UploadHeaders []*NameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
+	UploadHeaders []*XNameValuePair `json:"upload_headers,omitempty" xml:"upload_headers,omitempty" type:"Repeated"`
 	// 文件上传地址
 	UploadUrl *string `json:"upload_url,omitempty" xml:"upload_url,omitempty"`
 }
@@ -7578,7 +7825,7 @@ func (s *CreateAntcloudGatewayxFileUploadResponse) SetFileId(v string) *CreateAn
 	return s
 }
 
-func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*NameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
+func (s *CreateAntcloudGatewayxFileUploadResponse) SetUploadHeaders(v []*XNameValuePair) *CreateAntcloudGatewayxFileUploadResponse {
 	s.UploadHeaders = v
 	return s
 }
@@ -7718,7 +7965,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.12.63"),
+				"sdk_version":      tea.String("1.13.1"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
@@ -8345,6 +8592,138 @@ func (client *Client) GetMktExtresulturlEx(request *GetMktExtresulturlRequest, h
 	}
 	_result = &GetMktExtresulturlResponse{}
 	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.mkt.extresulturl.get"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 商机接收-既往症人群评分-对客
+//
+// Summary: 商机接收-既往症人群评分-对客
+func (client *Client) ReceiveLeadOpportunities(request *ReceiveLeadOpportunitiesRequest) (_result *ReceiveLeadOpportunitiesResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &ReceiveLeadOpportunitiesResponse{}
+	_body, _err := client.ReceiveLeadOpportunitiesEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 商机接收-既往症人群评分-对客
+//
+// Summary: 商机接收-既往症人群评分-对客
+func (client *Client) ReceiveLeadOpportunitiesEx(request *ReceiveLeadOpportunitiesRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *ReceiveLeadOpportunitiesResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antcloud.insurance.lead.opportunities.receive"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			receiveLeadOpportunitiesResponse := &ReceiveLeadOpportunitiesResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = receiveLeadOpportunitiesResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &ReceiveLeadOpportunitiesResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.opportunities.receive"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_err = tea.Convert(_body, &_result)
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 既往症线索供给方评分结果文件回传
+//
+// Summary: 既往症线索供给方评分结果文件回传
+func (client *Client) PostbackLeadReceive(request *PostbackLeadReceiveRequest) (_result *PostbackLeadReceiveResponse, _err error) {
+	runtime := &util.RuntimeOptions{}
+	headers := make(map[string]*string)
+	_result = &PostbackLeadReceiveResponse{}
+	_body, _err := client.PostbackLeadReceiveEx(request, headers, runtime)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = _body
+	return _result, _err
+}
+
+// Description:
+//
+// Description: 既往症线索供给方评分结果文件回传
+//
+// Summary: 既往症线索供给方评分结果文件回传
+func (client *Client) PostbackLeadReceiveEx(request *PostbackLeadReceiveRequest, headers map[string]*string, runtime *util.RuntimeOptions) (_result *PostbackLeadReceiveResponse, _err error) {
+	if !tea.BoolValue(util.IsUnset(request.FileObject)) {
+		uploadReq := &CreateAntcloudGatewayxFileUploadRequest{
+			AuthToken: request.AuthToken,
+			ApiCode:   tea.String("antcloud.insurance.lead.receive.postback"),
+			FileName:  request.FileObjectName,
+		}
+		uploadResp, _err := client.CreateAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime)
+		if _err != nil {
+			return _result, _err
+		}
+
+		if !tea.BoolValue(antchainutil.IsSuccess(uploadResp.ResultCode, tea.String("ok"))) {
+			postbackLeadReceiveResponse := &PostbackLeadReceiveResponse{
+				ReqMsgId:   uploadResp.ReqMsgId,
+				ResultCode: uploadResp.ResultCode,
+				ResultMsg:  uploadResp.ResultMsg,
+			}
+			_result = postbackLeadReceiveResponse
+			return _result, _err
+		}
+
+		uploadHeaders := antchainutil.ParseUploadHeaders(uploadResp.UploadHeaders)
+		_err = antchainutil.PutObject(request.FileObject, uploadHeaders, uploadResp.UploadUrl)
+		if _err != nil {
+			return _result, _err
+		}
+		request.FileId = uploadResp.FileId
+		request.FileObject = nil
+	}
+
+	_err = util.ValidateModel(request)
+	if _err != nil {
+		return _result, _err
+	}
+	_result = &PostbackLeadReceiveResponse{}
+	_body, _err := client.DoRequest(tea.String("1.0"), tea.String("antcloud.insurance.lead.receive.postback"), tea.String("HTTPS"), tea.String("POST"), tea.String("/gateway.do"), tea.ToMap(request), headers, runtime)
 	if _err != nil {
 		return _result, _err
 	}
