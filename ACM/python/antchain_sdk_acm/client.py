@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.16',
+                    'sdk_version': '1.6.18',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.6.16',
+                    'sdk_version': '1.6.18',
                     '_prod_code': 'acm',
                     '_prod_channel': 'undefined'
                 }
@@ -833,6 +833,118 @@ class Client:
         return TeaCore.from_map(
             acm_models.QueryProjectUserResponse(),
             await self.do_request_async('1.0', 'antcloud.acm.project.user.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def create_operator_normal(
+        self,
+        request: acm_models.CreateOperatorNormalRequest,
+    ) -> acm_models.CreateOperatorNormalResponse:
+        """
+        Description: 创建操作员（无需激活）
+        Summary: 创建操作员（无需激活）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_operator_normal_ex(request, headers, runtime)
+
+    async def create_operator_normal_async(
+        self,
+        request: acm_models.CreateOperatorNormalRequest,
+    ) -> acm_models.CreateOperatorNormalResponse:
+        """
+        Description: 创建操作员（无需激活）
+        Summary: 创建操作员（无需激活）
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.create_operator_normal_ex_async(request, headers, runtime)
+
+    def create_operator_normal_ex(
+        self,
+        request: acm_models.CreateOperatorNormalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateOperatorNormalResponse:
+        """
+        Description: 创建操作员（无需激活）
+        Summary: 创建操作员（无需激活）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateOperatorNormalResponse(),
+            self.do_request('1.0', 'antcloud.acm.operator.normal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def create_operator_normal_ex_async(
+        self,
+        request: acm_models.CreateOperatorNormalRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.CreateOperatorNormalResponse:
+        """
+        Description: 创建操作员（无需激活）
+        Summary: 创建操作员（无需激活）
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.CreateOperatorNormalResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.operator.normal.create', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def delete_tenant_project(
+        self,
+        request: acm_models.DeleteTenantProjectRequest,
+    ) -> acm_models.DeleteTenantProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_tenant_project_ex(request, headers, runtime)
+
+    async def delete_tenant_project_async(
+        self,
+        request: acm_models.DeleteTenantProjectRequest,
+    ) -> acm_models.DeleteTenantProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.delete_tenant_project_ex_async(request, headers, runtime)
+
+    def delete_tenant_project_ex(
+        self,
+        request: acm_models.DeleteTenantProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DeleteTenantProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DeleteTenantProjectResponse(),
+            self.do_request('1.0', 'antcloud.acm.tenant.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def delete_tenant_project_ex_async(
+        self,
+        request: acm_models.DeleteTenantProjectRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> acm_models.DeleteTenantProjectResponse:
+        """
+        Description: 删除项目
+        Summary: 删除项目
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            acm_models.DeleteTenantProjectResponse(),
+            await self.do_request_async('1.0', 'antcloud.acm.tenant.project.delete', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def get_customer(

@@ -1920,6 +1920,198 @@ class QueryProjectUserResponse(TeaModel):
         return self
 
 
+class CreateOperatorNormalRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        tenant: str = None,
+        login_name: str = None,
+        real_name: str = None,
+        mobile: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 租户唯一标识
+        self.tenant = tenant
+        # 操作员唯一登录名
+        self.login_name = login_name
+        # 操作员真实姓名
+        self.real_name = real_name
+        # 手机号
+        self.mobile = mobile
+
+    def validate(self):
+        self.validate_required(self.tenant, 'tenant')
+        self.validate_required(self.login_name, 'login_name')
+        self.validate_required(self.real_name, 'real_name')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.tenant is not None:
+            result['tenant'] = self.tenant
+        if self.login_name is not None:
+            result['login_name'] = self.login_name
+        if self.real_name is not None:
+            result['real_name'] = self.real_name
+        if self.mobile is not None:
+            result['mobile'] = self.mobile
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('tenant') is not None:
+            self.tenant = m.get('tenant')
+        if m.get('login_name') is not None:
+            self.login_name = m.get('login_name')
+        if m.get('real_name') is not None:
+            self.real_name = m.get('real_name')
+        if m.get('mobile') is not None:
+            self.mobile = m.get('mobile')
+        return self
+
+
+class CreateOperatorNormalResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        operator_id: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 操作员唯一ID
+        self.operator_id = operator_id
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.operator_id is not None:
+            result['operator_id'] = self.operator_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('operator_id') is not None:
+            self.operator_id = m.get('operator_id')
+        return self
+
+
+class DeleteTenantProjectRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        user_id: str = None,
+        project_id: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # 操作者用户ID
+        self.user_id = user_id
+        # 项目ID
+        self.project_id = project_id
+
+    def validate(self):
+        self.validate_required(self.user_id, 'user_id')
+        self.validate_required(self.project_id, 'project_id')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.user_id is not None:
+            result['user_id'] = self.user_id
+        if self.project_id is not None:
+            result['project_id'] = self.project_id
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('user_id') is not None:
+            self.user_id = m.get('user_id')
+        if m.get('project_id') is not None:
+            self.project_id = m.get('project_id')
+        return self
+
+
+class DeleteTenantProjectResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        return self
+
+
 class GetCustomerRequest(TeaModel):
     def __init__(
         self,
