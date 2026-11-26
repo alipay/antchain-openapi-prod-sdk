@@ -1490,6 +1490,130 @@ export class QueryProjectUserResponse extends $tea.Model {
   }
 }
 
+export class CreateOperatorNormalRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 租户唯一标识
+  tenant: string;
+  // 操作员唯一登录名
+  loginName: string;
+  // 操作员真实姓名
+  realName: string;
+  // 手机号
+  mobile?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      tenant: 'tenant',
+      loginName: 'login_name',
+      realName: 'real_name',
+      mobile: 'mobile',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      tenant: 'string',
+      loginName: 'string',
+      realName: 'string',
+      mobile: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class CreateOperatorNormalResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 操作员唯一ID
+  operatorId?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      operatorId: 'operator_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      operatorId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteTenantProjectRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // 操作者用户ID
+  userId: string;
+  // 项目ID
+  projectId: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      userId: 'user_id',
+      projectId: 'project_id',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      userId: 'string',
+      projectId: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class DeleteTenantProjectResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class GetCustomerRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
@@ -5005,7 +5129,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.6.16",
+          sdk_version: "1.6.18",
           _prod_code: "acm",
           _prod_channel: "undefined",
         };
@@ -5261,6 +5385,48 @@ export default class Client {
   async queryProjectUserEx(request: QueryProjectUserRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryProjectUserResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryProjectUserResponse>(await this.doRequest("1.0", "antcloud.acm.project.user.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryProjectUserResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 创建操作员（无需激活）
+   * Summary: 创建操作员（无需激活）
+   */
+  async createOperatorNormal(request: CreateOperatorNormalRequest): Promise<CreateOperatorNormalResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.createOperatorNormalEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 创建操作员（无需激活）
+   * Summary: 创建操作员（无需激活）
+   */
+  async createOperatorNormalEx(request: CreateOperatorNormalRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<CreateOperatorNormalResponse> {
+    Util.validateModel(request);
+    return $tea.cast<CreateOperatorNormalResponse>(await this.doRequest("1.0", "antcloud.acm.operator.normal.create", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new CreateOperatorNormalResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 删除项目
+   * Summary: 删除项目
+   */
+  async deleteTenantProject(request: DeleteTenantProjectRequest): Promise<DeleteTenantProjectResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.deleteTenantProjectEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 删除项目
+   * Summary: 删除项目
+   */
+  async deleteTenantProjectEx(request: DeleteTenantProjectRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<DeleteTenantProjectResponse> {
+    Util.validateModel(request);
+    return $tea.cast<DeleteTenantProjectResponse>(await this.doRequest("1.0", "antcloud.acm.tenant.project.delete", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new DeleteTenantProjectResponse({}));
   }
 
   /**
