@@ -13,6 +13,7 @@ class CreateIotagentSessionRequest extends Model {
         'userId' => 'user_id',
         'clientId' => 'client_id',
         'instanceId' => 'instance_id',
+        'clientType' => 'client_type',
     ];
     public function validate() {
         Model::validateRequired('agentId', $this->agentId, true);
@@ -37,6 +38,9 @@ class CreateIotagentSessionRequest extends Model {
         }
         if (null !== $this->instanceId) {
             $res['instance_id'] = $this->instanceId;
+        }
+        if (null !== $this->clientType) {
+            $res['client_type'] = $this->clientType;
         }
         return $res;
     }
@@ -63,6 +67,9 @@ class CreateIotagentSessionRequest extends Model {
         }
         if(isset($map['instance_id'])){
             $model->instanceId = $map['instance_id'];
+        }
+        if(isset($map['client_type'])){
+            $model->clientType = $map['client_type'];
         }
         return $model;
     }
@@ -100,5 +107,11 @@ class CreateIotagentSessionRequest extends Model {
      * @var string
      */
     public $instanceId;
+
+    // 客户端类型，可选；支持 DEFAULT_IOA_API（默认）、MOBILE_IOA_API（移动端 H5/App）、WEB_IOA_API（PC 网页端），不传默认走 DEFAULT_IOA_API
+    /**
+     * @var string
+     */
+    public $clientType;
 
 }
