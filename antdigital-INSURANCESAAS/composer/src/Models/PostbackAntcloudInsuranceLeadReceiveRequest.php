@@ -1,0 +1,146 @@
+<?php
+
+// This file is auto-generated, don't edit it. Thanks.
+namespace AntChain\INSURANCESAAS\Models;
+
+use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
+
+class PostbackAntcloudInsuranceLeadReceiveRequest extends Model {
+    protected $_name = [
+        'authToken' => 'auth_token',
+        'fileId' => 'file_id',
+        'requestId' => 'request_id',
+        'notifyType' => 'notify_type',
+        'actionType' => 'action_type',
+        'notifyInfo' => 'notify_info',
+        'acceptNo' => 'accept_no',
+    ];
+    public function validate() {
+        Model::validateRequired('fileId', $this->fileId, true);
+        Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('notifyType', $this->notifyType, true);
+        Model::validateRequired('actionType', $this->actionType, true);
+        Model::validateRequired('acceptNo', $this->acceptNo, true);
+    }
+    public function toMap() {
+        $res = [];
+        if (null !== $this->authToken) {
+            $res['auth_token'] = $this->authToken;
+        }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
+        }
+        if (null !== $this->fileId) {
+            $res['file_id'] = $this->fileId;
+        }
+        if (null !== $this->requestId) {
+            $res['request_id'] = $this->requestId;
+        }
+        if (null !== $this->notifyType) {
+            $res['notify_type'] = $this->notifyType;
+        }
+        if (null !== $this->actionType) {
+            $res['action_type'] = $this->actionType;
+        }
+        if (null !== $this->notifyInfo) {
+            $res['notify_info'] = $this->notifyInfo;
+        }
+        if (null !== $this->acceptNo) {
+            $res['accept_no'] = $this->acceptNo;
+        }
+        return $res;
+    }
+    /**
+     * @param array $map
+     * @return PostbackAntcloudInsuranceLeadReceiveRequest
+     */
+    public static function fromMap($map = []) {
+        $model = new self();
+        if(isset($map['auth_token'])){
+            $model->authToken = $map['auth_token'];
+        }
+        if(isset($map['fileObject'])){
+            $model->fileObject = $map['fileObject'];
+        }
+        if(isset($map['fileObjectName'])){
+            $model->fileObjectName = $map['fileObjectName'];
+        }
+        if(isset($map['file_id'])){
+            $model->fileId = $map['file_id'];
+        }
+        if(isset($map['request_id'])){
+            $model->requestId = $map['request_id'];
+        }
+        if(isset($map['notify_type'])){
+            $model->notifyType = $map['notify_type'];
+        }
+        if(isset($map['action_type'])){
+            $model->actionType = $map['action_type'];
+        }
+        if(isset($map['notify_info'])){
+            $model->notifyInfo = $map['notify_info'];
+        }
+        if(isset($map['accept_no'])){
+            $model->acceptNo = $map['accept_no'];
+        }
+        return $model;
+    }
+    // OAuth模式下的授权token
+    /**
+     * @var string
+     */
+    public $authToken;
+
+    // string
+    /**
+     * @description 待上传文件
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     * @var string
+     */
+    public $fileObjectName;
+
+    /**
+     * @var string
+     */
+    public $fileId;
+
+    // 请求id，每一次请求保持唯一，若重复，则报错；
+    /**
+     * @var string
+     */
+    public $requestId;
+
+    // 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
+    /**
+     * @var string
+     */
+    public $notifyType;
+
+    // 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
+    /**
+     * @var string
+     */
+    public $actionType;
+
+    // json格式数据updateCycle等字段
+    /**
+     * @var string
+     */
+    public $notifyInfo;
+
+    // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
+    /**
+     * @var string
+     */
+    public $acceptNo;
+
+}
