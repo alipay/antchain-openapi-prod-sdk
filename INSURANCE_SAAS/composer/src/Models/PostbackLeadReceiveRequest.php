@@ -13,8 +13,9 @@ class PostbackLeadReceiveRequest extends Model {
         'requestId' => 'request_id',
         'notifyType' => 'notify_type',
         'actionType' => 'action_type',
-        'notifyInfo' => 'notify_info',
+        'bizContent' => 'biz_content',
         'acceptNo' => 'accept_no',
+        'productCode' => 'product_code',
     ];
     public function validate() {
         Model::validateRequired('fileId', $this->fileId, true);
@@ -22,6 +23,7 @@ class PostbackLeadReceiveRequest extends Model {
         Model::validateRequired('notifyType', $this->notifyType, true);
         Model::validateRequired('actionType', $this->actionType, true);
         Model::validateRequired('acceptNo', $this->acceptNo, true);
+        Model::validateRequired('productCode', $this->productCode, true);
     }
     public function toMap() {
         $res = [];
@@ -46,11 +48,14 @@ class PostbackLeadReceiveRequest extends Model {
         if (null !== $this->actionType) {
             $res['action_type'] = $this->actionType;
         }
-        if (null !== $this->notifyInfo) {
-            $res['notify_info'] = $this->notifyInfo;
+        if (null !== $this->bizContent) {
+            $res['biz_content'] = $this->bizContent;
         }
         if (null !== $this->acceptNo) {
             $res['accept_no'] = $this->acceptNo;
+        }
+        if (null !== $this->productCode) {
+            $res['product_code'] = $this->productCode;
         }
         return $res;
     }
@@ -81,11 +86,14 @@ class PostbackLeadReceiveRequest extends Model {
         if(isset($map['action_type'])){
             $model->actionType = $map['action_type'];
         }
-        if(isset($map['notify_info'])){
-            $model->notifyInfo = $map['notify_info'];
+        if(isset($map['biz_content'])){
+            $model->bizContent = $map['biz_content'];
         }
         if(isset($map['accept_no'])){
             $model->acceptNo = $map['accept_no'];
+        }
+        if(isset($map['product_code'])){
+            $model->productCode = $map['product_code'];
         }
         return $model;
     }
@@ -131,16 +139,22 @@ class PostbackLeadReceiveRequest extends Model {
      */
     public $actionType;
 
-    // json格式数据updateCycle等字段
+    // 业务参数json，updateCycle等字段
     /**
      * @var string
      */
-    public $notifyInfo;
+    public $bizContent;
 
     // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
     /**
      * @var string
      */
     public $acceptNo;
+
+    // 本次固定传LMKT_LEADS_TRANSFER
+    /**
+     * @var string
+     */
+    public $productCode;
 
 }
