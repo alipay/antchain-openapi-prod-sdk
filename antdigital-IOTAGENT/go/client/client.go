@@ -587,38 +587,53 @@ func (s *ContinuousOtaOpenApiRuleResponse) SetCreateRequestId(v string) *Continu
 	return s
 }
 
-// mcp协议字段信息
+// Agent MCP 工具服务配置：含工具白名单与审批声明（R2 授权流，approval_* 三字段缺省走服务端 fail-closed 安全缺省）
 type McpInfo struct {
 	// mcp名字
 	// example:
 	//
-	// mcp名字
+	// undefined
 	Name *string `json:"name,omitempty" xml:"name,omitempty" require:"true"`
-	// 协议类型
+	// 协议类型：STREAM_HTTP / SSE / STDIO（大小写不敏感）
 	// example:
 	//
-	// streamable_http / sse /stadio
+	// STREAM_HTTP
 	Transport *string `json:"transport,omitempty" xml:"transport,omitempty" require:"true"`
 	// 协议地址
 	// example:
 	//
-	// 协议地址
+	// undefined
 	Endpoint *string `json:"endpoint,omitempty" xml:"endpoint,omitempty"`
-	// json
+	// 请求头键值对 JSON 字符串，可含鉴权密钥
 	// example:
 	//
-	// {}
+	// undefined
 	Headers *string `json:"headers,omitempty" xml:"headers,omitempty"`
-	// mcp_id
+	// mcp 幂等标识（agent.detail 回传值，编辑复用）
 	// example:
 	//
-	// mcp_id
+	// undefined
 	McpId *string `json:"mcp_id,omitempty" xml:"mcp_id,omitempty" require:"true"`
-	// 工具名字
+	// 工具名白名单：只列出的工具暴露给 LLM，至少 1 个
 	// example:
 	//
 	// undefined
 	Tools []*string `json:"tools,omitempty" xml:"tools,omitempty" type:"Repeated"`
+	// 该 MCP 的工具默认是否需要用户审批确认（R2 授权流）；缺省按服务端安全缺省 true
+	// example:
+	//
+	// undefined
+	ApprovalRequired *bool `json:"approval_required,omitempty" xml:"approval_required,omitempty"`
+	// 免审批工具名名单：无需用户确认直接执行；缺省空（全部按 approval_required 判定）
+	// example:
+	//
+	// undefined
+	ApprovalExemptTools []*string `json:"approval_exempt_tools,omitempty" xml:"approval_exempt_tools,omitempty" type:"Repeated"`
+	// 审批交互开关：true 时需审批工具经 INTERACTION_REQUIRED→DECIDE 用户确认；false 时需审批工具不派发（fail-closed）
+	// example:
+	//
+	// undefined
+	ApprovalEnabled *bool `json:"approval_enabled,omitempty" xml:"approval_enabled,omitempty"`
 }
 
 func (s McpInfo) String() string {
@@ -656,6 +671,21 @@ func (s *McpInfo) SetMcpId(v string) *McpInfo {
 
 func (s *McpInfo) SetTools(v []*string) *McpInfo {
 	s.Tools = v
+	return s
+}
+
+func (s *McpInfo) SetApprovalRequired(v bool) *McpInfo {
+	s.ApprovalRequired = &v
+	return s
+}
+
+func (s *McpInfo) SetApprovalExemptTools(v []*string) *McpInfo {
+	s.ApprovalExemptTools = v
+	return s
+}
+
+func (s *McpInfo) SetApprovalEnabled(v bool) *McpInfo {
+	s.ApprovalEnabled = &v
 	return s
 }
 
@@ -28538,7 +28568,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.5.1"),
+				"sdk_version":      tea.String("1.5.2"),
 				"_prod_code":       tea.String("IOTAGENT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
