@@ -552,7 +552,7 @@ class RealtimeMktAudience(TeaModel):
         return self
 
 
-class NameValuePair(TeaModel):
+class XNameValuePair(TeaModel):
     def __init__(
         self,
         name: str = None,
@@ -3084,6 +3084,302 @@ class GetMktExtresulturlResponse(TeaModel):
             self.request_id = m.get('request_id')
         if m.get('file_url') is not None:
             self.file_url = m.get('file_url')
+        return self
+
+
+class ReceiveLeadOpportunitiesRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        request_id: str = None,
+        product_code: str = None,
+        biz_content: str = None,
+        biz_type: str = None,
+        action_type: str = None,
+        accept_no: str = None,
+        update_cycle: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 请求id，每一次请求保持唯一，若重复，则报错；
+        self.request_id = request_id
+        # 产品编码，蚂蚁分配
+        self.product_code = product_code
+        # 业务入参json格式字符串
+        self.biz_content = biz_content
+        # 固定值：PAST_MED（既往症人群评分）业务场景
+        self.biz_type = biz_type
+        # 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
+        self.action_type = action_type
+        # TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
+        self.accept_no = accept_no
+        # 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
+        self.update_cycle = update_cycle
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.biz_type, 'biz_type')
+        self.validate_required(self.action_type, 'action_type')
+        self.validate_required(self.update_cycle, 'update_cycle')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.product_code is not None:
+            result['product_code'] = self.product_code
+        if self.biz_content is not None:
+            result['biz_content'] = self.biz_content
+        if self.biz_type is not None:
+            result['biz_type'] = self.biz_type
+        if self.action_type is not None:
+            result['action_type'] = self.action_type
+        if self.accept_no is not None:
+            result['accept_no'] = self.accept_no
+        if self.update_cycle is not None:
+            result['update_cycle'] = self.update_cycle
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('product_code') is not None:
+            self.product_code = m.get('product_code')
+        if m.get('biz_content') is not None:
+            self.biz_content = m.get('biz_content')
+        if m.get('biz_type') is not None:
+            self.biz_type = m.get('biz_type')
+        if m.get('action_type') is not None:
+            self.action_type = m.get('action_type')
+        if m.get('accept_no') is not None:
+            self.accept_no = m.get('accept_no')
+        if m.get('update_cycle') is not None:
+            self.update_cycle = m.get('update_cycle')
+        return self
+
+
+class ReceiveLeadOpportunitiesResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        request_id: str = None,
+        accept_no: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 请求id
+        self.request_id = request_id
+        # 受理号：FULL_PUSH 为蚂蚁生成的受理号；TRIGGER_PUSH 为原批次受理号
+        self.accept_no = accept_no
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.accept_no is not None:
+            result['accept_no'] = self.accept_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('accept_no') is not None:
+            self.accept_no = m.get('accept_no')
+        return self
+
+
+class PostbackLeadReceiveRequest(TeaModel):
+    def __init__(
+        self,
+        auth_token: str = None,
+        file_object: BinaryIO = None,
+        file_object_name: str = None,
+        file_id: str = None,
+        request_id: str = None,
+        notify_type: str = None,
+        action_type: str = None,
+        notify_info: str = None,
+        accept_no: str = None,
+    ):
+        # OAuth模式下的授权token
+        self.auth_token = auth_token
+        # string
+        # 待上传文件
+        self.file_object = file_object
+        # 待上传文件名
+        self.file_object_name = file_object_name
+        self.file_id = file_id
+        # 请求id，每一次请求保持唯一，若重复，则报错；
+        self.request_id = request_id
+        # 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
+        self.notify_type = notify_type
+        # 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
+        self.action_type = action_type
+        # json格式数据updateCycle等字段
+        self.notify_info = notify_info
+        # 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
+        self.accept_no = accept_no
+
+    def validate(self):
+        self.validate_required(self.file_id, 'file_id')
+        self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.notify_type, 'notify_type')
+        self.validate_required(self.action_type, 'action_type')
+        self.validate_required(self.accept_no, 'accept_no')
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_token is not None:
+            result['auth_token'] = self.auth_token
+        if self.file_object is not None:
+            result['fileObject'] = self.file_object
+        if self.file_object_name is not None:
+            result['fileObjectName'] = self.file_object_name
+        if self.file_id is not None:
+            result['file_id'] = self.file_id
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.notify_type is not None:
+            result['notify_type'] = self.notify_type
+        if self.action_type is not None:
+            result['action_type'] = self.action_type
+        if self.notify_info is not None:
+            result['notify_info'] = self.notify_info
+        if self.accept_no is not None:
+            result['accept_no'] = self.accept_no
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('auth_token') is not None:
+            self.auth_token = m.get('auth_token')
+        if m.get('fileObject') is not None:
+            self.file_object = m.get('fileObject')
+        if m.get('fileObjectName') is not None:
+            self.file_object_name = m.get('fileObjectName')
+        if m.get('file_id') is not None:
+            self.file_id = m.get('file_id')
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('notify_type') is not None:
+            self.notify_type = m.get('notify_type')
+        if m.get('action_type') is not None:
+            self.action_type = m.get('action_type')
+        if m.get('notify_info') is not None:
+            self.notify_info = m.get('notify_info')
+        if m.get('accept_no') is not None:
+            self.accept_no = m.get('accept_no')
+        return self
+
+
+class PostbackLeadReceiveResponse(TeaModel):
+    def __init__(
+        self,
+        req_msg_id: str = None,
+        result_code: str = None,
+        result_msg: str = None,
+        biz_result: str = None,
+    ):
+        # 请求唯一ID，用于链路跟踪和问题排查
+        self.req_msg_id = req_msg_id
+        # 结果码，一般OK表示调用成功
+        self.result_code = result_code
+        # 异常信息的文本描述
+        self.result_msg = result_msg
+        # 返回结果
+        self.biz_result = biz_result
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super().to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.req_msg_id is not None:
+            result['req_msg_id'] = self.req_msg_id
+        if self.result_code is not None:
+            result['result_code'] = self.result_code
+        if self.result_msg is not None:
+            result['result_msg'] = self.result_msg
+        if self.biz_result is not None:
+            result['biz_result'] = self.biz_result
+        return result
+
+    def from_map(self, m: dict = None):
+        m = m or dict()
+        if m.get('req_msg_id') is not None:
+            self.req_msg_id = m.get('req_msg_id')
+        if m.get('result_code') is not None:
+            self.result_code = m.get('result_code')
+        if m.get('result_msg') is not None:
+            self.result_msg = m.get('result_msg')
+        if m.get('biz_result') is not None:
+            self.biz_result = m.get('biz_result')
         return self
 
 
@@ -9008,17 +9304,15 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
     def __init__(
         self,
         auth_token: str = None,
-        api_cluster: str = None,
         api_code: str = None,
         file_label: str = None,
         file_metadata: str = None,
         file_name: str = None,
         mime_type: str = None,
+        api_cluster: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
-        # 产品方的api归属集群，即productInstanceId
-        self.api_cluster = api_cluster
         # 上传文件作用的openapi method
         self.api_code = api_code
         # 文件标签，多个标签;分割
@@ -9029,6 +9323,8 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         self.file_name = file_name
         # 文件的多媒体类型
         self.mime_type = mime_type
+        # 产品方的api归属集群，即productInstanceId
+        self.api_cluster = api_cluster
 
     def validate(self):
         self.validate_required(self.api_code, 'api_code')
@@ -9047,8 +9343,6 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
         result = dict()
         if self.auth_token is not None:
             result['auth_token'] = self.auth_token
-        if self.api_cluster is not None:
-            result['api_cluster'] = self.api_cluster
         if self.api_code is not None:
             result['api_code'] = self.api_code
         if self.file_label is not None:
@@ -9059,14 +9353,14 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             result['file_name'] = self.file_name
         if self.mime_type is not None:
             result['mime_type'] = self.mime_type
+        if self.api_cluster is not None:
+            result['api_cluster'] = self.api_cluster
         return result
 
     def from_map(self, m: dict = None):
         m = m or dict()
         if m.get('auth_token') is not None:
             self.auth_token = m.get('auth_token')
-        if m.get('api_cluster') is not None:
-            self.api_cluster = m.get('api_cluster')
         if m.get('api_code') is not None:
             self.api_code = m.get('api_code')
         if m.get('file_label') is not None:
@@ -9077,6 +9371,8 @@ class CreateAntcloudGatewayxFileUploadRequest(TeaModel):
             self.file_name = m.get('file_name')
         if m.get('mime_type') is not None:
             self.mime_type = m.get('mime_type')
+        if m.get('api_cluster') is not None:
+            self.api_cluster = m.get('api_cluster')
         return self
 
 
@@ -9088,7 +9384,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         result_msg: str = None,
         expired_time: str = None,
         file_id: str = None,
-        upload_headers: List[NameValuePair] = None,
+        upload_headers: List[XNameValuePair] = None,
         upload_url: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
@@ -9153,7 +9449,7 @@ class CreateAntcloudGatewayxFileUploadResponse(TeaModel):
         self.upload_headers = []
         if m.get('upload_headers') is not None:
             for k in m.get('upload_headers'):
-                temp_model = NameValuePair()
+                temp_model = XNameValuePair()
                 self.upload_headers.append(temp_model.from_map(k))
         if m.get('upload_url') is not None:
             self.upload_url = m.get('upload_url')
