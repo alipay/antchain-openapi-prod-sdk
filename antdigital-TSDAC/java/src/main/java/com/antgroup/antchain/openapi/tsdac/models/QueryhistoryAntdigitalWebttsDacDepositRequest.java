@@ -31,6 +31,10 @@ public class QueryhistoryAntdigitalWebttsDacDepositRequest extends TeaModel {
     @Validation(required = true)
     public Long pageSize;
 
+    // 订单类型
+    @NameInMap("operation_type")
+    public String operationType;
+
     public static QueryhistoryAntdigitalWebttsDacDepositRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryhistoryAntdigitalWebttsDacDepositRequest self = new QueryhistoryAntdigitalWebttsDacDepositRequest();
         return TeaModel.build(map, self);
@@ -82,6 +86,14 @@ public class QueryhistoryAntdigitalWebttsDacDepositRequest extends TeaModel {
     }
     public Long getPageSize() {
         return this.pageSize;
+    }
+
+    public QueryhistoryAntdigitalWebttsDacDepositRequest setOperationType(String operationType) {
+        this.operationType = operationType;
+        return this;
+    }
+    public String getOperationType() {
+        return this.operationType;
     }
 
 }
