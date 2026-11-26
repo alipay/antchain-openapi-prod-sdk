@@ -16,11 +16,6 @@ public class ThreeAntchainDasKyaRealpersonResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 调用方业务请求号，重试时沿用
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
-
     // 要素是否匹配
     @NameInMap("matched")
     @Validation(required = true)
@@ -53,14 +48,6 @@ public class ThreeAntchainDasKyaRealpersonResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public ThreeAntchainDasKyaRealpersonResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public ThreeAntchainDasKyaRealpersonResponse setMatched(Boolean matched) {

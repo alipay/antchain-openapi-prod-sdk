@@ -16,11 +16,6 @@ public class FacestartAntchainDasKyaRealpersonResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 调用方业务请求号，重试时沿用
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
-
     // 刷脸认证单编号
     @NameInMap("certify_id")
     @Validation(required = true)
@@ -62,14 +57,6 @@ public class FacestartAntchainDasKyaRealpersonResponse extends TeaModel {
     }
     public String getResultMsg() {
         return this.resultMsg;
-    }
-
-    public FacestartAntchainDasKyaRealpersonResponse setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public FacestartAntchainDasKyaRealpersonResponse setCertifyId(String certifyId) {

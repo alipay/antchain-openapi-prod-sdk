@@ -11,11 +11,6 @@ public class TwoAntchainDasKyaRealpersonRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 调用方业务请求号，重试时沿用
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
-
     // 个人身份证件姓名
     @NameInMap("cert_name")
     @Validation(required = true)
@@ -45,14 +40,6 @@ public class TwoAntchainDasKyaRealpersonRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public TwoAntchainDasKyaRealpersonRequest setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public TwoAntchainDasKyaRealpersonRequest setCertName(String certName) {

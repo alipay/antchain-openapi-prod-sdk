@@ -11,11 +11,6 @@ public class FourAntchainDasKyaRealenterpriseRequest extends TeaModel {
     @NameInMap("product_instance_id")
     public String productInstanceId;
 
-    // 调用方业务请求号，重试时沿用
-    @NameInMap("request_id")
-    @Validation(required = true)
-    public String requestId;
-
     // 企业登记名称
     @NameInMap("enterprise_name")
     @Validation(required = true)
@@ -55,14 +50,6 @@ public class FourAntchainDasKyaRealenterpriseRequest extends TeaModel {
     }
     public String getProductInstanceId() {
         return this.productInstanceId;
-    }
-
-    public FourAntchainDasKyaRealenterpriseRequest setRequestId(String requestId) {
-        this.requestId = requestId;
-        return this;
-    }
-    public String getRequestId() {
-        return this.requestId;
     }
 
     public FourAntchainDasKyaRealenterpriseRequest setEnterpriseName(String enterpriseName) {
