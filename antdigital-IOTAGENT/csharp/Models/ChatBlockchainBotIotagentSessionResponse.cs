@@ -24,7 +24,7 @@ namespace AntChain.SDK.IOTAGENT.Models
         [Validation(Required=false)]
         public string ResultMsg { get; set; }
 
-        // 返回的json信息
+        // 返回的json信息（SSE 帧流：CHAT_INIT/回放/命令收据/业务事件/stream_end）
         [NameInMap("chat_completion_object")]
         [Validation(Required=false)]
         public string ChatCompletionObject { get; set; }

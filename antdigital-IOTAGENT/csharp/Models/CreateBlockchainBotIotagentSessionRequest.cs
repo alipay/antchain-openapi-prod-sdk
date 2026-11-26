@@ -28,10 +28,20 @@ namespace AntChain.SDK.IOTAGENT.Models
         [Validation(Required=false)]
         public string UserId { get; set; }
 
+        // 客户端ID，可选；显式传时服务端按绑定记录恢复实际clientType，不传默认DEFAULT_IOA_API
+        [NameInMap("client_id")]
+        [Validation(Required=false)]
+        public string ClientId { get; set; }
+
         // 实例ID
         [NameInMap("instance_id")]
         [Validation(Required=true)]
         public string InstanceId { get; set; }
+
+        // 客户端类型，可选；支持 DEFAULT_IOA_API（默认）、MOBILE_IOA_API（移动端 H5/App）、WEB_IOA_API（PC 网页端），不传默认走 DEFAULT_IOA_API
+        [NameInMap("client_type")]
+        [Validation(Required=false)]
+        public string ClientType { get; set; }
 
     }
 
