@@ -18,12 +18,14 @@ class ChatBlockchainBotIotagentSessionRequest extends Model {
         'query' => 'query',
         'attachFiles' => 'attach_files',
         'extraParams' => 'extra_params',
+        'resume' => 'resume',
+        'modelKey' => 'model_key',
+        'reasoningEffort' => 'reasoning_effort',
     ];
     public function validate() {
         Model::validateRequired('agentId', $this->agentId, true);
         Model::validateRequired('sessionId', $this->sessionId, true);
         Model::validateRequired('type', $this->type, true);
-        Model::validateRequired('query', $this->query, true);
     }
     public function toMap() {
         $res = [];
@@ -59,6 +61,15 @@ class ChatBlockchainBotIotagentSessionRequest extends Model {
         }
         if (null !== $this->extraParams) {
             $res['extra_params'] = $this->extraParams;
+        }
+        if (null !== $this->resume) {
+            $res['resume'] = $this->resume;
+        }
+        if (null !== $this->modelKey) {
+            $res['model_key'] = $this->modelKey;
+        }
+        if (null !== $this->reasoningEffort) {
+            $res['reasoning_effort'] = $this->reasoningEffort;
         }
         return $res;
     }
@@ -101,6 +112,15 @@ class ChatBlockchainBotIotagentSessionRequest extends Model {
         if(isset($map['extra_params'])){
             $model->extraParams = $map['extra_params'];
         }
+        if(isset($map['resume'])){
+            $model->resume = $map['resume'];
+        }
+        if(isset($map['model_key'])){
+            $model->modelKey = $map['model_key'];
+        }
+        if(isset($map['reasoning_effort'])){
+            $model->reasoningEffort = $map['reasoning_effort'];
+        }
         return $model;
     }
     // OAuth模式下的授权token
@@ -138,7 +158,7 @@ class ChatBlockchainBotIotagentSessionRequest extends Model {
      */
     public $type;
 
-    // 问题
+    // 问题（新建模式必填；携 resume 续接时互斥不传）
     /**
      * @var string
      */
@@ -155,5 +175,23 @@ class ChatBlockchainBotIotagentSessionRequest extends Model {
      * @var string
      */
     public $extraParams;
+
+    // 续接结构体 JSON（系分 §8.1.1）：{turnId 必填, afterSequence 可选, command 可选={type:DECIDE/ANSWER/CANCEL, expectedVersion, payload}}；payload 键 camelCase：DECIDE={interactionId,decision,scope} ANSWER={interactionId,answer} CANCEL={reason}
+    /**
+     * @var string
+     */
+    public $resume;
+
+    // 用户侧模型选择（§8.1.2）：本地模型目录稳定键（如 dtmaas/deepseek-flash），独立顶层参数唯一入口；仅新建 Turn 可传，省略沿默认配置，空/非法值拒绝；不得经 extra_params 携带
+    /**
+     * @var string
+     */
+    public $modelKey;
+
+    // 用户侧思考等级选择（§8.1.2）：受控选项，须为选中模型目录声明 supported_efforts 内取值（model.list 返回），非法值拒绝；仅新建 Turn 可传，不得经 extra_params 携带
+    /**
+     * @var string
+     */
+    public $reasoningEffort;
 
 }

@@ -118,6 +118,20 @@ use AntChain\IOTAGENT\Models\TrajectoryBlockchainBotIotagentSessionRequest;
 use AntChain\IOTAGENT\Models\TrajectoryBlockchainBotIotagentSessionResponse;
 use AntChain\IOTAGENT\Models\StepsBlockchainBotIotagentSessionTrajectoryRequest;
 use AntChain\IOTAGENT\Models\StepsBlockchainBotIotagentSessionTrajectoryResponse;
+use AntChain\IOTAGENT\Models\UploadurlBlockchainBotIotagentFilesRequest;
+use AntChain\IOTAGENT\Models\UploadurlBlockchainBotIotagentFilesResponse;
+use AntChain\IOTAGENT\Models\ConfirmBlockchainBotIotagentFilesRequest;
+use AntChain\IOTAGENT\Models\ConfirmBlockchainBotIotagentFilesResponse;
+use AntChain\IOTAGENT\Models\FileurlBlockchainBotIotagentFilesRequest;
+use AntChain\IOTAGENT\Models\FileurlBlockchainBotIotagentFilesResponse;
+use AntChain\IOTAGENT\Models\MountBlockchainBotIotagentKbRequest;
+use AntChain\IOTAGENT\Models\MountBlockchainBotIotagentKbResponse;
+use AntChain\IOTAGENT\Models\UnmountBlockchainBotIotagentKbRequest;
+use AntChain\IOTAGENT\Models\UnmountBlockchainBotIotagentKbResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotagentKbRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotagentKbResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotagentModelRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotagentModelResponse;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
 use AntChain\IOTAGENT\Models\QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantResponse;
 use AntChain\IOTAGENT\Models\SigncontractBlockchainBotAiotdatalinkAntfinanceassistantRequest;
@@ -126,6 +140,86 @@ use AntChain\IOTAGENT\Models\ChatBlockchainBotAiotdatalinkAntfinanceassistantReq
 use AntChain\IOTAGENT\Models\ChatBlockchainBotAiotdatalinkAntfinanceassistantResponse;
 use AntChain\IOTAGENT\Models\StreamchatBlockchainBotAiotdatalinkAntfinanceassistantRequest;
 use AntChain\IOTAGENT\Models\StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductRequest;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductResponse;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductRequest;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductResponse;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductRequest;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductCategoryRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductCategoryResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductTemplateGlobalRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductTemplateGlobalResponse;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\DefaultBlockchainBotIotsuccessProductTemplateRequest;
+use AntChain\IOTAGENT\Models\DefaultBlockchainBotIotsuccessProductTemplateResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductVoiceRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductVoiceResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductModelRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductModelResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductPluginStoreRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductPluginStoreResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductPluginBindingRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductPluginBindingResponse;
+use AntChain\IOTAGENT\Models\BindBlockchainBotIotsuccessProductPluginRequest;
+use AntChain\IOTAGENT\Models\BindBlockchainBotIotsuccessProductPluginResponse;
+use AntChain\IOTAGENT\Models\UnbindBlockchainBotIotsuccessProductPluginRequest;
+use AntChain\IOTAGENT\Models\UnbindBlockchainBotIotsuccessProductPluginResponse;
+use AntChain\IOTAGENT\Models\UploadBlockchainBotIotsuccessProductSkillRequest;
+use AntChain\IOTAGENT\Models\UploadBlockchainBotIotsuccessProductSkillResponse;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductSkillRequest;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductSkillResponse;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductMcpRequest;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductMcpResponse;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductMcpRequest;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductMcpResponse;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductMcpRequest;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductMcpResponse;
+use AntChain\IOTAGENT\Models\ValidateBlockchainBotIotsuccessProductMcpRequest;
+use AntChain\IOTAGENT\Models\ValidateBlockchainBotIotsuccessProductMcpResponse;
+use AntChain\IOTAGENT\Models\ImportBlockchainBotIotsuccessProductDeviceRequest;
+use AntChain\IOTAGENT\Models\ImportBlockchainBotIotsuccessProductDeviceResponse;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductDeviceImportRequest;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductDeviceImportResponse;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductKnowledgebaseRequest;
+use AntChain\IOTAGENT\Models\CreateBlockchainBotIotsuccessProductKnowledgebaseResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductKnowledgebaseRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductKnowledgebaseResponse;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductKnowledgebaseRequest;
+use AntChain\IOTAGENT\Models\DetailBlockchainBotIotsuccessProductKnowledgebaseResponse;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductKnowledgebaseRequest;
+use AntChain\IOTAGENT\Models\UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductKnowledgebaseRequest;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse;
+use AntChain\IOTAGENT\Models\UploadBlockchainBotIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\IOTAGENT\Models\UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\IOTAGENT\Models\DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\IOTAGENT\Models\SetBlockchainBotIotsuccessProductKnowledgebaseTriggerRequest;
+use AntChain\IOTAGENT\Models\SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse;
+use AntChain\IOTAGENT\Models\TestBlockchainBotIotsuccessProductKnowledgebaseRecallRequest;
+use AntChain\IOTAGENT\Models\TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductLicenseRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductLicenseResponse;
+use AntChain\IOTAGENT\Models\OverviewBlockchainBotIotsuccessProductQuotaRequest;
+use AntChain\IOTAGENT\Models\OverviewBlockchainBotIotsuccessProductQuotaResponse;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductQuotaConsumptionRequest;
+use AntChain\IOTAGENT\Models\ListBlockchainBotIotsuccessProductQuotaConsumptionResponse;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIoaProductDeviceImportRequest;
+use AntChain\IOTAGENT\Models\StatusBlockchainBotIoaProductDeviceImportResponse;
 use AntChain\IOTAGENT\Models\CreateAntcloudGatewayxFileUploadResponse;
 
 class Client {
@@ -263,7 +357,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.4.0",
+                    "sdk_version" => "1.5.1",
                     "_prod_code" => "IOTAGENT",
                     "_prod_channel" => "undefined"
                 ];
@@ -979,8 +1073,8 @@ class Client {
     }
 
     /**
-     * Description: sse聊天
-     * Summary: sse聊天
+     * Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
      * @param ChatBlockchainBotIotagentSessionRequest $request
      * @return ChatBlockchainBotIotagentSessionResponse
      */
@@ -991,8 +1085,8 @@ class Client {
     }
 
     /**
-     * Description: sse聊天
-     * Summary: sse聊天
+     * Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
      * @param ChatBlockchainBotIotagentSessionRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -1649,6 +1743,181 @@ class Client {
     }
 
     /**
+     * Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * @param UploadurlBlockchainBotIotagentFilesRequest $request
+     * @return UploadurlBlockchainBotIotagentFilesResponse
+     */
+    public function uploadurlBlockchainBotIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadurlBlockchainBotIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * @param UploadurlBlockchainBotIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadurlBlockchainBotIotagentFilesResponse
+     */
+    public function uploadurlBlockchainBotIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadurlBlockchainBotIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.uploadurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * @param ConfirmBlockchainBotIotagentFilesRequest $request
+     * @return ConfirmBlockchainBotIotagentFilesResponse
+     */
+    public function confirmBlockchainBotIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmBlockchainBotIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * @param ConfirmBlockchainBotIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmBlockchainBotIotagentFilesResponse
+     */
+    public function confirmBlockchainBotIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmBlockchainBotIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * @param FileurlBlockchainBotIotagentFilesRequest $request
+     * @return FileurlBlockchainBotIotagentFilesResponse
+     */
+    public function fileurlBlockchainBotIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->fileurlBlockchainBotIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * @param FileurlBlockchainBotIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FileurlBlockchainBotIotagentFilesResponse
+     */
+    public function fileurlBlockchainBotIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FileurlBlockchainBotIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.fileurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * @param MountBlockchainBotIotagentKbRequest $request
+     * @return MountBlockchainBotIotagentKbResponse
+     */
+    public function mountBlockchainBotIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->mountBlockchainBotIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * @param MountBlockchainBotIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return MountBlockchainBotIotagentKbResponse
+     */
+    public function mountBlockchainBotIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return MountBlockchainBotIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.mount", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * @param UnmountBlockchainBotIotagentKbRequest $request
+     * @return UnmountBlockchainBotIotagentKbResponse
+     */
+    public function unmountBlockchainBotIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unmountBlockchainBotIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * @param UnmountBlockchainBotIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnmountBlockchainBotIotagentKbResponse
+     */
+    public function unmountBlockchainBotIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnmountBlockchainBotIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.unmount", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * @param ListBlockchainBotIotagentKbRequest $request
+     * @return ListBlockchainBotIotagentKbResponse
+     */
+    public function listBlockchainBotIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * @param ListBlockchainBotIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotagentKbResponse
+     */
+    public function listBlockchainBotIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * @param ListBlockchainBotIotagentModelRequest $request
+     * @return ListBlockchainBotIotagentModelResponse
+     */
+    public function listBlockchainBotIotagentModel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotagentModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * @param ListBlockchainBotIotagentModelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotagentModelResponse
+     */
+    public function listBlockchainBotIotagentModelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotagentModelResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.model.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
      * Summary: 蚂小财签约状态查询，参考RPC接口文档：https://yuque.antfin.com/pw3zzd/cplb7g/ghfep7wirmlxlg3u#ZHvWp
      * @param QuerycontractBlockchainBotAiotdatalinkAntfinanceassistantRequest $request
@@ -1746,6 +2015,1006 @@ class Client {
     public function streamchatBlockchainBotAiotdatalinkAntfinanceassistantEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return StreamchatBlockchainBotAiotdatalinkAntfinanceassistantResponse::fromMap($this->doRequest("1.0", "blockchain.bot.aiotdatalink.antfinanceassistant.streamchat", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥
+     * @param CreateBlockchainBotIotsuccessProductRequest $request
+     * @return CreateBlockchainBotIotsuccessProductResponse
+     */
+    public function createBlockchainBotIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBlockchainBotIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥
+     * @param CreateBlockchainBotIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBlockchainBotIotsuccessProductResponse
+     */
+    public function createBlockchainBotIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBlockchainBotIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥
+     * @param DetailBlockchainBotIotsuccessProductRequest $request
+     * @return DetailBlockchainBotIotsuccessProductResponse
+     */
+    public function detailBlockchainBotIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailBlockchainBotIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥
+     * @param DetailBlockchainBotIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailBlockchainBotIotsuccessProductResponse
+     */
+    public function detailBlockchainBotIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailBlockchainBotIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段
+     * @param UpdateBlockchainBotIotsuccessProductRequest $request
+     * @return UpdateBlockchainBotIotsuccessProductResponse
+     */
+    public function updateBlockchainBotIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateBlockchainBotIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段
+     * @param UpdateBlockchainBotIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateBlockchainBotIotsuccessProductResponse
+     */
+    public function updateBlockchainBotIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateBlockchainBotIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表
+     * @param ListBlockchainBotIotsuccessProductRequest $request
+     * @return ListBlockchainBotIotsuccessProductResponse
+     */
+    public function listBlockchainBotIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表
+     * @param ListBlockchainBotIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductResponse
+     */
+    public function listBlockchainBotIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合
+     * @param ListBlockchainBotIotsuccessProductCategoryRequest $request
+     * @return ListBlockchainBotIotsuccessProductCategoryResponse
+     */
+    public function listBlockchainBotIotsuccessProductCategory($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合
+     * @param ListBlockchainBotIotsuccessProductCategoryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductCategoryResponse
+     */
+    public function listBlockchainBotIotsuccessProductCategoryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductCategoryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.category.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线
+     * @param ListBlockchainBotIotsuccessProductTemplateGlobalRequest $request
+     * @return ListBlockchainBotIotsuccessProductTemplateGlobalResponse
+     */
+    public function listBlockchainBotIotsuccessProductTemplateGlobal($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductTemplateGlobalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线
+     * @param ListBlockchainBotIotsuccessProductTemplateGlobalRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductTemplateGlobalResponse
+     */
+    public function listBlockchainBotIotsuccessProductTemplateGlobalEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductTemplateGlobalResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.global.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板
+     * @param CreateBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return CreateBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function createBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板
+     * @param CreateBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function createBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记
+     * @param ListBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return ListBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function listBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记
+     * @param ListBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function listBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T04 模板全部配置
+     * Summary: T04 模板全部配置
+     * @param DetailBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return DetailBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function detailBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T04 模板全部配置
+     * Summary: T04 模板全部配置
+     * @param DetailBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function detailBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数
+     * @param UpdateBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return UpdateBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function updateBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数
+     * @param UpdateBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function updateBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删
+     * @param DeleteBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return DeleteBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删
+     * @param DeleteBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备
+     * @param DefaultBlockchainBotIotsuccessProductTemplateRequest $request
+     * @return DefaultBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function defaultBlockchainBotIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->defaultBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备
+     * @param DefaultBlockchainBotIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DefaultBlockchainBotIotsuccessProductTemplateResponse
+     */
+    public function defaultBlockchainBotIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DefaultBlockchainBotIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.default", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色
+     * @param ListBlockchainBotIotsuccessProductVoiceRequest $request
+     * @return ListBlockchainBotIotsuccessProductVoiceResponse
+     */
+    public function listBlockchainBotIotsuccessProductVoice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色
+     * @param ListBlockchainBotIotsuccessProductVoiceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductVoiceResponse
+     */
+    public function listBlockchainBotIotsuccessProductVoiceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductVoiceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.voice.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型
+     * @param ListBlockchainBotIotsuccessProductModelRequest $request
+     * @return ListBlockchainBotIotsuccessProductModelResponse
+     */
+    public function listBlockchainBotIotsuccessProductModel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型
+     * @param ListBlockchainBotIotsuccessProductModelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductModelResponse
+     */
+    public function listBlockchainBotIotsuccessProductModelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductModelResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.model.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录
+     * @param ListBlockchainBotIotsuccessProductPluginStoreRequest $request
+     * @return ListBlockchainBotIotsuccessProductPluginStoreResponse
+     */
+    public function listBlockchainBotIotsuccessProductPluginStore($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductPluginStoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录
+     * @param ListBlockchainBotIotsuccessProductPluginStoreRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductPluginStoreResponse
+     */
+    public function listBlockchainBotIotsuccessProductPluginStoreEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductPluginStoreResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.store.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态
+     * @param ListBlockchainBotIotsuccessProductPluginBindingRequest $request
+     * @return ListBlockchainBotIotsuccessProductPluginBindingResponse
+     */
+    public function listBlockchainBotIotsuccessProductPluginBinding($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductPluginBindingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态
+     * @param ListBlockchainBotIotsuccessProductPluginBindingRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductPluginBindingResponse
+     */
+    public function listBlockchainBotIotsuccessProductPluginBindingEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductPluginBindingResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.binding.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * @param BindBlockchainBotIotsuccessProductPluginRequest $request
+     * @return BindBlockchainBotIotsuccessProductPluginResponse
+     */
+    public function bindBlockchainBotIotsuccessProductPlugin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->bindBlockchainBotIotsuccessProductPluginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * @param BindBlockchainBotIotsuccessProductPluginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return BindBlockchainBotIotsuccessProductPluginResponse
+     */
+    public function bindBlockchainBotIotsuccessProductPluginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return BindBlockchainBotIotsuccessProductPluginResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.bind", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true
+     * @param UnbindBlockchainBotIotsuccessProductPluginRequest $request
+     * @return UnbindBlockchainBotIotsuccessProductPluginResponse
+     */
+    public function unbindBlockchainBotIotsuccessProductPlugin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unbindBlockchainBotIotsuccessProductPluginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true
+     * @param UnbindBlockchainBotIotsuccessProductPluginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnbindBlockchainBotIotsuccessProductPluginResponse
+     */
+    public function unbindBlockchainBotIotsuccessProductPluginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnbindBlockchainBotIotsuccessProductPluginResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.unbind", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果
+     * @param UploadBlockchainBotIotsuccessProductSkillRequest $request
+     * @return UploadBlockchainBotIotsuccessProductSkillResponse
+     */
+    public function uploadBlockchainBotIotsuccessProductSkill($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadBlockchainBotIotsuccessProductSkillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果
+     * @param UploadBlockchainBotIotsuccessProductSkillRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadBlockchainBotIotsuccessProductSkillResponse
+     */
+    public function uploadBlockchainBotIotsuccessProductSkillEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadBlockchainBotIotsuccessProductSkillResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态
+     * @param StatusBlockchainBotIotsuccessProductSkillRequest $request
+     * @return StatusBlockchainBotIotsuccessProductSkillResponse
+     */
+    public function statusBlockchainBotIotsuccessProductSkill($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusBlockchainBotIotsuccessProductSkillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态
+     * @param StatusBlockchainBotIotsuccessProductSkillRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusBlockchainBotIotsuccessProductSkillResponse
+     */
+    public function statusBlockchainBotIotsuccessProductSkillEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusBlockchainBotIotsuccessProductSkillResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验
+     * @param CreateBlockchainBotIotsuccessProductMcpRequest $request
+     * @return CreateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function createBlockchainBotIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验
+     * @param CreateBlockchainBotIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function createBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBlockchainBotIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持
+     * @param UpdateBlockchainBotIotsuccessProductMcpRequest $request
+     * @return UpdateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function updateBlockchainBotIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持
+     * @param UpdateBlockchainBotIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function updateBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateBlockchainBotIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除
+     * @param DeleteBlockchainBotIotsuccessProductMcpRequest $request
+     * @return DeleteBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除
+     * @param DeleteBlockchainBotIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteBlockchainBotIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入
+     * @param ValidateBlockchainBotIotsuccessProductMcpRequest $request
+     * @return ValidateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function validateBlockchainBotIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->validateBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入
+     * @param ValidateBlockchainBotIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ValidateBlockchainBotIotsuccessProductMcpResponse
+     */
+    public function validateBlockchainBotIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ValidateBlockchainBotIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.validate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+     * @param ImportBlockchainBotIotsuccessProductDeviceRequest $request
+     * @return ImportBlockchainBotIotsuccessProductDeviceResponse
+     */
+    public function importBlockchainBotIotsuccessProductDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->importBlockchainBotIotsuccessProductDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+     * @param ImportBlockchainBotIotsuccessProductDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ImportBlockchainBotIotsuccessProductDeviceResponse
+     */
+    public function importBlockchainBotIotsuccessProductDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ImportBlockchainBotIotsuccessProductDeviceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusBlockchainBotIotsuccessProductDeviceImportRequest $request
+     * @return StatusBlockchainBotIotsuccessProductDeviceImportResponse
+     */
+    public function statusBlockchainBotIotsuccessProductDeviceImport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusBlockchainBotIotsuccessProductDeviceImportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusBlockchainBotIotsuccessProductDeviceImportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusBlockchainBotIotsuccessProductDeviceImportResponse
+     */
+    public function statusBlockchainBotIotsuccessProductDeviceImportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusBlockchainBotIotsuccessProductDeviceImportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K01 创建知识库
+     * Summary: K01 创建知识库
+     * @param CreateBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @return CreateBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function createBlockchainBotIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K01 创建知识库
+     * Summary: K01 创建知识库
+     * @param CreateBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function createBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateBlockchainBotIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页
+     * @param ListBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @return ListBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function listBlockchainBotIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页
+     * @param ListBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function listBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品
+     * @param DetailBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @return DetailBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function detailBlockchainBotIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品
+     * @param DetailBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function detailBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailBlockchainBotIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K04 更新名称描述
+     * Summary: K04 更新名称描述
+     * @param UpdateBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @return UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function updateBlockchainBotIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K04 更新名称描述
+     * Summary: K04 更新名称描述
+     * @param UpdateBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function updateBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateBlockchainBotIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删
+     * @param DeleteBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @return DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删
+     * @param DeleteBlockchainBotIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteBlockchainBotIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链
+     * @param UploadBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @return UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function uploadBlockchainBotIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链
+     * @param UploadBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function uploadBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadBlockchainBotIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态
+     * @param StatusBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @return StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function statusBlockchainBotIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态
+     * @param StatusBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function statusBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusBlockchainBotIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理
+     * @param DeleteBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @return DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理
+     * @param DeleteBlockchainBotIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function deleteBlockchainBotIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteBlockchainBotIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发
+     * @param SetBlockchainBotIotsuccessProductKnowledgebaseTriggerRequest $request
+     * @return SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse
+     */
+    public function setBlockchainBotIotsuccessProductKnowledgebaseTrigger($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->setBlockchainBotIotsuccessProductKnowledgebaseTriggerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发
+     * @param SetBlockchainBotIotsuccessProductKnowledgebaseTriggerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse
+     */
+    public function setBlockchainBotIotsuccessProductKnowledgebaseTriggerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SetBlockchainBotIotsuccessProductKnowledgebaseTriggerResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.trigger.set", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试
+     * @param TestBlockchainBotIotsuccessProductKnowledgebaseRecallRequest $request
+     * @return TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse
+     */
+    public function testBlockchainBotIotsuccessProductKnowledgebaseRecall($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->testBlockchainBotIotsuccessProductKnowledgebaseRecallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试
+     * @param TestBlockchainBotIotsuccessProductKnowledgebaseRecallRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse
+     */
+    public function testBlockchainBotIotsuccessProductKnowledgebaseRecallEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TestBlockchainBotIotsuccessProductKnowledgebaseRecallResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.recall.test", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余
+     * @param ListBlockchainBotIotsuccessProductLicenseRequest $request
+     * @return ListBlockchainBotIotsuccessProductLicenseResponse
+     */
+    public function listBlockchainBotIotsuccessProductLicense($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductLicenseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余
+     * @param ListBlockchainBotIotsuccessProductLicenseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductLicenseResponse
+     */
+    public function listBlockchainBotIotsuccessProductLicenseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductLicenseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.license.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间
+     * @param OverviewBlockchainBotIotsuccessProductQuotaRequest $request
+     * @return OverviewBlockchainBotIotsuccessProductQuotaResponse
+     */
+    public function overviewBlockchainBotIotsuccessProductQuota($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->overviewBlockchainBotIotsuccessProductQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间
+     * @param OverviewBlockchainBotIotsuccessProductQuotaRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OverviewBlockchainBotIotsuccessProductQuotaResponse
+     */
+    public function overviewBlockchainBotIotsuccessProductQuotaEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OverviewBlockchainBotIotsuccessProductQuotaResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.overview", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * @param ListBlockchainBotIotsuccessProductQuotaConsumptionRequest $request
+     * @return ListBlockchainBotIotsuccessProductQuotaConsumptionResponse
+     */
+    public function listBlockchainBotIotsuccessProductQuotaConsumption($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listBlockchainBotIotsuccessProductQuotaConsumptionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * @param ListBlockchainBotIotsuccessProductQuotaConsumptionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListBlockchainBotIotsuccessProductQuotaConsumptionResponse
+     */
+    public function listBlockchainBotIotsuccessProductQuotaConsumptionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListBlockchainBotIotsuccessProductQuotaConsumptionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.consumption.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusBlockchainBotIoaProductDeviceImportRequest $request
+     * @return StatusBlockchainBotIoaProductDeviceImportResponse
+     */
+    public function statusBlockchainBotIoaProductDeviceImport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusBlockchainBotIoaProductDeviceImportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusBlockchainBotIoaProductDeviceImportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusBlockchainBotIoaProductDeviceImportResponse
+     */
+    public function statusBlockchainBotIoaProductDeviceImportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusBlockchainBotIoaProductDeviceImportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.ioa.product.device.import.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

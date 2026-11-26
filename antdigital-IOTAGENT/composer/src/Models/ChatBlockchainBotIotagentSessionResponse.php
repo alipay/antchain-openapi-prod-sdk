@@ -67,7 +67,7 @@ class ChatBlockchainBotIotagentSessionResponse extends Model {
      */
     public $resultMsg;
 
-    // 返回的json信息
+    // 返回的json信息（SSE 帧流：CHAT_INIT/回放/命令收据/业务事件/stream_end）
     /**
      * @var string
      */
