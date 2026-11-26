@@ -2847,10 +2847,12 @@ type PostbackLeadReceiveRequest struct {
 	NotifyType *string `json:"notify_type,omitempty" xml:"notify_type,omitempty" require:"true"`
 	// 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
 	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
-	// json格式数据updateCycle等字段
-	NotifyInfo *string `json:"notify_info,omitempty" xml:"notify_info,omitempty"`
+	// 业务参数json，updateCycle等字段
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 	// 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
 	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty" require:"true"`
+	// 本次固定传LMKT_LEADS_TRANSFER
+	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 }
 
 func (s PostbackLeadReceiveRequest) String() string {
@@ -2896,13 +2898,18 @@ func (s *PostbackLeadReceiveRequest) SetActionType(v string) *PostbackLeadReceiv
 	return s
 }
 
-func (s *PostbackLeadReceiveRequest) SetNotifyInfo(v string) *PostbackLeadReceiveRequest {
-	s.NotifyInfo = &v
+func (s *PostbackLeadReceiveRequest) SetBizContent(v string) *PostbackLeadReceiveRequest {
+	s.BizContent = &v
 	return s
 }
 
 func (s *PostbackLeadReceiveRequest) SetAcceptNo(v string) *PostbackLeadReceiveRequest {
 	s.AcceptNo = &v
+	return s
+}
+
+func (s *PostbackLeadReceiveRequest) SetProductCode(v string) *PostbackLeadReceiveRequest {
+	s.ProductCode = &v
 	return s
 }
 
@@ -7965,7 +7972,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.1"),
+				"sdk_version":      tea.String("1.13.2"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
