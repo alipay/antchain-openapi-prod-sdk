@@ -16,9 +16,9 @@ public class PostbackAntcloudInsuranceLeadReceiveResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 请求ID
-    @NameInMap("request_id")
-    public String requestId;
+    // 返回结果
+    @NameInMap("biz_result")
+    public String bizResult;
 
     public static PostbackAntcloudInsuranceLeadReceiveResponse build(java.util.Map<String, ?> map) throws Exception {
         PostbackAntcloudInsuranceLeadReceiveResponse self = new PostbackAntcloudInsuranceLeadReceiveResponse();
@@ -49,12 +49,12 @@ public class PostbackAntcloudInsuranceLeadReceiveResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public PostbackAntcloudInsuranceLeadReceiveResponse setRequestId(String requestId) {
-        this.requestId = requestId;
+    public PostbackAntcloudInsuranceLeadReceiveResponse setBizResult(String bizResult) {
+        this.bizResult = bizResult;
         return this;
     }
-    public String getRequestId() {
-        return this.requestId;
+    public String getBizResult() {
+        return this.bizResult;
     }
 
 }
