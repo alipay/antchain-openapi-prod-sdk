@@ -49,6 +49,21 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public long? RowNum { get; set; }
 
+        // 是否被截断
+        [NameInMap("truncated")]
+        [Validation(Required=false)]
+        public bool? Truncated { get; set; }
+
+        // 问数直接返回最大数据量
+        [NameInMap("row_limit")]
+        [Validation(Required=false)]
+        public long? RowLimit { get; set; }
+
+        // 数据截断描述
+        [NameInMap("export_hint")]
+        [Validation(Required=false)]
+        public string ExportHint { get; set; }
+
     }
 
 }

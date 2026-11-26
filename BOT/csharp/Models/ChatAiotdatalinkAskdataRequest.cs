@@ -48,6 +48,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Caller { get; set; }
 
+        // 语义模型ID
+        [NameInMap("semantic_model_id")]
+        [Validation(Required=false)]
+        public string SemanticModelId { get; set; }
+
     }
 
 }
