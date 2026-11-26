@@ -24,7 +24,7 @@ public class VerifyAntchainDasKyaServiceaccessRequest extends TeaModel {
     // Agent 发给 MCP 的原始签名请求，MCP 原样转交 KYA 核验。
     @NameInMap("agent_request")
     @Validation(required = true)
-    public KyaInvocationAgentRequest agentRequest;
+    public KyaServiceAccessAgentRequest agentRequest;
 
     public static VerifyAntchainDasKyaServiceaccessRequest build(java.util.Map<String, ?> map) throws Exception {
         VerifyAntchainDasKyaServiceaccessRequest self = new VerifyAntchainDasKyaServiceaccessRequest();
@@ -63,11 +63,11 @@ public class VerifyAntchainDasKyaServiceaccessRequest extends TeaModel {
         return this.operation;
     }
 
-    public VerifyAntchainDasKyaServiceaccessRequest setAgentRequest(KyaInvocationAgentRequest agentRequest) {
+    public VerifyAntchainDasKyaServiceaccessRequest setAgentRequest(KyaServiceAccessAgentRequest agentRequest) {
         this.agentRequest = agentRequest;
         return this;
     }
-    public KyaInvocationAgentRequest getAgentRequest() {
+    public KyaServiceAccessAgentRequest getAgentRequest() {
         return this.agentRequest;
     }
 

@@ -30,7 +30,7 @@ public class VerifyAntchainDasKyaServiceaccessResponse extends TeaModel {
 
     // 身份、AAP、意图与范围三项逐项核验结果。各项为 PASS、FAIL 或 NOT_REQUIRED。
     @NameInMap("checks")
-    public KyaInvocationChecks checks;
+    public KyaServiceAccessChecks checks;
 
     public static VerifyAntchainDasKyaServiceaccessResponse build(java.util.Map<String, ?> map) throws Exception {
         VerifyAntchainDasKyaServiceaccessResponse self = new VerifyAntchainDasKyaServiceaccessResponse();
@@ -85,11 +85,11 @@ public class VerifyAntchainDasKyaServiceaccessResponse extends TeaModel {
         return this.reasonCode;
     }
 
-    public VerifyAntchainDasKyaServiceaccessResponse setChecks(KyaInvocationChecks checks) {
+    public VerifyAntchainDasKyaServiceaccessResponse setChecks(KyaServiceAccessChecks checks) {
         this.checks = checks;
         return this;
     }
-    public KyaInvocationChecks getChecks() {
+    public KyaServiceAccessChecks getChecks() {
         return this.checks;
     }
 

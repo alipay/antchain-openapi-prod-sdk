@@ -24,6 +24,10 @@ public class SearchAntchainDasKyaServiceRequest extends TeaModel {
     @NameInMap("search_conditions")
     public String searchConditions;
 
+    // 默认 false，走真实服务检索。true 返回固定演示数据，模式为 MOCK。
+    @NameInMap("use_mock_data")
+    public Boolean useMockData;
+
     public static SearchAntchainDasKyaServiceRequest build(java.util.Map<String, ?> map) throws Exception {
         SearchAntchainDasKyaServiceRequest self = new SearchAntchainDasKyaServiceRequest();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class SearchAntchainDasKyaServiceRequest extends TeaModel {
     }
     public String getSearchConditions() {
         return this.searchConditions;
+    }
+
+    public SearchAntchainDasKyaServiceRequest setUseMockData(Boolean useMockData) {
+        this.useMockData = useMockData;
+        return this;
+    }
+    public Boolean getUseMockData() {
+        return this.useMockData;
     }
 
 }

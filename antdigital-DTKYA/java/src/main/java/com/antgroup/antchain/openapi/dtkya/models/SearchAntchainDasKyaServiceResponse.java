@@ -26,7 +26,7 @@ public class SearchAntchainDasKyaServiceResponse extends TeaModel {
     @Validation(required = true)
     public Long returnedCount;
 
-    // 实际检索模式 HYBRID 或降级后的 KEYWORD。
+    // 实际检索模式。MOCK 为固定演示数据，HYBRID 为混合检索，KEYWORD 为降级后的关键词检索。
     @NameInMap("effective_mode")
     @Validation(required = true)
     public String effectiveMode;
