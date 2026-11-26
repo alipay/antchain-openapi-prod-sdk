@@ -45,6 +45,11 @@ use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackRequest;
 use AntChain\INSURANCE_SAAS\Models\V2AasDataBankcardlivenessCallbackResponse;
 use AntChain\INSURANCE_SAAS\Models\GetMktExtresulturlRequest;
 use AntChain\INSURANCE_SAAS\Models\GetMktExtresulturlResponse;
+use AntChain\INSURANCE_SAAS\Models\ReceiveLeadOpportunitiesRequest;
+use AntChain\INSURANCE_SAAS\Models\ReceiveLeadOpportunitiesResponse;
+use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadRequest;
+use AntChain\INSURANCE_SAAS\Models\PostbackLeadReceiveRequest;
+use AntChain\INSURANCE_SAAS\Models\PostbackLeadReceiveResponse;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryRequest;
 use AntChain\INSURANCE_SAAS\Models\QueryInquiryResponse;
 use AntChain\INSURANCE_SAAS\Models\SubmitInquiryRequest;
@@ -123,7 +128,6 @@ use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventRequest;
 use AntChain\INSURANCE_SAAS\Models\NotifyAutoinsuranceEventResponse;
 use AntChain\INSURANCE_SAAS\Models\UploadMktFileRequest;
 use AntChain\INSURANCE_SAAS\Models\UploadMktFileResponse;
-use AntChain\INSURANCE_SAAS\Models\CreateAntcloudGatewayxFileUploadRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectRequest;
 use AntChain\INSURANCE_SAAS\Models\CallbackMktEffectResponse;
 use AntChain\INSURANCE_SAAS\Models\ReceiveBusinessOpportunitiesRequest;
@@ -265,7 +269,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.12.63",
+                    "sdk_version" => "1.13.1",
                     "_prod_code" => "INSURANCE_SAAS",
                     "_prod_channel" => "undefined"
                 ];
@@ -708,6 +712,96 @@ class Client {
     public function getMktExtresulturlEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return GetMktExtresulturlResponse::fromMap($this->doRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 商机接收-既往症人群评分-对客
+     * Summary: 商机接收-既往症人群评分-对客
+     * @param ReceiveLeadOpportunitiesRequest $request
+     * @return ReceiveLeadOpportunitiesResponse
+     */
+    public function receiveLeadOpportunities($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->receiveLeadOpportunitiesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 商机接收-既往症人群评分-对客
+     * Summary: 商机接收-既往症人群评分-对客
+     * @param ReceiveLeadOpportunitiesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ReceiveLeadOpportunitiesResponse
+     */
+    public function receiveLeadOpportunitiesEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.insurance.lead.opportunities.receive",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $receiveLeadOpportunitiesResponse = new ReceiveLeadOpportunitiesResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $receiveLeadOpportunitiesResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return ReceiveLeadOpportunitiesResponse::fromMap($this->doRequest("1.0", "antcloud.insurance.lead.opportunities.receive", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 既往症线索供给方评分结果文件回传
+     * Summary: 既往症线索供给方评分结果文件回传
+     * @param PostbackLeadReceiveRequest $request
+     * @return PostbackLeadReceiveResponse
+     */
+    public function postbackLeadReceive($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->postbackLeadReceiveEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 既往症线索供给方评分结果文件回传
+     * Summary: 既往症线索供给方评分结果文件回传
+     * @param PostbackLeadReceiveRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PostbackLeadReceiveResponse
+     */
+    public function postbackLeadReceiveEx($request, $headers, $runtime){
+        if (!Utils::isUnset($request->fileObject)) {
+            $uploadReq = new CreateAntcloudGatewayxFileUploadRequest([
+                "authToken" => $request->authToken,
+                "apiCode" => "antcloud.insurance.lead.receive.postback",
+                "fileName" => $request->fileObjectName
+            ]);
+            $uploadResp = $this->createAntcloudGatewayxFileUploadEx($uploadReq, $headers, $runtime);
+            if (!UtilClient::isSuccess($uploadResp->resultCode, "ok")) {
+                $postbackLeadReceiveResponse = new PostbackLeadReceiveResponse([
+                    "reqMsgId" => $uploadResp->reqMsgId,
+                    "resultCode" => $uploadResp->resultCode,
+                    "resultMsg" => $uploadResp->resultMsg
+                ]);
+                return $postbackLeadReceiveResponse;
+            }
+            $uploadHeaders = UtilClient::parseUploadHeaders($uploadResp->uploadHeaders);
+            UtilClient::putObject($request->fileObject, $uploadHeaders, $uploadResp->uploadUrl);
+            $request->fileId = $uploadResp->fileId;
+            $request->fileObject = null;
+        }
+        Utils::validateModel($request);
+        return PostbackLeadReceiveResponse::fromMap($this->doRequest("1.0", "antcloud.insurance.lead.receive.postback", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
