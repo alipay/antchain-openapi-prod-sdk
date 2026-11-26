@@ -18,6 +18,10 @@ public class CreateBlockchainBotIotsuccessProductKnowledgebaseRequest extends Te
     @NameInMap("description")
     public String description;
 
+    // 实例ID，非必填，可用于产品实例间知识库隔离。
+    @NameInMap("instance_id")
+    public String instanceId;
+
     public static CreateBlockchainBotIotsuccessProductKnowledgebaseRequest build(java.util.Map<String, ?> map) throws Exception {
         CreateBlockchainBotIotsuccessProductKnowledgebaseRequest self = new CreateBlockchainBotIotsuccessProductKnowledgebaseRequest();
         return TeaModel.build(map, self);
@@ -53,6 +57,14 @@ public class CreateBlockchainBotIotsuccessProductKnowledgebaseRequest extends Te
     }
     public String getDescription() {
         return this.description;
+    }
+
+    public CreateBlockchainBotIotsuccessProductKnowledgebaseRequest setInstanceId(String instanceId) {
+        this.instanceId = instanceId;
+        return this;
+    }
+    public String getInstanceId() {
+        return this.instanceId;
     }
 
 }

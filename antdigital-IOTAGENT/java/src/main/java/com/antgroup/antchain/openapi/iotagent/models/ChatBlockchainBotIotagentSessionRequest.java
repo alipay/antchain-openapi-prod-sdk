@@ -50,6 +50,10 @@ public class ChatBlockchainBotIotagentSessionRequest extends TeaModel {
     @NameInMap("model_key")
     public String modelKey;
 
+    // 用户侧思考等级选择（§8.1.2）：受控选项，须为选中模型目录声明 supported_efforts 内取值（model.list 返回），非法值拒绝；仅新建 Turn 可传，不得经 extra_params 携带
+    @NameInMap("reasoning_effort")
+    public String reasoningEffort;
+
     public static ChatBlockchainBotIotagentSessionRequest build(java.util.Map<String, ?> map) throws Exception {
         ChatBlockchainBotIotagentSessionRequest self = new ChatBlockchainBotIotagentSessionRequest();
         return TeaModel.build(map, self);
@@ -141,6 +145,14 @@ public class ChatBlockchainBotIotagentSessionRequest extends TeaModel {
     }
     public String getModelKey() {
         return this.modelKey;
+    }
+
+    public ChatBlockchainBotIotagentSessionRequest setReasoningEffort(String reasoningEffort) {
+        this.reasoningEffort = reasoningEffort;
+        return this;
+    }
+    public String getReasoningEffort() {
+        return this.reasoningEffort;
     }
 
 }
