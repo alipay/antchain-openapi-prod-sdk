@@ -2205,10 +2205,12 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
   notifyType: string;
   // 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
   actionType: string;
-  // json格式数据updateCycle等字段
-  notifyInfo?: string;
+  // 业务参数json，updateCycle等字段
+  bizContent?: string;
   // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
   acceptNo: string;
+  // 本次固定传LMKT_LEADS_TRANSFER
+  productCode: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2218,8 +2220,9 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
       requestId: 'request_id',
       notifyType: 'notify_type',
       actionType: 'action_type',
-      notifyInfo: 'notify_info',
+      bizContent: 'biz_content',
       acceptNo: 'accept_no',
+      productCode: 'product_code',
     };
   }
 
@@ -2232,8 +2235,9 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
       requestId: 'string',
       notifyType: 'string',
       actionType: 'string',
-      notifyInfo: 'string',
+      bizContent: 'string',
       acceptNo: 'string',
+      productCode: 'string',
     };
   }
 
@@ -6021,7 +6025,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.1",
+          sdk_version: "1.13.2",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
