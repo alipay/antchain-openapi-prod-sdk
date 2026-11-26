@@ -15,6 +15,9 @@ class ChatAiotdatalinkAskdataResponse extends Model {
         'status' => 'status',
         'data' => 'data',
         'rowNum' => 'row_num',
+        'truncated' => 'truncated',
+        'rowLimit' => 'row_limit',
+        'exportHint' => 'export_hint',
     ];
     public function validate() {}
     public function toMap() {
@@ -42,6 +45,15 @@ class ChatAiotdatalinkAskdataResponse extends Model {
         }
         if (null !== $this->rowNum) {
             $res['row_num'] = $this->rowNum;
+        }
+        if (null !== $this->truncated) {
+            $res['truncated'] = $this->truncated;
+        }
+        if (null !== $this->rowLimit) {
+            $res['row_limit'] = $this->rowLimit;
+        }
+        if (null !== $this->exportHint) {
+            $res['export_hint'] = $this->exportHint;
         }
         return $res;
     }
@@ -74,6 +86,15 @@ class ChatAiotdatalinkAskdataResponse extends Model {
         }
         if(isset($map['row_num'])){
             $model->rowNum = $map['row_num'];
+        }
+        if(isset($map['truncated'])){
+            $model->truncated = $map['truncated'];
+        }
+        if(isset($map['row_limit'])){
+            $model->rowLimit = $map['row_limit'];
+        }
+        if(isset($map['export_hint'])){
+            $model->exportHint = $map['export_hint'];
         }
         return $model;
     }
@@ -124,5 +145,23 @@ class ChatAiotdatalinkAskdataResponse extends Model {
      * @var int
      */
     public $rowNum;
+
+    // 是否被截断
+    /**
+     * @var bool
+     */
+    public $truncated;
+
+    // 问数直接返回最大数据量
+    /**
+     * @var int
+     */
+    public $rowLimit;
+
+    // 数据截断描述
+    /**
+     * @var string
+     */
+    public $exportHint;
 
 }

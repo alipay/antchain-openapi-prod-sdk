@@ -206,6 +206,20 @@ use AntChain\BOT\Models\TrajectoryIotagentSessionRequest;
 use AntChain\BOT\Models\TrajectoryIotagentSessionResponse;
 use AntChain\BOT\Models\StepsIotagentSessionTrajectoryRequest;
 use AntChain\BOT\Models\StepsIotagentSessionTrajectoryResponse;
+use AntChain\BOT\Models\UploadurlIotagentFilesRequest;
+use AntChain\BOT\Models\UploadurlIotagentFilesResponse;
+use AntChain\BOT\Models\ConfirmIotagentFilesRequest;
+use AntChain\BOT\Models\ConfirmIotagentFilesResponse;
+use AntChain\BOT\Models\FileurlIotagentFilesRequest;
+use AntChain\BOT\Models\FileurlIotagentFilesResponse;
+use AntChain\BOT\Models\MountIotagentKbRequest;
+use AntChain\BOT\Models\MountIotagentKbResponse;
+use AntChain\BOT\Models\UnmountIotagentKbRequest;
+use AntChain\BOT\Models\UnmountIotagentKbResponse;
+use AntChain\BOT\Models\ListIotagentKbRequest;
+use AntChain\BOT\Models\ListIotagentKbResponse;
+use AntChain\BOT\Models\ListIotagentModelRequest;
+use AntChain\BOT\Models\ListIotagentModelResponse;
 use AntChain\BOT\Models\CreateAcsDeviceRequest;
 use AntChain\BOT\Models\CreateAcsDeviceResponse;
 use AntChain\BOT\Models\SendAcsCollectorRequest;
@@ -504,6 +518,86 @@ use AntChain\BOT\Models\StopIotplantformProductRequest;
 use AntChain\BOT\Models\StopIotplantformProductResponse;
 use AntChain\BOT\Models\ResumeIotplantformProductRequest;
 use AntChain\BOT\Models\ResumeIotplantformProductResponse;
+use AntChain\BOT\Models\CreateIotsuccessProductRequest;
+use AntChain\BOT\Models\CreateIotsuccessProductResponse;
+use AntChain\BOT\Models\DetailIotsuccessProductRequest;
+use AntChain\BOT\Models\DetailIotsuccessProductResponse;
+use AntChain\BOT\Models\UpdateIotsuccessProductRequest;
+use AntChain\BOT\Models\UpdateIotsuccessProductResponse;
+use AntChain\BOT\Models\ListIotsuccessProductRequest;
+use AntChain\BOT\Models\ListIotsuccessProductResponse;
+use AntChain\BOT\Models\ListIotsuccessProductCategoryRequest;
+use AntChain\BOT\Models\ListIotsuccessProductCategoryResponse;
+use AntChain\BOT\Models\ListIotsuccessProductTemplateGlobalRequest;
+use AntChain\BOT\Models\ListIotsuccessProductTemplateGlobalResponse;
+use AntChain\BOT\Models\CreateIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\CreateIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\ListIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\ListIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\DetailIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\DetailIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\UpdateIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\UpdateIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\DeleteIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\DeleteIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\DefaultIotsuccessProductTemplateRequest;
+use AntChain\BOT\Models\DefaultIotsuccessProductTemplateResponse;
+use AntChain\BOT\Models\ListIotsuccessProductVoiceRequest;
+use AntChain\BOT\Models\ListIotsuccessProductVoiceResponse;
+use AntChain\BOT\Models\ListIotsuccessProductModelRequest;
+use AntChain\BOT\Models\ListIotsuccessProductModelResponse;
+use AntChain\BOT\Models\ListIotsuccessProductPluginStoreRequest;
+use AntChain\BOT\Models\ListIotsuccessProductPluginStoreResponse;
+use AntChain\BOT\Models\ListIotsuccessProductPluginBindingRequest;
+use AntChain\BOT\Models\ListIotsuccessProductPluginBindingResponse;
+use AntChain\BOT\Models\BindIotsuccessProductPluginRequest;
+use AntChain\BOT\Models\BindIotsuccessProductPluginResponse;
+use AntChain\BOT\Models\UnbindIotsuccessProductPluginRequest;
+use AntChain\BOT\Models\UnbindIotsuccessProductPluginResponse;
+use AntChain\BOT\Models\UploadIotsuccessProductSkillRequest;
+use AntChain\BOT\Models\UploadIotsuccessProductSkillResponse;
+use AntChain\BOT\Models\StatusIotsuccessProductSkillRequest;
+use AntChain\BOT\Models\StatusIotsuccessProductSkillResponse;
+use AntChain\BOT\Models\CreateIotsuccessProductMcpRequest;
+use AntChain\BOT\Models\CreateIotsuccessProductMcpResponse;
+use AntChain\BOT\Models\UpdateIotsuccessProductMcpRequest;
+use AntChain\BOT\Models\UpdateIotsuccessProductMcpResponse;
+use AntChain\BOT\Models\DeleteIotsuccessProductMcpRequest;
+use AntChain\BOT\Models\DeleteIotsuccessProductMcpResponse;
+use AntChain\BOT\Models\ValidateIotsuccessProductMcpRequest;
+use AntChain\BOT\Models\ValidateIotsuccessProductMcpResponse;
+use AntChain\BOT\Models\ImportIotsuccessProductDeviceRequest;
+use AntChain\BOT\Models\ImportIotsuccessProductDeviceResponse;
+use AntChain\BOT\Models\StatusIotsuccessProductDeviceImportRequest;
+use AntChain\BOT\Models\StatusIotsuccessProductDeviceImportResponse;
+use AntChain\BOT\Models\CreateIotsuccessProductKnowledgebaseRequest;
+use AntChain\BOT\Models\CreateIotsuccessProductKnowledgebaseResponse;
+use AntChain\BOT\Models\ListIotsuccessProductKnowledgebaseRequest;
+use AntChain\BOT\Models\ListIotsuccessProductKnowledgebaseResponse;
+use AntChain\BOT\Models\DetailIotsuccessProductKnowledgebaseRequest;
+use AntChain\BOT\Models\DetailIotsuccessProductKnowledgebaseResponse;
+use AntChain\BOT\Models\UpdateIotsuccessProductKnowledgebaseRequest;
+use AntChain\BOT\Models\UpdateIotsuccessProductKnowledgebaseResponse;
+use AntChain\BOT\Models\DeleteIotsuccessProductKnowledgebaseRequest;
+use AntChain\BOT\Models\DeleteIotsuccessProductKnowledgebaseResponse;
+use AntChain\BOT\Models\UploadIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\BOT\Models\UploadIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\BOT\Models\StatusIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\BOT\Models\StatusIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\BOT\Models\DeleteIotsuccessProductKnowledgebaseContentRequest;
+use AntChain\BOT\Models\DeleteIotsuccessProductKnowledgebaseContentResponse;
+use AntChain\BOT\Models\SetIotsuccessProductKnowledgebaseTriggerRequest;
+use AntChain\BOT\Models\SetIotsuccessProductKnowledgebaseTriggerResponse;
+use AntChain\BOT\Models\TestIotsuccessProductKnowledgebaseRecallRequest;
+use AntChain\BOT\Models\TestIotsuccessProductKnowledgebaseRecallResponse;
+use AntChain\BOT\Models\ListIotsuccessProductLicenseRequest;
+use AntChain\BOT\Models\ListIotsuccessProductLicenseResponse;
+use AntChain\BOT\Models\OverviewIotsuccessProductQuotaRequest;
+use AntChain\BOT\Models\OverviewIotsuccessProductQuotaResponse;
+use AntChain\BOT\Models\ListIotsuccessProductQuotaConsumptionRequest;
+use AntChain\BOT\Models\ListIotsuccessProductQuotaConsumptionResponse;
+use AntChain\BOT\Models\StatusIoaProductDeviceImportRequest;
+use AntChain\BOT\Models\StatusIoaProductDeviceImportResponse;
 use AntChain\BOT\Models\CreateDeviceDatamodelRequest;
 use AntChain\BOT\Models\CreateDeviceDatamodelResponse;
 use AntChain\BOT\Models\GetDeviceDatamodelRequest;
@@ -766,6 +860,14 @@ use AntChain\BOT\Models\ExecDatalinkSourceRequest;
 use AntChain\BOT\Models\ExecDatalinkSourceResponse;
 use AntChain\BOT\Models\QueryDatalinkSourceRequest;
 use AntChain\BOT\Models\QueryDatalinkSourceResponse;
+use AntChain\BOT\Models\QueryTrustiotSkugrantwhitelistRequest;
+use AntChain\BOT\Models\QueryTrustiotSkugrantwhitelistResponse;
+use AntChain\BOT\Models\QueryTechintegrationSkugrantwhitelistRequest;
+use AntChain\BOT\Models\QueryTechintegrationSkugrantwhitelistResponse;
+use AntChain\BOT\Models\SubmitDatalinkExportRequest;
+use AntChain\BOT\Models\SubmitDatalinkExportResponse;
+use AntChain\BOT\Models\ResultDatalinkExportRequest;
+use AntChain\BOT\Models\ResultDatalinkExportResponse;
 use AntChain\BOT\Models\ExecThingsdidOneapiRequest;
 use AntChain\BOT\Models\ExecThingsdidOneapiResponse;
 use AntChain\BOT\Models\StartEvidenceStoreRequest;
@@ -935,7 +1037,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.22.12",
+                    "sdk_version" => "1.22.22",
                     "_prod_code" => "BOT",
                     "_prod_channel" => "undefined"
                 ];
@@ -2701,8 +2803,8 @@ class Client {
     }
 
     /**
-     * Description: sse聊天
-     * Summary: sse聊天
+     * Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
      * @param ChatIotagentSessionRequest $request
      * @return ChatIotagentSessionResponse
      */
@@ -2713,8 +2815,8 @@ class Client {
     }
 
     /**
-     * Description: sse聊天
-     * Summary: sse聊天
+     * Description: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
+     * Summary: chat 新建/续接双模式（系分 §8.1 v5）：不带 resume 新建 Turn；带 resume 续接原 Turn，可仅补发输出或携 DECIDE/ANSWER/CANCEL 命令
      * @param ChatIotagentSessionRequest $request
      * @param string[] $headers
      * @param RuntimeOptions $runtime
@@ -3418,6 +3520,181 @@ class Client {
     public function stepsIotagentSessionTrajectoryEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return StepsIotagentSessionTrajectoryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.session.trajectory.steps", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * @param UploadurlIotagentFilesRequest $request
+     * @return UploadurlIotagentFilesResponse
+     */
+    public function uploadurlIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadurlIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * Summary: 文件上传地址签发（预签名 PUT 直传 OSS）；scene=SESSION_FILE 会话附件 / SKILL_PACKAGE 租户暂存（SKILL 上传复用）
+     * @param UploadurlIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadurlIotagentFilesResponse
+     */
+    public function uploadurlIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadurlIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.uploadurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * @param ConfirmIotagentFilesRequest $request
+     * @return ConfirmIotagentFilesResponse
+     */
+    public function confirmIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->confirmIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * Summary: 直传文件确认：HEAD 校验大小/类型后激活（INGESTING→ACTIVE），重复确认幂等
+     * @param ConfirmIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ConfirmIotagentFilesResponse
+     */
+    public function confirmIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ConfirmIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.confirm", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * @param FileurlIotagentFilesRequest $request
+     * @return FileurlIotagentFilesResponse
+     */
+    public function fileurlIotagentFiles($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->fileurlIotagentFilesEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * Summary: 为已确认（ACTIVE）的直传文件签发短期预签名下载 URL（TTL 默认24h）：会话附件引用与 SKILL 导入 sourceUrl 复用
+     * @param FileurlIotagentFilesRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return FileurlIotagentFilesResponse
+     */
+    public function fileurlIotagentFilesEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return FileurlIotagentFilesResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.files.fileurl", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * @param MountIotagentKbRequest $request
+     * @return MountIotagentKbResponse
+     */
+    public function mountIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->mountIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * Summary: 知识库挂载管理（IR）：Agent 挂载知识库（幂等）；携 instance_id 时校验 KB 对该实例可见；挂载关系不回写 plugin_list
+     * @param MountIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return MountIotagentKbResponse
+     */
+    public function mountIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return MountIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.mount", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * @param UnmountIotagentKbRequest $request
+     * @return UnmountIotagentKbResponse
+     */
+    public function unmountIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unmountIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * Summary: 知识库挂载管理（IR）：Agent 解绑知识库（幂等）；解绑不删除 KB 资产、不影响其他 Agent 挂载
+     * @param UnmountIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnmountIotagentKbResponse
+     */
+    public function unmountIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnmountIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.unmount", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * @param ListIotagentKbRequest $request
+     * @return ListIotagentKbResponse
+     */
+    public function listIotagentKb($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotagentKbEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * Summary: 知识库挂载管理（IR）：查询 Agent 当前挂载的 kbIds（管理视角全集；运行期实际可用由挂载∩可见∩有效派生）
+     * @param ListIotagentKbRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotagentKbResponse
+     */
+    public function listIotagentKbEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotagentKbResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.kb.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * @param ListIotagentModelRequest $request
+     * @return ListIotagentModelResponse
+     */
+    public function listIotagentModel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotagentModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * Summary: 全局模型目录查询（IR）：按全局 ai_model 目录返回启用模型（modelKey/供应商/能力位/思考等级/默认标记），不按租户隔离；可选 capability 过滤；列表可见≠提交可用
+     * @param ListIotagentModelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotagentModelResponse
+     */
+    public function listIotagentModelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotagentModelResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotagent.model.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**
@@ -7166,6 +7443,1006 @@ class Client {
     }
 
     /**
+     * Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥
+     * @param CreateIotsuccessProductRequest $request
+     * @return CreateIotsuccessProductResponse
+     */
+    public function createIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P01 创建产品，一次性返回明文产品密钥
+     * Summary: P01 创建产品，一次性返回明文产品密钥
+     * @param CreateIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotsuccessProductResponse
+     */
+    public function createIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥
+     * @param DetailIotsuccessProductRequest $request
+     * @return DetailIotsuccessProductResponse
+     */
+    public function detailIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P02 产品详情，不含产品密钥
+     * Summary: P02 产品详情，不含产品密钥
+     * @param DetailIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailIotsuccessProductResponse
+     */
+    public function detailIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段
+     * @param UpdateIotsuccessProductRequest $request
+     * @return UpdateIotsuccessProductResponse
+     */
+    public function updateIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P03 更新产品，至少一个可更新字段
+     * Summary: P03 更新产品，至少一个可更新字段
+     * @param UpdateIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotsuccessProductResponse
+     */
+    public function updateIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表
+     * @param ListIotsuccessProductRequest $request
+     * @return ListIotsuccessProductResponse
+     */
+    public function listIotsuccessProduct($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P04 当前租户产品列表
+     * Summary: P04 当前租户产品列表
+     * @param ListIotsuccessProductRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductResponse
+     */
+    public function listIotsuccessProductEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合
+     * @param ListIotsuccessProductCategoryRequest $request
+     * @return ListIotsuccessProductCategoryResponse
+     */
+    public function listIotsuccessProductCategory($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductCategoryEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: P05 可选品类与服务形态、入网及激活组合
+     * Summary: P05 可选品类与服务形态、入网及激活组合
+     * @param ListIotsuccessProductCategoryRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductCategoryResponse
+     */
+    public function listIotsuccessProductCategoryEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductCategoryResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.category.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线
+     * @param ListIotsuccessProductTemplateGlobalRequest $request
+     * @return ListIotsuccessProductTemplateGlobalResponse
+     */
+    public function listIotsuccessProductTemplateGlobal($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductTemplateGlobalEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T01 只读全局模板基线
+     * Summary: T01 只读全局模板基线
+     * @param ListIotsuccessProductTemplateGlobalRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductTemplateGlobalResponse
+     */
+    public function listIotsuccessProductTemplateGlobalEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductTemplateGlobalResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.global.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板
+     * @param CreateIotsuccessProductTemplateRequest $request
+     * @return CreateIotsuccessProductTemplateResponse
+     */
+    public function createIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T02 从零或全局模板创建产品模板
+     * Summary: T02 从零或全局模板创建产品模板
+     * @param CreateIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotsuccessProductTemplateResponse
+     */
+    public function createIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记
+     * @param ListIotsuccessProductTemplateRequest $request
+     * @return ListIotsuccessProductTemplateResponse
+     */
+    public function listIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T03 产品模板列表与默认标记
+     * Summary: T03 产品模板列表与默认标记
+     * @param ListIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductTemplateResponse
+     */
+    public function listIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T04 模板全部配置
+     * Summary: T04 模板全部配置
+     * @param DetailIotsuccessProductTemplateRequest $request
+     * @return DetailIotsuccessProductTemplateResponse
+     */
+    public function detailIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T04 模板全部配置
+     * Summary: T04 模板全部配置
+     * @param DetailIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailIotsuccessProductTemplateResponse
+     */
+    public function detailIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数
+     * @param UpdateIotsuccessProductTemplateRequest $request
+     * @return UpdateIotsuccessProductTemplateResponse
+     */
+    public function updateIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T05 更新模板语言、音色、角色、模型及语音参数
+     * Summary: T05 更新模板语言、音色、角色、模型及语音参数
+     * @param UpdateIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotsuccessProductTemplateResponse
+     */
+    public function updateIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删
+     * @param DeleteIotsuccessProductTemplateRequest $request
+     * @return DeleteIotsuccessProductTemplateResponse
+     */
+    public function deleteIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T06 默认模板需先切换，最后一个模板不可删
+     * Summary: T06 默认模板需先切换，最后一个模板不可删
+     * @param DeleteIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotsuccessProductTemplateResponse
+     */
+    public function deleteIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备
+     * @param DefaultIotsuccessProductTemplateRequest $request
+     * @return DefaultIotsuccessProductTemplateResponse
+     */
+    public function defaultIotsuccessProductTemplate($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->defaultIotsuccessProductTemplateEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T07 设置唯一默认，只影响新激活设备
+     * Summary: T07 设置唯一默认，只影响新激活设备
+     * @param DefaultIotsuccessProductTemplateRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DefaultIotsuccessProductTemplateResponse
+     */
+    public function defaultIotsuccessProductTemplateEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DefaultIotsuccessProductTemplateResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.template.default", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色
+     * @param ListIotsuccessProductVoiceRequest $request
+     * @return ListIotsuccessProductVoiceResponse
+     */
+    public function listIotsuccessProductVoice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductVoiceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T08 按语言筛选可选音色
+     * Summary: T08 按语言筛选可选音色
+     * @param ListIotsuccessProductVoiceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductVoiceResponse
+     */
+    public function listIotsuccessProductVoiceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductVoiceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.voice.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型
+     * @param ListIotsuccessProductModelRequest $request
+     * @return ListIotsuccessProductModelResponse
+     */
+    public function listIotsuccessProductModel($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductModelEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: T09 按产品授权和地区筛选模型
+     * Summary: T09 按产品授权和地区筛选模型
+     * @param ListIotsuccessProductModelRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductModelResponse
+     */
+    public function listIotsuccessProductModelEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductModelResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.model.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录
+     * @param ListIotsuccessProductPluginStoreRequest $request
+     * @return ListIotsuccessProductPluginStoreResponse
+     */
+    public function listIotsuccessProductPluginStore($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductPluginStoreEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G01 官方、本租户及显式授权插件目录
+     * Summary: G01 官方、本租户及显式授权插件目录
+     * @param ListIotsuccessProductPluginStoreRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductPluginStoreResponse
+     */
+    public function listIotsuccessProductPluginStoreEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductPluginStoreResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.store.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态
+     * @param ListIotsuccessProductPluginBindingRequest $request
+     * @return ListIotsuccessProductPluginBindingResponse
+     */
+    public function listIotsuccessProductPluginBinding($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductPluginBindingEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G02 产品已绑定插件与生效状态
+     * Summary: G02 产品已绑定插件与生效状态
+     * @param ListIotsuccessProductPluginBindingRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductPluginBindingResponse
+     */
+    public function listIotsuccessProductPluginBindingEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductPluginBindingResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.binding.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * @param BindIotsuccessProductPluginRequest $request
+     * @return BindIotsuccessProductPluginResponse
+     */
+    public function bindIotsuccessProductPlugin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->bindIotsuccessProductPluginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * Summary: G03 多选原子绑定，下次交互生效，KB句柄映射kbIds
+     * @param BindIotsuccessProductPluginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return BindIotsuccessProductPluginResponse
+     */
+    public function bindIotsuccessProductPluginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return BindIotsuccessProductPluginResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.bind", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true
+     * @param UnbindIotsuccessProductPluginRequest $request
+     * @return UnbindIotsuccessProductPluginResponse
+     */
+    public function unbindIotsuccessProductPlugin($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->unbindIotsuccessProductPluginEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G04 高风险解绑，必须显式confirm=true
+     * Summary: G04 高风险解绑，必须显式confirm=true
+     * @param UnbindIotsuccessProductPluginRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UnbindIotsuccessProductPluginResponse
+     */
+    public function unbindIotsuccessProductPluginEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UnbindIotsuccessProductPluginResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.plugin.unbind", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果
+     * @param UploadIotsuccessProductSkillRequest $request
+     * @return UploadIotsuccessProductSkillResponse
+     */
+    public function uploadIotsuccessProductSkill($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadIotsuccessProductSkillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G05 上传并解析Skill包，返回现有插件创建结果
+     * Summary: G05 上传并解析Skill包，返回现有插件创建结果
+     * @param UploadIotsuccessProductSkillRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadIotsuccessProductSkillResponse
+     */
+    public function uploadIotsuccessProductSkillEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadIotsuccessProductSkillResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态
+     * @param StatusIotsuccessProductSkillRequest $request
+     * @return StatusIotsuccessProductSkillResponse
+     */
+    public function statusIotsuccessProductSkill($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusIotsuccessProductSkillEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G06 按pluginId查询已有Skill资产状态
+     * Summary: G06 按pluginId查询已有Skill资产状态
+     * @param StatusIotsuccessProductSkillRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusIotsuccessProductSkillResponse
+     */
+    public function statusIotsuccessProductSkillEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusIotsuccessProductSkillResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.skill.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验
+     * @param CreateIotsuccessProductMcpRequest $request
+     * @return CreateIotsuccessProductMcpResponse
+     */
+    public function createIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G07 创建MCP站点，保存前校验
+     * Summary: G07 创建MCP站点，保存前校验
+     * @param CreateIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotsuccessProductMcpResponse
+     */
+    public function createIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持
+     * @param UpdateIotsuccessProductMcpRequest $request
+     * @return UpdateIotsuccessProductMcpResponse
+     */
+    public function updateIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G08 更新本租户MCP，headers整体替换，省略保持
+     * Summary: G08 更新本租户MCP，headers整体替换，省略保持
+     * @param UpdateIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotsuccessProductMcpResponse
+     */
+    public function updateIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除
+     * @param DeleteIotsuccessProductMcpRequest $request
+     * @return DeleteIotsuccessProductMcpResponse
+     */
+    public function deleteIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G09 被产品或智能体引用不可删除
+     * Summary: G09 被产品或智能体引用不可删除
+     * @param DeleteIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotsuccessProductMcpResponse
+     */
+    public function deleteIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入
+     * @param ValidateIotsuccessProductMcpRequest $request
+     * @return ValidateIotsuccessProductMcpResponse
+     */
+    public function validateIotsuccessProductMcp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->validateIotsuccessProductMcpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: G10 校验wss可达与鉴权，不持久化输入
+     * Summary: G10 校验wss可达与鉴权，不持久化输入
+     * @param ValidateIotsuccessProductMcpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ValidateIotsuccessProductMcpResponse
+     */
+    public function validateIotsuccessProductMcpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ValidateIotsuccessProductMcpResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.mcp.validate", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+     * @param ImportIotsuccessProductDeviceRequest $request
+     * @return ImportIotsuccessProductDeviceResponse
+     */
+    public function importIotsuccessProductDevice($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->importIotsuccessProductDeviceEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D01 调用已有设备导入，返回成功/已有/无效名单
+     * Summary: D01 调用已有设备导入，返回成功/已有/无效名单
+     * @param ImportIotsuccessProductDeviceRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ImportIotsuccessProductDeviceResponse
+     */
+    public function importIotsuccessProductDeviceEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ImportIotsuccessProductDeviceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusIotsuccessProductDeviceImportRequest $request
+     * @return StatusIotsuccessProductDeviceImportResponse
+     */
+    public function statusIotsuccessProductDeviceImport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusIotsuccessProductDeviceImportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusIotsuccessProductDeviceImportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusIotsuccessProductDeviceImportResponse
+     */
+    public function statusIotsuccessProductDeviceImportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusIotsuccessProductDeviceImportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.device.import.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K01 创建知识库
+     * Summary: K01 创建知识库
+     * @param CreateIotsuccessProductKnowledgebaseRequest $request
+     * @return CreateIotsuccessProductKnowledgebaseResponse
+     */
+    public function createIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->createIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K01 创建知识库
+     * Summary: K01 创建知识库
+     * @param CreateIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return CreateIotsuccessProductKnowledgebaseResponse
+     */
+    public function createIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return CreateIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.create", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页
+     * @param ListIotsuccessProductKnowledgebaseRequest $request
+     * @return ListIotsuccessProductKnowledgebaseResponse
+     */
+    public function listIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K02 按名称类型分页
+     * Summary: K02 按名称类型分页
+     * @param ListIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductKnowledgebaseResponse
+     */
+    public function listIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品
+     * @param DetailIotsuccessProductKnowledgebaseRequest $request
+     * @return DetailIotsuccessProductKnowledgebaseResponse
+     */
+    public function detailIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->detailIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K03 基本信息、内容统计、关联产品
+     * Summary: K03 基本信息、内容统计、关联产品
+     * @param DetailIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DetailIotsuccessProductKnowledgebaseResponse
+     */
+    public function detailIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DetailIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.detail", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K04 更新名称描述
+     * Summary: K04 更新名称描述
+     * @param UpdateIotsuccessProductKnowledgebaseRequest $request
+     * @return UpdateIotsuccessProductKnowledgebaseResponse
+     */
+    public function updateIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->updateIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K04 更新名称描述
+     * Summary: K04 更新名称描述
+     * @param UpdateIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UpdateIotsuccessProductKnowledgebaseResponse
+     */
+    public function updateIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UpdateIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.update", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删
+     * @param DeleteIotsuccessProductKnowledgebaseRequest $request
+     * @return DeleteIotsuccessProductKnowledgebaseResponse
+     */
+    public function deleteIotsuccessProductKnowledgebase($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotsuccessProductKnowledgebaseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K05 被产品绑定不可删
+     * Summary: K05 被产品绑定不可删
+     * @param DeleteIotsuccessProductKnowledgebaseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotsuccessProductKnowledgebaseResponse
+     */
+    public function deleteIotsuccessProductKnowledgebaseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotsuccessProductKnowledgebaseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链
+     * @param UploadIotsuccessProductKnowledgebaseContentRequest $request
+     * @return UploadIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function uploadIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->uploadIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K06 创建已有知识文档并交给现有解析链
+     * Summary: K06 创建已有知识文档并交给现有解析链
+     * @param UploadIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return UploadIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function uploadIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return UploadIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.upload", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态
+     * @param StatusIotsuccessProductKnowledgebaseContentRequest $request
+     * @return StatusIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function statusIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K07 按kbId/docId查询已有文档解析状态
+     * Summary: K07 按kbId/docId查询已有文档解析状态
+     * @param StatusIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function statusIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理
+     * @param DeleteIotsuccessProductKnowledgebaseContentRequest $request
+     * @return DeleteIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function deleteIotsuccessProductKnowledgebaseContent($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->deleteIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K08 调用已有文档删除与索引清理
+     * Summary: K08 调用已有文档删除与索引清理
+     * @param DeleteIotsuccessProductKnowledgebaseContentRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return DeleteIotsuccessProductKnowledgebaseContentResponse
+     */
+    public function deleteIotsuccessProductKnowledgebaseContentEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return DeleteIotsuccessProductKnowledgebaseContentResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.content.delete", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发
+     * @param SetIotsuccessProductKnowledgebaseTriggerRequest $request
+     * @return SetIotsuccessProductKnowledgebaseTriggerResponse
+     */
+    public function setIotsuccessProductKnowledgebaseTrigger($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->setIotsuccessProductKnowledgebaseTriggerEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K09 关键词、意图、实体组合触发
+     * Summary: K09 关键词、意图、实体组合触发
+     * @param SetIotsuccessProductKnowledgebaseTriggerRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SetIotsuccessProductKnowledgebaseTriggerResponse
+     */
+    public function setIotsuccessProductKnowledgebaseTriggerEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SetIotsuccessProductKnowledgebaseTriggerResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.trigger.set", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试
+     * @param TestIotsuccessProductKnowledgebaseRecallRequest $request
+     * @return TestIotsuccessProductKnowledgebaseRecallResponse
+     */
+    public function testIotsuccessProductKnowledgebaseRecall($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->testIotsuccessProductKnowledgebaseRecallEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: K10 已生效版本召回测试
+     * Summary: K10 已生效版本召回测试
+     * @param TestIotsuccessProductKnowledgebaseRecallRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return TestIotsuccessProductKnowledgebaseRecallResponse
+     */
+    public function testIotsuccessProductKnowledgebaseRecallEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return TestIotsuccessProductKnowledgebaseRecallResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.knowledgebase.recall.test", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余
+     * @param ListIotsuccessProductLicenseRequest $request
+     * @return ListIotsuccessProductLicenseResponse
+     */
+    public function listIotsuccessProductLicense($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductLicenseEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q01 License码、激活状态、设备、消耗与剩余
+     * Summary: Q01 License码、激活状态、设备、消耗与剩余
+     * @param ListIotsuccessProductLicenseRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductLicenseResponse
+     */
+    public function listIotsuccessProductLicenseEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductLicenseResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.license.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间
+     * @param OverviewIotsuccessProductQuotaRequest $request
+     * @return OverviewIotsuccessProductQuotaResponse
+     */
+    public function overviewIotsuccessProductQuota($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->overviewIotsuccessProductQuotaEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q02 额度总览，带单位和数据时间
+     * Summary: Q02 额度总览，带单位和数据时间
+     * @param OverviewIotsuccessProductQuotaRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return OverviewIotsuccessProductQuotaResponse
+     */
+    public function overviewIotsuccessProductQuotaEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return OverviewIotsuccessProductQuotaResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.overview", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * @param ListIotsuccessProductQuotaConsumptionRequest $request
+     * @return ListIotsuccessProductQuotaConsumptionResponse
+     */
+    public function listIotsuccessProductQuotaConsumption($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->listIotsuccessProductQuotaConsumptionEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * Summary: Q03 UTC+8日周月聚合，范围左闭右开不超过366天
+     * @param ListIotsuccessProductQuotaConsumptionRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ListIotsuccessProductQuotaConsumptionResponse
+     */
+    public function listIotsuccessProductQuotaConsumptionEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ListIotsuccessProductQuotaConsumptionResponse::fromMap($this->doRequest("1.0", "blockchain.bot.iotsuccess.product.quota.consumption.list", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusIoaProductDeviceImportRequest $request
+     * @return StatusIoaProductDeviceImportResponse
+     */
+    public function statusIoaProductDeviceImport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->statusIoaProductDeviceImportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: D02 按产品和MAC查询当前注册状态
+     * Summary: D02 按产品和MAC查询当前注册状态
+     * @param StatusIoaProductDeviceImportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return StatusIoaProductDeviceImportResponse
+     */
+    public function statusIoaProductDeviceImportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return StatusIoaProductDeviceImportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.ioa.product.device.import.status", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
      * Description: 创建数据模型
      * Summary: 创建数据模型
      * @param CreateDeviceDatamodelRequest $request
@@ -10458,6 +11735,106 @@ class Client {
     public function queryDatalinkSourceEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryDatalinkSourceResponse::fromMap($this->doRequest("1.0", "blockchain.bot.datalink.source.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询已加白SN
+     * Summary: 查询已加白SN
+     * @param QueryTrustiotSkugrantwhitelistRequest $request
+     * @return QueryTrustiotSkugrantwhitelistResponse
+     */
+    public function queryTrustiotSkugrantwhitelist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTrustiotSkugrantwhitelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询已加白SN
+     * Summary: 查询已加白SN
+     * @param QueryTrustiotSkugrantwhitelistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTrustiotSkugrantwhitelistResponse
+     */
+    public function queryTrustiotSkugrantwhitelistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTrustiotSkugrantwhitelistResponse::fromMap($this->doRequest("1.0", "blockchain.bot.trustiot.skugrantwhitelist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询支付芯已加白SN
+     * Summary: 查询支付芯已加白SN
+     * @param QueryTechintegrationSkugrantwhitelistRequest $request
+     * @return QueryTechintegrationSkugrantwhitelistResponse
+     */
+    public function queryTechintegrationSkugrantwhitelist($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryTechintegrationSkugrantwhitelistEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询支付芯已加白SN
+     * Summary: 查询支付芯已加白SN
+     * @param QueryTechintegrationSkugrantwhitelistRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryTechintegrationSkugrantwhitelistResponse
+     */
+    public function queryTechintegrationSkugrantwhitelistEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryTechintegrationSkugrantwhitelistResponse::fromMap($this->doRequest("1.0", "blockchain.bot.techintegration.skugrantwhitelist.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能问数数据导出提交接口
+     * Summary: 智能问数数据导出提交接口
+     * @param SubmitDatalinkExportRequest $request
+     * @return SubmitDatalinkExportResponse
+     */
+    public function submitDatalinkExport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->submitDatalinkExportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能问数数据导出提交接口
+     * Summary: 智能问数数据导出提交接口
+     * @param SubmitDatalinkExportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return SubmitDatalinkExportResponse
+     */
+    public function submitDatalinkExportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return SubmitDatalinkExportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.datalink.export.submit", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 智能问数数据导出结果接口
+     * Summary: 智能问数数据导出结果接口
+     * @param ResultDatalinkExportRequest $request
+     * @return ResultDatalinkExportResponse
+     */
+    public function resultDatalinkExport($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->resultDatalinkExportEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 智能问数数据导出结果接口
+     * Summary: 智能问数数据导出结果接口
+     * @param ResultDatalinkExportRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return ResultDatalinkExportResponse
+     */
+    public function resultDatalinkExportEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return ResultDatalinkExportResponse::fromMap($this->doRequest("1.0", "blockchain.bot.datalink.export.result", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

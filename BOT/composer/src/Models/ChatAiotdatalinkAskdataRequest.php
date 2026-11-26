@@ -15,6 +15,7 @@ class ChatAiotdatalinkAskdataRequest extends Model {
         'conversationId' => 'conversation_id',
         'userId' => 'user_id',
         'caller' => 'caller',
+        'semanticModelId' => 'semantic_model_id',
     ];
     public function validate() {
         Model::validateRequired('tenantId', $this->tenantId, true);
@@ -47,6 +48,9 @@ class ChatAiotdatalinkAskdataRequest extends Model {
         if (null !== $this->caller) {
             $res['caller'] = $this->caller;
         }
+        if (null !== $this->semanticModelId) {
+            $res['semantic_model_id'] = $this->semanticModelId;
+        }
         return $res;
     }
     /**
@@ -78,6 +82,9 @@ class ChatAiotdatalinkAskdataRequest extends Model {
         }
         if(isset($map['caller'])){
             $model->caller = $map['caller'];
+        }
+        if(isset($map['semantic_model_id'])){
+            $model->semanticModelId = $map['semantic_model_id'];
         }
         return $model;
     }
@@ -127,5 +134,11 @@ class ChatAiotdatalinkAskdataRequest extends Model {
      * @var string
      */
     public $caller;
+
+    // 语义模型ID
+    /**
+     * @var string
+     */
+    public $semanticModelId;
 
 }
