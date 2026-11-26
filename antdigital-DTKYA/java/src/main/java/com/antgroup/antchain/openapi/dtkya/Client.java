@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.35"),
+                    new TeaPair("sdk_version", "1.0.36"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1278,5 +1278,173 @@ public class Client {
     public SearchAntchainDasKyaServiceResponse searchAntchainDasKyaServiceEx(SearchAntchainDasKyaServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.service.search", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new SearchAntchainDasKyaServiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人二要素核验
+     * Summary: 个人二要素核验</p>
+     */
+    public TwoAntchainDasKyaRealpersonResponse twoAntchainDasKyaRealperson(TwoAntchainDasKyaRealpersonRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.twoAntchainDasKyaRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人二要素核验
+     * Summary: 个人二要素核验</p>
+     */
+    public TwoAntchainDasKyaRealpersonResponse twoAntchainDasKyaRealpersonEx(TwoAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.two", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TwoAntchainDasKyaRealpersonResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人三要素核验
+     * Summary: 个人三要素核验</p>
+     */
+    public ThreeAntchainDasKyaRealpersonResponse threeAntchainDasKyaRealperson(ThreeAntchainDasKyaRealpersonRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.threeAntchainDasKyaRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人三要素核验
+     * Summary: 个人三要素核验</p>
+     */
+    public ThreeAntchainDasKyaRealpersonResponse threeAntchainDasKyaRealpersonEx(ThreeAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.three", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ThreeAntchainDasKyaRealpersonResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人四要素核验
+     * Summary: 个人四要素核验</p>
+     */
+    public FourAntchainDasKyaRealpersonResponse fourAntchainDasKyaRealperson(FourAntchainDasKyaRealpersonRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.fourAntchainDasKyaRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 个人四要素核验
+     * Summary: 个人四要素核验</p>
+     */
+    public FourAntchainDasKyaRealpersonResponse fourAntchainDasKyaRealpersonEx(FourAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.four", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FourAntchainDasKyaRealpersonResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业二要素核验
+     * Summary: 企业二要素核验</p>
+     */
+    public TwoAntchainDasKyaRealenterpriseResponse twoAntchainDasKyaRealenterprise(TwoAntchainDasKyaRealenterpriseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.twoAntchainDasKyaRealenterpriseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业二要素核验
+     * Summary: 企业二要素核验</p>
+     */
+    public TwoAntchainDasKyaRealenterpriseResponse twoAntchainDasKyaRealenterpriseEx(TwoAntchainDasKyaRealenterpriseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realenterprise.two", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new TwoAntchainDasKyaRealenterpriseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业三要素核验
+     * Summary: 企业三要素核验</p>
+     */
+    public ThreeAntchainDasKyaRealenterpriseResponse threeAntchainDasKyaRealenterprise(ThreeAntchainDasKyaRealenterpriseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.threeAntchainDasKyaRealenterpriseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业三要素核验
+     * Summary: 企业三要素核验</p>
+     */
+    public ThreeAntchainDasKyaRealenterpriseResponse threeAntchainDasKyaRealenterpriseEx(ThreeAntchainDasKyaRealenterpriseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realenterprise.three", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ThreeAntchainDasKyaRealenterpriseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业四要素核验
+     * Summary: 企业四要素核验</p>
+     */
+    public FourAntchainDasKyaRealenterpriseResponse fourAntchainDasKyaRealenterprise(FourAntchainDasKyaRealenterpriseRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.fourAntchainDasKyaRealenterpriseEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 企业四要素核验
+     * Summary: 企业四要素核验</p>
+     */
+    public FourAntchainDasKyaRealenterpriseResponse fourAntchainDasKyaRealenterpriseEx(FourAntchainDasKyaRealenterpriseRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realenterprise.four", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FourAntchainDasKyaRealenterpriseResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付宝小程序个人刷脸发起
+     * Summary: 支付宝小程序个人刷脸发起</p>
+     */
+    public FacestartAntchainDasKyaRealpersonResponse facestartAntchainDasKyaRealperson(FacestartAntchainDasKyaRealpersonRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.facestartAntchainDasKyaRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付宝小程序个人刷脸发起
+     * Summary: 支付宝小程序个人刷脸发起</p>
+     */
+    public FacestartAntchainDasKyaRealpersonResponse facestartAntchainDasKyaRealpersonEx(FacestartAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.facestart", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FacestartAntchainDasKyaRealpersonResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付宝小程序个人刷脸查询
+     * Summary: 支付宝小程序个人刷脸查询</p>
+     */
+    public FacequeryAntchainDasKyaRealpersonResponse facequeryAntchainDasKyaRealperson(FacequeryAntchainDasKyaRealpersonRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.facequeryAntchainDasKyaRealpersonEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: 支付宝小程序个人刷脸查询
+     * Summary: 支付宝小程序个人刷脸查询</p>
+     */
+    public FacequeryAntchainDasKyaRealpersonResponse facequeryAntchainDasKyaRealpersonEx(FacequeryAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.facequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FacequeryAntchainDasKyaRealpersonResponse());
     }
 }
