@@ -48,15 +48,20 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string ActionType { get; set; }
 
-        // json格式数据updateCycle等字段
-        [NameInMap("notify_info")]
+        // 业务参数json，updateCycle等字段
+        [NameInMap("biz_content")]
         [Validation(Required=false)]
-        public string NotifyInfo { get; set; }
+        public string BizContent { get; set; }
 
         // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
         [NameInMap("accept_no")]
         [Validation(Required=true)]
         public string AcceptNo { get; set; }
+
+        // 本次固定传LMKT_LEADS_TRANSFER
+        [NameInMap("product_code")]
+        [Validation(Required=true)]
+        public string ProductCode { get; set; }
 
     }
 
