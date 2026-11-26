@@ -541,7 +541,7 @@ export class RealtimeMktAudience extends $tea.Model {
 }
 
 // 键值对
-export class NameValuePair extends $tea.Model {
+export class XNameValuePair extends $tea.Model {
   // 键名
   /**
    * @example
@@ -2074,6 +2074,198 @@ export class GetMktExtresulturlResponse extends $tea.Model {
       resultMsg: 'string',
       requestId: 'string',
       fileUrl: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveLeadOpportunitiesRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  // 请求id，每一次请求保持唯一，若重复，则报错；
+  requestId: string;
+  // 产品编码，蚂蚁分配
+  productCode: string;
+  // 业务入参json格式字符串
+  bizContent?: string;
+  // 固定值：PAST_MED（既往症人群评分）业务场景
+  bizType: string;
+  // 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
+  actionType: string;
+  // TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
+  acceptNo?: string;
+  // 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
+  updateCycle: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      requestId: 'request_id',
+      productCode: 'product_code',
+      bizContent: 'biz_content',
+      bizType: 'biz_type',
+      actionType: 'action_type',
+      acceptNo: 'accept_no',
+      updateCycle: 'update_cycle',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      requestId: 'string',
+      productCode: 'string',
+      bizContent: 'string',
+      bizType: 'string',
+      actionType: 'string',
+      acceptNo: 'string',
+      updateCycle: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class ReceiveLeadOpportunitiesResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 请求id
+  requestId?: string;
+  // 受理号：FULL_PUSH 为蚂蚁生成的受理号；TRIGGER_PUSH 为原批次受理号
+  acceptNo?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      requestId: 'request_id',
+      acceptNo: 'accept_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      requestId: 'string',
+      acceptNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PostbackLeadReceiveRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
+  fileId: string;
+  // 请求id，每一次请求保持唯一，若重复，则报错；
+  requestId: string;
+  // 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
+  notifyType: string;
+  // 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
+  actionType: string;
+  // json格式数据updateCycle等字段
+  notifyInfo?: string;
+  // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
+  acceptNo: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
+      fileId: 'file_id',
+      requestId: 'request_id',
+      notifyType: 'notify_type',
+      actionType: 'action_type',
+      notifyInfo: 'notify_info',
+      acceptNo: 'accept_no',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
+      fileId: 'string',
+      requestId: 'string',
+      notifyType: 'string',
+      actionType: 'string',
+      notifyInfo: 'string',
+      acceptNo: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class PostbackLeadReceiveResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 返回结果
+  bizResult?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      bizResult: 'biz_result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      bizResult: 'string',
     };
   }
 
@@ -5627,8 +5819,6 @@ export class ReceiveBusinessOpportunitiesResponse extends $tea.Model {
 export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
-  // 产品方的api归属集群，即productInstanceId
-  apiCluster?: string;
   // 上传文件作用的openapi method
   apiCode: string;
   // 文件标签，多个标签;分割
@@ -5639,27 +5829,29 @@ export class CreateAntcloudGatewayxFileUploadRequest extends $tea.Model {
   fileName?: string;
   // 文件的多媒体类型
   mimeType?: string;
+  // 产品方的api归属集群，即productInstanceId
+  apiCluster?: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
-      apiCluster: 'api_cluster',
       apiCode: 'api_code',
       fileLabel: 'file_label',
       fileMetadata: 'file_metadata',
       fileName: 'file_name',
       mimeType: 'mime_type',
+      apiCluster: 'api_cluster',
     };
   }
 
   static types(): { [key: string]: any } {
     return {
       authToken: 'string',
-      apiCluster: 'string',
       apiCode: 'string',
       fileLabel: 'string',
       fileMetadata: 'string',
       fileName: 'string',
       mimeType: 'string',
+      apiCluster: 'string',
     };
   }
 
@@ -5680,7 +5872,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
   // 32位文件唯一id
   fileId?: string;
   // 放入http请求头里
-  uploadHeaders?: NameValuePair[];
+  uploadHeaders?: XNameValuePair[];
   // 文件上传地址
   uploadUrl?: string;
   static names(): { [key: string]: string } {
@@ -5702,7 +5894,7 @@ export class CreateAntcloudGatewayxFileUploadResponse extends $tea.Model {
       resultMsg: 'string',
       expiredTime: 'string',
       fileId: 'string',
-      uploadHeaders: { 'type': 'array', 'itemType': NameValuePair },
+      uploadHeaders: { 'type': 'array', 'itemType': XNameValuePair },
       uploadUrl: 'string',
     };
   }
@@ -5829,7 +6021,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.12.63",
+          sdk_version: "1.13.1",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
@@ -6211,6 +6403,92 @@ export default class Client {
   async getMktExtresulturlEx(request: GetMktExtresulturlRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<GetMktExtresulturlResponse> {
     Util.validateModel(request);
     return $tea.cast<GetMktExtresulturlResponse>(await this.doRequest("1.0", "antcloud.insurance.mkt.extresulturl.get", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new GetMktExtresulturlResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 商机接收-既往症人群评分-对客
+   * Summary: 商机接收-既往症人群评分-对客
+   */
+  async receiveLeadOpportunities(request: ReceiveLeadOpportunitiesRequest): Promise<ReceiveLeadOpportunitiesResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.receiveLeadOpportunitiesEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 商机接收-既往症人群评分-对客
+   * Summary: 商机接收-既往症人群评分-对客
+   */
+  async receiveLeadOpportunitiesEx(request: ReceiveLeadOpportunitiesRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<ReceiveLeadOpportunitiesResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.insurance.lead.opportunities.receive",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let receiveLeadOpportunitiesResponse = new ReceiveLeadOpportunitiesResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return receiveLeadOpportunitiesResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<ReceiveLeadOpportunitiesResponse>(await this.doRequest("1.0", "antcloud.insurance.lead.opportunities.receive", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new ReceiveLeadOpportunitiesResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 既往症线索供给方评分结果文件回传
+   * Summary: 既往症线索供给方评分结果文件回传
+   */
+  async postbackLeadReceive(request: PostbackLeadReceiveRequest): Promise<PostbackLeadReceiveResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.postbackLeadReceiveEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 既往症线索供给方评分结果文件回传
+   * Summary: 既往症线索供给方评分结果文件回传
+   */
+  async postbackLeadReceiveEx(request: PostbackLeadReceiveRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<PostbackLeadReceiveResponse> {
+    if (!Util.isUnset(request.fileObject)) {
+      let uploadReq = new CreateAntcloudGatewayxFileUploadRequest({
+        authToken: request.authToken,
+        apiCode: "antcloud.insurance.lead.receive.postback",
+        fileName: request.fileObjectName,
+      });
+      let uploadResp = await this.createAntcloudGatewayxFileUploadEx(uploadReq, headers, runtime);
+      if (!AntchainUtil.isSuccess(uploadResp.resultCode, "ok")) {
+        let postbackLeadReceiveResponse = new PostbackLeadReceiveResponse({
+          reqMsgId: uploadResp.reqMsgId,
+          resultCode: uploadResp.resultCode,
+          resultMsg: uploadResp.resultMsg,
+        });
+        return postbackLeadReceiveResponse;
+      }
+
+      let uploadHeaders = AntchainUtil.parseUploadHeaders(uploadResp.uploadHeaders);
+      await AntchainUtil.putObject(request.fileObject, uploadHeaders, uploadResp.uploadUrl);
+      request.fileId = uploadResp.fileId;
+      request.fileObject = null;
+    }
+
+    Util.validateModel(request);
+    return $tea.cast<PostbackLeadReceiveResponse>(await this.doRequest("1.0", "antcloud.insurance.lead.receive.postback", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new PostbackLeadReceiveResponse({}));
   }
 
   /**
