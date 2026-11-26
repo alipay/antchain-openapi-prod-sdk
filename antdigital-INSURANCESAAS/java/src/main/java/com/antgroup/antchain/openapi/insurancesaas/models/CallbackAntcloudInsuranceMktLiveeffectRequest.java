@@ -1,0 +1,287 @@
+// This file is auto-generated, don't edit it. Thanks.
+package com.antgroup.antchain.openapi.insurancesaas.models;
+
+import com.aliyun.tea.*;
+
+public class CallbackAntcloudInsuranceMktLiveeffectRequest extends TeaModel {
+    // OAuth模式下的授权token
+    @NameInMap("auth_token")
+    public String authToken;
+
+    // 请求id，每一次请求保持唯一；若重复，则更新原数据；
+    @NameInMap("request_id")
+    @Validation(required = true)
+    public String requestId;
+
+    // 项目ID，待蚂蚁分配
+    @NameInMap("project_id")
+    @Validation(required = true)
+    public String projectId;
+
+    // 营销模式
+    // LIVE_STREAMING("直播")
+    // ADVERTISING_TRAFFIC（"广告投流")
+    @NameInMap("marketing_mode")
+    @Validation(required = true)
+    public String marketingMode;
+
+    // 加密类型：MD5，32位[小]
+    @NameInMap("encryption_type")
+    public String encryptionType;
+
+    // 加密用户标识
+    @NameInMap("encrypted_user_id")
+    public String encryptedUserId;
+
+    // 事件完成时间（yyyy-MM-dd HH:mm:ss）
+    @NameInMap("event_time")
+    @Validation(required = true)
+    public String eventTime;
+
+    // 节点类型
+    @NameInMap("node_type")
+    @Validation(required = true)
+    public String nodeType;
+
+    // 节点详细信息
+    @NameInMap("node_info")
+    public String nodeInfo;
+
+    // 只需要传输母链
+    @NameInMap("landing_page_url")
+    @Validation(required = true)
+    public String landingPageUrl;
+
+    // N	点击 ID，来自落地页 URL、小程序 path 的埋点
+    @NameInMap("click_id")
+    public String clickId;
+
+    // 产品 ID-固定参数，与商品详情页的 H5 进行绑定
+    // 或者通过埋点数据获取
+    @NameInMap("product_id")
+    public String productId;
+
+    // 用户 IP
+    @NameInMap("ip")
+    public String ip;
+
+    // ua
+    @NameInMap("ua")
+    public String ua;
+
+    // 直播间号 - 动参，每日直播时添加至 URL
+    @NameInMap("live_room_id")
+    public String liveRoomId;
+
+    // 直播间开播时间 - 动参（yyyy-MM-dd HH:mm:ss）
+    @NameInMap("live_start_time")
+    public String liveStartTime;
+
+    // 扩展字段
+    @NameInMap("ext_info")
+    public String extInfo;
+
+    // 直播间开播场次-动参，每日每场直播时添加至 URl（唯一ID 生成规则：直播间 ID 后两位+开播时间的年（后两位）月日时分
+    // 举例：若直播间 ID 为 kxz123456，开播时间为 2026-06-18 17：22，此时唯一 ID 为：562606181722
+    // ）
+    @NameInMap("live_session_id")
+    public String liveSessionId;
+
+    // 媒体渠道
+    @NameInMap("marketing_channel")
+    public String marketingChannel;
+
+    // 256	rta追踪 ID
+    @NameInMap("rta_trace_id")
+    public String rtaTraceId;
+
+    // rta 实验 ID
+    @NameInMap("rta_exp_id")
+    public String rtaExpId;
+
+    // RTB追踪ID
+    @NameInMap("rtb_trace_id")
+    public String rtbTraceId;
+
+    public static CallbackAntcloudInsuranceMktLiveeffectRequest build(java.util.Map<String, ?> map) throws Exception {
+        CallbackAntcloudInsuranceMktLiveeffectRequest self = new CallbackAntcloudInsuranceMktLiveeffectRequest();
+        return TeaModel.build(map, self);
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setAuthToken(String authToken) {
+        this.authToken = authToken;
+        return this;
+    }
+    public String getAuthToken() {
+        return this.authToken;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setRequestId(String requestId) {
+        this.requestId = requestId;
+        return this;
+    }
+    public String getRequestId() {
+        return this.requestId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setProjectId(String projectId) {
+        this.projectId = projectId;
+        return this;
+    }
+    public String getProjectId() {
+        return this.projectId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setMarketingMode(String marketingMode) {
+        this.marketingMode = marketingMode;
+        return this;
+    }
+    public String getMarketingMode() {
+        return this.marketingMode;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setEncryptionType(String encryptionType) {
+        this.encryptionType = encryptionType;
+        return this;
+    }
+    public String getEncryptionType() {
+        return this.encryptionType;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setEncryptedUserId(String encryptedUserId) {
+        this.encryptedUserId = encryptedUserId;
+        return this;
+    }
+    public String getEncryptedUserId() {
+        return this.encryptedUserId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setEventTime(String eventTime) {
+        this.eventTime = eventTime;
+        return this;
+    }
+    public String getEventTime() {
+        return this.eventTime;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setNodeType(String nodeType) {
+        this.nodeType = nodeType;
+        return this;
+    }
+    public String getNodeType() {
+        return this.nodeType;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setNodeInfo(String nodeInfo) {
+        this.nodeInfo = nodeInfo;
+        return this;
+    }
+    public String getNodeInfo() {
+        return this.nodeInfo;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setLandingPageUrl(String landingPageUrl) {
+        this.landingPageUrl = landingPageUrl;
+        return this;
+    }
+    public String getLandingPageUrl() {
+        return this.landingPageUrl;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setClickId(String clickId) {
+        this.clickId = clickId;
+        return this;
+    }
+    public String getClickId() {
+        return this.clickId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setProductId(String productId) {
+        this.productId = productId;
+        return this;
+    }
+    public String getProductId() {
+        return this.productId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setIp(String ip) {
+        this.ip = ip;
+        return this;
+    }
+    public String getIp() {
+        return this.ip;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setUa(String ua) {
+        this.ua = ua;
+        return this;
+    }
+    public String getUa() {
+        return this.ua;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setLiveRoomId(String liveRoomId) {
+        this.liveRoomId = liveRoomId;
+        return this;
+    }
+    public String getLiveRoomId() {
+        return this.liveRoomId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setLiveStartTime(String liveStartTime) {
+        this.liveStartTime = liveStartTime;
+        return this;
+    }
+    public String getLiveStartTime() {
+        return this.liveStartTime;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setExtInfo(String extInfo) {
+        this.extInfo = extInfo;
+        return this;
+    }
+    public String getExtInfo() {
+        return this.extInfo;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setLiveSessionId(String liveSessionId) {
+        this.liveSessionId = liveSessionId;
+        return this;
+    }
+    public String getLiveSessionId() {
+        return this.liveSessionId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setMarketingChannel(String marketingChannel) {
+        this.marketingChannel = marketingChannel;
+        return this;
+    }
+    public String getMarketingChannel() {
+        return this.marketingChannel;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setRtaTraceId(String rtaTraceId) {
+        this.rtaTraceId = rtaTraceId;
+        return this;
+    }
+    public String getRtaTraceId() {
+        return this.rtaTraceId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setRtaExpId(String rtaExpId) {
+        this.rtaExpId = rtaExpId;
+        return this;
+    }
+    public String getRtaExpId() {
+        return this.rtaExpId;
+    }
+
+    public CallbackAntcloudInsuranceMktLiveeffectRequest setRtbTraceId(String rtbTraceId) {
+        this.rtbTraceId = rtbTraceId;
+        return this;
+    }
+    public String getRtbTraceId() {
+        return this.rtbTraceId;
+    }
+
+}
