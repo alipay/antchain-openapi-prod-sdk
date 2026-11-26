@@ -40,14 +40,19 @@ public class PostbackLeadReceiveRequest extends TeaModel {
     @Validation(required = true)
     public String actionType;
 
-    // json格式数据updateCycle等字段
-    @NameInMap("notify_info")
-    public String notifyInfo;
+    // 业务参数json，updateCycle等字段
+    @NameInMap("biz_content")
+    public String bizContent;
 
     // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
     @NameInMap("accept_no")
     @Validation(required = true)
     public String acceptNo;
+
+    // 本次固定传LMKT_LEADS_TRANSFER
+    @NameInMap("product_code")
+    @Validation(required = true)
+    public String productCode;
 
     public static PostbackLeadReceiveRequest build(java.util.Map<String, ?> map) throws Exception {
         PostbackLeadReceiveRequest self = new PostbackLeadReceiveRequest();
@@ -110,12 +115,12 @@ public class PostbackLeadReceiveRequest extends TeaModel {
         return this.actionType;
     }
 
-    public PostbackLeadReceiveRequest setNotifyInfo(String notifyInfo) {
-        this.notifyInfo = notifyInfo;
+    public PostbackLeadReceiveRequest setBizContent(String bizContent) {
+        this.bizContent = bizContent;
         return this;
     }
-    public String getNotifyInfo() {
-        return this.notifyInfo;
+    public String getBizContent() {
+        return this.bizContent;
     }
 
     public PostbackLeadReceiveRequest setAcceptNo(String acceptNo) {
@@ -124,6 +129,14 @@ public class PostbackLeadReceiveRequest extends TeaModel {
     }
     public String getAcceptNo() {
         return this.acceptNo;
+    }
+
+    public PostbackLeadReceiveRequest setProductCode(String productCode) {
+        this.productCode = productCode;
+        return this;
+    }
+    public String getProductCode() {
+        return this.productCode;
     }
 
 }
