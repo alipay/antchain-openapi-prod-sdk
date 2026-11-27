@@ -3098,9 +3098,6 @@ class ReceiveLeadOpportunitiesRequest(TeaModel):
         product_code: str = None,
         biz_content: str = None,
         biz_type: str = None,
-        action_type: str = None,
-        accept_no: str = None,
-        update_cycle: str = None,
     ):
         # OAuth模式下的授权token
         self.auth_token = auth_token
@@ -3114,24 +3111,16 @@ class ReceiveLeadOpportunitiesRequest(TeaModel):
         self.request_id = request_id
         # 产品编码，蚂蚁分配
         self.product_code = product_code
-        # 业务入参json格式字符串
+        # 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
         self.biz_content = biz_content
         # 固定值：PAST_MED（既往症人群评分）业务场景
         self.biz_type = biz_type
-        # 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
-        self.action_type = action_type
-        # TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
-        self.accept_no = accept_no
-        # 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-        self.update_cycle = update_cycle
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.product_code, 'product_code')
         self.validate_required(self.biz_type, 'biz_type')
-        self.validate_required(self.action_type, 'action_type')
-        self.validate_required(self.update_cycle, 'update_cycle')
 
     def to_map(self):
         _map = super().to_map()
@@ -3155,12 +3144,6 @@ class ReceiveLeadOpportunitiesRequest(TeaModel):
             result['biz_content'] = self.biz_content
         if self.biz_type is not None:
             result['biz_type'] = self.biz_type
-        if self.action_type is not None:
-            result['action_type'] = self.action_type
-        if self.accept_no is not None:
-            result['accept_no'] = self.accept_no
-        if self.update_cycle is not None:
-            result['update_cycle'] = self.update_cycle
         return result
 
     def from_map(self, m: dict = None):
@@ -3181,12 +3164,6 @@ class ReceiveLeadOpportunitiesRequest(TeaModel):
             self.biz_content = m.get('biz_content')
         if m.get('biz_type') is not None:
             self.biz_type = m.get('biz_type')
-        if m.get('action_type') is not None:
-            self.action_type = m.get('action_type')
-        if m.get('accept_no') is not None:
-            self.accept_no = m.get('accept_no')
-        if m.get('update_cycle') is not None:
-            self.update_cycle = m.get('update_cycle')
         return self
 
 
@@ -3254,10 +3231,7 @@ class PostbackLeadReceiveRequest(TeaModel):
         file_object_name: str = None,
         file_id: str = None,
         request_id: str = None,
-        notify_type: str = None,
-        action_type: str = None,
         biz_content: str = None,
-        accept_no: str = None,
         product_code: str = None,
     ):
         # OAuth模式下的授权token
@@ -3270,23 +3244,14 @@ class PostbackLeadReceiveRequest(TeaModel):
         self.file_id = file_id
         # 请求id，每一次请求保持唯一，若重复，则报错；
         self.request_id = request_id
-        # 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
-        self.notify_type = notify_type
-        # 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
-        self.action_type = action_type
         # 业务参数json，updateCycle等字段
         self.biz_content = biz_content
-        # 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
-        self.accept_no = accept_no
         # 本次固定传LMKT_LEADS_TRANSFER
         self.product_code = product_code
 
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.request_id, 'request_id')
-        self.validate_required(self.notify_type, 'notify_type')
-        self.validate_required(self.action_type, 'action_type')
-        self.validate_required(self.accept_no, 'accept_no')
         self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
@@ -3305,14 +3270,8 @@ class PostbackLeadReceiveRequest(TeaModel):
             result['file_id'] = self.file_id
         if self.request_id is not None:
             result['request_id'] = self.request_id
-        if self.notify_type is not None:
-            result['notify_type'] = self.notify_type
-        if self.action_type is not None:
-            result['action_type'] = self.action_type
         if self.biz_content is not None:
             result['biz_content'] = self.biz_content
-        if self.accept_no is not None:
-            result['accept_no'] = self.accept_no
         if self.product_code is not None:
             result['product_code'] = self.product_code
         return result
@@ -3329,14 +3288,8 @@ class PostbackLeadReceiveRequest(TeaModel):
             self.file_id = m.get('file_id')
         if m.get('request_id') is not None:
             self.request_id = m.get('request_id')
-        if m.get('notify_type') is not None:
-            self.notify_type = m.get('notify_type')
-        if m.get('action_type') is not None:
-            self.action_type = m.get('action_type')
         if m.get('biz_content') is not None:
             self.biz_content = m.get('biz_content')
-        if m.get('accept_no') is not None:
-            self.accept_no = m.get('accept_no')
         if m.get('product_code') is not None:
             self.product_code = m.get('product_code')
         return self
