@@ -61641,6 +61641,8 @@ type ExecDatalinkSourceResponse struct {
 	Columns []*string `json:"columns,omitempty" xml:"columns,omitempty" type:"Repeated"`
 	// 返回数据列表
 	Rows *string `json:"rows,omitempty" xml:"rows,omitempty"`
+	// 是否截断
+	Truncated *bool `json:"truncated,omitempty" xml:"truncated,omitempty"`
 }
 
 func (s ExecDatalinkSourceResponse) String() string {
@@ -61673,6 +61675,11 @@ func (s *ExecDatalinkSourceResponse) SetColumns(v []*string) *ExecDatalinkSource
 
 func (s *ExecDatalinkSourceResponse) SetRows(v string) *ExecDatalinkSourceResponse {
 	s.Rows = &v
+	return s
+}
+
+func (s *ExecDatalinkSourceResponse) SetTruncated(v bool) *ExecDatalinkSourceResponse {
+	s.Truncated = &v
 	return s
 }
 
@@ -64007,7 +64014,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.22.22"),
+				"sdk_version":      tea.String("1.22.23"),
 				"_prod_code":       tea.String("BOT"),
 				"_prod_channel":    tea.String("undefined"),
 			}
