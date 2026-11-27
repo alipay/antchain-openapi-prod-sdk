@@ -3120,6 +3120,7 @@ class ReceiveLeadOpportunitiesRequest(TeaModel):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.request_id, 'request_id')
         self.validate_required(self.product_code, 'product_code')
+        self.validate_required(self.biz_content, 'biz_content')
         self.validate_required(self.biz_type, 'biz_type')
 
     def to_map(self):
@@ -3252,6 +3253,7 @@ class PostbackLeadReceiveRequest(TeaModel):
     def validate(self):
         self.validate_required(self.file_id, 'file_id')
         self.validate_required(self.request_id, 'request_id')
+        self.validate_required(self.biz_content, 'biz_content')
         self.validate_required(self.product_code, 'product_code')
 
     def to_map(self):
