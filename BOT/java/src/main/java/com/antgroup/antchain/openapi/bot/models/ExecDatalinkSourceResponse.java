@@ -24,6 +24,10 @@ public class ExecDatalinkSourceResponse extends TeaModel {
     @NameInMap("rows")
     public String rows;
 
+    // 是否截断
+    @NameInMap("truncated")
+    public Boolean truncated;
+
     public static ExecDatalinkSourceResponse build(java.util.Map<String, ?> map) throws Exception {
         ExecDatalinkSourceResponse self = new ExecDatalinkSourceResponse();
         return TeaModel.build(map, self);
@@ -67,6 +71,14 @@ public class ExecDatalinkSourceResponse extends TeaModel {
     }
     public String getRows() {
         return this.rows;
+    }
+
+    public ExecDatalinkSourceResponse setTruncated(Boolean truncated) {
+        this.truncated = truncated;
+        return this;
+    }
+    public Boolean getTruncated() {
+        return this.truncated;
     }
 
 }
