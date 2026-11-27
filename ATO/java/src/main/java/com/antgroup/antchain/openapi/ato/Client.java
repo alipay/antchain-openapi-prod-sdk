@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.20.39"),
+                    new TeaPair("sdk_version", "1.20.40"),
                     new TeaPair("_prod_code", "ATO"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1101,6 +1101,174 @@ public class Client {
     public QueryRentalPayResponse queryRentalPayEx(QueryRentalPayRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.rental.pay.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryRentalPayResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝静默授权链接获取
+     * Summary: e签宝静默授权链接获取</p>
+     */
+    public CreateSilentauthAuthResponse createSilentauthAuth(CreateSilentauthAuthRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.createSilentauthAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝静默授权链接获取
+     * Summary: e签宝静默授权链接获取</p>
+     */
+    public CreateSilentauthAuthResponse createSilentauthAuthEx(CreateSilentauthAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.auth.create", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CreateSilentauthAuthResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝静默授权状态查询
+     * Summary: e签宝静默授权状态查询</p>
+     */
+    public QuerySilentauthAuthResponse querySilentauthAuth(QuerySilentauthAuthRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySilentauthAuthEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝静默授权状态查询
+     * Summary: e签宝静默授权状态查询</p>
+     */
+    public QuerySilentauthAuthResponse querySilentauthAuthEx(QuerySilentauthAuthRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.auth.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySilentauthAuthResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝经办人实名认证发起
+     * Summary: e签宝经办人实名认证发起</p>
+     */
+    public InitSilentauthRealnameResponse initSilentauthRealname(InitSilentauthRealnameRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.initSilentauthRealnameEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝经办人实名认证发起
+     * Summary: e签宝经办人实名认证发起</p>
+     */
+    public InitSilentauthRealnameResponse initSilentauthRealnameEx(InitSilentauthRealnameRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.realname.init", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new InitSilentauthRealnameResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝经办人实名认证状态查询
+     * Summary: e签宝经办人实名认证状态查询</p>
+     */
+    public QuerySilentauthRealnameResponse querySilentauthRealname(QuerySilentauthRealnameRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySilentauthRealnameEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝经办人实名认证状态查询
+     * Summary: e签宝经办人实名认证状态查询</p>
+     */
+    public QuerySilentauthRealnameResponse querySilentauthRealnameEx(QuerySilentauthRealnameRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.realname.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySilentauthRealnameResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝盖章文件上传地址获取
+     * Summary: e签宝盖章文件上传地址获取</p>
+     */
+    public UploadSilentauthFileResponse uploadSilentauthFile(UploadSilentauthFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.uploadSilentauthFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝盖章文件上传地址获取
+     * Summary: e签宝盖章文件上传地址获取</p>
+     */
+    public UploadSilentauthFileResponse uploadSilentauthFileEx(UploadSilentauthFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.file.upload", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new UploadSilentauthFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝线下盖章授权书提交
+     * Summary: e签宝线下盖章授权书提交</p>
+     */
+    public CommitSilentauthFileResponse commitSilentauthFile(CommitSilentauthFileRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.commitSilentauthFileEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝线下盖章授权书提交
+     * Summary: e签宝线下盖章授权书提交</p>
+     */
+    public CommitSilentauthFileResponse commitSilentauthFileEx(CommitSilentauthFileRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.file.commit", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new CommitSilentauthFileResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝CA数字证书有效期查询
+     * Summary: e签宝CA数字证书有效期查询</p>
+     */
+    public QuerySilentauthCaResponse querySilentauthCa(QuerySilentauthCaRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.querySilentauthCaEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝CA数字证书有效期查询
+     * Summary: e签宝CA数字证书有效期查询</p>
+     */
+    public QuerySilentauthCaResponse querySilentauthCaEx(QuerySilentauthCaRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.ca.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QuerySilentauthCaResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝授权结果通知（TWC推送ATO）
+     * Summary: e签宝授权结果通知（TWC推送ATO）</p>
+     */
+    public NotifySilentauthResultResponse notifySilentauthResult(NotifySilentauthResultRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.notifySilentauthResultEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: e签宝授权结果通知（TWC推送ATO）
+     * Summary: e签宝授权结果通知（TWC推送ATO）</p>
+     */
+    public NotifySilentauthResultResponse notifySilentauthResultEx(NotifySilentauthResultRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.ato.silentauth.result.notify", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new NotifySilentauthResultResponse());
     }
 
     /**
