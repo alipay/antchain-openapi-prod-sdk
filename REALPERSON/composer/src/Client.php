@@ -182,6 +182,8 @@ use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseproxRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereuseproxResponse;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereusexRequest;
 use AntChain\REALPERSON\Models\QueryThreemetaPhonereusexResponse;
+use AntChain\REALPERSON\Models\QueryCredentialVpRequest;
+use AntChain\REALPERSON\Models\QueryCredentialVpResponse;
 use AntChain\REALPERSON\Models\InitServerWillauthRequest;
 use AntChain\REALPERSON\Models\InitServerWillauthResponse;
 use AntChain\REALPERSON\Models\QueryServerWillauthRequest;
@@ -335,7 +337,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.23.6",
+                    "sdk_version" => "1.23.7",
                     "_prod_code" => "REALPERSON",
                     "_prod_channel" => "undefined"
                 ];
@@ -2658,6 +2660,31 @@ class Client {
     public function queryThreemetaPhonereusexEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryThreemetaPhonereusexResponse::fromMap($this->doRequest("1.0", "di.realperson.threemeta.phonereusex.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 分布式身份凭证查询VP接口
+     * Summary: 分布式身份凭证查询VP接口
+     * @param QueryCredentialVpRequest $request
+     * @return QueryCredentialVpResponse
+     */
+    public function queryCredentialVp($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryCredentialVpEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 分布式身份凭证查询VP接口
+     * Summary: 分布式身份凭证查询VP接口
+     * @param QueryCredentialVpRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryCredentialVpResponse
+     */
+    public function queryCredentialVpEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryCredentialVpResponse::fromMap($this->doRequest("1.0", "di.realperson.credential.vp.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 
     /**

@@ -4,6 +4,7 @@
 namespace AntChain\REALPERSON\Models;
 
 use AlibabaCloud\Tea\Model;
+use GuzzleHttp\Psr7\Stream;
 
 class InitServerWillauthRequest extends Model {
     protected $_name = [
@@ -35,6 +36,12 @@ class InitServerWillauthRequest extends Model {
         }
         if (null !== $this->productInstanceId) {
             $res['product_instance_id'] = $this->productInstanceId;
+        }
+        if (null !== $this->fileObject) {
+            $res['fileObject'] = $this->fileObject;
+        }
+        if (null !== $this->fileObjectName) {
+            $res['fileObjectName'] = $this->fileObjectName;
         }
         if (null !== $this->fileId) {
             $res['file_id'] = $this->fileId;
@@ -92,6 +99,12 @@ class InitServerWillauthRequest extends Model {
         if(isset($map['product_instance_id'])){
             $model->productInstanceId = $map['product_instance_id'];
         }
+        if(isset($map['fileObject'])){
+            $model->fileObject = $map['fileObject'];
+        }
+        if(isset($map['fileObjectName'])){
+            $model->fileObjectName = $map['fileObjectName'];
+        }
         if(isset($map['file_id'])){
             $model->fileId = $map['file_id'];
         }
@@ -148,6 +161,18 @@ class InitServerWillauthRequest extends Model {
     public $productInstanceId;
 
     // string
+    /**
+     * @description 待上传文件
+     * @var Stream
+     */
+    public $fileObject;
+
+    /**
+     * @description 待上传文件名
+     * @var string
+     */
+    public $fileObjectName;
+
     /**
      * @var string
      */
