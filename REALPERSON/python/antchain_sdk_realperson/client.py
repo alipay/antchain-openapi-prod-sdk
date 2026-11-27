@@ -135,7 +135,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.6',
+                    'sdk_version': '1.23.7',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -239,7 +239,7 @@ class Client:
                     'req_msg_id': AntchainUtils.get_nonce(),
                     'access_key': self._access_key_id,
                     'base_sdk_version': 'TeaSDK-2.0',
-                    'sdk_version': '1.23.6',
+                    'sdk_version': '1.23.7',
                     '_prod_code': 'REALPERSON',
                     '_prod_channel': 'undefined'
                 }
@@ -5301,6 +5301,62 @@ class Client:
         return TeaCore.from_map(
             realperson_models.QueryThreemetaPhonereusexResponse(),
             await self.do_request_async('1.0', 'di.realperson.threemeta.phonereusex.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    def query_credential_vp(
+        self,
+        request: realperson_models.QueryCredentialVpRequest,
+    ) -> realperson_models.QueryCredentialVpResponse:
+        """
+        Description: 分布式身份凭证查询VP接口
+        Summary: 分布式身份凭证查询VP接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_credential_vp_ex(request, headers, runtime)
+
+    async def query_credential_vp_async(
+        self,
+        request: realperson_models.QueryCredentialVpRequest,
+    ) -> realperson_models.QueryCredentialVpResponse:
+        """
+        Description: 分布式身份凭证查询VP接口
+        Summary: 分布式身份凭证查询VP接口
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return await self.query_credential_vp_ex_async(request, headers, runtime)
+
+    def query_credential_vp_ex(
+        self,
+        request: realperson_models.QueryCredentialVpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCredentialVpResponse:
+        """
+        Description: 分布式身份凭证查询VP接口
+        Summary: 分布式身份凭证查询VP接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCredentialVpResponse(),
+            self.do_request('1.0', 'di.realperson.credential.vp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
+        )
+
+    async def query_credential_vp_ex_async(
+        self,
+        request: realperson_models.QueryCredentialVpRequest,
+        headers: Dict[str, str],
+        runtime: util_models.RuntimeOptions,
+    ) -> realperson_models.QueryCredentialVpResponse:
+        """
+        Description: 分布式身份凭证查询VP接口
+        Summary: 分布式身份凭证查询VP接口
+        """
+        UtilClient.validate_model(request)
+        return TeaCore.from_map(
+            realperson_models.QueryCredentialVpResponse(),
+            await self.do_request_async('1.0', 'di.realperson.credential.vp.query', 'HTTPS', 'POST', f'/gateway.do', TeaCore.to_map(request), headers, runtime)
         )
 
     def init_server_willauth(
