@@ -2712,7 +2712,7 @@ type ReceiveLeadOpportunitiesRequest struct {
 	// 产品编码，蚂蚁分配
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 	// 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
 	// 固定值：PAST_MED（既往症人群评分）业务场景
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
 }
@@ -2823,7 +2823,7 @@ type PostbackLeadReceiveRequest struct {
 	// 请求id，每一次请求保持唯一，若重复，则报错；
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 业务参数json，updateCycle等字段
-	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
+	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty" require:"true"`
 	// 本次固定传LMKT_LEADS_TRANSFER
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 }
@@ -7930,7 +7930,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.3"),
+				"sdk_version":      tea.String("1.13.4"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
