@@ -71368,6 +71368,7 @@ class ExecDatalinkSourceResponse(TeaModel):
         result_msg: str = None,
         columns: List[str] = None,
         rows: str = None,
+        truncated: bool = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -71379,6 +71380,8 @@ class ExecDatalinkSourceResponse(TeaModel):
         self.columns = columns
         # 返回数据列表
         self.rows = rows
+        # 是否截断
+        self.truncated = truncated
 
     def validate(self):
         pass
@@ -71399,6 +71402,8 @@ class ExecDatalinkSourceResponse(TeaModel):
             result['columns'] = self.columns
         if self.rows is not None:
             result['rows'] = self.rows
+        if self.truncated is not None:
+            result['truncated'] = self.truncated
         return result
 
     def from_map(self, m: dict = None):
@@ -71413,6 +71418,8 @@ class ExecDatalinkSourceResponse(TeaModel):
             self.columns = m.get('columns')
         if m.get('rows') is not None:
             self.rows = m.get('rows')
+        if m.get('truncated') is not None:
+            self.truncated = m.get('truncated')
         return self
 
 
