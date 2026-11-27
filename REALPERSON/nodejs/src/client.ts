@@ -10071,11 +10071,88 @@ export class QueryThreemetaPhonereusexResponse extends $tea.Model {
   }
 }
 
+export class QueryCredentialVpRequest extends $tea.Model {
+  // OAuth模式下的授权token
+  authToken?: string;
+  productInstanceId?: string;
+  // 签名参数
+  queryString: string;
+  // 业务参数
+  bodyJson: string;
+  // 场景码
+  sceneCode?: string;
+  static names(): { [key: string]: string } {
+    return {
+      authToken: 'auth_token',
+      productInstanceId: 'product_instance_id',
+      queryString: 'query_string',
+      bodyJson: 'body_json',
+      sceneCode: 'scene_code',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      authToken: 'string',
+      productInstanceId: 'string',
+      queryString: 'string',
+      bodyJson: 'string',
+      sceneCode: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
+export class QueryCredentialVpResponse extends $tea.Model {
+  // 请求唯一ID，用于链路跟踪和问题排查
+  reqMsgId?: string;
+  // 结果码，一般OK表示调用成功
+  resultCode?: string;
+  // 异常信息的文本描述
+  resultMsg?: string;
+  // 查询结果详情
+  result?: string;
+  static names(): { [key: string]: string } {
+    return {
+      reqMsgId: 'req_msg_id',
+      resultCode: 'result_code',
+      resultMsg: 'result_msg',
+      result: 'result',
+    };
+  }
+
+  static types(): { [key: string]: any } {
+    return {
+      reqMsgId: 'string',
+      resultCode: 'string',
+      resultMsg: 'string',
+      result: 'string',
+    };
+  }
+
+  constructor(map?: { [key: string]: any }) {
+    super(map);
+  }
+}
+
 export class InitServerWillauthRequest extends $tea.Model {
   // OAuth模式下的授权token
   authToken?: string;
   productInstanceId?: string;
   // string
+  /**
+   * @remarks
+   * 待上传文件
+   */
+  fileObject?: Readable;
+  /**
+   * @remarks
+   * 待上传文件名
+   */
+  fileObjectName?: string;
   fileId?: string;
   // 场景id
   sceneId: string;
@@ -10107,6 +10184,8 @@ export class InitServerWillauthRequest extends $tea.Model {
     return {
       authToken: 'auth_token',
       productInstanceId: 'product_instance_id',
+      fileObject: 'fileObject',
+      fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       sceneId: 'scene_id',
       certName: 'cert_name',
@@ -10128,6 +10207,8 @@ export class InitServerWillauthRequest extends $tea.Model {
     return {
       authToken: 'string',
       productInstanceId: 'string',
+      fileObject: 'Readable',
+      fileObjectName: 'string',
       fileId: 'string',
       sceneId: 'string',
       certName: 'string',
@@ -11065,7 +11146,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.23.6",
+          sdk_version: "1.23.7",
           _prod_code: "REALPERSON",
           _prod_channel: "undefined",
         };
@@ -13073,6 +13154,27 @@ export default class Client {
   async queryThreemetaPhonereusexEx(request: QueryThreemetaPhonereusexRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryThreemetaPhonereusexResponse> {
     Util.validateModel(request);
     return $tea.cast<QueryThreemetaPhonereusexResponse>(await this.doRequest("1.0", "di.realperson.threemeta.phonereusex.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryThreemetaPhonereusexResponse({}));
+  }
+
+  /**
+   * @remarks
+   * Description: 分布式身份凭证查询VP接口
+   * Summary: 分布式身份凭证查询VP接口
+   */
+  async queryCredentialVp(request: QueryCredentialVpRequest): Promise<QueryCredentialVpResponse> {
+    let runtime = new $Util.RuntimeOptions({ });
+    let headers : {[key: string ]: string} = { };
+    return await this.queryCredentialVpEx(request, headers, runtime);
+  }
+
+  /**
+   * @remarks
+   * Description: 分布式身份凭证查询VP接口
+   * Summary: 分布式身份凭证查询VP接口
+   */
+  async queryCredentialVpEx(request: QueryCredentialVpRequest, headers: {[key: string ]: string}, runtime: $Util.RuntimeOptions): Promise<QueryCredentialVpResponse> {
+    Util.validateModel(request);
+    return $tea.cast<QueryCredentialVpResponse>(await this.doRequest("1.0", "di.realperson.credential.vp.query", "HTTPS", "POST", `/gateway.do`, $tea.toMap(request), headers, runtime), new QueryCredentialVpResponse({}));
   }
 
   /**
