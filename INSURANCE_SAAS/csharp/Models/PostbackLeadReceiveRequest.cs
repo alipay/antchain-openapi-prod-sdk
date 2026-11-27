@@ -38,25 +38,10 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
         [Validation(Required=true)]
         public string RequestId { get; set; }
 
-        // 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
-        [NameInMap("notify_type")]
-        [Validation(Required=true)]
-        public string NotifyType { get; set; }
-
-        // 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
-        [NameInMap("action_type")]
-        [Validation(Required=true)]
-        public string ActionType { get; set; }
-
         // 业务参数json，updateCycle等字段
         [NameInMap("biz_content")]
         [Validation(Required=false)]
         public string BizContent { get; set; }
-
-        // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
-        [NameInMap("accept_no")]
-        [Validation(Required=true)]
-        public string AcceptNo { get; set; }
 
         // 本次固定传LMKT_LEADS_TRANSFER
         [NameInMap("product_code")]
