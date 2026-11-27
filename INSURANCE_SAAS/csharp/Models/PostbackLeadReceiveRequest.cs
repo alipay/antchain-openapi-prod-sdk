@@ -40,7 +40,7 @@ namespace AntChain.SDK.INSURANCE_SAAS.Models
 
         // 业务参数json，updateCycle等字段
         [NameInMap("biz_content")]
-        [Validation(Required=false)]
+        [Validation(Required=true)]
         public string BizContent { get; set; }
 
         // 本次固定传LMKT_LEADS_TRANSFER
