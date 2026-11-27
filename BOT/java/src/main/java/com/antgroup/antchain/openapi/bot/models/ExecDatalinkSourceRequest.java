@@ -26,6 +26,11 @@ public class ExecDatalinkSourceRequest extends TeaModel {
     @Validation(required = true)
     public String sql;
 
+    // 返回最大数据量
+    @NameInMap("row_limit")
+    @Validation(required = true)
+    public Long rowLimit;
+
     public static ExecDatalinkSourceRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecDatalinkSourceRequest self = new ExecDatalinkSourceRequest();
         return TeaModel.build(map, self);
@@ -69,6 +74,14 @@ public class ExecDatalinkSourceRequest extends TeaModel {
     }
     public String getSql() {
         return this.sql;
+    }
+
+    public ExecDatalinkSourceRequest setRowLimit(Long rowLimit) {
+        this.rowLimit = rowLimit;
+        return this;
+    }
+    public Long getRowLimit() {
+        return this.rowLimit;
     }
 
 }
