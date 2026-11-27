@@ -25,7 +25,7 @@ public class ExecAntcloudMarketingagentVideoStoryboardRequest extends TeaModel {
     @NameInMap("resolution")
     public Long resolution;
 
-    // 原视频+替换图片
+    // 替换图片（可空）
     @NameInMap("media_refs")
     @Validation(required = true)
     public java.util.List<CreativeVideoAssetRef> mediaRefs;
@@ -33,6 +33,11 @@ public class ExecAntcloudMarketingagentVideoStoryboardRequest extends TeaModel {
     // 会话ID
     @NameInMap("session_id")
     public String sessionId;
+
+    // 原视频
+    @NameInMap("origin_video")
+    @Validation(required = true)
+    public CreativeVideoAssetRef originVideo;
 
     public static ExecAntcloudMarketingagentVideoStoryboardRequest build(java.util.Map<String, ?> map) throws Exception {
         ExecAntcloudMarketingagentVideoStoryboardRequest self = new ExecAntcloudMarketingagentVideoStoryboardRequest();
@@ -93,6 +98,14 @@ public class ExecAntcloudMarketingagentVideoStoryboardRequest extends TeaModel {
     }
     public String getSessionId() {
         return this.sessionId;
+    }
+
+    public ExecAntcloudMarketingagentVideoStoryboardRequest setOriginVideo(CreativeVideoAssetRef originVideo) {
+        this.originVideo = originVideo;
+        return this;
+    }
+    public CreativeVideoAssetRef getOriginVideo() {
+        return this.originVideo;
     }
 
 }
