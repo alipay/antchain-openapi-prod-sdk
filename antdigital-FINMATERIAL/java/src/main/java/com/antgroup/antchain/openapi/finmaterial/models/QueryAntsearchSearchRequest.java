@@ -16,7 +16,7 @@ public class QueryAntsearchSearchRequest extends TeaModel {
     @Validation(required = true)
     public String query;
 
-    // AI 上下文档位，当前仅支持 standard，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
+    // AI 上下文档位，当前支持 standard、pro，传其他值返回参数错误。对于旧值auto有兼容，会自动映射到standard
     @NameInMap("mode")
     public String mode;
 
@@ -59,6 +59,10 @@ public class QueryAntsearchSearchRequest extends TeaModel {
     // 是否返回已有摘要；false 时省略 Summary。仅控制输出，不触发在线摘要生成。
     @NameInMap("include_summary")
     public Boolean includeSummary;
+
+    // 用于选择 Pro 内的链路。省略或传 "" 按 auto 处理，auto 当前选择 Fast，fast 显式选择 Fast。仅接受这两个小写值或空字符串。
+    @NameInMap("agent_mode")
+    public String agentMode;
 
     public static QueryAntsearchSearchRequest build(java.util.Map<String, ?> map) throws Exception {
         QueryAntsearchSearchRequest self = new QueryAntsearchSearchRequest();
@@ -175,6 +179,14 @@ public class QueryAntsearchSearchRequest extends TeaModel {
     }
     public Boolean getIncludeSummary() {
         return this.includeSummary;
+    }
+
+    public QueryAntsearchSearchRequest setAgentMode(String agentMode) {
+        this.agentMode = agentMode;
+        return this;
+    }
+    public String getAgentMode() {
+        return this.agentMode;
     }
 
 }
