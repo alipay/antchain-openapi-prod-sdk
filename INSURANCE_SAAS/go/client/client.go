@@ -2711,16 +2711,10 @@ type ReceiveLeadOpportunitiesRequest struct {
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
 	// 产品编码，蚂蚁分配
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
-	// 业务入参json格式字符串
+	// 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
 	// 固定值：PAST_MED（既往症人群评分）业务场景
 	BizType *string `json:"biz_type,omitempty" xml:"biz_type,omitempty" require:"true"`
-	// 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
-	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
-	// TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
-	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty"`
-	// 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-	UpdateCycle *string `json:"update_cycle,omitempty" xml:"update_cycle,omitempty" require:"true"`
 }
 
 func (s ReceiveLeadOpportunitiesRequest) String() string {
@@ -2768,21 +2762,6 @@ func (s *ReceiveLeadOpportunitiesRequest) SetBizContent(v string) *ReceiveLeadOp
 
 func (s *ReceiveLeadOpportunitiesRequest) SetBizType(v string) *ReceiveLeadOpportunitiesRequest {
 	s.BizType = &v
-	return s
-}
-
-func (s *ReceiveLeadOpportunitiesRequest) SetActionType(v string) *ReceiveLeadOpportunitiesRequest {
-	s.ActionType = &v
-	return s
-}
-
-func (s *ReceiveLeadOpportunitiesRequest) SetAcceptNo(v string) *ReceiveLeadOpportunitiesRequest {
-	s.AcceptNo = &v
-	return s
-}
-
-func (s *ReceiveLeadOpportunitiesRequest) SetUpdateCycle(v string) *ReceiveLeadOpportunitiesRequest {
-	s.UpdateCycle = &v
 	return s
 }
 
@@ -2843,14 +2822,8 @@ type PostbackLeadReceiveRequest struct {
 	FileId         *string `json:"file_id,omitempty" xml:"file_id,omitempty" require:"true"`
 	// 请求id，每一次请求保持唯一，若重复，则报错；
 	RequestId *string `json:"request_id,omitempty" xml:"request_id,omitempty" require:"true"`
-	// 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
-	NotifyType *string `json:"notify_type,omitempty" xml:"notify_type,omitempty" require:"true"`
-	// 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
-	ActionType *string `json:"action_type,omitempty" xml:"action_type,omitempty" require:"true"`
 	// 业务参数json，updateCycle等字段
 	BizContent *string `json:"biz_content,omitempty" xml:"biz_content,omitempty"`
-	// 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
-	AcceptNo *string `json:"accept_no,omitempty" xml:"accept_no,omitempty" require:"true"`
 	// 本次固定传LMKT_LEADS_TRANSFER
 	ProductCode *string `json:"product_code,omitempty" xml:"product_code,omitempty" require:"true"`
 }
@@ -2888,23 +2861,8 @@ func (s *PostbackLeadReceiveRequest) SetRequestId(v string) *PostbackLeadReceive
 	return s
 }
 
-func (s *PostbackLeadReceiveRequest) SetNotifyType(v string) *PostbackLeadReceiveRequest {
-	s.NotifyType = &v
-	return s
-}
-
-func (s *PostbackLeadReceiveRequest) SetActionType(v string) *PostbackLeadReceiveRequest {
-	s.ActionType = &v
-	return s
-}
-
 func (s *PostbackLeadReceiveRequest) SetBizContent(v string) *PostbackLeadReceiveRequest {
 	s.BizContent = &v
-	return s
-}
-
-func (s *PostbackLeadReceiveRequest) SetAcceptNo(v string) *PostbackLeadReceiveRequest {
-	s.AcceptNo = &v
 	return s
 }
 
@@ -7972,7 +7930,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.13.2"),
+				"sdk_version":      tea.String("1.13.3"),
 				"_prod_code":       tea.String("INSURANCE_SAAS"),
 				"_prod_channel":    tea.String("undefined"),
 			}
