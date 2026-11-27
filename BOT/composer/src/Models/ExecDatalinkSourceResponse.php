@@ -12,6 +12,7 @@ class ExecDatalinkSourceResponse extends Model {
         'resultMsg' => 'result_msg',
         'columns' => 'columns',
         'rows' => 'rows',
+        'truncated' => 'truncated',
     ];
     public function validate() {}
     public function toMap() {
@@ -30,6 +31,9 @@ class ExecDatalinkSourceResponse extends Model {
         }
         if (null !== $this->rows) {
             $res['rows'] = $this->rows;
+        }
+        if (null !== $this->truncated) {
+            $res['truncated'] = $this->truncated;
         }
         return $res;
     }
@@ -55,6 +59,9 @@ class ExecDatalinkSourceResponse extends Model {
         }
         if(isset($map['rows'])){
             $model->rows = $map['rows'];
+        }
+        if(isset($map['truncated'])){
+            $model->truncated = $map['truncated'];
         }
         return $model;
     }
@@ -87,5 +94,11 @@ class ExecDatalinkSourceResponse extends Model {
      * @var string
      */
     public $rows;
+
+    // 是否截断
+    /**
+     * @var bool
+     */
+    public $truncated;
 
 }
