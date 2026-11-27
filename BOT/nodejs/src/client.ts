@@ -49209,6 +49209,8 @@ export class ExecDatalinkSourceResponse extends $tea.Model {
   columns?: string[];
   // 返回数据列表
   rows?: string;
+  // 是否截断
+  truncated?: boolean;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -49216,6 +49218,7 @@ export class ExecDatalinkSourceResponse extends $tea.Model {
       resultMsg: 'result_msg',
       columns: 'columns',
       rows: 'rows',
+      truncated: 'truncated',
     };
   }
 
@@ -49226,6 +49229,7 @@ export class ExecDatalinkSourceResponse extends $tea.Model {
       resultMsg: 'string',
       columns: { 'type': 'array', 'itemType': 'string' },
       rows: 'string',
+      truncated: 'boolean',
     };
   }
 
@@ -51031,7 +51035,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.22.22",
+          sdk_version: "1.22.23",
           _prod_code: "BOT",
           _prod_channel: "undefined",
         };
