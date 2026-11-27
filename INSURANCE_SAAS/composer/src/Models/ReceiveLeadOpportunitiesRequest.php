@@ -14,17 +14,12 @@ class ReceiveLeadOpportunitiesRequest extends Model {
         'productCode' => 'product_code',
         'bizContent' => 'biz_content',
         'bizType' => 'biz_type',
-        'actionType' => 'action_type',
-        'acceptNo' => 'accept_no',
-        'updateCycle' => 'update_cycle',
     ];
     public function validate() {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('productCode', $this->productCode, true);
         Model::validateRequired('bizType', $this->bizType, true);
-        Model::validateRequired('actionType', $this->actionType, true);
-        Model::validateRequired('updateCycle', $this->updateCycle, true);
     }
     public function toMap() {
         $res = [];
@@ -51,15 +46,6 @@ class ReceiveLeadOpportunitiesRequest extends Model {
         }
         if (null !== $this->bizType) {
             $res['biz_type'] = $this->bizType;
-        }
-        if (null !== $this->actionType) {
-            $res['action_type'] = $this->actionType;
-        }
-        if (null !== $this->acceptNo) {
-            $res['accept_no'] = $this->acceptNo;
-        }
-        if (null !== $this->updateCycle) {
-            $res['update_cycle'] = $this->updateCycle;
         }
         return $res;
     }
@@ -92,15 +78,6 @@ class ReceiveLeadOpportunitiesRequest extends Model {
         }
         if(isset($map['biz_type'])){
             $model->bizType = $map['biz_type'];
-        }
-        if(isset($map['action_type'])){
-            $model->actionType = $map['action_type'];
-        }
-        if(isset($map['accept_no'])){
-            $model->acceptNo = $map['accept_no'];
-        }
-        if(isset($map['update_cycle'])){
-            $model->updateCycle = $map['update_cycle'];
         }
         return $model;
     }
@@ -140,7 +117,7 @@ class ReceiveLeadOpportunitiesRequest extends Model {
      */
     public $productCode;
 
-    // 业务入参json格式字符串
+    // 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
     /**
      * @var string
      */
@@ -151,23 +128,5 @@ class ReceiveLeadOpportunitiesRequest extends Model {
      * @var string
      */
     public $bizType;
-
-    // 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
-    /**
-     * @var string
-     */
-    public $actionType;
-
-    // TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
-    /**
-     * @var string
-     */
-    public $acceptNo;
-
-    // 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-    /**
-     * @var string
-     */
-    public $updateCycle;
 
 }
