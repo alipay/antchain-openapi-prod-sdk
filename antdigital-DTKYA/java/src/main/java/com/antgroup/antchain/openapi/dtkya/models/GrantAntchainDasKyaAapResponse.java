@@ -16,13 +16,13 @@ public class GrantAntchainDasKyaAapResponse extends TeaModel {
     @NameInMap("result_msg")
     public String resultMsg;
 
-    // 本次 AAP 授权实例 ID
-    @NameInMap("aap_id")
-    public String aapId;
+    // 本次用户确认的授权 ID；关联多个协议。
+    @NameInMap("authorization_id")
+    public String authorizationId;
 
-    // 对应的 AAP 授权模板 ID
-    @NameInMap("resource_id")
-    public String resourceId;
+    // 本次授权包含的 AAP 协议 resourceId 列表。
+    @NameInMap("resource_ids")
+    public java.util.List<String> resourceIds;
 
     // 授权受理状态，待用户确认或待凭据核验
     @NameInMap("status")
@@ -61,20 +61,20 @@ public class GrantAntchainDasKyaAapResponse extends TeaModel {
         return this.resultMsg;
     }
 
-    public GrantAntchainDasKyaAapResponse setAapId(String aapId) {
-        this.aapId = aapId;
+    public GrantAntchainDasKyaAapResponse setAuthorizationId(String authorizationId) {
+        this.authorizationId = authorizationId;
         return this;
     }
-    public String getAapId() {
-        return this.aapId;
+    public String getAuthorizationId() {
+        return this.authorizationId;
     }
 
-    public GrantAntchainDasKyaAapResponse setResourceId(String resourceId) {
-        this.resourceId = resourceId;
+    public GrantAntchainDasKyaAapResponse setResourceIds(java.util.List<String> resourceIds) {
+        this.resourceIds = resourceIds;
         return this;
     }
-    public String getResourceId() {
-        return this.resourceId;
+    public java.util.List<String> getResourceIds() {
+        return this.resourceIds;
     }
 
     public GrantAntchainDasKyaAapResponse setStatus(String status) {

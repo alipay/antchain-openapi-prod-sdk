@@ -8,7 +8,7 @@
 <dependency>
    <groupId>com.antgroup.antchain.openapi</groupId>
    <artifactId>antdigital-dtkya</artifactId>
-   <version>1.0.37</version>
+   <version>1.0.38</version>
 </dependency>
 ```
 

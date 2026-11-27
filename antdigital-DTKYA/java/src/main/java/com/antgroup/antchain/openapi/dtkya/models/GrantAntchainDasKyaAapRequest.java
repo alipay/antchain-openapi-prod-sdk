@@ -31,10 +31,10 @@ public class GrantAntchainDasKyaAapRequest extends TeaModel {
     @Validation(required = true)
     public String nonceSignature;
 
-    // AAP 授权模板 ID
-    @NameInMap("resource_id")
+    // 本次授权涵盖的协议列表；每项独立填写 resource_id 和字段值。
+    @NameInMap("resources")
     @Validation(required = true)
-    public String resourceId;
+    public java.util.List<KyaAapGrantResource> resources;
 
     // 授权用户引用
     @NameInMap("user_ref")
@@ -44,11 +44,6 @@ public class GrantAntchainDasKyaAapRequest extends TeaModel {
     @NameInMap("original_intent")
     @Validation(required = true)
     public String originalIntent;
-
-    // 按 AAP 模板填写的授权字段 JSON 对象
-    @NameInMap("field_values")
-    @Validation(required = true)
-    public String fieldValues;
 
     // 含时区的 ISO 8601 授权截止时间
     @NameInMap("expires_at")
@@ -116,12 +111,12 @@ public class GrantAntchainDasKyaAapRequest extends TeaModel {
         return this.nonceSignature;
     }
 
-    public GrantAntchainDasKyaAapRequest setResourceId(String resourceId) {
-        this.resourceId = resourceId;
+    public GrantAntchainDasKyaAapRequest setResources(java.util.List<KyaAapGrantResource> resources) {
+        this.resources = resources;
         return this;
     }
-    public String getResourceId() {
-        return this.resourceId;
+    public java.util.List<KyaAapGrantResource> getResources() {
+        return this.resources;
     }
 
     public GrantAntchainDasKyaAapRequest setUserRef(String userRef) {
@@ -138,14 +133,6 @@ public class GrantAntchainDasKyaAapRequest extends TeaModel {
     }
     public String getOriginalIntent() {
         return this.originalIntent;
-    }
-
-    public GrantAntchainDasKyaAapRequest setFieldValues(String fieldValues) {
-        this.fieldValues = fieldValues;
-        return this;
-    }
-    public String getFieldValues() {
-        return this.fieldValues;
     }
 
     public GrantAntchainDasKyaAapRequest setExpiresAt(String expiresAt) {

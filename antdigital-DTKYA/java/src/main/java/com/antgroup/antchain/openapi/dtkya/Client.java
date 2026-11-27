@@ -126,7 +126,7 @@ public class Client {
                     new TeaPair("req_msg_id", com.antgroup.antchain.openapi.antchain.util.AntchainUtils.getNonce()),
                     new TeaPair("access_key", _accessKeyId),
                     new TeaPair("base_sdk_version", "TeaSDK-2.0"),
-                    new TeaPair("sdk_version", "1.0.37"),
+                    new TeaPair("sdk_version", "1.0.38"),
                     new TeaPair("_prod_code", "DTKYA"),
                     new TeaPair("_prod_channel", "undefined")
                 );
@@ -1446,5 +1446,47 @@ public class Client {
     public FacequeryAntchainDasKyaRealpersonResponse facequeryAntchainDasKyaRealpersonEx(FacequeryAntchainDasKyaRealpersonRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
         com.aliyun.teautil.Common.validateModel(request);
         return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.realperson.facequery", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new FacequeryAntchainDasKyaRealpersonResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 向 KYA 提交已签名的服务调用请求；KYA 核验 Agent 身份、AAP 授权与意图范围，通过后调用已入驻的 MCP 服务并返回执行结果。
+     * Summary: Agent 向 KYA 提交已签名的服务调用请求；KYA 核验 Agent 身份、AAP 授权与意图范围，通过后调用已入驻的 MCP 服务并返回执行结果。</p>
+     */
+    public ExecAntchainDasKyaServiceResponse execAntchainDasKyaService(ExecAntchainDasKyaServiceRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.execAntchainDasKyaServiceEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 向 KYA 提交已签名的服务调用请求；KYA 核验 Agent 身份、AAP 授权与意图范围，通过后调用已入驻的 MCP 服务并返回执行结果。
+     * Summary: Agent 向 KYA 提交已签名的服务调用请求；KYA 核验 Agent 身份、AAP 授权与意图范围，通过后调用已入驻的 MCP 服务并返回执行结果。</p>
+     */
+    public ExecAntchainDasKyaServiceResponse execAntchainDasKyaServiceEx(ExecAntchainDasKyaServiceRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.service.exec", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new ExecAntchainDasKyaServiceResponse());
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 使用自身 DID 签名查询已提交的 AAP 授权状态；仅允许查询归属自己的授权，用于等待 KYA 页面确认后继续调用服务。
+     * Summary: Agent 使用自身 DID 签名查询已提交的 AAP 授权状态；仅允许查询归属自己的授权，用于等待 KYA 页面确认后继续调用服务。</p>
+     */
+    public QueryAntchainDasKyaAapstatusResponse queryAntchainDasKyaAapstatus(QueryAntchainDasKyaAapstatusRequest request) throws Exception {
+        com.aliyun.teautil.models.RuntimeOptions runtime = new com.aliyun.teautil.models.RuntimeOptions();
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        return this.queryAntchainDasKyaAapstatusEx(request, headers, runtime);
+    }
+
+    /**
+     * <b>description</b> :
+     * <p>Description: Agent 使用自身 DID 签名查询已提交的 AAP 授权状态；仅允许查询归属自己的授权，用于等待 KYA 页面确认后继续调用服务。
+     * Summary: Agent 使用自身 DID 签名查询已提交的 AAP 授权状态；仅允许查询归属自己的授权，用于等待 KYA 页面确认后继续调用服务。</p>
+     */
+    public QueryAntchainDasKyaAapstatusResponse queryAntchainDasKyaAapstatusEx(QueryAntchainDasKyaAapstatusRequest request, java.util.Map<String, String> headers, com.aliyun.teautil.models.RuntimeOptions runtime) throws Exception {
+        com.aliyun.teautil.Common.validateModel(request);
+        return TeaModel.toModel(this.doRequest("1.0", "antchain.das.kya.aapstatus.query", "HTTPS", "POST", "/gateway.do", TeaModel.buildMap(request), headers, runtime), new QueryAntchainDasKyaAapstatusResponse());
     }
 }
