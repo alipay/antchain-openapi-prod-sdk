@@ -35,7 +35,7 @@ public class ReceiveAntcloudInsuranceLeadOpportunitiesRequest extends TeaModel {
     @Validation(required = true)
     public String productCode;
 
-    // 业务入参json格式字符串
+    // 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
     @NameInMap("biz_content")
     public String bizContent;
 
@@ -43,20 +43,6 @@ public class ReceiveAntcloudInsuranceLeadOpportunitiesRequest extends TeaModel {
     @NameInMap("biz_type")
     @Validation(required = true)
     public String bizType;
-
-    // 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
-    @NameInMap("action_type")
-    @Validation(required = true)
-    public String actionType;
-
-    // TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
-    @NameInMap("accept_no")
-    public String acceptNo;
-
-    // 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-    @NameInMap("update_cycle")
-    @Validation(required = true)
-    public String updateCycle;
 
     public static ReceiveAntcloudInsuranceLeadOpportunitiesRequest build(java.util.Map<String, ?> map) throws Exception {
         ReceiveAntcloudInsuranceLeadOpportunitiesRequest self = new ReceiveAntcloudInsuranceLeadOpportunitiesRequest();
@@ -125,30 +111,6 @@ public class ReceiveAntcloudInsuranceLeadOpportunitiesRequest extends TeaModel {
     }
     public String getBizType() {
         return this.bizType;
-    }
-
-    public ReceiveAntcloudInsuranceLeadOpportunitiesRequest setActionType(String actionType) {
-        this.actionType = actionType;
-        return this;
-    }
-    public String getActionType() {
-        return this.actionType;
-    }
-
-    public ReceiveAntcloudInsuranceLeadOpportunitiesRequest setAcceptNo(String acceptNo) {
-        this.acceptNo = acceptNo;
-        return this;
-    }
-    public String getAcceptNo() {
-        return this.acceptNo;
-    }
-
-    public ReceiveAntcloudInsuranceLeadOpportunitiesRequest setUpdateCycle(String updateCycle) {
-        this.updateCycle = updateCycle;
-        return this;
-    }
-    public String getUpdateCycle() {
-        return this.updateCycle;
     }
 
 }
