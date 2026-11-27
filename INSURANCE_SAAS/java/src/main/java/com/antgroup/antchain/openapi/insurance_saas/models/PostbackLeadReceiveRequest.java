@@ -32,6 +32,7 @@ public class PostbackLeadReceiveRequest extends TeaModel {
 
     // 业务参数json，updateCycle等字段
     @NameInMap("biz_content")
+    @Validation(required = true)
     public String bizContent;
 
     // 本次固定传LMKT_LEADS_TRANSFER
