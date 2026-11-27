@@ -2101,16 +2101,10 @@ export class ReceiveLeadOpportunitiesRequest extends $tea.Model {
   requestId: string;
   // 产品编码，蚂蚁分配
   productCode: string;
-  // 业务入参json格式字符串
+  // 业务入参json格式字符串action_type:场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理;accept_no:首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回;update_cycle{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}	圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号 {"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
   bizContent?: string;
   // 固定值：PAST_MED（既往症人群评分）业务场景
   bizType: string;
-  // 场景类型:FULL_PUSH-首次下发，携带底包文件,TRIGGER_PUSH-圈客周期变更触发，不携带文件；不传按 FULL_PUSH 处理
-  actionType: string;
-  // TRIGGER_PUSH 须传,首次 FULL_PUSH 受理回执返回的受理号，蚂蚁校验存在对应首次下发记录（查无记录受理失败）；FULL_PUSH 由蚂蚁生成并随受理回执返回
-  acceptNo?: string;
-  // 圈客周期,每周示例：{"cycleType":"WEEKLY","cycleValue":3,"time":"10:00"}，每月示例：每月10号	{"cycleType":"MONTHLY","cycleValue":10,"time":"10:00"}
-  updateCycle: string;
   static names(): { [key: string]: string } {
     return {
       authToken: 'auth_token',
@@ -2121,9 +2115,6 @@ export class ReceiveLeadOpportunitiesRequest extends $tea.Model {
       productCode: 'product_code',
       bizContent: 'biz_content',
       bizType: 'biz_type',
-      actionType: 'action_type',
-      acceptNo: 'accept_no',
-      updateCycle: 'update_cycle',
     };
   }
 
@@ -2137,9 +2128,6 @@ export class ReceiveLeadOpportunitiesRequest extends $tea.Model {
       productCode: 'string',
       bizContent: 'string',
       bizType: 'string',
-      actionType: 'string',
-      acceptNo: 'string',
-      updateCycle: 'string',
     };
   }
 
@@ -2201,14 +2189,8 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
   fileId: string;
   // 请求id，每一次请求保持唯一，若重复，则报错；
   requestId: string;
-  // 通知类型：固定 LEAD_PUSH_NOTIFY（既往症线索推送通知）
-  notifyType: string;
-  // 动作类型：首次-FULL_PUSH，周期-TRIGGER_PUSH
-  actionType: string;
   // 业务参数json，updateCycle等字段
   bizContent?: string;
-  // 客户「既往症线索周期变更」受理号透传，供给方回传结果文件时随请求带回
-  acceptNo: string;
   // 本次固定传LMKT_LEADS_TRANSFER
   productCode: string;
   static names(): { [key: string]: string } {
@@ -2218,10 +2200,7 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
       fileObjectName: 'fileObjectName',
       fileId: 'file_id',
       requestId: 'request_id',
-      notifyType: 'notify_type',
-      actionType: 'action_type',
       bizContent: 'biz_content',
-      acceptNo: 'accept_no',
       productCode: 'product_code',
     };
   }
@@ -2233,10 +2212,7 @@ export class PostbackLeadReceiveRequest extends $tea.Model {
       fileObjectName: 'string',
       fileId: 'string',
       requestId: 'string',
-      notifyType: 'string',
-      actionType: 'string',
       bizContent: 'string',
-      acceptNo: 'string',
       productCode: 'string',
     };
   }
@@ -6025,7 +6001,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.13.2",
+          sdk_version: "1.13.3",
           _prod_code: "INSURANCE_SAAS",
           _prod_channel: "undefined",
         };
