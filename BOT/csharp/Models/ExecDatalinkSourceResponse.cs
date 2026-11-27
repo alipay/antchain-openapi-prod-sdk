@@ -34,6 +34,11 @@ namespace AntChain.SDK.BOT.Models
         [Validation(Required=false)]
         public string Rows { get; set; }
 
+        // 是否截断
+        [NameInMap("truncated")]
+        [Validation(Required=false)]
+        public bool? Truncated { get; set; }
+
     }
 
 }
