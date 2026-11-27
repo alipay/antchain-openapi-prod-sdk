@@ -17,6 +17,7 @@ class PostbackLeadReceiveRequest extends Model {
     public function validate() {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('requestId', $this->requestId, true);
+        Model::validateRequired('bizContent', $this->bizContent, true);
         Model::validateRequired('productCode', $this->productCode, true);
     }
     public function toMap() {

@@ -19,6 +19,7 @@ class ReceiveLeadOpportunitiesRequest extends Model {
         Model::validateRequired('fileId', $this->fileId, true);
         Model::validateRequired('requestId', $this->requestId, true);
         Model::validateRequired('productCode', $this->productCode, true);
+        Model::validateRequired('bizContent', $this->bizContent, true);
         Model::validateRequired('bizType', $this->bizType, true);
     }
     public function toMap() {
