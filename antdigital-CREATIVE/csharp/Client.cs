@@ -158,7 +158,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.6"},
+                        {"sdk_version", "1.2.7"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
@@ -301,7 +301,7 @@ namespace AntChain.SDK.CREATIVE
                         {"req_msg_id", AntChain.AlipayUtil.AntchainUtils.GetNonce()},
                         {"access_key", _accessKeyId},
                         {"base_sdk_version", "TeaSDK-2.0"},
-                        {"sdk_version", "1.2.6"},
+                        {"sdk_version", "1.2.7"},
                         {"_prod_code", "CREATIVE"},
                         {"_prod_channel", "default"},
                     };
