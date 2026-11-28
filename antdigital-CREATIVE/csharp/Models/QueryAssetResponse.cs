@@ -54,6 +54,11 @@ namespace AntChain.SDK.CREATIVE.Models
         [Validation(Required=false)]
         public string ErrorCode { get; set; }
 
+        // 原厂响应快照
+        [NameInMap("original_response_snapshot")]
+        [Validation(Required=false)]
+        public string OriginalResponseSnapshot { get; set; }
+
     }
 
 }
