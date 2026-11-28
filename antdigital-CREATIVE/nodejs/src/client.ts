@@ -1304,6 +1304,8 @@ export class QueryAssetResponse extends $tea.Model {
   errorMessage?: string;
   // 错误码
   errorCode?: string;
+  // 原厂响应快照
+  originalResponseSnapshot?: string;
   static names(): { [key: string]: string } {
     return {
       reqMsgId: 'req_msg_id',
@@ -1315,6 +1317,7 @@ export class QueryAssetResponse extends $tea.Model {
       assetUrl: 'asset_url',
       errorMessage: 'error_message',
       errorCode: 'error_code',
+      originalResponseSnapshot: 'original_response_snapshot',
     };
   }
 
@@ -1329,6 +1332,7 @@ export class QueryAssetResponse extends $tea.Model {
       assetUrl: 'string',
       errorMessage: 'string',
       errorCode: 'string',
+      originalResponseSnapshot: 'string',
     };
   }
 
@@ -3270,7 +3274,7 @@ export default class Client {
           req_msg_id: AntchainUtil.getNonce(),
           access_key: this._accessKeyId,
           base_sdk_version: "TeaSDK-2.0",
-          sdk_version: "1.2.5",
+          sdk_version: "1.2.6",
           _prod_code: "CREATIVE",
           _prod_channel: "default",
         };
