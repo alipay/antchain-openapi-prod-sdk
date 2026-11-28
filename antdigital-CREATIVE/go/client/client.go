@@ -1463,6 +1463,8 @@ type QueryAssetResponse struct {
 	ErrorMessage *string `json:"error_message,omitempty" xml:"error_message,omitempty"`
 	// 错误码
 	ErrorCode *string `json:"error_code,omitempty" xml:"error_code,omitempty"`
+	// 原厂响应快照
+	OriginalResponseSnapshot *string `json:"original_response_snapshot,omitempty" xml:"original_response_snapshot,omitempty"`
 }
 
 func (s QueryAssetResponse) String() string {
@@ -1515,6 +1517,11 @@ func (s *QueryAssetResponse) SetErrorMessage(v string) *QueryAssetResponse {
 
 func (s *QueryAssetResponse) SetErrorCode(v string) *QueryAssetResponse {
 	s.ErrorCode = &v
+	return s
+}
+
+func (s *QueryAssetResponse) SetOriginalResponseSnapshot(v string) *QueryAssetResponse {
+	s.OriginalResponseSnapshot = &v
 	return s
 }
 
@@ -4028,7 +4035,7 @@ func (client *Client) DoRequest(version *string, action *string, protocol *strin
 				"req_msg_id":       antchainutil.GetNonce(),
 				"access_key":       client.AccessKeyId,
 				"base_sdk_version": tea.String("TeaSDK-2.0"),
-				"sdk_version":      tea.String("1.2.5"),
+				"sdk_version":      tea.String("1.2.6"),
 				"_prod_code":       tea.String("CREATIVE"),
 				"_prod_channel":    tea.String("default"),
 			}
