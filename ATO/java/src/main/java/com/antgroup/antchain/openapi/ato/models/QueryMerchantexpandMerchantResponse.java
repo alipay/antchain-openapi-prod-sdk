@@ -37,6 +37,19 @@ public class QueryMerchantexpandMerchantResponse extends TeaModel {
     @NameInMap("sub_merchant_id")
     public String subMerchantId;
 
+    // 京东支付类型
+    // PROTOCOL_PAY	协议支付	
+    // AGGREGATE_PAY	聚合支付
+    @NameInMap("product_service")
+    public String productService;
+
+    // 京东支付工具码
+    // EXPR	快捷
+    // WECHAT	微信
+    // ALIPAY	支付宝
+    @NameInMap("pay_tool_code")
+    public String payToolCode;
+
     public static QueryMerchantexpandMerchantResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryMerchantexpandMerchantResponse self = new QueryMerchantexpandMerchantResponse();
         return TeaModel.build(map, self);
@@ -96,6 +109,22 @@ public class QueryMerchantexpandMerchantResponse extends TeaModel {
     }
     public String getSubMerchantId() {
         return this.subMerchantId;
+    }
+
+    public QueryMerchantexpandMerchantResponse setProductService(String productService) {
+        this.productService = productService;
+        return this;
+    }
+    public String getProductService() {
+        return this.productService;
+    }
+
+    public QueryMerchantexpandMerchantResponse setPayToolCode(String payToolCode) {
+        this.payToolCode = payToolCode;
+        return this;
+    }
+    public String getPayToolCode() {
+        return this.payToolCode;
     }
 
 }

@@ -64,6 +64,19 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     @NameInMap("need_pre_auth_pay")
     public Boolean needPreAuthPay;
 
+    // 京东进件参数
+    // PROTOCOL_PAY	协议支付	（默认值）
+    // AGGREGATE_PAY	聚合支付
+    @NameInMap("product_service")
+    public String productService;
+
+    // 聚合支付必填，支持多选，逗号分隔
+    // EXPR	快捷
+    // WECHAT	微信
+    // ALIPAY	支付宝
+    @NameInMap("pay_tool_code")
+    public String payToolCode;
+
     public static RegisterMerchantexpandMerchantRequest build(java.util.Map<String, ?> map) throws Exception {
         RegisterMerchantexpandMerchantRequest self = new RegisterMerchantexpandMerchantRequest();
         return TeaModel.build(map, self);
@@ -171,6 +184,22 @@ public class RegisterMerchantexpandMerchantRequest extends TeaModel {
     }
     public Boolean getNeedPreAuthPay() {
         return this.needPreAuthPay;
+    }
+
+    public RegisterMerchantexpandMerchantRequest setProductService(String productService) {
+        this.productService = productService;
+        return this;
+    }
+    public String getProductService() {
+        return this.productService;
+    }
+
+    public RegisterMerchantexpandMerchantRequest setPayToolCode(String payToolCode) {
+        this.payToolCode = payToolCode;
+        return this;
+    }
+    public String getPayToolCode() {
+        return this.payToolCode;
     }
 
 }
