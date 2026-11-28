@@ -40,6 +40,10 @@ public class QueryAssetResponse extends TeaModel {
     @NameInMap("error_code")
     public String errorCode;
 
+    // 原厂响应快照
+    @NameInMap("original_response_snapshot")
+    public String originalResponseSnapshot;
+
     public static QueryAssetResponse build(java.util.Map<String, ?> map) throws Exception {
         QueryAssetResponse self = new QueryAssetResponse();
         return TeaModel.build(map, self);
@@ -115,6 +119,14 @@ public class QueryAssetResponse extends TeaModel {
     }
     public String getErrorCode() {
         return this.errorCode;
+    }
+
+    public QueryAssetResponse setOriginalResponseSnapshot(String originalResponseSnapshot) {
+        this.originalResponseSnapshot = originalResponseSnapshot;
+        return this;
+    }
+    public String getOriginalResponseSnapshot() {
+        return this.originalResponseSnapshot;
     }
 
 }
