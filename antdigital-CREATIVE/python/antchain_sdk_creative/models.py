@@ -1471,6 +1471,7 @@ class QueryAssetResponse(TeaModel):
         asset_url: str = None,
         error_message: str = None,
         error_code: str = None,
+        original_response_snapshot: str = None,
     ):
         # 请求唯一ID，用于链路跟踪和问题排查
         self.req_msg_id = req_msg_id
@@ -1490,6 +1491,8 @@ class QueryAssetResponse(TeaModel):
         self.error_message = error_message
         # 错误码
         self.error_code = error_code
+        # 原厂响应快照
+        self.original_response_snapshot = original_response_snapshot
 
     def validate(self):
         pass
@@ -1518,6 +1521,8 @@ class QueryAssetResponse(TeaModel):
             result['error_message'] = self.error_message
         if self.error_code is not None:
             result['error_code'] = self.error_code
+        if self.original_response_snapshot is not None:
+            result['original_response_snapshot'] = self.original_response_snapshot
         return result
 
     def from_map(self, m: dict = None):
@@ -1540,6 +1545,8 @@ class QueryAssetResponse(TeaModel):
             self.error_message = m.get('error_message')
         if m.get('error_code') is not None:
             self.error_code = m.get('error_code')
+        if m.get('original_response_snapshot') is not None:
+            self.original_response_snapshot = m.get('original_response_snapshot')
         return self
 
 
