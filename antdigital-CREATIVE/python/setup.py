@@ -24,7 +24,7 @@ from setuptools import setup, find_packages
 """
 setup module for antchain_creative.
 
-Created on 25/11/2026
+Created on 28/11/2026
 
 @author: Ant Chain SDK
 """
