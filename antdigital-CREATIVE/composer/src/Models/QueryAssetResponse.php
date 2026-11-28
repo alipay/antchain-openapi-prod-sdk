@@ -16,6 +16,7 @@ class QueryAssetResponse extends Model {
         'assetUrl' => 'asset_url',
         'errorMessage' => 'error_message',
         'errorCode' => 'error_code',
+        'originalResponseSnapshot' => 'original_response_snapshot',
     ];
     public function validate() {}
     public function toMap() {
@@ -46,6 +47,9 @@ class QueryAssetResponse extends Model {
         }
         if (null !== $this->errorCode) {
             $res['error_code'] = $this->errorCode;
+        }
+        if (null !== $this->originalResponseSnapshot) {
+            $res['original_response_snapshot'] = $this->originalResponseSnapshot;
         }
         return $res;
     }
@@ -81,6 +85,9 @@ class QueryAssetResponse extends Model {
         }
         if(isset($map['error_code'])){
             $model->errorCode = $map['error_code'];
+        }
+        if(isset($map['original_response_snapshot'])){
+            $model->originalResponseSnapshot = $map['original_response_snapshot'];
         }
         return $model;
     }
@@ -137,5 +144,11 @@ class QueryAssetResponse extends Model {
      * @var string
      */
     public $errorCode;
+
+    // 原厂响应快照
+    /**
+     * @var string
+     */
+    public $originalResponseSnapshot;
 
 }
